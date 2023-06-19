@@ -6,7 +6,7 @@ interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
 }
 
-const Layout: React.FC = ({ children, title }: LayoutProps) => {
+const Layout: React.FC<LayoutProps> = ({ children, title }) => {
   return (
     <>
       <Head>
