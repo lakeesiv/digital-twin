@@ -14,6 +14,7 @@ import {
   navigationMenuTriggerStyle,
 } from "~/ui/navigation-menu";
 import { Button } from "~/ui/button";
+import { useTheme } from "next-themes";
 // import { Icons } from "@/components/icons";
 
 const components: { title: string; href: string; description: string }[] = [
@@ -31,11 +32,13 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 export function NavigationMenuDemo() {
+  const { theme, setTheme } = useTheme();
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Button variant="outline">Digital Twin Website</Button>
+          <Button variant="secondary">Digital Twin Website</Button>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Sensors</NavigationMenuTrigger>
@@ -69,6 +72,16 @@ export function NavigationMenuDemo() {
               Documentation
             </NavigationMenuLink>
           </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setTheme(theme === "dark" ? "light" : "dark");
+            }}
+          >
+            Toggle Theme
+          </Button>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

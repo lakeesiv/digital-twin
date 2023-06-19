@@ -11,7 +11,7 @@ import {
   ListItem,
   Icon,
 } from "@tremor/react";
-import { RadioTower, XCircle, CheckCircle2 } from "lucide-react";
+import { RadioTower, XCircle, CheckCircle2, BrainCircuit } from "lucide-react";
 
 interface Sensor {
   status: "active" | "inactive";
@@ -75,13 +75,22 @@ export default function Home() {
                 </ListItem>
               ))}
             </List>
-            <Button size="sm" variant="outline" className="mt-4">
+            <Button
+              href="/sensors"
+              size="sm"
+              variant="outline"
+              className="mt-4"
+            >
               View details
             </Button>
           </div>
         </Card>
         <Card>
-          <div className="h-56" />
+          <div className="min-h-56">
+            <div className="flex space-x-4">
+              <BrainCircuit /> <Title>Digital Twins</Title>
+            </div>
+          </div>
         </Card>
       </Grid>
     </Layout>
