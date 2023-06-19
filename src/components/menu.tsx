@@ -15,7 +15,7 @@ import {
 } from "~/ui/navigation-menu";
 import { Button } from "~/ui/button";
 import { useTheme } from "next-themes";
-// import { Icons } from "@/components/icons";
+import { Select, SelectItem } from "@tremor/react";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -38,7 +38,9 @@ export function NavigationMenuDemo() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Button variant="secondary">Digital Twin Website</Button>
+          <Button variant="secondary" href="/">
+            Digital Twin Website
+          </Button>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Sensors</NavigationMenuTrigger>

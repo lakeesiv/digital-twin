@@ -1,48 +1,38 @@
-import { Button } from "~/ui/button";
 import Layout from "~/components/layout";
-import {
-  Card,
-  Title,
-  Text,
-  Grid,
-  Flex,
-  Bold,
-  List,
-  ListItem,
-  Icon,
-} from "@tremor/react";
-import { RadioTower, XCircle, CheckCircle2, BrainCircuit } from "lucide-react";
+import { DataTable } from "~/components/sensors/data-table";
+import { columns } from "~/components/sensors/columns";
+import type { SensorData } from "~/components/sensors/columns";
+import { Card } from "@tremor/react";
 
-interface Sensor {
-  status: "active" | "inactive";
-  name: string;
-  description: string;
-  location: string;
-}
-
-const sensors: Sensor[] = [
+const data: SensorData[] = [
   {
-    status: "active",
-    name: "Sensor 1",
-    description: "This is a sensor",
-    location: "Location 1",
+    id: "id_123",
+    location: "IfM",
+    lastUpdateTimestamp: "2021-01-01",
+    lastReading: {
+      temperature: 20,
+      humidity: 50,
+    },
   },
   {
-    status: "active",
-    name: "Sensor 2",
-    description: "This is a sensor",
-    location: "Location 2",
-  },
-  {
-    status: "inactive",
-    name: "Sensor 3",
-    description: "This is a sensor",
-    location: "Location 3",
+    id: "id_456",
+    location: "IfM",
+    lastUpdateTimestamp: "2021-01-01",
+    lastReading: {
+      temperature: 20,
+      humidity: 50,
+    },
   },
 ];
 
 export default function Home() {
   // const hello = api.example.hello.useQuery({ text: "from tRPC" });
 
-  return <Layout title="Home"></Layout>;
+  return (
+    <Layout title="Home">
+      <Card>
+        <DataTable columns={columns} data={data} />
+      </Card>
+    </Layout>
+  );
 }
