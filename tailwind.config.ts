@@ -1,6 +1,6 @@
-import { type Config } from "tailwindcss";
+// import { type Config } from "tailwindcss";
 
-export default {
+const config = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
@@ -133,6 +133,9 @@ export default {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
         sm: "calc(var(--radius) - 4px)",
+        "tremor-small": "0.375rem",
+        "tremor-default": "0.5rem",
+        "tremor-full": "9999px",
       },
       // fontFamily: {
       //   sans: ["var(--font-sans)"],
@@ -183,4 +186,6 @@ export default {
     },
   ],
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/line-clamp")],
-} satisfies Config;
+};
+
+export default config;
