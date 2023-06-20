@@ -12,12 +12,14 @@ import {
   TabPanels,
 } from "@tremor/react";
 import {
+  ArrowUpRight,
   BatteryFull,
   BatteryLow,
   BatteryMedium,
   BatteryWarning,
   Clock,
 } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 // import data from "~/mock";
 
@@ -26,6 +28,7 @@ type TabViewItem = {
   description: string;
   location: string;
   battery: number;
+  timestamp: number;
 };
 
 interface TabViewProps {
@@ -78,13 +81,18 @@ const TabView: React.FC<TabViewProps> = ({ data }) => {
           <Flex justifyContent="start" className="space-x-4 truncate">
             <BatteryIcon battery={sensor.battery} />
             <div className="truncate">
-              <Text className="truncate">
-                <Bold>{sensor.name}</Bold>
-              </Text>
+              <Link href={`/sensors/${sensor.name}`}>
+                <div className="flex  items-center space-x-2 text-blue-500 dark:text-blue-500 ">
+                  <Text className=" font-mono text-blue-500 dark:text-blue-500">
+                    {sensor.name}
+                  </Text>
+                  <ArrowUpRight size={18} />
+                </div>
+              </Link>
               <Text className="truncate">{sensor.description}</Text>
             </div>
           </Flex>
-          <Text>{sensor.location}</Text>
+          <Text>{new Date(sensor.timestamp * 1000).toLocaleString()}</Text>
         </ListItem>
       ))}
     </List>
@@ -106,6 +114,9 @@ const SensorsView: React.FC<SensorsViewProps> = ({
 
   // sort low battery data (ascending)
   lowBatteryData.sort((a, b) => a.battery - b.battery);
+  // sort recently updated data (descending)
+  recentlyUpdatedData.sort((a, b) => b.timestamp - a.timestamp);
+
   // limit the number of items
   lowBatteryData = lowBatteryData.slice(0, numberOfItems);
   recentlyUpdatedData = recentlyUpdatedData.slice(0, numberOfItems);

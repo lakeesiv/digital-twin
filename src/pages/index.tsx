@@ -19,15 +19,17 @@ export default function Home() {
             <SensorsView
               lowBatteryData={data.map((sensor) => ({
                 name: sensor.id,
-                description: `Battery: ${sensor.lastReading.battery}%`,
+                description: `${sensor.location} | ${sensor.lastReading.battery}% `,
                 location: sensor.location,
                 battery: sensor.lastReading.battery,
+                timestamp: parseInt(sensor.lastUpdateTimestamp),
               }))}
               recentlyUpdatedData={data.map((sensor) => ({
                 name: sensor.id,
-                description: `Battery: ${sensor.lastReading.battery}%`,
+                description: `${sensor.location} | ${sensor.lastReading.battery}%`,
                 location: sensor.location,
                 battery: sensor.lastReading.battery,
+                timestamp: parseInt(sensor.lastUpdateTimestamp),
               }))}
             />
             <Button
