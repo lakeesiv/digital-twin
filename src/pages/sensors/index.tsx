@@ -38,9 +38,9 @@ const data: SensorData[] = [
     },
   },
   {
-    id: "enl-iaqco3-0837d7",
-    location: "IfM",
-    lastUpdateTimestamp: "1686930000",
+    id: "123",
+    location: "Cambridge",
+    lastUpdateTimestamp: "1686970700",
     lastReading: {
       bvoc: "1.402",
       co2_ppm: 442,
@@ -54,9 +54,9 @@ const data: SensorData[] = [
     },
   },
   {
-    id: "enl-iaqco3-0837d7",
-    location: "IfM",
-    lastUpdateTimestamp: "1686930000",
+    id: "test12",
+    location: "London",
+    lastUpdateTimestamp: "1685930000",
     lastReading: {
       bvoc: "1.402",
       co2_ppm: 442,
@@ -70,9 +70,9 @@ const data: SensorData[] = [
     },
   },
   {
-    id: "enl-iaqco3-0837d7",
+    id: "enl-2",
     location: "IfM",
-    lastUpdateTimestamp: "1686930000",
+    lastUpdateTimestamp: "1683930000",
     lastReading: {
       bvoc: "1.402",
       co2_ppm: 442,
