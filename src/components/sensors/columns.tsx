@@ -1,6 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
-import SortableColumn from "~/ui/table-sortable-column";
+import SortableColumn from "~/ui/table/table-sortable-column";
 
 import { Button } from "~/ui/button";
 import {

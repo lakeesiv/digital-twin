@@ -5,10 +5,10 @@ import { X } from "lucide-react";
 
 import { Button } from "~/ui/button";
 // import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "./table-view-options";
+import { DataTableViewOptions } from "~/ui/table/table-view-options";
 
-// import { priorities, statuses } from "../data/data";
-// import { DataTableFacetedFilter } from "./data-table-faceted-filter";
+import type { SensorData } from "./columns";
+import { DataTableFacetedFilter } from "~/ui/table/table-faceted-filter";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -21,6 +21,16 @@ export function DataTableToolbar<TData>({
     table.getPreFilteredRowModel().rows.length >
     table.getFilteredRowModel().rows.length;
 
+  const tableOptions = table.options.data as SensorData[];
+  const locations = tableOptions.map((option) => option.location);
+  const uniqueLocations = [...new Set(locations)];
+
+  const locationOptions: { label: string; value: string }[] =
+    uniqueLocations.map((location) => ({
+      label: location,
+      value: location,
+    }));
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -31,21 +41,15 @@ export function DataTableToolbar<TData>({
             table.getColumn("title")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
-        />
-        {table.getColumn("status") && (
+        /> */}
+        {table.getColumn("location") && (
           <DataTableFacetedFilter
-            column={table.getColumn("status")}
-            title="Status"
-            options={statuses}
+            column={table.getColumn("location")}
+            title="Location"
+            options={locationOptions}
           />
         )}
-        {table.getColumn("priority") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("priority")}
-            title="Priority"
-            options={priorities}
-          />
-        )} */}
+
         {isFiltered && (
           <Button
             variant="ghost"

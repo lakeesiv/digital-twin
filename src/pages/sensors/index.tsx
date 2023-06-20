@@ -23,7 +23,7 @@ const data: SensorData[] = [
   },
   {
     id: "enl-iaqco3-0837d7",
-    location: "IfM",
+    location: "London",
     lastUpdateTimestamp: "1686990000",
     lastReading: {
       bvoc: "1.402",
