@@ -76,7 +76,7 @@ export default function Home() {
                   icon={BatteryLow}
                   className={
                     sensorTabIndex === 0
-                      ? "border-b-2 border-tremor-brand text-tremor-brand"
+                      ? "border-b-2 border-black text-black dark:border-gray-400 dark:text-gray-300"
                       : ""
                   }
                 >
@@ -86,7 +86,7 @@ export default function Home() {
                   icon={Clock}
                   className={
                     sensorTabIndex === 1
-                      ? "border-b-2 border-tremor-brand text-tremor-brand"
+                      ? "border-b-2 border-black text-black dark:border-gray-400 dark:text-gray-300"
                       : ""
                   }
                 >
