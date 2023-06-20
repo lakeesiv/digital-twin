@@ -10,8 +10,21 @@ import {
   List,
   ListItem,
   Icon,
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
 } from "@tremor/react";
-import { RadioTower, XCircle, CheckCircle2, BrainCircuit } from "lucide-react";
+import {
+  RadioTower,
+  XCircle,
+  CheckCircle2,
+  BrainCircuit,
+  BatteryLow,
+  Clock,
+} from "lucide-react";
+import { useState } from "react";
 
 interface Sensor {
   status: "active" | "inactive";
@@ -43,6 +56,7 @@ const sensors: Sensor[] = [
 
 export default function Home() {
   // const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const [sensorTabIndex, setSensorTabIndex] = useState(0);
 
   return (
     <Layout title="Home">
@@ -52,29 +66,105 @@ export default function Home() {
             <div className="flex space-x-4">
               <RadioTower /> <Title>Sensors</Title>
             </div>
-            <List className="mt-4">
-              {sensors.map((sensor) => (
-                <ListItem key={sensor.name}>
-                  <Flex justifyContent="start" className="space-x-4 truncate">
-                    {/* <icon /> */}
-                    <Icon
-                      className="rounded-md "
-                      variant="light"
-                      icon={sensor.status === "active" ? CheckCircle2 : XCircle}
-                      size="md"
-                      color={sensor.status === "active" ? "green" : "red"}
-                    />
-                    <div className="truncate">
-                      <Text className="truncate">
-                        <Bold>{sensor.name}</Bold>
-                      </Text>
-                      <Text className="truncate">{sensor.description}</Text>
-                    </div>
-                  </Flex>
-                  <Text>{sensor.location}</Text>
-                </ListItem>
-              ))}
-            </List>
+            <TabGroup
+              color="amber"
+              index={sensorTabIndex}
+              onIndexChange={(index) => setSensorTabIndex(index)}
+            >
+              <TabList className="mt-8">
+                <Tab
+                  icon={BatteryLow}
+                  className={
+                    sensorTabIndex === 0
+                      ? "border-b-2 border-tremor-brand text-tremor-brand"
+                      : ""
+                  }
+                >
+                  Low Battery
+                </Tab>
+                <Tab
+                  icon={Clock}
+                  className={
+                    sensorTabIndex === 1
+                      ? "border-b-2 border-tremor-brand text-tremor-brand"
+                      : ""
+                  }
+                >
+                  Recently Updated
+                </Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <List className="mt-4">
+                    {sensors.map((sensor) => (
+                      <ListItem key={sensor.name}>
+                        <Flex
+                          justifyContent="start"
+                          className="space-x-4 truncate"
+                        >
+                          {/* <icon /> */}
+                          <Icon
+                            className="rounded-md "
+                            variant="light"
+                            icon={
+                              sensor.status === "active"
+                                ? CheckCircle2
+                                : XCircle
+                            }
+                            size="md"
+                            color={sensor.status === "active" ? "green" : "red"}
+                          />
+                          <div className="truncate">
+                            <Text className="truncate">
+                              <Bold>{sensor.name}</Bold>
+                            </Text>
+                            <Text className="truncate">
+                              {sensor.description}
+                            </Text>
+                          </div>
+                        </Flex>
+                        <Text>{sensor.location}</Text>
+                      </ListItem>
+                    ))}
+                  </List>
+                </TabPanel>
+                <TabPanel>
+                  <List className="mt-4">
+                    {sensors.map((sensor) => (
+                      <ListItem key={sensor.name}>
+                        <Flex
+                          justifyContent="start"
+                          className="space-x-4 truncate"
+                        >
+                          {/* <icon /> */}
+                          <Icon
+                            className="rounded-md "
+                            variant="light"
+                            icon={
+                              sensor.status === "active"
+                                ? CheckCircle2
+                                : XCircle
+                            }
+                            size="md"
+                            color={sensor.status === "active" ? "blue" : "red"}
+                          />
+                          <div className="truncate">
+                            <Text className="truncate">
+                              <Bold>{sensor.name}</Bold>
+                            </Text>
+                            <Text className="truncate">
+                              {sensor.description}
+                            </Text>
+                          </div>
+                        </Flex>
+                        <Text>{sensor.location}</Text>
+                      </ListItem>
+                    ))}
+                  </List>
+                </TabPanel>
+              </TabPanels>
+            </TabGroup>
+
             <Button
               href="/sensors"
               size="sm"
