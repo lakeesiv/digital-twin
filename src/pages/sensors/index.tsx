@@ -8,7 +8,7 @@ const data: SensorData[] = [
   {
     id: "enl-iaqco3-0837d7",
     location: "IfM",
-    lastUpdateTimestamp: "1686930000",
+    lastUpdateTimestamp: "1686936000",
     lastReading: {
       bvoc: "1.402",
       co2_ppm: 442,
@@ -24,7 +24,7 @@ const data: SensorData[] = [
   {
     id: "enl-iaqco3-0837d7",
     location: "IfM",
-    lastUpdateTimestamp: "1686930000",
+    lastUpdateTimestamp: "1686990000",
     lastReading: {
       bvoc: "1.402",
       co2_ppm: 442,

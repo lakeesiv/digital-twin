@@ -1,5 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import SortableColumn from "~/ui/table-sortable-column";
 
 import { Button } from "~/ui/button";
 import {
@@ -37,7 +38,9 @@ export const columns: ColumnDef<SensorData>[] = [
   },
   {
     accessorKey: "lastUpdateTimestamp",
-    header: "Last Update",
+    header: ({ column }) => {
+      return <SortableColumn column={column} title="Last Update" />;
+    },
     cell: ({ row }) => {
       const data = row.original.lastUpdateTimestamp;
 
