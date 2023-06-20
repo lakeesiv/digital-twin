@@ -35,6 +35,9 @@ export const columns: ColumnDef<SensorData>[] = [
   {
     accessorKey: "location",
     header: "Location",
+    filterFn: (row, id, value: string[]) => {
+      return value.includes(row.getValue(id));
+    },
   },
   {
     accessorKey: "lastUpdateTimestamp",
