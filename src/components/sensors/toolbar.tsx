@@ -1,14 +1,11 @@
-"use client";
-
 import type { Table } from "@tanstack/react-table";
 import { X } from "lucide-react";
-
 import { Button } from "~/ui/button";
-// import { Input } from "@/components/ui/input";
+import { Input } from "~/ui/input";
 import { DataTableViewOptions } from "~/ui/table/table-view-options";
 
-import type { SensorData } from "./columns";
 import { DataTableFacetedFilter } from "~/ui/table/table-faceted-filter";
+import type { SensorData } from "./columns";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -34,14 +31,14 @@ export function DataTableToolbar<TData>({
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        {/* <Input
-          placeholder="Filter tasks..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+        <Input
+          placeholder="Filter ids..."
+          value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("id")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
-        /> */}
+        />
         {table.getColumn("location") && (
           <DataTableFacetedFilter
             column={table.getColumn("location")}
