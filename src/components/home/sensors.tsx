@@ -1,15 +1,14 @@
 import {
-  ListItem,
   Flex,
   Icon,
-  Text,
   List,
-  Bold,
+  ListItem,
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
+  Text,
 } from "@tremor/react";
 import {
   ArrowUpRight,
