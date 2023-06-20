@@ -1,0 +1,1511 @@
+{
+  "elsys-co2-055854": {
+    "sensor_id": "elsys-co2-055854",
+    "sensor_ts": 1676482358.9254,
+    "encoded_payload": "AQChAjYEAKoFAAYCWgcOOA==",
+    "sensor_singal_strength": -113.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ers-04f005": {
+    "sensor_id": "elsys-ers-04f005",
+    "sensor_ts": 1676482359.05329,
+    "encoded_payload": "AQDTAiYEAA0FAQcONg==",
+    "sensor_singal_strength": -35.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-050304": {
+    "sensor_id": "elsys-ems-050304",
+    "sensor_ts": 1676482360.40247,
+    "encoded_payload": "AQDMAikDAMP3Bw4fCwAAAAANAA8AEgA=",
+    "sensor_singal_strength": -114.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520c4": {
+    "sensor_id": "elsys-co2-0520c4",
+    "sensor_ts": 1676482360.74357,
+    "encoded_payload": "AQC/AioEAAEFAAYB2QcONQ==",
+    "sensor_singal_strength": -116.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520a3": {
+    "sensor_id": "elsys-co2-0520a3",
+    "sensor_ts": 1676482361.79977,
+    "encoded_payload": "AQCnAjMEAAAFAAYBxQcOEA==",
+    "sensor_singal_strength": -115.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520b4": {
+    "sensor_id": "elsys-co2-0520b4",
+    "sensor_ts": 1676482385.18424,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -102.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ac5": {
+    "sensor_id": "elsys-co2-058ac5",
+    "sensor_ts": 1676482362.97437,
+    "encoded_payload": "AQDTAiYEAAAFAAYCGgcOIQ==",
+    "sensor_singal_strength": -118.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-0503c1": {
+    "sensor_id": "elsys-ems-0503c1",
+    "sensor_ts": 1676482363.32619,
+    "encoded_payload": "AQDAAi0DAAI/Bw4QCwAAAAANAA8AEgA=",
+    "sensor_singal_strength": -93.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-eye-04d244": {
+    "sensor_id": "elsys-eye-04d244",
+    "sensor_ts": 1676482363.51323,
+    "encoded_payload": "AQDQAicEADkFAgcOFhEB",
+    "sensor_singal_strength": -79.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055a4a": {
+    "sensor_id": "elsys-co2-055a4a",
+    "sensor_ts": 1676482363.80698,
+    "encoded_payload": "AQDYAigEAS0FAAYDGwcOQA==",
+    "sensor_singal_strength": -89.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058b15": {
+    "sensor_id": "elsys-co2-058b15",
+    "sensor_ts": 1676482364.30918,
+    "encoded_payload": "AQDKAigEAAEFAAYCCAcOIA==",
+    "sensor_singal_strength": -119.0,
+    "gateway_id": "csn-mtcdtip-003b03",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05586e": {
+    "sensor_id": "elsys-co2-05586e",
+    "sensor_ts": 1676482364.99734,
+    "encoded_payload": "AQDNAigEAAoFAgYCRgcOJQ==",
+    "sensor_singal_strength": -75.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055a43": {
+    "sensor_id": "elsys-co2-055a43",
+    "sensor_ts": 1676482365.48724,
+    "encoded_payload": "AQDRAjEEAAAFAAYFsgcONg==",
+    "sensor_singal_strength": -120.0,
+    "gateway_id": "csn-mtcdtip-003b03",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0461e3": {
+    "sensor_id": "elsys-co2-0461e3",
+    "sensor_ts": 1676482366.46359,
+    "encoded_payload": "AQDZAiYEAHIFBgYDLwcOMA==",
+    "sensor_singal_strength": -61.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "ifm-net"
+  },
+  "elsys-co2-058b19": {
+    "sensor_id": "elsys-co2-058b19",
+    "sensor_ts": 1676482367.62356,
+    "encoded_payload": "AQDUAiYEAAAFAAYCDAcOHA==",
+    "sensor_singal_strength": -114.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055874": {
+    "sensor_id": "elsys-co2-055874",
+    "sensor_ts": 1676482367.70635,
+    "encoded_payload": "AQDUAiYEAA8FAgYCWgcOLQ==",
+    "sensor_singal_strength": -80.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520c5": {
+    "sensor_id": "elsys-co2-0520c5",
+    "sensor_ts": 1676482367.89048,
+    "encoded_payload": "AQDUAisEAaQFBAYEXAcOMQ==",
+    "sensor_singal_strength": -106.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05594f": {
+    "sensor_id": "elsys-co2-05594f",
+    "sensor_ts": 1676482367.99298,
+    "encoded_payload": "AQDDAiwEAT0FAAYC2wcOOw==",
+    "sensor_singal_strength": -103.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-0503ee": {
+    "sensor_id": "elsys-ems-0503ee",
+    "sensor_ts": 1676482368.10905,
+    "encoded_payload": "AQC9Ai0D/v9ABw3hCwAAAF4NAQ8AEgA=",
+    "sensor_singal_strength": -87.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "ifm-net"
+  },
+  "elsys-co2-0558a0": {
+    "sensor_id": "elsys-co2-0558a0",
+    "sensor_ts": 1676482368.36539,
+    "encoded_payload": "AQC1AisEAAAFAAYBlAcOPQ==",
+    "sensor_singal_strength": -67.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0559fb": {
+    "sensor_id": "elsys-co2-0559fb",
+    "sensor_ts": 1676482368.86553,
+    "encoded_payload": "AQDYAiUEAAEFAAYCJQcOPQ==",
+    "sensor_singal_strength": -91.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058b13": {
+    "sensor_id": "elsys-co2-058b13",
+    "sensor_ts": 1676482369.107,
+    "encoded_payload": "AQDXAiUEAAAFAAYCDwcOHQ==",
+    "sensor_singal_strength": -117.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ac4": {
+    "sensor_id": "elsys-co2-058ac4",
+    "sensor_ts": 1676482369.18826,
+    "encoded_payload": "AQDTAicEAAAFAAYCFgcOBA==",
+    "sensor_singal_strength": -115.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05594e": {
+    "sensor_id": "elsys-co2-05594e",
+    "sensor_ts": 1676482369.20517,
+    "encoded_payload": "AQCuAi4EAAAFAAYBoQcOOg==",
+    "sensor_singal_strength": -93.0,
+    "gateway_id": "csn-pygate-f48f21",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0558ac": {
+    "sensor_id": "elsys-co2-0558ac",
+    "sensor_ts": 1676482369.28431,
+    "encoded_payload": "AQDDAikEAAAFBQYCkAcOKA==",
+    "sensor_singal_strength": -106.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520e2": {
+    "sensor_id": "elsys-co2-0520e2",
+    "sensor_ts": 1676482369.37574,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -120.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520e3": {
+    "sensor_id": "elsys-co2-0520e3",
+    "sensor_ts": 1676482369.48498,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -105.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520eb": {
+    "sensor_id": "elsys-co2-0520eb",
+    "sensor_ts": 1676482369.59244,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -35.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520e4": {
+    "sensor_id": "elsys-co2-0520e4",
+    "sensor_ts": 1676482369.71568,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -38.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-dsk-04718f": {
+    "sensor_id": "elsys-dsk-04718f",
+    "sensor_ts": 1676482369.7307,
+    "encoded_payload": "AQDXAiQEAAAFAAcODxEA",
+    "sensor_singal_strength": -26.0,
+    "gateway_id": "csn-pygate-f48f21",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520e9": {
+    "sensor_id": "elsys-co2-0520e9",
+    "sensor_ts": 1676482405.75889,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -105.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520b9": {
+    "sensor_id": "elsys-co2-0520b9",
+    "sensor_ts": 1676482369.79073,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -101.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520ea": {
+    "sensor_id": "elsys-co2-0520ea",
+    "sensor_ts": 1676482405.64068,
+    "encoded_payload": "AQDBAicEAAAFBgYCnwcOHA==",
+    "sensor_singal_strength": -45.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520e5": {
+    "sensor_id": "elsys-co2-0520e5",
+    "sensor_ts": 1676482405.75902,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -102.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0558ad": {
+    "sensor_id": "elsys-co2-0558ad",
+    "sensor_ts": 1676482412.84446,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -107.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05596e": {
+    "sensor_id": "elsys-co2-05596e",
+    "sensor_ts": 1676482370.03621,
+    "encoded_payload": "AQDBAisEAAAFAAYCLwcONw==",
+    "sensor_singal_strength": -112.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520a1": {
+    "sensor_id": "elsys-co2-0520a1",
+    "sensor_ts": 1676482400.1922,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -48.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520e6": {
+    "sensor_id": "elsys-co2-0520e6",
+    "sensor_ts": 1676482405.88437,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -103.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520e8": {
+    "sensor_id": "elsys-co2-0520e8",
+    "sensor_ts": 1676482405.94678,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -121.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520e7": {
+    "sensor_id": "elsys-co2-0520e7",
+    "sensor_ts": 1676482405.96407,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -100.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-dsk-047192": {
+    "sensor_id": "elsys-dsk-047192",
+    "sensor_ts": 1676482370.49818,
+    "encoded_payload": "AQC+AioEAAAFAQcORxEA",
+    "sensor_singal_strength": -119.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ae1": {
+    "sensor_id": "elsys-co2-058ae1",
+    "sensor_ts": 1676482370.72531,
+    "encoded_payload": "AQDKAigEAAAFAAYCAwcODA==",
+    "sensor_singal_strength": -114.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05596d": {
+    "sensor_id": "elsys-co2-05596d",
+    "sensor_ts": 1676482370.91622,
+    "encoded_payload": "AQDSAikEAgIFAAYDTgcORA==",
+    "sensor_singal_strength": -91.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520ca": {
+    "sensor_id": "elsys-co2-0520ca",
+    "sensor_ts": 1676482370.9513,
+    "encoded_payload": "AQC2AiwEAAAFAAYCLwcONA==",
+    "sensor_singal_strength": -89.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0559f5": {
+    "sensor_id": "elsys-co2-0559f5",
+    "sensor_ts": 1676482372.37758,
+    "encoded_payload": "AQDNAicEACYFAAYCCQcONg==",
+    "sensor_singal_strength": -61.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058b16": {
+    "sensor_id": "elsys-co2-058b16",
+    "sensor_ts": 1676482373.06366,
+    "encoded_payload": "AQDdAiMEAAAFAAYCBAcOGA==",
+    "sensor_singal_strength": -118.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-051d36": {
+    "sensor_id": "elsys-co2-051d36",
+    "sensor_ts": 1676482397.09449,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -99.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05209a": {
+    "sensor_id": "elsys-co2-05209a",
+    "sensor_ts": 1676482408.86032,
+    "encoded_payload": "AQDBAicEAAAFBAYCtAcOHQ==",
+    "sensor_singal_strength": -38.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-051d2f": {
+    "sensor_id": "elsys-co2-051d2f",
+    "sensor_ts": 1676482373.59089,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -33.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-051d38": {
+    "sensor_id": "elsys-co2-051d38",
+    "sensor_ts": 1676482373.7192,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -44.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-052093": {
+    "sensor_id": "elsys-co2-052093",
+    "sensor_ts": 1676482408.98211,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -44.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058a96": {
+    "sensor_id": "elsys-co2-058a96",
+    "sensor_ts": 1676482373.7826,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -111.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520b1": {
+    "sensor_id": "elsys-co2-0520b1",
+    "sensor_ts": 1676482374.15877,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -62.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-050418": {
+    "sensor_id": "elsys-ems-050418",
+    "sensor_ts": 1676482375.25441,
+    "encoded_payload": "AQDHAigDAD32Bw4ZCwAAAAINAA8AEgA=",
+    "sensor_singal_strength": -43.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ac2": {
+    "sensor_id": "elsys-co2-058ac2",
+    "sensor_ts": 1676482375.57971,
+    "encoded_payload": "AQDUAiYEAAEFAAYCCQcOEw==",
+    "sensor_singal_strength": -118.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058adf": {
+    "sensor_id": "elsys-co2-058adf",
+    "sensor_ts": 1676482375.78828,
+    "encoded_payload": "AQDSAiYEAAAFAAYCCQcOIA==",
+    "sensor_singal_strength": -91.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-0503af": {
+    "sensor_id": "elsys-ems-0503af",
+    "sensor_ts": 1676482375.91299,
+    "encoded_payload": "AQDLAi8DAML4Bw4fCwAAAAENAA8AEgA=",
+    "sensor_singal_strength": -93.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05582c": {
+    "sensor_id": "elsys-co2-05582c",
+    "sensor_ts": 1676482376.77731,
+    "encoded_payload": "AQC4AioEAAAFAAYB3QcOPQ==",
+    "sensor_singal_strength": -77.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520ac": {
+    "sensor_id": "elsys-co2-0520ac",
+    "sensor_ts": 1676482377.85817,
+    "encoded_payload": "AQDVAicEAIcFAAYE7QcNzA==",
+    "sensor_singal_strength": -63.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "ifm-net"
+  },
+  "elsys-co2-058ac6": {
+    "sensor_id": "elsys-co2-058ac6",
+    "sensor_ts": 1676482378.31469,
+    "encoded_payload": "AQDQAiYEAAAFAAYCCAcNxA==",
+    "sensor_singal_strength": -95.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "monnit-Humidity-384031": {
+    "sensor_id": "monnit-Humidity-384031",
+    "sensor_ts": 1676470365.446,
+    "decoded_payload": {
+      "monnit_ts": "1676470365.446",
+      "monnit_sensor_id": "384031",
+      "monnit_sensor_type": "Humidity",
+      "humidity": "36.57",
+      "temperature": "23.2",
+      "dewpoint": "7.543504904534533",
+      "monnit_signalstrength": "-54",
+      "monnit_signalvoltage": "2.91",
+      "monnit_gw": "913487",
+      "monnit_sensormgr_ts": "1676470384.466",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Humidity-384031",
+      "acp_ts": "1676470365.446",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Humidity"
+    },
+    "sensor_singal_strength": "-54",
+    "sensor_voltage": "2.91",
+    "gateway_id": "913487",
+    "data_connector_id": "129.169.50.129"
+  },
+  "monnit-Infared_Motion-384001": {
+    "sensor_id": "monnit-Infared_Motion-384001",
+    "sensor_ts": 1676470383.446,
+    "decoded_payload": {
+      "monnit_ts": "1676470383.446",
+      "monnit_sensor_id": "384001",
+      "monnit_sensor_type": "Infared_Motion",
+      "motion": "true",
+      "state": "2",
+      "monnit_signalstrength": "-45",
+      "monnit_signalvoltage": "2.89",
+      "monnit_gw": "913487",
+      "monnit_sensormgr_ts": "1676470384.516",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Infared_Motion-384001",
+      "acp_ts": "1676470383.446",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Infared_Motion"
+    },
+    "sensor_singal_strength": "-45",
+    "sensor_voltage": "2.89",
+    "gateway_id": "913487",
+    "data_connector_id": "129.169.50.129"
+  },
+  "monnit-Light_Detection-383998": {
+    "sensor_id": "monnit-Light_Detection-383998",
+    "sensor_ts": 1676470385.945,
+    "decoded_payload": {
+      "monnit_ts": "1676470385.945",
+      "monnit_sensor_id": "383998",
+      "monnit_sensor_type": "Light_Detection",
+      "light": "true",
+      "monnit_signalstrength": "-59",
+      "monnit_signalvoltage": "2.95",
+      "monnit_gw": "913487",
+      "monnit_sensormgr_ts": "1676470386.974",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Light_Detection-383998",
+      "acp_ts": "1676470385.945",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Light_Detection"
+    },
+    "sensor_singal_strength": "-59",
+    "sensor_voltage": "2.95",
+    "gateway_id": "913487",
+    "data_connector_id": "129.169.50.129"
+  },
+  "monnit-Light_Detection-383995": {
+    "sensor_id": "monnit-Light_Detection-383995",
+    "sensor_ts": 1676470386.946,
+    "decoded_payload": {
+      "monnit_ts": "1676470386.946",
+      "monnit_sensor_id": "383995",
+      "monnit_sensor_type": "Light_Detection",
+      "light": "false",
+      "monnit_signalstrength": "-56",
+      "monnit_signalvoltage": "2.84",
+      "monnit_gw": "913487",
+      "monnit_sensormgr_ts": "1676470386.991",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Light_Detection-383995",
+      "acp_ts": "1676470386.946",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Light_Detection"
+    },
+    "sensor_singal_strength": "-56",
+    "sensor_voltage": "2.84",
+    "gateway_id": "913487",
+    "data_connector_id": "129.169.50.129"
+  },
+  "elsys-co2-0520a2": {
+    "sensor_id": "elsys-co2-0520a2",
+    "sensor_ts": 1676482378.76332,
+    "encoded_payload": "AQC+Ai0EAAAFAAYCLwcOGg==",
+    "sensor_singal_strength": -117.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-05039a": {
+    "sensor_id": "elsys-ems-05039a",
+    "sensor_ts": 1676482379.20715,
+    "encoded_payload": "AQC6AiwD/8T5Bw4iCwAAAAINAA8AEgA=",
+    "sensor_singal_strength": -113.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05596a": {
+    "sensor_id": "elsys-co2-05596a",
+    "sensor_ts": 1676482380.22208,
+    "encoded_payload": "AQC5Ai0EAUsFAAYCnwcOPw==",
+    "sensor_singal_strength": -108.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05586d": {
+    "sensor_id": "elsys-co2-05586d",
+    "sensor_ts": 1676482381.96208,
+    "encoded_payload": "AQDPAicEAAoFAgYCRwcOLQ==",
+    "sensor_singal_strength": -80.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055a3d": {
+    "sensor_id": "elsys-co2-055a3d",
+    "sensor_ts": 1676482382.5479,
+    "encoded_payload": "AQC1AisEAAAFAAYBogcOKQ==",
+    "sensor_singal_strength": -75.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-050305": {
+    "sensor_id": "elsys-ems-050305",
+    "sensor_ts": 1676482383.87488,
+    "encoded_payload": "AQDPAisDAML0Bw4VCwAAAAENAA8AEgA=",
+    "sensor_singal_strength": -81.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ae7": {
+    "sensor_id": "elsys-co2-058ae7",
+    "sensor_ts": 1676482384.27898,
+    "encoded_payload": "AQDSAiYEAAEFAAYCCwcOHQ==",
+    "sensor_singal_strength": -91.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-041bab": {
+    "sensor_id": "elsys-co2-041bab",
+    "sensor_ts": 1676482384.4852,
+    "encoded_payload": "AQDQAiYEAAEFAgYCDAcNuQ==",
+    "sensor_singal_strength": -118.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058b11": {
+    "sensor_id": "elsys-co2-058b11",
+    "sensor_ts": 1676482384.57652,
+    "encoded_payload": "AQDMAicEAAEFAAYB/wcOGg==",
+    "sensor_singal_strength": -115.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-snd-04bb59": {
+    "sensor_id": "elsys-snd-04bb59",
+    "sensor_ts": 1676482384.60597,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -113.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05596f": {
+    "sensor_id": "elsys-co2-05596f",
+    "sensor_ts": 1676482384.69252,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -88.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ers-04f004": {
+    "sensor_id": "elsys-ers-04f004",
+    "sensor_ts": 1676482384.73939,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -52.0,
+    "gateway_id": "csn-pygate-f48f21",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520a5": {
+    "sensor_id": "elsys-co2-0520a5",
+    "sensor_ts": 1676482384.90336,
+    "encoded_payload": "AQDdAiQEAAAFAAYCDgcOGQ==",
+    "sensor_singal_strength": -113.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-050357": {
+    "sensor_id": "elsys-ems-050357",
+    "sensor_ts": 1676482385.01388,
+    "encoded_payload": "AQDPAicD/wA/Bw4aCwAAAAQNAQ8AEgA=",
+    "sensor_singal_strength": -106.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-052098": {
+    "sensor_id": "elsys-co2-052098",
+    "sensor_ts": 1676482385.08318,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -39.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-052099": {
+    "sensor_id": "elsys-co2-052099",
+    "sensor_ts": 1676482385.18396,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -96.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-052097": {
+    "sensor_id": "elsys-co2-052097",
+    "sensor_ts": 1676482385.20922,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -100.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-052094": {
+    "sensor_id": "elsys-co2-052094",
+    "sensor_ts": 1676482385.29358,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -118.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0558a2": {
+    "sensor_id": "elsys-co2-0558a2",
+    "sensor_ts": 1676482385.45917,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -53.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058b12": {
+    "sensor_id": "elsys-co2-058b12",
+    "sensor_ts": 1676482385.58632,
+    "encoded_payload": "AQDIAikEAAAFAAYCDgcOJA==",
+    "sensor_singal_strength": -94.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0461e7": {
+    "sensor_id": "elsys-co2-0461e7",
+    "sensor_ts": 1676482386.0815,
+    "decoded_payload": {
+      "_co2": 681,
+      "bytes": [1, 0, 198, 2, 41, 4, 0, 209, 5, 1, 6, 2, 169, 7, 14, 52]
+    },
+    "encoded_payload": "AQDGAikEANEFAQYCqQcONA==",
+    "sensor_singal_strength": -33.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ae0": {
+    "sensor_id": "elsys-co2-058ae0",
+    "sensor_ts": 1676482386.87808,
+    "encoded_payload": "AQDVAiUEAAAFAAYCCwcOIA==",
+    "sensor_singal_strength": -109.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05583f": {
+    "sensor_id": "elsys-co2-05583f",
+    "sensor_ts": 1676482387.44174,
+    "encoded_payload": "AQDCAigEAAAFAgYChAcOIg==",
+    "sensor_singal_strength": -53.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ac0": {
+    "sensor_id": "elsys-co2-058ac0",
+    "sensor_ts": 1676482387.7409,
+    "encoded_payload": "AQDSAiYEAAAFAAYCBAcOHQ==",
+    "sensor_singal_strength": -105.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-0503cd": {
+    "sensor_id": "elsys-ems-0503cd",
+    "sensor_ts": 1676482388.44275,
+    "encoded_payload": "AQDBAiwD/sL5Bw4gCwAAAAANAA8AEgA=",
+    "sensor_singal_strength": -118.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "monnit-Activity_Timer-384014": {
+    "sensor_id": "monnit-Activity_Timer-384014",
+    "sensor_ts": 1676470349.156,
+    "decoded_payload": {
+      "monnit_ts": "1676470349.156",
+      "monnit_sensor_id": "384014",
+      "monnit_sensor_type": "Activity_Timer",
+      "count": "0",
+      "pastcount": "0",
+      "monnit_signalstrength": "-36",
+      "monnit_signalvoltage": "2.78",
+      "monnit_gw": "915854",
+      "monnit_sensormgr_ts": "1676470400.184",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Activity_Timer-384014",
+      "acp_ts": "1676470349.156",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Activity_Timer"
+    },
+    "sensor_singal_strength": "-36",
+    "sensor_voltage": "2.78",
+    "gateway_id": "915854",
+    "data_connector_id": "129.169.50.129"
+  },
+  "monnit-Humidity-481995": {
+    "sensor_id": "monnit-Humidity-481995",
+    "sensor_ts": 1676470359.157,
+    "decoded_payload": {
+      "monnit_ts": "1676470359.157",
+      "monnit_sensor_id": "481995",
+      "monnit_sensor_type": "Humidity",
+      "humidity": "39.79",
+      "temperature": "23.09",
+      "dewpoint": "8.686064474461723",
+      "monnit_signalstrength": "-37",
+      "monnit_signalvoltage": "2.92",
+      "monnit_gw": "915854",
+      "monnit_sensormgr_ts": "1676470400.208",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Humidity-481995",
+      "acp_ts": "1676470359.157",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Humidity"
+    },
+    "sensor_singal_strength": "-37",
+    "sensor_voltage": "2.92",
+    "gateway_id": "915854",
+    "data_connector_id": "129.169.50.129"
+  },
+  "monnit-Humidity-481993": {
+    "sensor_id": "monnit-Humidity-481993",
+    "sensor_ts": 1676470365.157,
+    "decoded_payload": {
+      "monnit_ts": "1676470365.157",
+      "monnit_sensor_id": "481993",
+      "monnit_sensor_type": "Humidity",
+      "humidity": "23.85",
+      "temperature": "33.19",
+      "dewpoint": "9.810713790015923",
+      "monnit_signalstrength": "-54",
+      "monnit_signalvoltage": "2.94",
+      "monnit_gw": "915854",
+      "monnit_sensormgr_ts": "1676470400.227",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Humidity-481993",
+      "acp_ts": "1676470365.157",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Humidity"
+    },
+    "sensor_singal_strength": "-54",
+    "sensor_voltage": "2.94",
+    "gateway_id": "915854",
+    "data_connector_id": "129.169.50.129"
+  },
+  "monnit-Humidity-380499": {
+    "sensor_id": "monnit-Humidity-380499",
+    "sensor_ts": 1676470374.157,
+    "decoded_payload": {
+      "monnit_ts": "1676470374.157",
+      "monnit_sensor_id": "380499",
+      "monnit_sensor_type": "Humidity",
+      "humidity": "29.12",
+      "temperature": "27.83",
+      "dewpoint": "8.23175251282287",
+      "monnit_signalstrength": "-36",
+      "monnit_signalvoltage": "2.79",
+      "monnit_gw": "915854",
+      "monnit_sensormgr_ts": "1676470400.248",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Humidity-380499",
+      "acp_ts": "1676470374.157",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Humidity"
+    },
+    "sensor_singal_strength": "-36",
+    "sensor_voltage": "2.79",
+    "gateway_id": "915854",
+    "data_connector_id": "129.169.50.129"
+  },
+  "monnit-Humidity-481992": {
+    "sensor_id": "monnit-Humidity-481992",
+    "sensor_ts": 1676470384.158,
+    "decoded_payload": {
+      "monnit_ts": "1676470384.158",
+      "monnit_sensor_id": "481992",
+      "monnit_sensor_type": "Humidity",
+      "humidity": "34.07",
+      "temperature": "26.37",
+      "dewpoint": "9.286700665484451",
+      "monnit_signalstrength": "-42",
+      "monnit_signalvoltage": "2.92",
+      "monnit_gw": "915854",
+      "monnit_sensormgr_ts": "1676470400.261",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Humidity-481992",
+      "acp_ts": "1676470384.158",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Humidity"
+    },
+    "sensor_singal_strength": "-42",
+    "sensor_voltage": "2.92",
+    "gateway_id": "915854",
+    "data_connector_id": "129.169.50.129"
+  },
+  "monnit-Humidity-384027": {
+    "sensor_id": "monnit-Humidity-384027",
+    "sensor_ts": 1676470393.949,
+    "decoded_payload": {
+      "monnit_ts": "1676470393.949",
+      "monnit_sensor_id": "384027",
+      "monnit_sensor_type": "Humidity",
+      "humidity": "39.82",
+      "temperature": "22.26",
+      "dewpoint": "7.956281838546664",
+      "monnit_signalstrength": "-42",
+      "monnit_signalvoltage": "2.92",
+      "monnit_gw": "913487",
+      "monnit_sensormgr_ts": "1676470401.974",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Humidity-384027",
+      "acp_ts": "1676470393.949",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Humidity"
+    },
+    "sensor_singal_strength": "-42",
+    "sensor_voltage": "2.92",
+    "gateway_id": "913487",
+    "data_connector_id": "129.169.50.129"
+  },
+  "monnit-Humidity-384030": {
+    "sensor_id": "monnit-Humidity-384030",
+    "sensor_ts": 1676470394.95,
+    "decoded_payload": {
+      "monnit_ts": "1676470394.950",
+      "monnit_sensor_id": "384030",
+      "monnit_sensor_type": "Humidity",
+      "humidity": "40.56",
+      "temperature": "20.34",
+      "dewpoint": "6.50815673007162",
+      "monnit_signalstrength": "-91",
+      "monnit_signalvoltage": "2.95",
+      "monnit_gw": "913487",
+      "monnit_sensormgr_ts": "1676470401.989",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Humidity-384030",
+      "acp_ts": "1676470394.950",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Humidity"
+    },
+    "sensor_singal_strength": "-91",
+    "sensor_voltage": "2.95",
+    "gateway_id": "913487",
+    "data_connector_id": "129.169.50.129"
+  },
+  "monnit-Infared_Motion-384002": {
+    "sensor_id": "monnit-Infared_Motion-384002",
+    "sensor_ts": 1676470400.95,
+    "decoded_payload": {
+      "monnit_ts": "1676470400.950",
+      "monnit_sensor_id": "384002",
+      "monnit_sensor_type": "Infared_Motion",
+      "motion": "true",
+      "state": "2",
+      "monnit_signalstrength": "-56",
+      "monnit_signalvoltage": "3.0",
+      "monnit_gw": "913487",
+      "monnit_sensormgr_ts": "1676470402.3",
+      "data_connector": "129.169.50.129",
+      "acp_id": "monnit-Infared_Motion-384002",
+      "acp_ts": "1676470400.950",
+      "acp_ifc_location": "11",
+      "acp_ifc_object": "0",
+      "acp_type_id": "monnit-Infared_Motion"
+    },
+    "sensor_singal_strength": "-56",
+    "sensor_voltage": "3.0",
+    "gateway_id": "913487",
+    "data_connector_id": "129.169.50.129"
+  },
+  "elsys-co2-0520be": {
+    "sensor_id": "elsys-co2-0520be",
+    "sensor_ts": 1676482388.51913,
+    "encoded_payload": "AQC/Ai8EAAAFAAYCmAcORA==",
+    "sensor_singal_strength": -75.0,
+    "gateway_id": "csn-mtcap-018d23",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0559f6": {
+    "sensor_id": "elsys-co2-0559f6",
+    "sensor_ts": 1676482390.65808,
+    "encoded_payload": "AQDWAiUEAAEFAAYB0QcONQ==",
+    "sensor_singal_strength": -119.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-0503ef": {
+    "sensor_id": "elsys-ems-0503ef",
+    "sensor_ts": 1676482391.44041,
+    "encoded_payload": "AQC5Ai4D/wA+Bw3/CwAAAB8NAQ8AEgA=",
+    "sensor_singal_strength": -85.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "ifm-net"
+  },
+  "elsys-co2-055a75": {
+    "sensor_id": "elsys-co2-055a75",
+    "sensor_ts": 1676482391.74054,
+    "encoded_payload": "AQC7Ai4EAFUFAAYCywcOQA==",
+    "sensor_singal_strength": -105.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05209b": {
+    "sensor_id": "elsys-co2-05209b",
+    "sensor_ts": 1676482400.07139,
+    "encoded_payload": "AQDAAiYEAAEFBwYCiQcOFw==",
+    "sensor_singal_strength": -101.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ac3": {
+    "sensor_id": "elsys-co2-058ac3",
+    "sensor_ts": 1676482392.09701,
+    "encoded_payload": "AQDSAiYEAAEFAAYCDAcOBA==",
+    "sensor_singal_strength": -95.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05594c": {
+    "sensor_id": "elsys-co2-05594c",
+    "sensor_ts": 1676482392.31061,
+    "encoded_payload": "AQDmAiQEAAEFAAYCWwcOQA==",
+    "sensor_singal_strength": -107.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "ijl20-sodaq-ttn": {
+    "sensor_id": "ijl20-sodaq-ttn",
+    "sensor_ts": 1676482392.39198,
+    "encoded_payload": "MjQuNTI=",
+    "sensor_singal_strength": -115.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0559f7": {
+    "sensor_id": "elsys-co2-0559f7",
+    "sensor_ts": 1676482393.2261,
+    "encoded_payload": "AQDEAikEAAwFAAYCKAcOGg==",
+    "sensor_singal_strength": -92.0,
+    "gateway_id": "csn-pygate-f48f21",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055a74": {
+    "sensor_id": "elsys-co2-055a74",
+    "sensor_ts": 1676482394.00899,
+    "encoded_payload": "AQDMAioEAOMFAAYCagcOPw==",
+    "sensor_singal_strength": -87.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05583d": {
+    "sensor_id": "elsys-co2-05583d",
+    "sensor_ts": 1676482394.13019,
+    "encoded_payload": "AQDAAicEAAAFBAYCjgcOEw==",
+    "sensor_singal_strength": -32.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520a4": {
+    "sensor_id": "elsys-co2-0520a4",
+    "sensor_ts": 1676482394.15408,
+    "encoded_payload": "AQDLAiYEAAAFAAYBjwcNjw==",
+    "sensor_singal_strength": -84.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-0503ed": {
+    "sensor_id": "elsys-ems-0503ed",
+    "sensor_ts": 1676482394.22766,
+    "encoded_payload": "AQDKAioD/wA8Bw3fCwAABKgNAQ8AEgA=",
+    "sensor_singal_strength": -83.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "ifm-net"
+  },
+  "elsys-co2-055840": {
+    "sensor_id": "elsys-co2-055840",
+    "sensor_ts": 1676482394.25732,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -35.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055842": {
+    "sensor_id": "elsys-co2-055842",
+    "sensor_ts": 1676482394.25786,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -50.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05583c": {
+    "sensor_id": "elsys-co2-05583c",
+    "sensor_ts": 1676482394.25749,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -33.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055843": {
+    "sensor_id": "elsys-co2-055843",
+    "sensor_ts": 1676482394.38145,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -44.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-05583a": {
+    "sensor_id": "elsys-co2-05583a",
+    "sensor_ts": 1676482394.3812,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -39.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055a42": {
+    "sensor_id": "elsys-co2-055a42",
+    "sensor_ts": 1676482394.5133,
+    "encoded_payload": "AQCmAjAEAAAFAAYBnAcOPQ==",
+    "sensor_singal_strength": -102.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0558c3": {
+    "sensor_id": "elsys-co2-0558c3",
+    "sensor_ts": 1676482394.58859,
+    "encoded_payload": "AQDAAicEAAAFAgYClAcOGw==",
+    "sensor_singal_strength": -103.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0558c2": {
+    "sensor_id": "elsys-co2-0558c2",
+    "sensor_ts": 1676482394.71437,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -108.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-05035e": {
+    "sensor_id": "elsys-ems-05035e",
+    "sensor_ts": 1676482394.76419,
+    "encoded_payload": "AQDPAisD/cH6Bw4cCwAAAAANAA8AEgA=",
+    "sensor_singal_strength": -65.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055853": {
+    "sensor_id": "elsys-co2-055853",
+    "sensor_ts": 1676482394.98223,
+    "encoded_payload": "AQCzAi4EAVcFAAYCOgcOMA==",
+    "sensor_singal_strength": -120.0,
+    "gateway_id": "csn-mtcdtip-003c6f",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ae2": {
+    "sensor_id": "elsys-co2-058ae2",
+    "sensor_ts": 1676482395.50495,
+    "encoded_payload": "AQDMAicEAAAFAAYCDQcOHA==",
+    "sensor_singal_strength": -120.0,
+    "gateway_id": "csn-mtcdtip-003c6f",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055a3a": {
+    "sensor_id": "elsys-co2-055a3a",
+    "sensor_ts": 1676482395.64422,
+    "encoded_payload": "AQC+AikEAAAFAAYBmwcOPw==",
+    "sensor_singal_strength": -110.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058b14": {
+    "sensor_id": "elsys-co2-058b14",
+    "sensor_ts": 1676482395.99699,
+    "encoded_payload": "AQDZAiQEAAAFAAYCEAcOHw==",
+    "sensor_singal_strength": -97.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-051d32": {
+    "sensor_id": "elsys-co2-051d32",
+    "sensor_ts": 1676482396.80711,
+    "encoded_payload": "AQDBAicEAAAFAwcOGA==",
+    "sensor_singal_strength": -45.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-051d30": {
+    "sensor_id": "elsys-co2-051d30",
+    "sensor_ts": 1676482408.29185,
+    "encoded_payload": "AQDCAicEAAAFBAYC8QcODg==",
+    "sensor_singal_strength": -44.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ac7": {
+    "sensor_id": "elsys-co2-058ac7",
+    "sensor_ts": 1676482397.03626,
+    "encoded_payload": "AQDZAiUEAAAFAAYB/gcOIA==",
+    "sensor_singal_strength": -111.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-050399": {
+    "sensor_id": "elsys-ems-050399",
+    "sensor_ts": 1676482398.01391,
+    "encoded_payload": "AQC1AisD/sL3Bw4UCwAAAAENAA8AEgA=",
+    "sensor_singal_strength": -96.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-0503c4": {
+    "sensor_id": "elsys-ems-0503c4",
+    "sensor_ts": 1676482399.12856,
+    "encoded_payload": "AQCtAi8D/wE9Bw4UCwAAAAQNAA8AEgA=",
+    "sensor_singal_strength": -85.0,
+    "gateway_id": "csn-pygate-f48f21",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0559fa": {
+    "sensor_id": "elsys-co2-0559fa",
+    "sensor_ts": 1676482399.2214,
+    "encoded_payload": "AQDOAigEADEFAQYCjQcOLA==",
+    "sensor_singal_strength": -91.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520a0": {
+    "sensor_id": "elsys-co2-0520a0",
+    "sensor_ts": 1676482399.62267,
+    "encoded_payload": "AQC5AiwEAAAFAAYCjAcOJg==",
+    "sensor_singal_strength": -118.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ae3": {
+    "sensor_id": "elsys-co2-058ae3",
+    "sensor_ts": 1676482400.52378,
+    "encoded_payload": "AQDUAiUEAAAFAAYCDgcOHQ==",
+    "sensor_singal_strength": -107.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ae6": {
+    "sensor_id": "elsys-co2-058ae6",
+    "sensor_ts": 1676482400.63507,
+    "encoded_payload": "AQDGAioEAAAFAAYB8gcOHQ==",
+    "sensor_singal_strength": -109.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520c3": {
+    "sensor_id": "elsys-co2-0520c3",
+    "sensor_ts": 1676482401.39744,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -54.0,
+    "gateway_id": "csn-mtcap-018d23",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058b10": {
+    "sensor_id": "elsys-co2-058b10",
+    "sensor_ts": 1676482401.9971,
+    "encoded_payload": "AQDEAicEAAEFAAYCjQcOCw==",
+    "sensor_singal_strength": -120.0,
+    "gateway_id": "csn-mtcdtip-003c6f",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-051d34": {
+    "sensor_id": "elsys-co2-051d34",
+    "sensor_ts": 1676482402.12323,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -33.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-051d35": {
+    "sensor_id": "elsys-co2-051d35",
+    "sensor_ts": 1676482402.12336,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -44.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055856": {
+    "sensor_id": "elsys-co2-055856",
+    "sensor_ts": 1676482402.24801,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -45.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-051d37": {
+    "sensor_id": "elsys-co2-051d37",
+    "sensor_ts": 1676482402.33068,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -113.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-051d31": {
+    "sensor_id": "elsys-co2-051d31",
+    "sensor_ts": 1676482402.4585,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -113.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520c7": {
+    "sensor_id": "elsys-co2-0520c7",
+    "sensor_ts": 1676482403.7567,
+    "encoded_payload": "AQDqAiQEAAEFAAYB7AcOPA==",
+    "sensor_singal_strength": -108.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-eye-04d23d": {
+    "sensor_id": "elsys-eye-04d23d",
+    "sensor_ts": 1676482404.067,
+    "encoded_payload": "AQDTAiYEABgFAgcOPREB",
+    "sensor_singal_strength": -81.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0558b4": {
+    "sensor_id": "elsys-co2-0558b4",
+    "sensor_ts": 1676482404.19606,
+    "encoded_payload": "AQDRAicEAAwFAQYCHgcOLQ==",
+    "sensor_singal_strength": -33.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520aa": {
+    "sensor_id": "elsys-co2-0520aa",
+    "sensor_ts": 1676482404.27282,
+    "encoded_payload": "AQDSAiUEAAEFAgYBSgcOMg==",
+    "sensor_singal_strength": -109.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520a6": {
+    "sensor_id": "elsys-co2-0520a6",
+    "sensor_ts": 1676482404.39979,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -113.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058b18": {
+    "sensor_id": "elsys-co2-058b18",
+    "sensor_ts": 1676482405.15795,
+    "encoded_payload": "AQDDAikEAAAFAAYCCQcOIw==",
+    "sensor_singal_strength": -110.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-0520c9": {
+    "sensor_id": "elsys-co2-0520c9",
+    "sensor_ts": 1676482405.40684,
+    "encoded_payload": "AQDHAisEAAAFAAYDlwcOOw==",
+    "sensor_singal_strength": -115.0,
+    "gateway_id": "csn-mtcdtip-003b03",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-0503e4": {
+    "sensor_id": "elsys-ems-0503e4",
+    "sensor_ts": 1676482406.13651,
+    "encoded_payload": "AQDRAicDB8MNBwsECwAAAAANAA8AEgA=",
+    "sensor_singal_strength": -41.0,
+    "gateway_id": "csn-pygate-f48f21",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ac1": {
+    "sensor_id": "elsys-co2-058ac1",
+    "sensor_ts": 1676482406.56436,
+    "encoded_payload": "AQDCAioEAAAFAAYB/QcOHw==",
+    "sensor_singal_strength": -101.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ac8": {
+    "sensor_id": "elsys-co2-058ac8",
+    "sensor_ts": 1676482408.36069,
+    "encoded_payload": "AQDPAicEAAAFAAYCBgcOLA==",
+    "sensor_singal_strength": -114.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ae5": {
+    "sensor_id": "elsys-co2-058ae5",
+    "sensor_ts": 1676482408.59983,
+    "encoded_payload": "AQDNAigEAAAFAAYCBwcOHQ==",
+    "sensor_singal_strength": -98.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-052092": {
+    "sensor_id": "elsys-co2-052092",
+    "sensor_ts": 1676482409.06373,
+    "encoded_payload": "BQE=",
+    "sensor_singal_strength": -103.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ac9": {
+    "sensor_id": "elsys-co2-058ac9",
+    "sensor_ts": 1676482409.18217,
+    "encoded_payload": "AQDVAiUEAAAFAAYCDAcOIA==",
+    "sensor_singal_strength": -107.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-0503ec": {
+    "sensor_id": "elsys-ems-0503ec",
+    "sensor_ts": 1676482409.9277,
+    "encoded_payload": "AQDAAiwD//49Bw4GCwAAAq8NAQ8AEgA=",
+    "sensor_singal_strength": -79.0,
+    "gateway_id": "csn-mtcdtip-004cbb",
+    "data_connector_id": "ifm-net"
+  },
+  "elsys-co2-055950": {
+    "sensor_id": "elsys-co2-055950",
+    "sensor_ts": 1676482410.00454,
+    "encoded_payload": "AQC6AioEAAIFAAYBowcOPw==",
+    "sensor_singal_strength": -75.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-055871": {
+    "sensor_id": "elsys-co2-055871",
+    "sensor_ts": 1676482411.49077,
+    "encoded_payload": "AQDaAiUEAAgFAgYCHQcOLw==",
+    "sensor_singal_strength": -45.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-05035b": {
+    "sensor_id": "elsys-ems-05035b",
+    "sensor_ts": 1676482411.51805,
+    "encoded_payload": "AQDQAicD/sL3Bw4kCwAAAAANAA8AEgA=",
+    "sensor_singal_strength": -75.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058b17": {
+    "sensor_id": "elsys-co2-058b17",
+    "sensor_ts": 1676482412.49277,
+    "encoded_payload": "AQDaAiQEAAAFAAYCBAcOIg==",
+    "sensor_singal_strength": -95.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ae4": {
+    "sensor_id": "elsys-co2-058ae4",
+    "sensor_ts": 1676482412.7416,
+    "encoded_payload": "AQDVAiYEAAEFAAYCCQcOHQ==",
+    "sensor_singal_strength": -110.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-eye-044504": {
+    "sensor_id": "elsys-eye-044504",
+    "sensor_ts": 1676482413.84755,
+    "encoded_payload": "AQC7Ai8EAAAFAAcNvBMQHhwgICYoJCYZHCEfIRweHRYZHBsdHRodExQWGhkaEA0SEBUVFxULFxASFRYYExMTBgsRDRUcEA4EBgkJCBQUCw==",
+    "sensor_singal_strength": -47.0,
+    "gateway_id": "csn-mtcap-018d23",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-co2-058ade": {
+    "sensor_id": "elsys-co2-058ade",
+    "sensor_ts": 1676482414.90485,
+    "encoded_payload": "AQDQAicEAAEFAAYB/gcOIQ==",
+    "sensor_singal_strength": -108.0,
+    "gateway_id": "csn-mtcdtip-003b02",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-05040a": {
+    "sensor_id": "elsys-ems-05040a",
+    "sensor_ts": 1676482415.69281,
+    "encoded_payload": "AQCzAi4D/8T4Bw4PCwAAAAANAA8AEgA=",
+    "sensor_singal_strength": -45.0,
+    "gateway_id": "csn-mtcdtip-005f06",
+    "data_connector_id": "cambridge-net-3"
+  },
+  "elsys-ems-050366": {
+    "sensor_id": "elsys-ems-050366",
+    "sensor_ts": 1676482415.92052,
+    "encoded_payload": "AQC0AiwDAj3/Bw4ZCwAAEHQNAQ8AEgA=",
+    "sensor_singal_strength": -112.0,
+    "gateway_id": "csn-pygate-d66a00",
+    "data_connector_id": "cambridge-net-3"
+  }
+}
