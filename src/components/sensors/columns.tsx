@@ -38,14 +38,30 @@ export const columns: ColumnDef<SensorData>[] = [
   {
     accessorKey: "lastUpdateTimestamp",
     header: "Last Update",
+    cell: ({ row }) => {
+      const data = row.original.lastUpdateTimestamp;
+
+      // check if data is a number and convert to date
+      if (!isNaN(Number(data))) {
+        const date = new Date(Number(data) * 1000);
+        return <span>{date.toLocaleString()}</span>;
+      }
+
+      return <span>{data}</span>;
+    },
   },
   {
     accessorKey: "lastReading",
     header: "Last Reading",
     cell: ({ row }) => {
       const data = row.original.lastReading;
-      const stringified = JSON.stringify(data);
-      return <div className="font-mono">{stringified}</div>;
+      const stringified = JSON.stringify(data, null, 2);
+      // const stringified = JSON.stringify(data);
+      return (
+        <span className="whitespace-pre font-mono transition-all ease-in-out line-clamp-4 hover:line-clamp-none">
+          {stringified}
+        </span>
+      );
     },
   },
   {
@@ -64,18 +80,22 @@ export const columns: ColumnDef<SensorData>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(
+              onClick={() => {
+                const res = navigator.clipboard.writeText(
                   JSON.stringify(sensorData.lastReading)
-                )
-              }
+                );
+                console.log(res);
+              }}
             >
               Copy Reading
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(JSON.stringify(sensorData))
-              }
+              onClick={() => {
+                const res = navigator.clipboard.writeText(
+                  JSON.stringify(sensorData)
+                );
+                console.log(res);
+              }}
             >
               Copy Row Data (JSON)
             </DropdownMenuItem>
