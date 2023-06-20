@@ -1,5 +1,5 @@
-import { ListItem, Flex, List, Text, Button } from "@tremor/react";
-import { ArrowUpRight, Box, Square } from "lucide-react";
+import { ListItem, Flex, List, Text, Button, Icon } from "@tremor/react";
+import { ActivitySquare, ArrowUpRight, Box, Cloud, Square } from "lucide-react";
 import Link from "next/link";
 
 const twins = [
@@ -7,11 +7,14 @@ const twins = [
     name: "TwinAir",
     description: "Air quality digital twin",
     id: "twinair",
+    icon: Cloud,
   },
   {
     name: "Digital Hospital",
-    description: "Digital Twin of Histopathology Lab at Addenbrooke's Hospital",
+    description:
+      "Digital Twin of the Histopathology Lab at Addenbrooke's Hospital",
     id: "digital-hospital",
+    icon: ActivitySquare,
   },
 ];
 
@@ -20,8 +23,9 @@ const DigitalTwinsView: React.FC = () => {
     <List className="mt-4">
       {twins.map((twin) => (
         <ListItem key={twin.name}>
-          <Flex justifyContent="start" className="space-x-4 truncate">
+          <Flex justifyContent="start" className="space-x-4 ">
             {/* <BatteryIcon battery={sensor.battery} /> */}
+            <Icon icon={twin.icon} variant="light" className="p-2" />
             <div className="truncate">
               <Link href={`/twins/${twin.id}`}>
                 <div className="flex  items-center space-x-2 text-blue-500 dark:text-blue-500 ">
@@ -31,7 +35,7 @@ const DigitalTwinsView: React.FC = () => {
                   <ArrowUpRight size={18} />
                 </div>
               </Link>
-              <Text className="truncate">{twin.description}</Text>
+              <span className="truncate">{twin.description}</span>
             </div>
           </Flex>
           <div className="flex justify-center space-x-2">
