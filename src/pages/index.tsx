@@ -1,5 +1,6 @@
 import { Card, Grid, Title } from "@tremor/react";
 import { BrainCircuit, RadioTower } from "lucide-react";
+import DigitalTwinsView from "~/components/home/digital-twins";
 import SensorsView from "~/components/home/sensors";
 import Layout from "~/components/layout";
 import data from "~/mock";
@@ -17,6 +18,7 @@ export default function Home() {
               <RadioTower /> <Title>Sensors</Title>
             </div>
             <SensorsView
+              numberOfItems={5}
               lowBatteryData={data.map((sensor) => ({
                 name: sensor.id,
                 description: `${sensor.location} | ${sensor.lastReading.battery}% `,
@@ -47,6 +49,7 @@ export default function Home() {
             <div className="flex space-x-4">
               <BrainCircuit /> <Title>Digital Twins</Title>
             </div>
+            <DigitalTwinsView />
           </div>
         </Card>
       </Grid>
