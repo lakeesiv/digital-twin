@@ -92,9 +92,7 @@ export default function Home() {
 
   return (
     <Layout title="Home">
-      <Card>
-        <DataTable columns={columns} data={data} />
-      </Card>
+      <DataTable columns={columns} data={data} />
     </Layout>
   );
 }
