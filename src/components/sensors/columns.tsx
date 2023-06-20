@@ -12,11 +12,15 @@ import {
   DropdownMenuTrigger,
 } from "~/ui/dropdown-menu";
 
+interface LastReading extends Record<string, unknown> {
+  battery: number;
+}
+
 export type SensorData = {
   id: string;
   location: string;
   lastUpdateTimestamp: string;
-  lastReading: object;
+  lastReading: LastReading;
 };
 
 export const columns: ColumnDef<SensorData>[] = [
