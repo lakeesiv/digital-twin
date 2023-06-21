@@ -119,6 +119,7 @@ const TimeSeriesLine: React.FC<TimeSeriesLineProps> = ({
         showLegend={true}
         startEndOnly={true}
         curveType={curveStyle}
+        yAxisWidth={40}
         {...props}
       />
     </Card>

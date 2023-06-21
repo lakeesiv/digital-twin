@@ -11,6 +11,7 @@ import {
 } from "~/ui/select";
 import TimeSeriesLine from "./charts/timeseries-line";
 import { useState } from "react";
+import { DateRangePicker, type DateRangePickerValue } from "@tremor/react";
 
 const generateData = () => {
   type Datapoint = {
@@ -37,31 +38,42 @@ const data = generateData();
 
 export default function Example() {
   const [layout, setLayout] = useState<"rows" | "grid">("grid");
-
+  const [dates, setdates] = useState<DateRangePickerValue>({
+    from: new Date(),
+    to: new Date(),
+  });
   return (
     <div>
       <Flex>
         <Title>Graphs</Title>
-        <Select
-          onValueChange={(value) => {
-            setLayout(value as "rows" | "grid");
-          }}
-        >
-          <SelectTrigger className="h-[30px] w-[80px]">
-            <SelectValue placeholder={<LayoutGrid size={18} />} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Layout</SelectLabel>
-              <SelectItem value="rows">
-                <Rows size={18} />
-              </SelectItem>
-              <SelectItem value="grid">
-                <LayoutGrid size={18} />
-              </SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <div className="flex justify-center space-x-2">
+          <DateRangePicker
+            className="mx-auto  max-w-md "
+            value={dates}
+            onValueChange={setdates}
+            selectPlaceholder="Select"
+          />
+          <Select
+            onValueChange={(value) => {
+              setLayout(value as "rows" | "grid");
+            }}
+          >
+            <SelectTrigger className="h-[37px] w-[80px]">
+              <SelectValue placeholder={<LayoutGrid size={18} />} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Layout</SelectLabel>
+                <SelectItem value="rows">
+                  <Rows size={18} />
+                </SelectItem>
+                <SelectItem value="grid">
+                  <LayoutGrid size={18} />
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </Flex>
       <div
         className={
