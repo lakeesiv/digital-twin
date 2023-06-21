@@ -1,7 +1,7 @@
-import { Sidebar } from "~/components/sidebar";
+// import { Sidebar } from "~/components/sidebar";
 import Head from "next/head";
 import React from "react";
-import Menu from "~/components/menu";
+import Menu from "~/components/layout/menu";
 
 interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
