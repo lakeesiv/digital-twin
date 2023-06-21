@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "~/ui/select";
 import TimeSeriesLine from "./charts/timeseries-line";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateRangePicker, type DateRangePickerValue } from "@tremor/react";
 
 const generateData = () => {
@@ -38,19 +38,25 @@ const data = generateData();
 
 export default function Example() {
   const [layout, setLayout] = useState<"rows" | "grid">("grid");
-  const [dates, setdates] = useState<DateRangePickerValue>({
+  const [dates, setDates] = useState<DateRangePickerValue>({
     from: new Date(),
     to: new Date(),
+    selectValue: "tdy",
   });
+
+  // useEffect(() => {
+  //   console.log(dates);
+  // }, [dates]);
+
   return (
     <div>
       <Flex>
-        <Title>Graphs</Title>
+        <div></div>
         <div className="flex justify-center space-x-2">
           <DateRangePicker
             className="mx-auto  max-w-md "
             value={dates}
-            onValueChange={setdates}
+            onValueChange={setDates}
             selectPlaceholder="Select"
           />
           <Select

@@ -1,5 +1,4 @@
 import Layout from "~/components/layout";
-import { Card } from "@tremor/react";
 import { useRouter } from "next/router";
 import Chart from "~/components/chart";
 import { useState, useEffect } from "react";
@@ -17,13 +16,11 @@ export default function Home() {
   }
 
   return (
-    <Layout title="Home">
-      <Card>
-        <h1 className="text-2xl font-bold">
-          Sensor Visualizer: {router.query.id}
-        </h1>
-        <Chart />
-      </Card>
+    <Layout title={(router.query.id as string) || "Sensor"}>
+      <h1 className="font-mono text-2xl font-bold">
+        Sensor ID: {router.query.id}
+      </h1>
+      <Chart />
     </Layout>
   );
 }

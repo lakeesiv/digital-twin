@@ -61,7 +61,6 @@ const TimeSeriesLine: React.FC<TimeSeriesLineProps> = ({
   if (typeof firstDatapoint.timestamp === "number") {
     // convert all timestamps to dates
     data.forEach((datapoint) => {
-      console.log(datapoint);
       datapoint.timestamp = formatDateTime(datapoint.timestamp as number);
     });
   }
