@@ -11,8 +11,7 @@ const twins = [
   },
   {
     name: "Digital Hospital",
-    description:
-      "Digital Twin of the Histopathology Lab at Addenbrooke's Hospital",
+    description: "Digital Twin of the Histopathology Lab",
     id: "digital-hospital",
     icon: ActivitySquare,
   },
