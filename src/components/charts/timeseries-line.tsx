@@ -93,7 +93,7 @@ const TimeSeriesLine: React.FC<TimeSeriesLineProps> = ({
             </SelectContent>
           </Select>
           <Button
-            className="ml-4 h-[30px]"
+            className="ml-4 h-[30px] "
             variant="secondary"
             onClick={() => {
               // download data as JSON
@@ -107,7 +107,7 @@ const TimeSeriesLine: React.FC<TimeSeriesLineProps> = ({
               element.click();
             }}
           >
-            <Download size={18} />
+            <Download size={16} className="px-0" />
           </Button>
         </div>
       </Flex>
@@ -125,9 +125,12 @@ const TimeSeriesLine: React.FC<TimeSeriesLineProps> = ({
   );
 };
 
-const formatDateTime = (timestamp: number) => {
-  return new Date(timestamp).toLocaleString();
-  // format dd/mm \n hh:mm:ss
+type DateTimeView = "date+time" | "date" | "time";
+
+const formatDateTime = (
+  timestamp: number,
+  view: DateTimeView = "date+time"
+) => {
   const date = new Date(timestamp);
   const day = date.getDate();
   const month = date.getMonth() + 1;
@@ -135,7 +138,10 @@ const formatDateTime = (timestamp: number) => {
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
 
-  return `${day}/${month} \n\n ${hours}:${minutes}:${seconds}`;
+  if (view === "date") return `${day}/${month}`;
+  if (view === "time") return `${hours}:${minutes}:${seconds}`;
+
+  return `${day}/${month} ${hours}:${minutes}:${seconds}`;
 };
 
 export default TimeSeriesLine;

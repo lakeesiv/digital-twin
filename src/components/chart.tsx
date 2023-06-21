@@ -36,7 +36,7 @@ const generateData = () => {
 const data = generateData();
 
 export default function Example() {
-  const [layout, setLayout] = useState<"rows" | "grid">("rows");
+  const [layout, setLayout] = useState<"rows" | "grid">("grid");
 
   return (
     <div>
@@ -48,7 +48,7 @@ export default function Example() {
           }}
         >
           <SelectTrigger className="h-[30px] w-[80px]">
-            <SelectValue placeholder={<Rows size={18} />} />
+            <SelectValue placeholder={<LayoutGrid size={18} />} />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
