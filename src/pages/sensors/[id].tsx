@@ -2,10 +2,19 @@ import Layout from "~/components/layout";
 import { Card } from "@tremor/react";
 import { useRouter } from "next/router";
 import Chart from "~/components/chart";
+import { useState, useEffect } from "react";
 
 export default function Home() {
-  // const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <Layout title="Home">
