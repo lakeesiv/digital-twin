@@ -11,18 +11,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/ui/dropdown-menu";
-import dynamic from "next/dynamic";
-import { List } from "@tremor/react";
-// import JSONTable from "../json-table";
 
 interface LastReading extends Record<string, unknown> {
   battery: number;
 }
-
-const JSONTable = dynamic(() => import("../json-table"), {
-  ssr: false,
-});
-
 export type SensorData = {
   id: string;
   location: string;
@@ -72,7 +64,12 @@ export const columns: ColumnDef<SensorData>[] = [
     header: "Last Reading",
     cell: ({ row }) => {
       const data = row.original.lastReading;
-      const stringified = JSON.stringify(data, null, 2);
+      let stringified = JSON.stringify(data, null, 2);
+      // remove first and last curly braces
+      stringified = stringified.slice(2, -2);
+      // remove quotation marks
+      stringified = stringified.replace(/"/g, "");
+      stringified = stringified.replace(/,/g, "");
 
       return (
         <span className="line-clamp-4 whitespace-pre font-mono transition-all ease-in-out hover:line-clamp-none">
