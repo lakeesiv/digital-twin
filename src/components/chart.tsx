@@ -12,6 +12,7 @@ import {
 import TimeSeriesLine from "./charts/timeseries-line";
 import { useEffect, useState } from "react";
 import { DateRangePicker, type DateRangePickerValue } from "@tremor/react";
+import FacetedFilterButton from "~/ui/facted-filter-button";
 
 const generateData = () => {
   type Datapoint = {
@@ -44,6 +45,12 @@ export default function Example() {
     selectValue: "tdy",
   });
 
+  const [filters, setFilters] = useState<string[]>([
+    "humidity",
+    "temperature",
+    "pressure",
+  ]);
+
   // useEffect(() => {
   //   console.log(dates);
   // }, [dates]);
@@ -51,7 +58,14 @@ export default function Example() {
   return (
     <div>
       <Flex>
-        <div></div>
+        <div>
+          <FacetedFilterButton
+            filters={["humidity", "temperature", "pressure"]}
+            selectedFilters={filters}
+            setSelectedFilters={setFilters}
+            title="Filter"
+          />
+        </div>
         <div className="flex justify-center space-x-2">
           <DateRangePicker
             className="mx-auto  max-w-md "
