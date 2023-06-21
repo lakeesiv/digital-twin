@@ -15,6 +15,8 @@ import {
   SelectValue,
   SelectItem,
 } from "~/ui/select";
+import { Button } from "~/ui/button";
+import { Download } from "lucide-react";
 
 interface TimeSeriesDatapoint extends Object {
   timestamp: number | string;
@@ -68,27 +70,46 @@ const TimeSeriesLine: React.FC<TimeSeriesLineProps> = ({
     <Card className="mx-auto" {...cardProps}>
       <Flex>
         <Title>{title}</Title>
-        <Select
-          onValueChange={(value) =>
-            setCurveStyle(value as "linear" | "step" | "natural")
-          }
-        >
-          <SelectTrigger
-            className="h-[30px]
-		  w-[100px]
-		  "
+        <div className="flex justify-center">
+          <Select
+            onValueChange={(value) =>
+              setCurveStyle(value as "linear" | "step" | "natural")
+            }
           >
-            <SelectValue placeholder="Line" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Line Style</SelectLabel>
-              <SelectItem value="linear">Linear</SelectItem>
-              <SelectItem value="step">Step</SelectItem>
-              <SelectItem value="natural">Natural</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+            <SelectTrigger
+              className="h-[30px]
+					  w-[100px]
+					  "
+            >
+              <SelectValue placeholder="Line" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Line Style</SelectLabel>
+                <SelectItem value="linear">Linear</SelectItem>
+                <SelectItem value="step">Step</SelectItem>
+                <SelectItem value="natural">Natural</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <Button
+            className="ml-4 h-[30px]"
+            variant="secondary"
+            onClick={() => {
+              // download data as JSON
+              const element = document.createElement("a");
+              const file = new Blob([JSON.stringify(data)], {
+                type: "text/plain",
+              });
+              element.href = URL.createObjectURL(file);
+              element.download = "data.json";
+              document.body.appendChild(element); // Required for this to work in FireFox
+              element.click();
+            }}
+          >
+            <Download size={18} />
+          </Button>
+        </div>
       </Flex>
       <AreaChart
         className="mt-8 h-44"
