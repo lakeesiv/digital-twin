@@ -13,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
       <Head>
         <title>{title ? title : "App"}</title>
         <meta name="description" content="UROP Project" />
-        {/* <link rel="icon" href="/favicon.ico" /> */}
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex h-full  min-h-screen w-full flex-col border-t ">
         {/* <main className="grid  h-full min-h-screen w-full border-t lg:grid-cols-5"> */}
