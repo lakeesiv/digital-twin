@@ -15,17 +15,25 @@ import {
 } from "~/ui/navigation-menu";
 import { Button } from "~/ui/button";
 import { useTheme } from "next-themes";
-import { Select, SelectItem } from "@tremor/react";
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: "Twin Dashboard",
-    href: "/twin/",
-    description:
-      "View the current state of the twin and its sensors in a dashboard",
+    title: "TwinAir",
+    href: "/twin/twinair",
+    description: "View the current state of the TwinAir digital twin",
   },
   {
-    title: "2D/3D Viewer",
+    title: "Digital Hospital",
+    href: "/twin/digital-hospital",
+    description: "View the current state of the Digital Hospital digital twin",
+  },
+  {
+    title: "TwinAir 2D/3D Viewer",
+    href: "/twin/3d",
+    description: "View the twin in a 2D or 3D viewer",
+  },
+  {
+    title: "Digital Hospital 2D/3D Viewer",
     href: "/twin/3d",
     description: "View the twin in a 2D or 3D viewer",
   },
@@ -43,14 +51,13 @@ export function NavigationMenuDemo() {
           </Button>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Sensors</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <ListItem href="/sensor-manager" title="Sensor Manager">
-                Manage sensors and their data
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
+          <NavigationMenuItem>
+            <Link href="/sensors" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Sensors
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Twins</NavigationMenuTrigger>
@@ -69,11 +76,26 @@ export function NavigationMenuDemo() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuTrigger>Documentation</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              <ListItem
+                key="User Guide"
+                title="User Guide"
+                href="/docs/user-guide"
+              >
+                User Guide for the Digital Twin Website
+              </ListItem>
+              <ListItem
+                key="Technical Guide"
+                title="Technical Guide"
+                href="/docs/technical-guide"
+              >
+                Technical documentation for the development of the Digital Twin
+                Website
+              </ListItem>
+            </ul>
+          </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Button
