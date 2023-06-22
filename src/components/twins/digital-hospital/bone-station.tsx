@@ -4,6 +4,14 @@ import LineChart from "~/components/charts/line";
 import { Card, Metric, ProgressBar, Grid, Text } from "@tremor/react";
 import { roundToDP } from "~/utils";
 import RowOrGrid from "~/components/layout/row-or-grid";
+import dynamic from "next/dynamic";
+
+const PlotlyChartNoSSR = dynamic(
+  () => import("~/components/charts/plotly-base"),
+  {
+    ssr: false,
+  }
+);
 
 interface BoneStationProps {
   data: BoneStationData;
@@ -33,8 +41,8 @@ const BoneStation = ({ data }: BoneStationProps) => {
           </Card>
         </Grid>
         <RowOrGrid>
-          <LineChart defaultCurveStyle="step" {...data.busy} />
-          <LineChart defaultCurveStyle="step" {...data.waiting} />
+          <PlotlyChartNoSSR defaultCurveStyle="step" {...data.busy} />
+          <PlotlyChartNoSSR defaultCurveStyle="step" {...data.waiting} />
         </RowOrGrid>
       </div>
     </div>
