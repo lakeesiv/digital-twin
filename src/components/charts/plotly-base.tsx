@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Plotly from "plotly.js-cartesian-dist-min";
 import createPlotlyComponent from "react-plotly.js/factory";
 import { useTheme } from "next-themes";
@@ -41,8 +41,24 @@ const PlotlyChart: React.FC<LineProps> = ({
   );
 
   const { theme } = useTheme();
+  const cardRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+    const resizeObserver = new ResizeObserver(() => {
+      // Do what you want to do when the size of the element changes
+      const Lib = Plotly as { Plots: { resize: (el: string) => void } };
+      Lib.Plots.resize(title || ylabel);
+    });
+    resizeObserver.observe(cardRef.current);
+    return () => resizeObserver.disconnect(); // clean up
+  }, [title, ylabel]);
+
   const layout: Partial<Plotly.Layout> = {
     autosize: true,
+    font: {
+      family: "sans-serif",
+    },
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     paper_bgcolor: "rgba(0, 0, 0, 0)",
     margin: {
@@ -71,7 +87,7 @@ const PlotlyChart: React.FC<LineProps> = ({
   };
 
   return (
-    <Card className="mx-auto" {...cardProps}>
+    <Card className="mx-auto" {...cardProps} ref={cardRef}>
       <Flex>
         <Title>{title}</Title>
         <div className="flex justify-center">
@@ -116,9 +132,9 @@ const PlotlyChart: React.FC<LineProps> = ({
           </Button>
         </div>
       </Flex>
-      <Card className="mx-auto mt-8 h-[250px] ring-0">
+      <div className="mx-auto mt-8 h-[250px] ring-0">
         <Plot
-          divId="plotlyChart"
+          divId={title || ylabel}
           data={[
             {
               x: data.x,
@@ -134,7 +150,7 @@ const PlotlyChart: React.FC<LineProps> = ({
           useResizeHandler
           className="h-full w-full"
         />
-      </Card>
+      </div>
     </Card>
   );
 };
