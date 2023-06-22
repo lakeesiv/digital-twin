@@ -73,7 +73,11 @@ const Line: React.FC<LineProps> = ({
             }
           >
             <SelectTrigger className="h-[30px] w-[100px]">
-              <SelectValue placeholder={defaultCurveStyle || "Linear"} />
+              <SelectValue
+                placeholder={capilatizeFirstLetter(
+                  defaultCurveStyle || "Linear"
+                )}
+              />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -119,6 +123,10 @@ const Line: React.FC<LineProps> = ({
       )}
     </Card>
   );
+};
+
+const capilatizeFirstLetter = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 export default Line;
