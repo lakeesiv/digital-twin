@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "py:dev": "python server/app.py"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.4",
