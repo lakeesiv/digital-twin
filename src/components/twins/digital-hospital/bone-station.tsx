@@ -3,6 +3,7 @@ import type { BoneStationData } from "./types";
 import LineChart from "~/components/charts/line";
 import { Card, Metric, ProgressBar, Grid, Text } from "@tremor/react";
 import { roundToDP } from "~/utils";
+import RowOrGrid from "~/components/layout/row-or-grid";
 
 interface BoneStationProps {
   data: BoneStationData;
@@ -31,8 +32,10 @@ const BoneStation = ({ data }: BoneStationProps) => {
             />
           </Card>
         </Grid>
-        <LineChart defaultCurveStyle="step" {...data.busy} />
-        <LineChart defaultCurveStyle="step" {...data.waiting} />
+        <RowOrGrid>
+          <LineChart defaultCurveStyle="step" {...data.busy} />
+          <LineChart defaultCurveStyle="step" {...data.waiting} />
+        </RowOrGrid>
       </div>
     </div>
   );
