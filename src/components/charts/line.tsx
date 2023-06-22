@@ -13,8 +13,8 @@ import { Button } from "~/ui/button";
 import { Download } from "lucide-react";
 
 interface LineProps {
-  y_label: string;
-  x_label: string;
+  ylabel: string;
+  xlabel: string;
   title: string;
   cardProps?: React.ComponentProps<typeof Card>;
   defaultCurveStyle?: "linear" | "step" | "natural";
@@ -26,8 +26,8 @@ interface LineProps {
 
 const Line: React.FC<LineProps> = ({
   data,
-  x_label,
-  y_label,
+  xlabel,
+  ylabel,
   title,
   cardProps,
   defaultCurveStyle,
@@ -40,7 +40,6 @@ const Line: React.FC<LineProps> = ({
   // create data object
   type Data = {
     [label: string]: number;
-    time: number;
   };
 
   const x = data.x;
@@ -50,17 +49,17 @@ const Line: React.FC<LineProps> = ({
 
   for (let i = 0; i < x.length; i++) {
     parsedData.push({
-      [y_label]: y[i] as number,
-      time: x[i] as number,
+      [ylabel]: y[i] as number,
+      [xlabel]: x[i] as number,
     });
     console.log(parsedData);
   }
 
   const updatedProps = {
     ...props,
-    index: "time",
+    index: xlabel,
     data: parsedData,
-    categories: [y_label],
+    categories: [ylabel],
   };
 
   return (
@@ -73,19 +72,15 @@ const Line: React.FC<LineProps> = ({
               setCurveStyle(value as "linear" | "step" | "natural")
             }
           >
-            <SelectTrigger
-              className="h-[30px]
-					  w-[100px]
-					  "
-            >
-              <SelectValue placeholder="Line" />
+            <SelectTrigger className="h-[30px] w-[100px]">
+              <SelectValue placeholder={defaultCurveStyle || "Linear"} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Line Style</SelectLabel>
                 <SelectItem value="linear">Linear</SelectItem>
                 <SelectItem value="step">Step</SelectItem>
-                <SelectItem value="natural">Natural</SelectItem>
+                <SelectItem value="natural">Smooth</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -117,9 +112,9 @@ const Line: React.FC<LineProps> = ({
         yAxisWidth={40}
         {...updatedProps}
       />
-      {x_label && (
+      {xlabel && (
         <div className="flex justify-center">
-          <p className="text-sm text-gray-500">{x_label}</p>
+          <p className="text-sm text-gray-500">{xlabel}</p>
         </div>
       )}
     </Card>
