@@ -18,22 +18,34 @@ def bone_station_data(app: Model):
     df = app.resources["Bone station"].claimed_quantity.as_dataframe()
     df.columns = ["t", "number_busy"]
     df["t"] = df["t"].apply(lambda x: round(x, 1))
+    # rename columns to x and y
+    df = df.rename(columns={"t": "x", "number_busy": "y"})
     df_dict = df.to_dict('list')
-    df_dict["title"] = "Number of Busy Resources"
-    df_dict["id"] = "number_busy"
+    data = {
+        "data": df_dict,
+        "title": "Number of Busy Resources",
+        "xlabel": "Time (hours)",
+        "ylabel": "Number of Busy Resources",
+    }
 
-    res["busy"] = df_dict
+    res["busy"] = data
 
-    # waiting_taskss
+    # waiting_tasks
+
     df = app.resources["Bone station"].requesters().length.as_dataframe()
     df.columns = ["t", "waiting_tasks"]
     df["t"] = df["t"].apply(lambda x: round(x, 1))
-
+    df = df.rename(columns={"t": "x", "waiting_tasks": "y"})
     df_dict = df.to_dict('list')
-    df_dict["title"] = "Number of Waiting Tasks"
-    df_dict["id"] = "waiting_tasks"
 
-    res["waiting"] = df_dict
+    data = {
+        "data": df_dict,
+        "title": "Number of Waiting Tasks",
+        "xlabel": "Time (hours)",
+        "ylabel": "Number of Waiting Tasks",
+    }
+
+    res["waiting"] = data
     
 
     # metrics
@@ -61,12 +73,18 @@ def processing_room_staff(app):
     ).length.as_dataframe()
     df.columns = ["t", "waiting_tasks"]
     df["t"] = df["t"].apply(lambda x: round(x, 1))
+    df = df.rename(columns={"t": "x", "waiting_tasks": "y"})
 
     df_dict = df.to_dict('list')
-    df_dict["title"] = "Number of Waiting Tasks"
-    df_dict["id"] = "waiting_tasks"
 
-    res["waiting"] = df_dict
+    data = {
+        "data": df_dict,
+        "title": "Number of Waiting Tasks",
+        "xlabel": "Time (hours)",
+        "ylabel": "Number of Waiting Tasks",
+    }
+
+    res["waiting"] = data
 
     # metrics
     metrics = {}
@@ -116,22 +134,38 @@ def wip_stats(app: Model):
     df=app.states["WIP"].value.as_dataframe()
     df.columns = ["t", "value"]
     df["t"] = df["t"].apply(lambda x: round(x, 1))
+    df = df.rename(columns={"t": "x", "value": "y"})
 
     df_dict = df.to_dict('list')
-    df_dict["title"] = "WIP"
-    df_dict["id"] = "wip"
 
-    res["wip"] = df_dict
+    data = {
+        "data": df_dict,
+        "title": "WIP",
+        "xlabel": "Time (hours)",
+        "ylabel": "Number of Specimens in WIP",
+    }
+
+
+
+    res["wip"] = data
 
     df=app.states["inStaining"].value.as_dataframe()
     df.columns = ["t", "value"]
     df["t"] = df["t"].apply(lambda x: round(x, 1))
 
-    df_dict = df.to_dict('list')
-    df_dict["title"] = "Number in Staining"
-    df_dict["id"] = "in_staining"
+    df = df.rename(columns={"t": "x", "value": "y"})
 
-    res["in_staining"] = df_dict
+    df_dict = df.to_dict('list')
+    data = {
+        "data": df_dict,
+        "title": "Number in Staining",
+        "xlabel": "Time (hours)",
+        "ylabel": "Number of Specimens in Staining",
+    }
+
+    
+
+    res["in_staining"] = data
     
     return res
 
