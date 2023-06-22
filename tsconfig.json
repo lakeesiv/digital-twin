@@ -24,6 +24,7 @@
   "include": [
     ".eslintrc.cjs",
     "next-env.d.ts",
+    "plotly.js-cartesian-dist-min.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
