@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <Layout title={(router.query.id as string) || "Sensor"}>
-      <h1 className="font-mono text-2xl font-bold">
+      <h1 className="mb-2 font-mono text-2xl font-bold">
         Sensor ID: {router.query.id}
       </h1>
       <Chart />

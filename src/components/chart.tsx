@@ -101,27 +101,47 @@ export default function Example() {
           (layout === "grid" ? "grid-cols-2" : "grid-cols-1")
         }
       >
-        <TimeSeriesLine
-          data={data}
-          title="Humidity"
-          categories={["humidity"]}
-          index="timestamp"
-        />
-        <TimeSeriesLine
-          data={data}
-          title="Temperature"
-          categories={["temperature"]}
-          index="timestamp"
-          colors={["red"]}
-        />
-        <TimeSeriesLine
-          title="Pressure"
-          data={data}
-          categories={["pressure"]}
-          index="timestamp"
-          colors={["blue"]}
-        />
+        {filters.map((filter, i) => {
+          return (
+            <TimeSeriesLine
+              key={filter}
+              data={data}
+              categories={[filter]}
+              index="timestamp"
+              colors={[getColor(i)]}
+              title={capaitalize(filter)}
+            />
+          );
+        })}
       </div>
     </div>
   );
 }
+
+const ALL_COLORS = [
+  "red",
+  "green",
+  "orange",
+  "pink",
+  "lime",
+  "cyan",
+  "purple",
+  "violet",
+  "amber",
+  "emerald",
+  "teal",
+  "indigo",
+  "sky",
+  "blue",
+  "yellow",
+  "fuchsia",
+  "rose",
+];
+
+const getColor = (index: number) => {
+  return ALL_COLORS[index % ALL_COLORS.length];
+};
+
+const capaitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
