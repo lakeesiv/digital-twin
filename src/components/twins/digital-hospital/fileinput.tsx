@@ -136,10 +136,10 @@ const FileRepresentation = ({
   );
 };
 
-const fileArrayToFileList = (files: File[]) => {
-  const data = new DataTransfer();
-  files.forEach((file) => data.items.add(file));
-  return data.files;
-};
+// const fileArrayToFileList = (files: File[]) => {
+//   const data = new DataTransfer();
+//   files.forEach((file) => data.items.add(file));
+//   return data.files;
+// };
 
 export default FileUploadMultiple;

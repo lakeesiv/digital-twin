@@ -65,12 +65,11 @@ export default function Home() {
           <TabPanel>
             <Card className="px-8">
               <Title>Multi File Upload</Title>
-              <FileUploadMultiple multiple />
-
               <Callout
                 title="Please name the files in the following format: 1.xlsx, 2.xlsx, 3.xlsx, 4.xlsx, 5.xlsx for the scenario number"
-                className="mt-4 bg-blue-100 text-blue-900 dark:bg-blue-950 dark:text-blue-200"
+                className="my-4 bg-blue-100 text-blue-900 dark:bg-blue-950 dark:text-blue-200"
               ></Callout>
+              <FileUploadMultiple multiple />
             </Card>
           </TabPanel>
         </TabPanels>
