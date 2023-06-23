@@ -38,6 +38,7 @@
     "plotly.js-cartesian-dist-min": "^2.24.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-list-drag-and-drop": "^0.9.2",
     "react-plotly.js": "^2.6.0",
     "superjson": "1.12.2",
     "tailwind-merge": "^1.13.2",

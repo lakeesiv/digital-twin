@@ -1,13 +1,13 @@
 import { Callout, Card, Icon } from "@tremor/react";
-import { AlertTriangle, Download, Sheet, Upload } from "lucide-react";
-import { type ChangeEvent, useState, useRef } from "react";
+import { AlertTriangle, Sheet } from "lucide-react";
+import { useRef, useState, type ChangeEvent } from "react";
 import { Button } from "~/ui/button";
 import { Input } from "~/ui/input";
 import {
   Tooltip,
+  TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-  TooltipContent,
 } from "~/ui/tooltip";
 
 interface FileUploadMultipleProps {
@@ -71,14 +71,14 @@ function FileUploadMultiple({ multiple }: FileUploadMultipleProps) {
         />
       </div>
 
-      {files.length > 2 && files.length < 6 && (
+      {files.length > 0 && files.length < 6 && (
         <div className={"grid gap-4" + " grid-cols-" + String(files.length)}>
           {files.map((file, i) => (
             <FileRepresentation key={i} file={file} />
           ))}
         </div>
       )}
-      {(files.length < 2 || files.length > 5) && (
+      {(files.length < 0 || files.length > 5) && files.length > 0 && (
         <Callout
           className="mt-4 h-12"
           title="Invalid Number of Files! Please select between 2 to 5 files."
@@ -92,7 +92,13 @@ function FileUploadMultiple({ multiple }: FileUploadMultipleProps) {
   );
 }
 
-const FileRepresentation = ({ file }: { file: File }) => {
+const FileRepresentation = ({
+  file,
+  index,
+}: {
+  file: File;
+  index?: number;
+}) => {
   return (
     <Card className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-950">
       <TooltipProvider>
@@ -128,6 +134,12 @@ const FileRepresentation = ({ file }: { file: File }) => {
       </div>
     </Card>
   );
+};
+
+const fileArrayToFileList = (files: File[]) => {
+  const data = new DataTransfer();
+  files.forEach((file) => data.items.add(file));
+  return data.files;
 };
 
 export default FileUploadMultiple;
