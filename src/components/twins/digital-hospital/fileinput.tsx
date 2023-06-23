@@ -90,8 +90,9 @@ const FileRepresentation = ({ file }: { file: File }) => {
           <TooltipTrigger>
             <Icon
               icon={Sheet}
-              className="transform cursor-pointer rounded-md bg-green-600 p-2
-			text-green-50 transition-all hover:scale-110 dark:text-green-50
+              className="duration-250 transform cursor-pointer rounded-md bg-green-600
+			p-2 text-green-50 transition-all hover:scale-110
+			dark:text-green-50
 			"
               onClick={() => {
                 // download file object
