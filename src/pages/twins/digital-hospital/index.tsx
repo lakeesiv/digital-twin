@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  // Button,
+  Button,
   Callout,
   Card,
   Tab,
@@ -8,7 +8,6 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  Text,
   Title,
 } from "@tremor/react";
 import { Square, SquareStack } from "lucide-react";
@@ -34,12 +33,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/ui/select";
-import { Button } from "~/ui/button";
+// import { Button } from "~/ui/button";
+
+const noWhitespace = (value: string) => !/\s/.test(value);
 
 const formSchema = z.object({
-  jobId: z.string().nonempty().min(3).max(20),
+  jobId: z
+    .string()
+    .min(3)
+    .max(20)
+    .nonempty()
+    .refine(noWhitespace, "No whitespace allowed in Job ID"),
   weeks: z.number().int().min(1).max(10),
-  // files: z.custom<FileList>(),
+  files: z.custom<FileList>(),
 });
 
 export default function Home() {
@@ -141,14 +147,19 @@ export default function Home() {
                   <FormItem>
                     <FormLabel>Number of Weeks</FormLabel>
                     <FormControl>
-                      <Select>
+                      <Select
+                        onValueChange={(value) => {
+                          field.onChange(parseInt(value));
+                        }}
+                        defaultValue={String(field.value)}
+                      >
                         <SelectTrigger className="w-[180px]">
-                          <SelectValue placeholder="1 Weeks" />
+                          <SelectValue placeholder="1" />
                         </SelectTrigger>
                         <SelectContent>
                           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
                             <SelectItem key={item} value={String(item)}>
-                              {item} Weeks
+                              {item}
                             </SelectItem>
                           ))}
                         </SelectContent>
