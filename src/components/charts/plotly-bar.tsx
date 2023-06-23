@@ -1,41 +1,25 @@
-import React, { useEffect, useState } from "react";
-import Plotly from "plotly.js-cartesian-dist-min";
-import createPlotlyComponent from "react-plotly.js/factory";
-import { useTheme } from "next-themes";
-import { Card, Title, Flex } from "@tremor/react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-  SelectItem,
-} from "~/ui/select";
-import { Button } from "~/ui/button";
+import { Card, Flex, Title } from "@tremor/react";
 import { Download } from "lucide-react";
-import type { LineGraphData } from "./types";
+import { useTheme } from "next-themes";
+import Plotly from "plotly.js-cartesian-dist-min";
+import React, { useEffect, useState } from "react";
+import createPlotlyComponent from "react-plotly.js/factory";
+import { Button } from "~/ui/button";
+import type { BarGraphData } from "./types";
 
 const Plot = createPlotlyComponent(Plotly as object);
 
-interface LineProps extends LineGraphData {
+interface BarProps extends BarGraphData {
   cardProps?: React.ComponentProps<typeof Card>;
-  defaultCurveStyle?: "linear" | "step" | "natural";
 }
 
-const PlotlyChart: React.FC<LineProps> = ({
+const PlotlyChart: React.FC<BarProps> = ({
   ylabel,
   xlabel,
   title,
   cardProps,
-  labels,
   data,
-  defaultCurveStyle = "linear",
 }) => {
-  const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
-    defaultCurveStyle || "linear"
-  );
-
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -103,15 +87,13 @@ const PlotlyChart: React.FC<LineProps> = ({
 
   const plottingData: Partial<Plotly.Data>[] = [];
 
-  for (let i = 0; i < labels.length; i++) {
+  for (let i = 0; i < data.labels.length; i++) {
     plottingData.push({
       x: data.x,
       y: data.y[i],
       marker: { color: "#6b64ef" },
-      fill: "tozeroy",
-      line: { shape: mapCurveStyle(curveStyle) },
-      type: "scattergl",
-      name: labels[i],
+      type: "bar",
+      name: data.labels[i],
     });
   }
 
@@ -120,27 +102,6 @@ const PlotlyChart: React.FC<LineProps> = ({
       <Flex>
         <Title>{title}</Title>
         <div className="flex justify-center">
-          <Select
-            onValueChange={(value) =>
-              setCurveStyle(value as "linear" | "step" | "natural")
-            }
-          >
-            <SelectTrigger className="h-[30px] w-[100px]">
-              <SelectValue
-                placeholder={capilatizeFirstLetter(
-                  defaultCurveStyle || "Linear"
-                )}
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Line Style</SelectLabel>
-                <SelectItem value="linear">Linear</SelectItem>
-                <SelectItem value="step">Step</SelectItem>
-                <SelectItem value="natural">Smooth</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
           <Button
             className="ml-4 h-[30px] "
             variant="secondary"
@@ -207,22 +168,6 @@ const PlotlyChart: React.FC<LineProps> = ({
       </div>
     </Card>
   );
-};
-const capilatizeFirstLetter = (string: string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
-const mapCurveStyle = (style: "linear" | "step" | "natural") => {
-  switch (style) {
-    case "linear":
-      return "linear";
-    case "step":
-      return "hv";
-    case "natural":
-      return "spline";
-    default:
-      return "linear";
-  }
 };
 
 export default PlotlyChart;

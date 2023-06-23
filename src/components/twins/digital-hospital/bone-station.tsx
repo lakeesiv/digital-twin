@@ -12,6 +12,13 @@ const PlotlyChartNoSSR = dynamic(
   }
 );
 
+const PlotlyBarChartNoSSR = dynamic(
+  () => import("~/components/charts/plotly-bar"),
+  {
+    ssr: false,
+  }
+);
+
 interface BoneStationProps {
   data: BoneStationData;
 }
@@ -48,6 +55,19 @@ const BoneStation = ({ data }: BoneStationProps) => {
             labels={["Number of patients"]}
           />
           {/* <PlotlyChartNoSSR defaultCurveStyle="step" {...data.waiting} /> */}
+          <PlotlyBarChartNoSSR
+            data={{
+              labels: ["Target", "Actual"],
+              y: [
+                [1, 2],
+                [1, 4],
+                [1, 5],
+              ],
+              x: ["Monday", "Tuesday", "Wednesday"],
+            }}
+            xlabel="Day of the week"
+            ylabel="Number of patients"
+          />
         </RowOrGrid>
       </div>
     </div>
