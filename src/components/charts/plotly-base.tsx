@@ -46,7 +46,6 @@ const PlotlyChart: React.FC<LineProps> = ({
   useEffect(() => {
     if (!cardRef.current) return;
     const resizeObserver = new ResizeObserver(() => {
-      // Do what you want to do when the size of the element changes
       const Lib = Plotly as { Plots: { resize: (el: string) => void } };
       Lib.Plots.resize(title || ylabel);
     });
@@ -58,6 +57,14 @@ const PlotlyChart: React.FC<LineProps> = ({
     autosize: true,
     font: {
       family: "sans-serif",
+      color:
+        theme === "dark" ? "rgba(150, 150, 150, 0.4)" : "rgb(50, 50, 50, 0.4)",
+    },
+    modebar: {
+      bgcolor: "rgba(0, 0, 0, 0)",
+      orientation: "v",
+      color: theme === "dark" ? "#fff" : "#000",
+      activecolor: theme === "dark" ? "#fff" : "#000",
     },
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     paper_bgcolor: "rgba(0, 0, 0, 0)",
@@ -70,9 +77,11 @@ const PlotlyChart: React.FC<LineProps> = ({
     },
     xaxis: {
       showgrid: false,
+      linecolor: "rgba(0, 0, 0, 0)",
       title: {
         text: xlabel,
       },
+      hoverformat: ".2f",
     },
     yaxis: {
       gridcolor:
@@ -80,9 +89,12 @@ const PlotlyChart: React.FC<LineProps> = ({
           ? "#rgba(75, 85, 99, 0.4)"
           : "rgba(209, 213, 219, 0.4)",
       showgrid: true,
+      linecolor: "rgba(0, 0, 0, 0)",
+      griddash: "dot",
       title: {
         text: ylabel,
       },
+      hoverformat: ".2f",
     },
   };
 
@@ -142,13 +154,47 @@ const PlotlyChart: React.FC<LineProps> = ({
               marker: { color: "#6b64ef" },
               fill: "tozeroy",
               line: { shape: mapCurveStyle(curveStyle) },
-
               type: "scattergl",
             },
           ]}
           layout={layout as object}
           useResizeHandler
           className="h-full w-full"
+          config={{
+            responsive: true,
+            displaylogo: false,
+            modeBarButtonsToRemove: [
+              "zoom2d",
+              "pan2d",
+              "select2d",
+              "lasso2d",
+              "zoomIn2d",
+              "zoomOut2d",
+              "autoScale2d",
+              // "resetScale2d",
+              "hoverClosestCartesian",
+              "hoverCompareCartesian",
+              "zoom3d",
+              "pan3d",
+              "resetCameraDefault3d",
+              "resetCameraLastSave3d",
+              "hoverClosest3d",
+              "orbitRotation",
+              "tableRotation",
+              "zoomInGeo",
+              "zoomOutGeo",
+              "resetGeo",
+              "hoverClosestGeo",
+              // "toImage",
+              "sendDataToCloud",
+              "hoverClosestGl2d",
+              "hoverClosestPie",
+              "toggleHover",
+              "resetViews",
+              "toggleSpikelines",
+              "resetViewMapbox",
+            ],
+          }}
         />
       </div>
     </Card>
