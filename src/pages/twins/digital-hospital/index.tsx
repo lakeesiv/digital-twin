@@ -4,7 +4,7 @@ import Layout from "~/components/layout";
 import { BoneStationData } from "~/components/twins/digital-hospital/types";
 
 const PlotlyChartNoSSR = dynamic(
-  () => import("~/components/charts/plotly-base"),
+  () => import("~/components/charts/plotly-line"),
   {
     ssr: false,
   }

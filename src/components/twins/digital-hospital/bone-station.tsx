@@ -1,13 +1,12 @@
 import React from "react";
 import type { BoneStationData } from "./types";
-import LineChart from "~/components/charts/line";
 import { Card, Metric, ProgressBar, Grid, Text } from "@tremor/react";
 import { roundToDP } from "~/utils";
 import RowOrGrid from "~/components/layout/row-or-grid";
 import dynamic from "next/dynamic";
 
 const PlotlyChartNoSSR = dynamic(
-  () => import("~/components/charts/plotly-base"),
+  () => import("~/components/charts/plotly-line"),
   {
     ssr: false,
   }
@@ -41,8 +40,14 @@ const BoneStation = ({ data }: BoneStationProps) => {
           </Card>
         </Grid>
         <RowOrGrid>
-          <PlotlyChartNoSSR defaultCurveStyle="step" {...data.busy} />
-          <PlotlyChartNoSSR defaultCurveStyle="step" {...data.waiting} />
+          <PlotlyChartNoSSR
+            defaultCurveStyle="step"
+            data={{ x: data.busy.data.x, y: [data.busy.data.y] }}
+            xlabel="Time (hours)"
+            ylabel="Number of patients"
+            labels={["Number of patients"]}
+          />
+          {/* <PlotlyChartNoSSR defaultCurveStyle="step" {...data.waiting} /> */}
         </RowOrGrid>
       </div>
     </div>
