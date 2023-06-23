@@ -3,6 +3,12 @@ import { Download, Sheet, Upload } from "lucide-react";
 import { type ChangeEvent, useState, useRef } from "react";
 import { Button } from "~/ui/button";
 import { Input } from "~/ui/input";
+import {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
+} from "~/ui/tooltip";
 
 interface FileUploadMultipleProps {
   multiple?: boolean;
@@ -79,21 +85,28 @@ function FileUploadMultiple({ multiple }: FileUploadMultipleProps) {
 const FileRepresentation = ({ file }: { file: File }) => {
   return (
     <Card className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-950">
-      <Icon
-        icon={Sheet}
-        className="transform cursor-pointer rounded-md bg-green-600 p-2
-		text-green-50 transition-all hover:scale-110 dark:text-green-50
-		"
-        onClick={() => {
-          // download file object
-          const url = URL.createObjectURL(file);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = file.name;
-          document.body.appendChild(a);
-          a.click();
-        }}
-      />
+      <TooltipProvider>
+        <Tooltip delayDuration={100}>
+          <TooltipTrigger>
+            <Icon
+              icon={Sheet}
+              className="transform cursor-pointer rounded-md bg-green-600 p-2
+			text-green-50 transition-all hover:scale-110 dark:text-green-50
+			"
+              onClick={() => {
+                // download file object
+                const url = URL.createObjectURL(file);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = file.name;
+                document.body.appendChild(a);
+                a.click();
+              }}
+            />
+          </TooltipTrigger>
+          <TooltipContent>Click me to download</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <div className="flex flex-col">
         <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
           {file.name}
