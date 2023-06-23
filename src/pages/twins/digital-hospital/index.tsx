@@ -9,7 +9,7 @@ import {
 import { Square, SquareStack } from "lucide-react";
 import { useState } from "react";
 import Layout from "~/components/layout";
-
+import FileUploadMultiple from "~/components/twins/digital-hospital/fileinput";
 export default function Home() {
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -44,7 +44,9 @@ export default function Home() {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Card className="p-40" />
+            <Card className="p-40">
+              <FileUploadMultiple />
+            </Card>
           </TabPanel>
           <TabPanel>
             <Card className="p-40" />
