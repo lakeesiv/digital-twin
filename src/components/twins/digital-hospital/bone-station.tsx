@@ -53,8 +53,9 @@ const BoneStation = ({ data }: BoneStationProps) => {
             xlabel="Time (hours)"
             ylabel="Number of patients"
             labels={["Number of patients"]}
+            title="Number of patients over time"
+            divId="bone-station-busy"
           />
-          {/* <PlotlyChartNoSSR defaultCurveStyle="step" {...data.waiting} /> */}
           <PlotlyBarChartNoSSR
             data={{
               labels: ["Target", "Actual"],
@@ -67,6 +68,32 @@ const BoneStation = ({ data }: BoneStationProps) => {
             }}
             xlabel="Day of the week"
             ylabel="Number of patients"
+            title="Number of patients per day of the week"
+            divId="bone-station-days"
+          />
+          <PlotlyBarChartNoSSR
+            data={{
+              labels: ["Target", "Actual"],
+              y: [
+                [1, 2],
+                [1, 4],
+                [1, 5],
+              ],
+              x: ["Monday", "Tuesday", "Wednesday"],
+            }}
+            xlabel="Day of the week"
+            ylabel="Number of patients"
+            title="Number of patients per day of the week"
+            divId="bone-station-days-2"
+          />
+          <PlotlyChartNoSSR
+            defaultCurveStyle="step"
+            data={{ x: data.busy.data.x, y: [data.busy.data.y] }}
+            xlabel="Time (hours)"
+            ylabel="Number of patients"
+            labels={["Number of patients"]}
+            title="Number of patients over time"
+            divId="bone-station-busy-4"
           />
         </RowOrGrid>
       </div>

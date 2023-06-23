@@ -12,6 +12,7 @@ const Plot = createPlotlyComponent(Plotly as object);
 
 interface BarProps extends BarGraphData {
   cardProps?: React.ComponentProps<typeof Card>;
+  divId: string;
 }
 
 const PlotlyChart: React.FC<BarProps> = ({
@@ -20,6 +21,7 @@ const PlotlyChart: React.FC<BarProps> = ({
   title,
   cardProps,
   data,
+  divId,
 }) => {
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
@@ -28,11 +30,11 @@ const PlotlyChart: React.FC<BarProps> = ({
     if (!cardRef.current) return;
     const resizeObserver = new ResizeObserver(() => {
       const Lib = Plotly as { Plots: { resize: (el: string) => void } };
-      Lib.Plots.resize(title || ylabel);
+      Lib.Plots.resize(divId);
     });
     resizeObserver.observe(cardRef.current);
     return () => resizeObserver.disconnect(); // clean up
-  }, [title, ylabel]);
+  }, [divId]);
 
   const layout: Partial<Plotly.Layout> = {
     autosize: true,
@@ -120,7 +122,7 @@ const PlotlyChart: React.FC<BarProps> = ({
       </Flex>
       <div className="mx-auto mt-8 h-[250px] ring-0">
         <Plot
-          divId={title || ylabel}
+          divId={divId}
           data={plottingData as object[]}
           layout={layout as object}
           useResizeHandler

@@ -22,6 +22,7 @@ const Plot = createPlotlyComponent(Plotly as object);
 interface LineProps extends LineGraphData {
   cardProps?: React.ComponentProps<typeof Card>;
   defaultCurveStyle?: "linear" | "step" | "natural";
+  divId: string;
 }
 
 const PlotlyChart: React.FC<LineProps> = ({
@@ -32,6 +33,7 @@ const PlotlyChart: React.FC<LineProps> = ({
   labels,
   data,
   defaultCurveStyle = "linear",
+  divId,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -45,11 +47,11 @@ const PlotlyChart: React.FC<LineProps> = ({
     if (!cardRef.current) return;
     const resizeObserver = new ResizeObserver(() => {
       const Lib = Plotly as { Plots: { resize: (el: string) => void } };
-      Lib.Plots.resize(title || ylabel);
+      Lib.Plots.resize(divId);
     });
     resizeObserver.observe(cardRef.current);
     return () => resizeObserver.disconnect(); // clean up
-  }, [title, ylabel]);
+  }, [divId]);
 
   useEffect(() => {
     setMounted(true);
@@ -164,7 +166,7 @@ const PlotlyChart: React.FC<LineProps> = ({
       </Flex>
       <div className="mx-auto mt-8 h-[250px] ring-0">
         <Plot
-          divId={title || ylabel}
+          divId={divId}
           data={plottingData as object[]}
           layout={layout as object}
           useResizeHandler
