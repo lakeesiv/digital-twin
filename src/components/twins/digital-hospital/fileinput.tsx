@@ -1,6 +1,10 @@
 import { type ChangeEvent, useState } from "react";
 
-function FileUploadMultiple() {
+interface FileUploadMultipleProps {
+  multiple?: boolean;
+}
+
+function FileUploadMultiple({ multiple }: FileUploadMultipleProps) {
   const [fileList, setFileList] = useState<FileList | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +40,7 @@ function FileUploadMultiple() {
       <input
         type="file"
         onChange={handleFileChange}
-        multiple
+        multiple={multiple}
         accept=".xls,.xlsx"
       />
 

@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/ui/select";
+
 export default function Home() {
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -57,14 +58,13 @@ export default function Home() {
           <TabPanel>
             <Card className="px-8">
               <Title>Single File Upload</Title>
-
               <FileUploadMultiple />
             </Card>
           </TabPanel>
           <TabPanel>
             <Card className="px-8">
               <Title>Multi File Upload</Title>
-              <FileUploadMultiple />
+              <FileUploadMultiple multiple />
             </Card>
           </TabPanel>
         </TabPanels>
