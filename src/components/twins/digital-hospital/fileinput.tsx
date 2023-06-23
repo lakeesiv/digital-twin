@@ -1,5 +1,5 @@
-import { Card, Icon } from "@tremor/react";
-import { Download, Sheet, Upload } from "lucide-react";
+import { Callout, Card, Icon } from "@tremor/react";
+import { AlertTriangle, Download, Sheet, Upload } from "lucide-react";
 import { type ChangeEvent, useState, useRef } from "react";
 import { Button } from "~/ui/button";
 import { Input } from "~/ui/input";
@@ -71,12 +71,22 @@ function FileUploadMultiple({ multiple }: FileUploadMultipleProps) {
         />
       </div>
 
-      {files.length > 0 && (
+      {files.length > 2 && files.length < 6 && (
         <div className={"grid gap-4" + " grid-cols-" + String(files.length)}>
           {files.map((file, i) => (
             <FileRepresentation key={i} file={file} />
           ))}
         </div>
+      )}
+      {(files.length < 2 || files.length > 5) && (
+        <Callout
+          className="mt-4 h-12"
+          title="Invalid Number of Files! Please select between 2 to 5 files."
+          icon={AlertTriangle}
+          color="rose"
+        >
+          Invalid Number of Files! Please select between 2 to 5 files.
+        </Callout>
       )}
     </div>
   );

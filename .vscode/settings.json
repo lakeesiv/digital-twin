@@ -1,6 +1,6 @@
 {
   "files.exclude": {
-    ".eslintrc.cjs": true,
+    // ".eslintrc.cjs": true,
     ".next": true,
     "next-env.d.ts": true,
     "next.config.mjs": true,
