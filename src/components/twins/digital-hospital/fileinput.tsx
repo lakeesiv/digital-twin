@@ -1,5 +1,5 @@
 import { Card, Icon } from "@tremor/react";
-import { Sheet, Upload } from "lucide-react";
+import { Download, Sheet, Upload } from "lucide-react";
 import { type ChangeEvent, useState, useRef } from "react";
 import { Button } from "~/ui/button";
 import { Input } from "~/ui/input";
@@ -81,7 +81,18 @@ const FileRepresentation = ({ file }: { file: File }) => {
     <Card className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-950">
       <Icon
         icon={Sheet}
-        className="rounded-md bg-green-600 p-2 text-green-50 dark:text-green-50"
+        className="transform cursor-pointer rounded-md bg-green-600 p-2
+		text-green-50 transition-all hover:scale-110 dark:text-green-50
+		"
+        onClick={() => {
+          // download file object
+          const url = URL.createObjectURL(file);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = file.name;
+          document.body.appendChild(a);
+          a.click();
+        }}
       />
       <div className="flex flex-col">
         <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
