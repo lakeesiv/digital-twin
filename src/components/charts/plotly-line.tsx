@@ -41,7 +41,6 @@ const PlotlyChart: React.FC<LineProps> = ({
 
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     if (!cardRef.current) return;
@@ -52,12 +51,6 @@ const PlotlyChart: React.FC<LineProps> = ({
     resizeObserver.observe(cardRef.current);
     return () => resizeObserver.disconnect(); // clean up
   }, [divId]);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
 
   const layout: Partial<Plotly.Layout> = {
     autosize: true,
