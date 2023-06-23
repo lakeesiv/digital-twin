@@ -1,6 +1,7 @@
 import { Card, Icon } from "@tremor/react";
 import { Sheet, Upload } from "lucide-react";
-import { type ChangeEvent, useState } from "react";
+import { type ChangeEvent, useState, useRef } from "react";
+import { Button } from "~/ui/button";
 import { Input } from "~/ui/input";
 
 interface FileUploadMultipleProps {
@@ -13,6 +14,8 @@ function FileUploadMultiple({ multiple }: FileUploadMultipleProps) {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFileList(e.target.files);
   };
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleUploadClick = () => {
     if (!fileList) {
@@ -39,13 +42,28 @@ function FileUploadMultiple({ multiple }: FileUploadMultipleProps) {
   const files = fileList ? [...fileList] : [];
 
   return (
-    <div className="space-y-4">
-      <Input
-        type="file"
-        onChange={handleFileChange}
-        multiple={multiple}
-        accept=".xls,.xlsx"
-      />
+    <div className="mt-4 space-y-4">
+      <div className="flex items-center space-x-4">
+        {files.length > 0 && (
+          <Button
+            variant="destructive"
+            onClick={() => {
+              if (!inputRef.current) return;
+              inputRef.current.value = "";
+              setFileList(null);
+            }}
+          >
+            Remove
+          </Button>
+        )}
+        <Input
+          ref={inputRef}
+          type="file"
+          onChange={handleFileChange}
+          multiple={multiple}
+          accept=".xls,.xlsx"
+        />
+      </div>
 
       {files.length > 0 && (
         <div className={"grid gap-4" + " grid-cols-" + String(files.length)}>
@@ -54,8 +72,6 @@ function FileUploadMultiple({ multiple }: FileUploadMultipleProps) {
           ))}
         </div>
       )}
-
-      <button onClick={handleUploadClick}>Upload</button>
     </div>
   );
 }
