@@ -33,6 +33,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/ui/select";
+import { useToast } from "~/ui/use-toast";
 // import { Button } from "~/ui/button";
 
 const noWhitespace = (value: string) => !/\s/.test(value);
@@ -45,11 +46,12 @@ const formSchema = z.object({
     .nonempty()
     .refine(noWhitespace, "No whitespace allowed in Job ID"),
   weeks: z.number().int().min(1).max(10),
-  files: z.custom<FileList>(),
+  files: z.custom<FileList>().nullable(),
 });
 
 export default function Home() {
   const [tabIndex, setTabIndex] = useState(0);
+  const toast = useToast();
 
   const ProcessForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,9 +60,29 @@ export default function Home() {
     },
   });
 
+  const fileList = ProcessForm.watch("files");
+  const setFileList = (files: FileList | null) => {
+    ProcessForm.setValue("files", files);
+  };
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    if (!values.files) {
+      toast.toast({
+        title: "No files selected",
+        description: "Please select files to upload",
+        variant: "destructive",
+      });
+    } else {
+      toast.toast({
+        title: "Data",
+        description: (
+          <span className="whitespace-break-spaces font-mono">
+            {JSON.stringify(values, null, 2)}
+          </span>
+        ),
+      });
+    }
+
     console.log(values);
   }
 
@@ -97,7 +119,10 @@ export default function Home() {
           <TabPanel>
             <Card className="px-8">
               <Title>Single File Upload</Title>
-              <FileUploadMultiple />
+              <FileUploadMultiple
+                fileList={fileList}
+                setFileList={setFileList}
+              />
             </Card>
           </TabPanel>
           <TabPanel>
@@ -107,18 +132,17 @@ export default function Home() {
                 title="Please name the files in the following format: 1.xlsx, 2.xlsx, 3.xlsx, 4.xlsx, 5.xlsx for the scenario number"
                 className="my-4 bg-blue-100 text-blue-900 dark:bg-blue-950 dark:text-blue-200"
               ></Callout>
-              <FileUploadMultiple multiple />
+              <FileUploadMultiple
+                multiple
+                fileList={fileList}
+                setFileList={setFileList}
+              />
             </Card>
           </TabPanel>
         </TabPanels>
       </TabGroup>
       <Form {...ProcessForm}>
         <form
-          // onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-          //   e.preventDefault();
-          //   console.log(ProcessForm.getValues());
-          //   ProcessForm.handleSubmit(onSubmit);
-          // }}
           onSubmit={(e) => {
             void ProcessForm.handleSubmit(onSubmit)(e);
           }}

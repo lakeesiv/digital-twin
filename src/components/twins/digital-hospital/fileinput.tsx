@@ -1,6 +1,6 @@
 import { Callout, Card, Icon } from "@tremor/react";
 import { AlertTriangle, Sheet } from "lucide-react";
-import { useRef, useState, type ChangeEvent } from "react";
+import { useRef, type ChangeEvent } from "react";
 import { Button } from "~/ui/button";
 import { Input } from "~/ui/input";
 import {
@@ -12,37 +12,41 @@ import {
 
 interface FileUploadMultipleProps {
   multiple?: boolean;
+  fileList: FileList | null;
+  setFileList: (fileList: FileList | null) => void;
 }
 
-function FileUploadMultiple({ multiple }: FileUploadMultipleProps) {
-  const [fileList, setFileList] = useState<FileList | null>(null);
-
+function FileUploadMultiple({
+  multiple,
+  fileList,
+  setFileList,
+}: FileUploadMultipleProps) {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFileList(e.target.files);
   };
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleUploadClick = () => {
-    if (!fileList) {
-      return;
-    }
+  // const handleUploadClick = () => {
+  //   if (!fileList) {
+  //     return;
+  //   }
 
-    // 👇 Create new FormData object and append files
-    const data = new FormData();
-    files.forEach((file, i) => {
-      data.append(`file-${i}`, file, file.name);
-    });
+  //   // 👇 Create new FormData object and append files
+  //   const data = new FormData();
+  //   files.forEach((file, i) => {
+  //     data.append(`file-${i}`, file, file.name);
+  //   });
 
-    // 👇 Uploading the files using the fetch API to the server
-    // fetch("https://httpbin.org/post", {
-    //   method: "POST",
-    //   body: data,
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data))
-    //   .catch((err) => console.error(err));
-  };
+  //   // 👇 Uploading the files using the fetch API to the server
+  //   // fetch("https://httpbin.org/post", {
+  //   //   method: "POST",
+  //   //   body: data,
+  //   // })
+  //   //   .then((res) => res.json())
+  //   //   .then((data) => console.log(data))
+  //   //   .catch((err) => console.error(err));
+  // };
 
   // 👇 files is not an array, but it's iterable, spread to get an array of files
   const files = fileList ? [...fileList] : [];
@@ -92,13 +96,7 @@ function FileUploadMultiple({ multiple }: FileUploadMultipleProps) {
   );
 }
 
-const FileRepresentation = ({
-  file,
-  index,
-}: {
-  file: File;
-  index?: number;
-}) => {
+const FileRepresentation = ({ file }: { file: File; index?: number }) => {
   return (
     <Card className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-950">
       <TooltipProvider>

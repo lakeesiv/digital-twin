@@ -9,6 +9,6 @@
   "rsc": false,
   "aliases": {
     "utils": "src/utils/cn",
-    "components": "src/ui"
+    "components": "src/"
   }
 }
