@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import createPlotlyComponent from "react-plotly.js/factory";
 import { Button } from "~/ui/button";
 import type { BarGraphData } from "./types";
+import { getColor } from "./utils";
 
 const Plot = createPlotlyComponent(Plotly as object);
 
@@ -84,9 +85,10 @@ const PlotlyChart: React.FC<BarProps> = ({
     plottingData.push({
       x: data.x,
       y: data.y[i],
-      marker: { color: "#6b64ef" },
+      marker: {
+        color: getColor(i),
+      },
       type: "bar",
-      fill: "tozeroy",
       name: data.labels[i],
     });
   }

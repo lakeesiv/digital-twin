@@ -15,6 +15,7 @@ import {
 import { Button } from "~/ui/button";
 import { Download } from "lucide-react";
 import type { LineGraphData } from "./types";
+import { getColor } from "./utils";
 
 const Plot = createPlotlyComponent(Plotly as object);
 
@@ -107,7 +108,7 @@ const PlotlyChart: React.FC<LineProps> = ({
     plottingData.push({
       x: data.x,
       y: data.y[i],
-      marker: { color: "#6b64ef" },
+      marker: { color: getColor(i) },
       fill: "tozeroy",
       line: { shape: mapCurveStyle(curveStyle) },
       type: "scattergl",
