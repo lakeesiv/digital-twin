@@ -1,5 +1,11 @@
-import { Flex, Title } from "@tremor/react";
+import {
+  DateRangePicker,
+  Flex,
+  type DateRangePickerValue,
+} from "@tremor/react";
 import { LayoutGrid, Rows } from "lucide-react";
+import { useState } from "react";
+import FacetedFilterButton from "~/ui/facted-filter-button";
 import {
   Select,
   SelectContent,
@@ -10,9 +16,6 @@ import {
   SelectValue,
 } from "~/ui/select";
 import TimeSeriesLine from "./charts/timeseries-line";
-import { useEffect, useState } from "react";
-import { DateRangePicker, type DateRangePickerValue } from "@tremor/react";
-import FacetedFilterButton from "~/ui/facted-filter-button";
 
 const generateData = () => {
   type Datapoint = {
@@ -118,7 +121,31 @@ export default function Example() {
   );
 }
 
-const ALL_COLORS = [
+type TremorColors =
+  | "red"
+  | "green"
+  | "orange"
+  | "pink"
+  | "lime"
+  | "cyan"
+  | "purple"
+  | "violet"
+  | "amber"
+  | "emerald"
+  | "teal"
+  | "indigo"
+  | "sky"
+  | "blue"
+  | "yellow"
+  | "fuchsia"
+  | "rose"
+  | "slate"
+  | "gray"
+  | "zinc"
+  | "neutral"
+  | "stone";
+
+const ALL_COLORS: TremorColors[] = [
   "red",
   "green",
   "orange",
@@ -139,7 +166,7 @@ const ALL_COLORS = [
 ];
 
 const getColor = (index: number) => {
-  return ALL_COLORS[index % ALL_COLORS.length];
+  return ALL_COLORS[index % ALL_COLORS.length] as TremorColors;
 };
 
 const capaitalize = (str: string) => {
