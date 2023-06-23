@@ -2,7 +2,7 @@ import { Card, Flex, Title } from "@tremor/react";
 import { Download } from "lucide-react";
 import { useTheme } from "next-themes";
 import Plotly from "plotly.js-cartesian-dist-min";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import createPlotlyComponent from "react-plotly.js/factory";
 import { Button } from "~/ui/button";
 import type { BarGraphData } from "./types";
@@ -22,7 +22,6 @@ const PlotlyChart: React.FC<BarProps> = ({
 }) => {
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     if (!cardRef.current) return;
@@ -33,12 +32,6 @@ const PlotlyChart: React.FC<BarProps> = ({
     resizeObserver.observe(cardRef.current);
     return () => resizeObserver.disconnect(); // clean up
   }, [title, ylabel]);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
 
   const layout: Partial<Plotly.Layout> = {
     autosize: true,
@@ -57,7 +50,7 @@ const PlotlyChart: React.FC<BarProps> = ({
     paper_bgcolor: "rgba(0, 0, 0, 0)",
     margin: {
       l: 40,
-      r: 20,
+      r: 0,
       b: 40,
       t: 10,
       pad: 0,
@@ -93,6 +86,7 @@ const PlotlyChart: React.FC<BarProps> = ({
       y: data.y[i],
       marker: { color: "#6b64ef" },
       type: "bar",
+      fill: "tozeroy",
       name: data.labels[i],
     });
   }
