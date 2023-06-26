@@ -5,10 +5,20 @@ import Plotly from "plotly.js-cartesian-dist-min";
 import React, { useEffect } from "react";
 import createPlotlyComponent from "react-plotly.js/factory";
 import { Button } from "~/ui/button";
-import type { BarGraphData } from "./types";
 import { getColor } from "./utils";
 
 const Plot = createPlotlyComponent(Plotly as object);
+
+export type BarGraphData = {
+  title?: string; // optional
+  xlabel: string;
+  ylabel: string;
+  data: {
+    x: string[]; // categories
+    labels: string[]; // each label is a line ["label1", "label2", "label3"]
+    y: number[][]; // each array is a line [[label1_val, label2val, label3val], [...], [...]]
+  };
+};
 
 interface BarProps extends BarGraphData {
   cardProps?: React.ComponentProps<typeof Card>;

@@ -14,10 +14,20 @@ import {
 } from "~/ui/select";
 import { Button } from "~/ui/button";
 import { Download } from "lucide-react";
-import type { LineGraphData } from "./types";
 import { getColor } from "./utils";
 
 const Plot = createPlotlyComponent(Plotly as object);
+
+export type LineGraphData = {
+  title?: string; // optional
+  xlabel: string;
+  ylabel: string;
+  data: {
+    x: number[];
+    y: number[][] | number[]; // each array is a line [[...], [...], [...]]  or single line [...]
+  };
+  labels: string[]; // each label is a line ["label1", "label2", "label3"]
+};
 
 interface LineProps extends LineGraphData {
   cardProps?: React.ComponentProps<typeof Card>;
