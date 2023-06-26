@@ -5,19 +5,13 @@ import { roundToDP } from "~/utils";
 import RowOrGrid from "~/components/layout/row-or-grid";
 import dynamic from "next/dynamic";
 
-const PlotlyChartNoSSR = dynamic(
-  () => import("~/components/charts/plotly-line"),
-  {
-    ssr: false,
-  }
-);
+const LineChart = dynamic(() => import("~/components/charts/line"), {
+  ssr: false,
+});
 
-const PlotlyBarChartNoSSR = dynamic(
-  () => import("~/components/charts/plotly-bar"),
-  {
-    ssr: false,
-  }
-);
+const BarChart = dynamic(() => import("~/components/charts/bar"), {
+  ssr: false,
+});
 
 interface BoneStationProps {
   data: BoneStationData;
@@ -47,7 +41,7 @@ const BoneStation = ({ data }: BoneStationProps) => {
           </Card>
         </Grid>
         <RowOrGrid>
-          <PlotlyChartNoSSR
+          <LineChart
             defaultCurveStyle="step"
             data={{ x: data.busy.data.x, y: [data.busy.data.y] }}
             xlabel="Time (hours)"
@@ -56,7 +50,7 @@ const BoneStation = ({ data }: BoneStationProps) => {
             title="Number of patients over time"
             divId="bone-station-busy"
           />
-          <PlotlyBarChartNoSSR
+          <BarChart
             data={{
               labels: ["Target", "Actual"],
               y: [
@@ -71,7 +65,7 @@ const BoneStation = ({ data }: BoneStationProps) => {
             title="Number of patients per day of the week"
             divId="bone-station-days"
           />
-          <PlotlyChartNoSSR
+          <LineChart
             defaultCurveStyle="step"
             data={{ x: data.busy.data.x, y: [data.busy.data.y] }}
             xlabel="Time (hours)"
@@ -80,7 +74,7 @@ const BoneStation = ({ data }: BoneStationProps) => {
             title="Number of patients over time"
             divId="bone-station-busy-4"
           />
-          <PlotlyBarChartNoSSR
+          <BarChart
             data={{
               labels: ["Target", "Actual"],
               y: [

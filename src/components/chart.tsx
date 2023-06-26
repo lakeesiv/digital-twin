@@ -17,12 +17,9 @@ import {
 } from "~/ui/select";
 import dynamic from "next/dynamic";
 
-const PlotlyChartNoSSR = dynamic(
-  () => import("~/components/charts/plotly-line"),
-  {
-    ssr: false,
-  }
-);
+const LineChart = dynamic(() => import("~/components/charts/line"), {
+  ssr: false,
+});
 
 const generateData = () => {
   type Result = {
@@ -143,7 +140,7 @@ export default function Example() {
             />
           );
         })} */}
-        <PlotlyChartNoSSR
+        <LineChart
           data={data.humidity}
           title="Humidity"
           xlabel="Time"
@@ -152,7 +149,7 @@ export default function Example() {
           labels={["Humidity"]}
           dateTime
         />
-        <PlotlyChartNoSSR
+        <LineChart
           data={data.temperature}
           title="Temperature"
           xlabel="Time"
@@ -161,7 +158,7 @@ export default function Example() {
           labels={["Temperature"]}
           dateTime
         />
-        <PlotlyChartNoSSR
+        <LineChart
           data={data.pressure}
           title="Pressure"
           xlabel="Time"
@@ -170,7 +167,7 @@ export default function Example() {
           labels={["Pressure"]}
           dateTime
         />
-        <PlotlyChartNoSSR
+        <LineChart
           data={{
             x: data.pressure.x,
             y: [data.pressure.y, data.humidity.y, data.temperature.y],
