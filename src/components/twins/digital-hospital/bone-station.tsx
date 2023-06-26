@@ -2,7 +2,7 @@ import React from "react";
 import type { BoneStationData } from "./types";
 import { Card, Metric, ProgressBar, Grid, Text } from "@tremor/react";
 import { roundToDP } from "~/utils";
-import RowOrGrid from "~/components/layout/row-or-grid";
+import GridLayout from "~/components/layout/grid-layout";
 import dynamic from "next/dynamic";
 
 const LineChart = dynamic(() => import("~/components/charts/line"), {
@@ -40,7 +40,7 @@ const BoneStation = ({ data }: BoneStationProps) => {
             />
           </Card>
         </Grid>
-        <RowOrGrid>
+        <GridLayout>
           <LineChart
             defaultCurveStyle="step"
             data={{ x: data.busy.data.x, y: [data.busy.data.y] }}
@@ -89,7 +89,7 @@ const BoneStation = ({ data }: BoneStationProps) => {
             title="Number of patients per day of the week"
             divId="bone-station-days-2"
           />
-        </RowOrGrid>
+        </GridLayout>
       </div>
     </div>
   );

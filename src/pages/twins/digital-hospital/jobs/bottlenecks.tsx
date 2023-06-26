@@ -9,7 +9,7 @@ import {
 } from "@tremor/react";
 import React from "react";
 import Layout from "~/components/layout";
-import RowOrGrid from "~/components/layout/row-or-grid";
+import GridLayout from "~/components/layout/grid-layout";
 import dynamic from "next/dynamic";
 import type { BarGraphData } from "~/components/charts/bar";
 import { roundToDP } from "~/utils";
@@ -23,7 +23,7 @@ const BottlenecksPage = () => {
   return (
     <Layout title="Bottlenecks">
       <h1 className="text-3xl font-bold">Turn Around Times</h1>
-      <RowOrGrid>
+      <GridLayout>
         <Card>
           <Title className="text-2xl">Percent Differences</Title>
           <Divider className="mb-0 mt-2" />
@@ -34,7 +34,7 @@ const BottlenecksPage = () => {
           extraBottomPadding={20}
           divId="tat-by-stage"
         ></BarChart>
-      </RowOrGrid>
+      </GridLayout>
       <h1 className="mt-8 text-3xl font-bold">Resource Allocation by Time</h1>
     </Layout>
   );

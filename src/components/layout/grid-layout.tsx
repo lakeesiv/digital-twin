@@ -1,5 +1,5 @@
 import { Flex } from "@tremor/react";
-import { LayoutGrid, Rows } from "lucide-react";
+import { Grid, LayoutGrid, Rows } from "lucide-react";
 import React, { useState } from "react";
 import {
   SelectContent,
@@ -11,18 +11,18 @@ import {
   SelectItem,
 } from "~/ui/select";
 
-interface RowOrGridProps {
-  defaultLayout?: "row" | "grid";
-  gridColumns?: number;
+interface GridLayoutProps {
+  gridColumns?: 1 | 2 | 3;
   children: React.ReactNode;
 }
 
-const RowOrGrid: React.FC<RowOrGridProps> = ({
+const GridLayout: React.FC<GridLayoutProps> = ({
   children,
-  defaultLayout = "grid",
   gridColumns = 2,
 }) => {
-  const [layout, setLayout] = useState<"row" | "grid">(defaultLayout || "grid");
+  const [numberOfColumns, setNumberOfColumns] = useState<1 | 2 | 3>(
+    gridColumns
+  );
 
   return (
     <div>
@@ -31,7 +31,7 @@ const RowOrGrid: React.FC<RowOrGridProps> = ({
         <div className="flex justify-center space-x-2">
           <Select
             onValueChange={(value) => {
-              setLayout(value as "row" | "grid");
+              setNumberOfColumns(parseInt(value) as 1 | 2 | 3);
             }}
           >
             <SelectTrigger className="h-[37px] w-[70px]">
@@ -40,11 +40,14 @@ const RowOrGrid: React.FC<RowOrGridProps> = ({
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Layout</SelectLabel>
-                <SelectItem value="row">
+                <SelectItem value="1">
                   <Rows size={18} />
                 </SelectItem>
-                <SelectItem value="grid">
+                <SelectItem value="2">
                   <LayoutGrid size={18} />
+                </SelectItem>
+                <SelectItem value="3">
+                  <Grid size={18} />
                 </SelectItem>
               </SelectGroup>
             </SelectContent>
@@ -53,8 +56,7 @@ const RowOrGrid: React.FC<RowOrGridProps> = ({
       </Flex>
       <div
         className={
-          "mx-auto grid  gap-4 pt-4 " +
-          (layout === "grid" ? `grid-cols-${gridColumns || 2}` : "grid-cols-1")
+          "mx-auto grid  gap-4 pt-4 " + `grid-cols-${numberOfColumns || 2}`
         }
       >
         {children}
@@ -63,4 +65,4 @@ const RowOrGrid: React.FC<RowOrGridProps> = ({
   );
 };
 
-export default RowOrGrid;
+export default GridLayout;
