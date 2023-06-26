@@ -75,7 +75,7 @@ const BarChart: React.FC<BarProps> = ({
   }
 
   return (
-    <Card className="mx-auto" {...cardProps} ref={cardRef}>
+    <Card className="mx-auto min-h-[300px]" {...cardProps} ref={cardRef}>
       <Flex>
         <Title>{title}</Title>
         <div className="flex justify-center">
@@ -99,7 +99,7 @@ const BarChart: React.FC<BarProps> = ({
           </Button>
         </div>
       </Flex>
-      <div className="mx-auto mt-8 h-[250px] ring-0">
+      <div className="mx-auto mt-8 h-full pb-16 ring-0">
         <Plot
           divId={divId}
           data={plottingData as object[]}
