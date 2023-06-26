@@ -7,7 +7,7 @@ import Layout from "~/components/layout";
 const Index = () => {
   return (
     <Layout title="Digital Hospital">
-      <div className="flex h-full w-full space-x-12  ">
+      <div className="flex h-full w-full space-x-12">
         <Card className="transform transition-transform duration-300 ease-in-out hover:scale-105">
           <Link href="/twins/digital-hospital/jobs" className="flex space-x-4">
             <Icon

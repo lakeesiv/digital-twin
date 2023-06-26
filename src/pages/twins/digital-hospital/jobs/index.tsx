@@ -15,10 +15,6 @@ import StatusBage from "~/components/status-badge";
 const JobsPage = () => {
   return (
     <Layout title="Jobs">
-      <Callout
-        className="my-4"
-        title="Please wait around 20 mins for the job to complete"
-      />
       <div className="space-y-4">
         <JobsEntry title="job-3" status="in-progress" type="process" />
         <JobsEntry title="job-2" status="completed" type="process" />
@@ -95,6 +91,12 @@ const JobsEntry: React.FC<JobsEntryProps> = ({ title, status, type }) => {
           )}
         </div>
       </div>
+      {status === "in-progress" && (
+        <Callout
+          className="mt-8"
+          title="Please wait around 20 mins for the job to complete"
+        />
+      )}
     </Card>
   );
 };
