@@ -9,7 +9,7 @@ interface StatusBageProps {
 
 const StatusBage: React.FC<StatusBageProps> = ({ color, message, status }) => {
   return (
-    <div className="flex items-center justify-center space-x-3 rounded-xl p-2">
+    <div className="flex items-center justify-center space-x-3 rounded-xl ">
       {/* Text */}
       <Text>{message}</Text>
       {/* Status Icon */}
