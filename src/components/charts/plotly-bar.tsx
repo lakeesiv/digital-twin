@@ -36,7 +36,7 @@ interface BarProps extends BarGraphData {
  * @param {string} props.divId - The ID of the div element that will contain the chart.
  * @returns {JSX.Element} A Plotly chart component that displays a bar graph.
  */
-const PlotlyChart: React.FC<BarProps> = ({
+const BarChart: React.FC<BarProps> = ({
   ylabel,
   xlabel,
   title,
@@ -206,4 +206,4 @@ const chartConfig = {
   ],
 };
 
-export default PlotlyChart;
+export default BarChart;
