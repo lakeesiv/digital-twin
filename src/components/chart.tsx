@@ -76,6 +76,7 @@ export default function Example() {
     "humidity",
     "temperature",
     "pressure",
+    "all",
   ]);
 
   // useEffect(() => {
@@ -87,7 +88,7 @@ export default function Example() {
       <Flex>
         <div>
           <FacetedFilterButton
-            filters={["humidity", "temperature", "pressure"]}
+            filters={["humidity", "temperature", "pressure", "all"]}
             selectedFilters={filters}
             setSelectedFilters={setFilters}
             title="Filter"
@@ -140,46 +141,54 @@ export default function Example() {
             />
           );
         })} */}
-        <LineChart
-          data={data.humidity}
-          title="Humidity"
-          xlabel="Time"
-          ylabel="Humidity"
-          divId="humidity"
-          labels={["Humidity"]}
-          dateTime
-        />
-        <LineChart
-          data={data.temperature}
-          title="Temperature"
-          xlabel="Time"
-          ylabel="Temperature"
-          divId="temperature"
-          labels={["Temperature"]}
-          dateTime
-        />
-        <LineChart
-          data={data.pressure}
-          title="Pressure"
-          xlabel="Time"
-          ylabel="Pressure"
-          divId="pressure"
-          labels={["Pressure"]}
-          dateTime
-        />
-        <LineChart
-          data={{
-            x: data.pressure.x,
-            y: [data.pressure.y, data.humidity.y, data.temperature.y],
-          }}
-          title="All"
-          xlabel="Time"
-          ylabel="Params"
-          divId="all"
-          labels={["Pressure", "Humidity", "Temperature"]}
-          dateTime
-          fill={false}
-        />
+        {filters.includes("humidity") && (
+          <LineChart
+            data={data.humidity}
+            title="Humidity"
+            xlabel="Time"
+            ylabel="Humidity"
+            divId="humidity"
+            labels={["Humidity"]}
+            dateTime
+          />
+        )}
+        {filters.includes("temperature") && (
+          <LineChart
+            data={data.temperature}
+            title="Temperature"
+            xlabel="Time"
+            ylabel="Temperature"
+            divId="temperature"
+            labels={["Temperature"]}
+            dateTime
+          />
+        )}
+        {filters.includes("pressure") && (
+          <LineChart
+            data={data.pressure}
+            title="Pressure"
+            xlabel="Time"
+            ylabel="Pressure"
+            divId="pressure"
+            labels={["Pressure"]}
+            dateTime
+          />
+        )}
+        {filters.includes("all") && (
+          <LineChart
+            data={{
+              x: data.pressure.x,
+              y: [data.pressure.y, data.humidity.y, data.temperature.y],
+            }}
+            title="All"
+            xlabel="Time"
+            ylabel="Params"
+            divId="all"
+            labels={["Pressure", "Humidity", "Temperature"]}
+            dateTime
+            fill={false}
+          />
+        )}
       </div>
     </div>
   );
