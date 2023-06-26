@@ -8,7 +8,9 @@
     "pnpm-lock.yaml": true,
     "postcss.config.cjs": true,
     "prettier.config.cjs": true,
-    "public": true
+    "public": true,
+    "**/*.d.ts": true,
+    "components.json": true
     // "tsconfig.json": true
   },
   "flake8.args": ["--max-line-length=120", "--ignore=E303,E225,W293,W391"]
