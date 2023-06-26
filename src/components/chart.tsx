@@ -15,27 +15,54 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/ui/select";
-import TimeSeriesLine from "./charts/timeseries-line";
+import dynamic from "next/dynamic";
+
+const PlotlyChartNoSSR = dynamic(
+  () => import("~/components/charts/plotly-line"),
+  {
+    ssr: false,
+  }
+);
 
 const generateData = () => {
-  type Datapoint = {
-    humidity: number;
-    temperature: number;
-    pressure: number;
-    timestamp: number;
+  type Result = {
+    humidity: Data;
+    temperature: Data;
+    pressure: Data;
   };
 
-  const datapoints: Datapoint[] = [];
+  type Data = {
+    x: number[];
+    y: number[];
+  };
+
+  const res: Result = {
+    humidity: {
+      x: [],
+      y: [],
+    },
+    temperature: {
+      x: [],
+      y: [],
+    },
+    pressure: {
+      x: [],
+      y: [],
+    },
+  };
 
   for (let i = 0; i < 100; i++) {
-    datapoints.push({
-      humidity: Math.random() * 100,
-      temperature: Math.random() * 100,
-      pressure: Math.random() * 100,
-      timestamp: Date.now() - i * 1000 * 60 * 60 * 24,
-    });
+    const x = Date.now() - i * 1000 * 60 * 60 * 24;
+    res.humidity.x.push(x);
+    res.humidity.y.push(Math.random() * 100);
+
+    res.temperature.x.push(x);
+    res.temperature.y.push(Math.random() * 100);
+
+    res.pressure.x.push(x);
+    res.pressure.y.push(Math.random() * 100);
   }
-  return datapoints;
+  return res;
 };
 
 const data = generateData();
@@ -104,7 +131,7 @@ export default function Example() {
           (layout === "grid" ? "grid-cols-2" : "grid-cols-1")
         }
       >
-        {filters.map((filter, i) => {
+        {/* {filters.map((filter, i) => {
           return (
             <TimeSeriesLine
               key={filter}
@@ -115,60 +142,35 @@ export default function Example() {
               title={capaitalize(filter)}
             />
           );
-        })}
+        })} */}
+        <PlotlyChartNoSSR
+          data={data.humidity}
+          title="Humidity"
+          xlabel="Time"
+          ylabel="Humidity"
+          divId="humidity"
+          labels={["Humidity"]}
+          dateTime
+        />
+        <PlotlyChartNoSSR
+          data={data.temperature}
+          title="Temperature"
+          xlabel="Time"
+          ylabel="Temperature"
+          divId="temperature"
+          labels={["Temperature"]}
+          dateTime
+        />
+        <PlotlyChartNoSSR
+          data={data.pressure}
+          title="Pressure"
+          xlabel="Time"
+          ylabel="Pressure"
+          divId="pressure"
+          labels={["Pressure"]}
+          dateTime
+        />
       </div>
     </div>
   );
 }
-
-type TremorColors =
-  | "red"
-  | "green"
-  | "orange"
-  | "pink"
-  | "lime"
-  | "cyan"
-  | "purple"
-  | "violet"
-  | "amber"
-  | "emerald"
-  | "teal"
-  | "indigo"
-  | "sky"
-  | "blue"
-  | "yellow"
-  | "fuchsia"
-  | "rose"
-  | "slate"
-  | "gray"
-  | "zinc"
-  | "neutral"
-  | "stone";
-
-const ALL_COLORS: TremorColors[] = [
-  "red",
-  "green",
-  "orange",
-  "pink",
-  "lime",
-  "cyan",
-  "purple",
-  "violet",
-  "amber",
-  "emerald",
-  "teal",
-  "indigo",
-  "sky",
-  "blue",
-  "yellow",
-  "fuchsia",
-  "rose",
-];
-
-const getColor = (index: number) => {
-  return ALL_COLORS[index % ALL_COLORS.length] as TremorColors;
-};
-
-const capaitalize = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};

@@ -4,7 +4,7 @@ export type LineGraphData = {
   ylabel: string;
   data: {
     x: number[];
-    y: number[][]; // each array is a line [[...], [...], [...]]
+    y: number[][] | number[]; // each array is a line [[...], [...], [...]]  or single line [...]
   };
   labels: string[]; // each label is a line ["label1", "label2", "label3"]
 };

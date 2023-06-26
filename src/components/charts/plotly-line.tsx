@@ -23,6 +23,7 @@ interface LineProps extends LineGraphData {
   cardProps?: React.ComponentProps<typeof Card>;
   defaultCurveStyle?: "linear" | "step" | "natural";
   divId: string;
+  dateTime?: boolean;
 }
 
 const PlotlyChart: React.FC<LineProps> = ({
@@ -34,6 +35,7 @@ const PlotlyChart: React.FC<LineProps> = ({
   data,
   defaultCurveStyle = "linear",
   divId,
+  dateTime,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -80,7 +82,6 @@ const PlotlyChart: React.FC<LineProps> = ({
       title: {
         text: xlabel,
       },
-      hoverformat: ".2f",
     },
     yaxis: {
       gridcolor:
@@ -97,17 +98,32 @@ const PlotlyChart: React.FC<LineProps> = ({
     },
   };
 
+  const x = dateTime ? data.x.map((d) => new Date(d)) : data.x;
+
   const plottingData: Partial<Plotly.Data>[] = [];
 
-  for (let i = 0; i < labels.length; i++) {
+  // check if data.y is an array of arrays or not
+  if (Array.isArray(data.y[0])) {
+    for (let i = 0; i < labels.length; i++) {
+      plottingData.push({
+        x: x,
+        y: data.y[i],
+        marker: { color: getColor(i) },
+        fill: "tozeroy",
+        line: { shape: mapCurveStyle(curveStyle) },
+        type: "scattergl",
+        name: labels[i],
+      });
+    }
+  } else {
     plottingData.push({
-      x: data.x,
-      y: data.y[i],
-      marker: { color: getColor(i) },
+      x: x,
+      y: data.y,
+      marker: { color: getColor(0) },
       fill: "tozeroy",
       line: { shape: mapCurveStyle(curveStyle) },
       type: "scattergl",
-      name: labels[i],
+      name: labels[0],
     });
   }
 
