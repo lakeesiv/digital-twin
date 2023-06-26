@@ -25,6 +25,17 @@ interface BarProps extends BarGraphData {
   divId: string;
 }
 
+/**
+ * A Plotly chart component that displays a bar graph.
+ * @param {BarProps} props - The props object containing the chart data and configuration.
+ * @param {string} props.ylabel - The label for the y-axis.
+ * @param {string} props.xlabel - The label for the x-axis.
+ * @param {string} [props.title] - The title of the chart (optional).
+ * @param {React.ComponentProps<typeof Card>} [props.cardProps] - Additional props to pass to the Card component (optional).
+ * @param {BarGraphData['data']} props.data - The data to be displayed on the chart.
+ * @param {string} props.divId - The ID of the div element that will contain the chart.
+ * @returns {JSX.Element} A Plotly chart component that displays a bar graph.
+ */
 const PlotlyChart: React.FC<BarProps> = ({
   ylabel,
   xlabel,
@@ -34,8 +45,10 @@ const PlotlyChart: React.FC<BarProps> = ({
   divId,
 }) => {
   const { theme } = useTheme();
+  // reference to the card to observe resize
   const cardRef = React.useRef<HTMLDivElement>(null);
 
+  // observe resize of the card, and resize the plotly chart
   useEffect(() => {
     if (!cardRef.current) return;
     const resizeObserver = new ResizeObserver(() => {
@@ -45,6 +58,69 @@ const PlotlyChart: React.FC<BarProps> = ({
     resizeObserver.observe(cardRef.current);
     return () => resizeObserver.disconnect(); // clean up
   }, [divId]);
+
+  const plottingData: Partial<Plotly.Data>[] = [];
+
+  for (let i = 0; i < data.labels.length; i++) {
+    // for each label, create a bar
+    plottingData.push({
+      x: data.x,
+      y: data.y[i],
+      marker: {
+        color: getColor(i),
+      },
+      type: "bar",
+      name: data.labels[i],
+    });
+  }
+
+  return (
+    <Card className="mx-auto" {...cardProps} ref={cardRef}>
+      <Flex>
+        <Title>{title}</Title>
+        <div className="flex justify-center">
+          <Button
+            className="ml-4 h-[30px] "
+            variant="secondary"
+            onClick={() => {
+              // download data as JSON
+              //   return alert("This feature is not yet implemented");
+              //   const element = document.createElement("a");
+              //   const file = new Blob([JSON.stringify(parsedData)], {
+              //     type: "text/plain",
+              //   });
+              //   element.href = URL.createObjectURL(file);
+              //   element.download = "data.json";
+              //   document.body.appendChild(element); // Required for this to work in FireFox
+              //   element.click();
+            }}
+          >
+            <Download size={16} className="px-0" />
+          </Button>
+        </div>
+      </Flex>
+      <div className="mx-auto mt-8 h-[250px] ring-0">
+        <Plot
+          divId={divId}
+          data={plottingData as object[]}
+          layout={getLayout(theme, xlabel, ylabel)}
+          useResizeHandler
+          className="h-full w-full"
+          config={chartConfig as object}
+        />
+      </div>
+    </Card>
+  );
+};
+
+const getLayout = (
+  theme: string | undefined,
+  xlabel: string,
+  ylabel: string
+) => {
+  if (!theme) {
+    theme = "light";
+  }
 
   const layout: Partial<Plotly.Layout> = {
     autosize: true,
@@ -91,91 +167,43 @@ const PlotlyChart: React.FC<BarProps> = ({
     },
   };
 
-  const plottingData: Partial<Plotly.Data>[] = [];
+  return layout as object; // return as object to avoid type error
+};
 
-  for (let i = 0; i < data.labels.length; i++) {
-    plottingData.push({
-      x: data.x,
-      y: data.y[i],
-      marker: {
-        color: getColor(i),
-      },
-      type: "bar",
-      name: data.labels[i],
-    });
-  }
-
-  return (
-    <Card className="mx-auto" {...cardProps} ref={cardRef}>
-      <Flex>
-        <Title>{title}</Title>
-        <div className="flex justify-center">
-          <Button
-            className="ml-4 h-[30px] "
-            variant="secondary"
-            onClick={() => {
-              // download data as JSON
-              //   return alert("This feature is not yet implemented");
-              //   const element = document.createElement("a");
-              //   const file = new Blob([JSON.stringify(parsedData)], {
-              //     type: "text/plain",
-              //   });
-              //   element.href = URL.createObjectURL(file);
-              //   element.download = "data.json";
-              //   document.body.appendChild(element); // Required for this to work in FireFox
-              //   element.click();
-            }}
-          >
-            <Download size={16} className="px-0" />
-          </Button>
-        </div>
-      </Flex>
-      <div className="mx-auto mt-8 h-[250px] ring-0">
-        <Plot
-          divId={divId}
-          data={plottingData as object[]}
-          layout={layout as object}
-          useResizeHandler
-          className="h-full w-full"
-          config={{
-            responsive: true,
-            displaylogo: false,
-            modeBarButtonsToRemove: [
-              "zoom2d",
-              "pan2d",
-              "select2d",
-              "lasso2d",
-              "zoomIn2d",
-              "zoomOut2d",
-              "autoScale2d",
-              // "resetScale2d",
-              "hoverClosestCartesian",
-              "hoverCompareCartesian",
-              "zoom3d",
-              "pan3d",
-              "resetCameraDefault3d",
-              "resetCameraLastSave3d",
-              "hoverClosest3d",
-              "orbitRotation",
-              "tableRotation",
-              "zoomInGeo",
-              "zoomOutGeo",
-              "resetGeo",
-              "hoverClosestGeo",
-              // "toImage",
-              "sendDataToCloud",
-              "hoverClosestGl2d",
-              "hoverClosestPie",
-              "toggleHover",
-              "resetViews",
-              "toggleSpikelines",
-              "resetViewMapbox",
-            ],
-          }}
-        />
-      </div>
-    </Card>
-  );
+const chartConfig = {
+  responsive: true,
+  displaylogo: false,
+  modeBarButtonsToRemove: [
+    "zoom2d",
+    "pan2d",
+    "select2d",
+    "lasso2d",
+    "zoomIn2d",
+    "zoomOut2d",
+    "autoScale2d",
+    // "resetScale2d",
+    "hoverClosestCartesian",
+    "hoverCompareCartesian",
+    "zoom3d",
+    "pan3d",
+    "resetCameraDefault3d",
+    "resetCameraLastSave3d",
+    "hoverClosest3d",
+    "orbitRotation",
+    "tableRotation",
+    "zoomInGeo",
+    "zoomOutGeo",
+    "resetGeo",
+    "hoverClosestGeo",
+    // "toImage",
+    "sendDataToCloud",
+    "hoverClosestGl2d",
+    "hoverClosestPie",
+    "toggleHover",
+    "resetViews",
+    "toggleSpikelines",
+    "resetViewMapbox",
+  ],
 };
 
 export default PlotlyChart;
