@@ -89,9 +89,11 @@ export default function Home() {
   return (
     <Layout title="Digital Twin">
       <TabGroup
-        color="amber"
         index={tabIndex}
-        onIndexChange={(index) => setTabIndex(index)}
+        onIndexChange={(index) => {
+          setFileList(null);
+          setTabIndex(index);
+        }}
       >
         <TabList variant="solid">
           <Tab
@@ -157,7 +159,7 @@ export default function Home() {
                   <FormItem>
                     <FormLabel>Job Id</FormLabel>
                     <FormControl>
-                      <Input placeholder="test-123" {...field} />
+                      <Input placeholder="" {...field} />
                     </FormControl>
                     <FormDescription>Name of the job to be run</FormDescription>
                     <FormMessage />
