@@ -23,6 +23,14 @@ const GridLayout: React.FC<GridLayoutProps> = ({
   const [numberOfColumns, setNumberOfColumns] = useState<1 | 2 | 3>(
     gridColumns
   );
+  const defaultIcon =
+    gridColumns === 1 ? (
+      <Rows size={18} />
+    ) : gridColumns === 2 ? (
+      <LayoutGrid size={18} />
+    ) : (
+      <Grid size={18} />
+    );
 
   return (
     <div>
@@ -35,7 +43,7 @@ const GridLayout: React.FC<GridLayoutProps> = ({
             }}
           >
             <SelectTrigger className="h-[37px] w-[70px]">
-              <SelectValue placeholder={<LayoutGrid size={18} />} />
+              <SelectValue placeholder={defaultIcon} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>

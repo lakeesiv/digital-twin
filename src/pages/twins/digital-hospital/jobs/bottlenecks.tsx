@@ -14,12 +14,20 @@ import dynamic from "next/dynamic";
 import type { BarGraphData } from "~/components/charts/bar";
 import { roundToDP } from "~/utils";
 import { ScrollArea } from "~/ui/scroll-area";
+import Data from "~/data.json";
+import { BoneStationData } from "~/components/twins/digital-hospital/types";
 
 const BarChart = dynamic(() => import("~/components/charts/bar"), {
   ssr: false,
 });
 
+const LineChart = dynamic(() => import("~/components/charts/line"), {
+  ssr: false,
+});
+
 const BottlenecksPage = () => {
+  const boneStationData = Data.bone_station as BoneStationData;
+
   return (
     <Layout title="Bottlenecks">
       <h1 className="text-3xl font-bold">Turn Around Times</h1>
@@ -36,6 +44,80 @@ const BottlenecksPage = () => {
         ></BarChart>
       </GridLayout>
       <h1 className="mt-8 text-3xl font-bold">Resource Allocation by Time</h1>
+      <GridLayout gridColumns={3}>
+        <LineChart
+          defaultCurveStyle="step"
+          data={{
+            x: boneStationData.busy.data.x,
+            y: [boneStationData.busy.data.y],
+          }}
+          xlabel="Time (hours)"
+          ylabel="Busy resources"
+          labels={["Number of Resources"]}
+          title="Busy Bone Station Resources"
+          divId="bone-station-busy"
+        />
+        <LineChart
+          defaultCurveStyle="step"
+          data={{
+            x: boneStationData.waiting.data.x,
+            y: [boneStationData.waiting.data.y],
+          }}
+          xlabel="Time (hours)"
+          ylabel="Waiting resources"
+          labels={["Number of Resources"]}
+          title="Waiting Bone Station Resources"
+          divId="bone-station-wait"
+        />
+        <LineChart
+          defaultCurveStyle="step"
+          data={{
+            x: boneStationData.busy.data.x,
+            y: [boneStationData.busy.data.y],
+          }}
+          xlabel="Time (hours)"
+          ylabel="Busy resources"
+          labels={["Number of Resources"]}
+          title="Busy Bone Station Resources"
+          divId="bone-station-busy-1"
+        />
+        <LineChart
+          defaultCurveStyle="step"
+          data={{
+            x: boneStationData.busy.data.x,
+            y: [boneStationData.busy.data.y],
+          }}
+          xlabel="Time (hours)"
+          ylabel="Busy resources"
+          labels={["Number of Resources"]}
+          title="Busy Bone Station Resources"
+          divId="bone-station-busy-2"
+        />
+        <LineChart
+          defaultCurveStyle="step"
+          data={{
+            x: boneStationData.busy.data.x,
+            y: [boneStationData.busy.data.y],
+          }}
+          xlabel="Time (hours)"
+          ylabel="Busy resources"
+          labels={["Number of Resources"]}
+          title="Busy Bone Station Resources"
+          divId="bone-station-busy-3"
+        />
+        <LineChart
+          defaultCurveStyle="step"
+          data={{
+            x: boneStationData.busy.data.x,
+            y: [boneStationData.busy.data.y],
+          }}
+          xlabel="Time (hours)"
+          ylabel="Busy resources"
+          labels={["Number of Resources"]}
+          title="Busy Bone Station Resources"
+          divId="bone-station-busy-4"
+        />
+      </GridLayout>
     </Layout>
   );
 };
