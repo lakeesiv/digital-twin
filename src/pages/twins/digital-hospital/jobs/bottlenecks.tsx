@@ -22,7 +22,7 @@ const BarChart = dynamic(() => import("~/components/charts/bar"), {
 const BottlenecksPage = () => {
   return (
     <Layout title="Bottlenecks">
-      <h1 className="text-3xl font-bold">Bottlenecks</h1>
+      <h1 className="text-3xl font-bold">Turn Around Times</h1>
       <RowOrGrid>
         <Card>
           <Title className="text-2xl">Percent Differences</Title>
@@ -35,6 +35,7 @@ const BottlenecksPage = () => {
           divId="tat-by-stage"
         ></BarChart>
       </RowOrGrid>
+      <h1 className="mt-8 text-3xl font-bold">Resource Allocation by Time</h1>
     </Layout>
   );
 };
