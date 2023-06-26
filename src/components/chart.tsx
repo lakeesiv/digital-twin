@@ -170,6 +170,19 @@ export default function Example() {
           labels={["Pressure"]}
           dateTime
         />
+        <PlotlyChartNoSSR
+          data={{
+            x: data.pressure.x,
+            y: [data.pressure.y, data.humidity.y, data.temperature.y],
+          }}
+          title="All"
+          xlabel="Time"
+          ylabel="Params"
+          divId="all"
+          labels={["Pressure", "Humidity", "Temperature"]}
+          dateTime
+          fill={false}
+        />
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ interface LineProps extends LineGraphData {
   defaultCurveStyle?: "linear" | "step" | "natural";
   divId: string;
   dateTime?: boolean;
+  fill?: boolean;
 }
 
 const PlotlyChart: React.FC<LineProps> = ({
@@ -36,6 +37,7 @@ const PlotlyChart: React.FC<LineProps> = ({
   defaultCurveStyle = "linear",
   divId,
   dateTime,
+  fill = true,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -109,7 +111,7 @@ const PlotlyChart: React.FC<LineProps> = ({
         x: x,
         y: data.y[i],
         marker: { color: getColor(i) },
-        fill: "tozeroy",
+        fill: fill ? "tozeroy" : "none",
         line: { shape: mapCurveStyle(curveStyle) },
         type: "scattergl",
         name: labels[i],
