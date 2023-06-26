@@ -1,13 +1,13 @@
 import {
+  Button,
+  Callout,
   Card,
   Icon,
-  Title,
-  Text,
-  Button,
   ProgressBar,
-  Callout,
+  Text,
+  Title,
 } from "@tremor/react";
-import { Package, PackageCheck } from "lucide-react";
+import { ArrowUpRight, Square, SquareStack } from "lucide-react";
 import React from "react";
 import Layout from "~/components/layout";
 import StatusBage from "~/components/status-badge";
@@ -20,9 +20,9 @@ const JobsPage = () => {
         title="Please wait around 20 mins for the job to complete"
       />
       <div className="space-y-4">
-        <JobsEntry title="Job 3" status="in-progress" type="process" />
-        <JobsEntry title="Job 2" status="completed" type="process" />
-        <JobsEntry title="Job 1" status="completed" type="scenario" />
+        <JobsEntry title="job-3" status="in-progress" type="process" />
+        <JobsEntry title="job-2" status="completed" type="process" />
+        <JobsEntry title="job-1" status="completed" type="scenario" />
       </div>
     </Layout>
   );
@@ -40,9 +40,9 @@ const JobsEntry: React.FC<JobsEntryProps> = ({ title, status, type }) => {
     <Card>
       <div className="flex items-center space-x-4">
         <Icon
-          icon={status === "completed" ? PackageCheck : Package}
+          icon={type === "scenario" ? SquareStack : Square}
           variant="solid"
-          color={status === "completed" ? "emerald" : "gray"}
+          color={status === "completed" ? "emerald" : "orange"}
           size="lg"
         ></Icon>
         <div>
@@ -53,19 +53,40 @@ const JobsEntry: React.FC<JobsEntryProps> = ({ title, status, type }) => {
             <StatusBage
               message="Job In Progress"
               status="active"
-              color="green"
+              color="yellow"
             />
           )}
         </div>
         <div className="flex items-center space-x-6 pl-8">
           {type === "process" && status === "completed" && (
             <>
-              <Button size="xs">Bottlenecks</Button>
-              <Button size="xs">Resource Utilization</Button>
+              <Button
+                icon={ArrowUpRight}
+                size="xs"
+                onClick={() => {
+                  window.location.href =
+                    "/twins/digital-hospital/jobs/bottlenecks?id=" + title;
+                }}
+              >
+                Bottlenecks
+              </Button>
+              <Button
+                icon={ArrowUpRight}
+                size="xs"
+                onClick={() => {
+                  window.location.href =
+                    "/twins/digital-hospital/jobs/resource-utilization?id=" +
+                    title;
+                }}
+              >
+                Resource Utilization
+              </Button>
             </>
           )}
           {type === "scenario" && status === "completed" && (
-            <Button size="xs">Scenario Analysis</Button>
+            <Button icon={ArrowUpRight} size="xs">
+              Scenario Analysis
+            </Button>
           )}
           {status === "in-progress" && (
             <div className="flex items-center space-x-4">
