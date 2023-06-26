@@ -29,7 +29,11 @@ const BottlenecksPage = () => {
           <Divider className="mb-0 mt-2" />
           <BottleNeckList data={barChartData.data} />
         </Card>
-        <BarChart {...barChartData} divId="tat-by-stage"></BarChart>
+        <BarChart
+          {...barChartData}
+          extraBottomPadding={20}
+          divId="tat-by-stage"
+        ></BarChart>
       </RowOrGrid>
     </Layout>
   );

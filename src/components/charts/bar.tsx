@@ -23,6 +23,7 @@ export type BarGraphData = {
 interface BarProps extends BarGraphData {
   cardProps?: React.ComponentProps<typeof Card>;
   divId: string;
+  extraBottomPadding?: number;
 }
 
 /**
@@ -43,6 +44,7 @@ const BarChart: React.FC<BarProps> = ({
   cardProps,
   data,
   divId,
+  extraBottomPadding,
 }) => {
   const { theme } = useTheme();
   // reference to the card to observe resize
@@ -103,7 +105,7 @@ const BarChart: React.FC<BarProps> = ({
         <Plot
           divId={divId}
           data={plottingData as object[]}
-          layout={getLayout(theme, xlabel, ylabel)}
+          layout={getLayout(theme, xlabel, ylabel, extraBottomPadding)}
           useResizeHandler
           className="h-full w-full"
           config={chartConfig as object}
@@ -116,7 +118,8 @@ const BarChart: React.FC<BarProps> = ({
 const getLayout = (
   theme: string | undefined,
   xlabel: string,
-  ylabel: string
+  ylabel: string,
+  extraBottomPadding?: number
 ) => {
   if (!theme) {
     theme = "light";
@@ -140,7 +143,7 @@ const getLayout = (
     margin: {
       l: 40,
       r: 0,
-      b: 40,
+      b: 40 + (extraBottomPadding || 0),
       t: 10,
       pad: 0,
     },
