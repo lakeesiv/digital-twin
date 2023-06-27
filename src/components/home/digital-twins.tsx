@@ -26,7 +26,7 @@ const DigitalTwinsView: React.FC = () => {
             {/* <BatteryIcon battery={sensor.battery} /> */}
             <Icon icon={twin.icon} variant="light" className="p-2" />
             <div className="truncate">
-              <Link href={`/twins/${twin.id}`}>
+              <Link href={`/${twin.id}`}>
                 <div className="flex  items-center space-x-2 text-blue-500 dark:text-blue-500 ">
                   <Text className=" font-mono text-blue-500 dark:text-blue-500">
                     {twin.name}

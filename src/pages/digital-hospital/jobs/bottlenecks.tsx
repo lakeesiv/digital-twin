@@ -15,7 +15,7 @@ import type { BarGraphData } from "~/components/charts/bar";
 import { roundToDP } from "~/utils";
 import { ScrollArea } from "~/ui/scroll-area";
 import Data from "~/data.json";
-import type { BoneStationData } from "~/components/twins/digital-hospital/types";
+import type { BoneStationData } from "~/components/digital-hospital/types";
 
 const BarChart = dynamic(() => import("~/components/charts/bar"), {
   ssr: false,

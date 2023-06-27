@@ -61,7 +61,7 @@ const JobsEntry: React.FC<JobsEntryProps> = ({ title, status, type }) => {
                 size="xs"
                 onClick={() => {
                   window.location.href =
-                    "/twins/digital-hospital/jobs/bottlenecks?id=" + title;
+                    "/digital-hospital/jobs/bottlenecks?id=" + title;
                 }}
               >
                 Bottlenecks
@@ -71,8 +71,7 @@ const JobsEntry: React.FC<JobsEntryProps> = ({ title, status, type }) => {
                 size="xs"
                 onClick={() => {
                   window.location.href =
-                    "/twins/digital-hospital/jobs/resource-utilization?id=" +
-                    title;
+                    "/digital-hospital/jobs/resource-utilization?id=" + title;
                 }}
               >
                 Resource Utilization

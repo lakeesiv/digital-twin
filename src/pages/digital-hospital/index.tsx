@@ -9,7 +9,7 @@ const Index = () => {
     <Layout title="Digital Hospital">
       <div className="flex h-full w-full space-x-12">
         <Card className="transform transition-transform duration-300 ease-in-out hover:scale-105">
-          <Link href="/twins/digital-hospital/jobs" className="flex space-x-4">
+          <Link href="/digital-hospital/jobs" className="flex space-x-4">
             <Icon
               color="blue"
               variant="solid"
@@ -26,10 +26,7 @@ const Index = () => {
           </Link>
         </Card>
         <Card className="transform transition-transform duration-300 ease-in-out hover:scale-105">
-          <Link
-            href="/twins/digital-hospital/simulate"
-            className="flex space-x-4"
-          >
+          <Link href="/digital-hospital/simulate" className="flex space-x-4">
             <Icon
               color="red"
               variant="solid"

@@ -24,12 +24,12 @@ const components: { title: string; href: string; description: string }[] = [
   // },
   {
     title: "Digital Hospital Jobs",
-    href: "/twins/digital-hospital/jobs",
+    href: "/digital-hospital/jobs",
     description: "View all the jobs for the Digital Hospital simulation",
   },
   {
     title: "Digital Hospital Simulation",
-    href: "/twins/digital-hospital/simulation",
+    href: "/digital-hospital/simulation",
     description: "Run a simulation for the Digital Hospital",
   },
   // {
