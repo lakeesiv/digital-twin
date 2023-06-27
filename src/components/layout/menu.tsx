@@ -17,26 +17,31 @@ import { Button } from "~/ui/button";
 import { useTheme } from "next-themes";
 
 const components: { title: string; href: string; description: string }[] = [
+  // {
+  //   title: "TwinAir",
+  //   href: "/twin/twinair",
+  //   description: "View the current state of the TwinAir digital twin",
+  // },
   {
-    title: "TwinAir",
-    href: "/twin/twinair",
-    description: "View the current state of the TwinAir digital twin",
+    title: "Digital Hospital Jobs",
+    href: "/twins/digital-hospital/jobs",
+    description: "View all the jobs for the Digital Hospital simulation",
   },
   {
-    title: "Digital Hospital",
-    href: "/twin/digital-hospital",
-    description: "View the current state of the Digital Hospital digital twin",
+    title: "Digital Hospital Simulation",
+    href: "/twins/digital-hospital/simulation",
+    description: "Run a simulation for the Digital Hospital",
   },
-  {
-    title: "TwinAir 2D/3D Viewer",
-    href: "/twin/3d",
-    description: "View the twin in a 2D or 3D viewer",
-  },
-  {
-    title: "Digital Hospital 2D/3D Viewer",
-    href: "/twin/3d",
-    description: "View the twin in a 2D or 3D viewer",
-  },
+  // {
+  //   title: "TwinAir 2D/3D Viewer",
+  //   href: "/twin/3d",
+  //   description: "View the twin in a 2D or 3D viewer",
+  // },
+  // {
+  //   title: "Digital Hospital 2D/3D Viewer",
+  //   href: "/twin/3d",
+  //   description: "View the twin in a 2D or 3D viewer",
+  // },
 ];
 
 export function NavigationMenuDemo() {
