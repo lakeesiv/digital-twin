@@ -1,10 +1,8 @@
 import { Card, Flex, Title } from "@tremor/react";
-import { Download } from "lucide-react";
 import { useTheme } from "next-themes";
 import Plotly from "plotly.js-cartesian-dist-min";
 import React, { useEffect, useState } from "react";
 import createPlotlyComponent from "react-plotly.js/factory";
-import { Button } from "~/ui/button";
 import {
   Select,
   SelectContent,
@@ -14,9 +12,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/ui/select";
-import { getColor } from "./utils";
 import { capilatizeFirstLetter } from "~/utils";
 import DownloadButton from "./download";
+import { getColor } from "./utils";
 
 const Plot = createPlotlyComponent(Plotly as object);
 
@@ -150,7 +148,7 @@ const LineChart: React.FC<LineProps> = ({
               labels: labels,
             }}
             type="line"
-            downloadFormat="json"
+            divId={divId}
           />
         </div>
       </Flex>

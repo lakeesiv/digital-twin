@@ -3,44 +3,86 @@ import type { BarGraphData } from "./bar";
 import type { LineGraphData } from "./line";
 import { Button } from "~/ui/button";
 import { Download } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "~/ui/dropdown-menu";
+import Plotly from "plotly.js-cartesian-dist-min";
 
 type DownloadFormats = "json" | "csv";
 
 interface DownloadProps {
   data: BarGraphData | LineGraphData;
   type: "bar" | "line";
-  downloadFormat: DownloadFormats;
+  divId: string;
 }
 
-const DownloadButton: React.FC<DownloadProps> = ({
-  data,
-  type,
-  downloadFormat,
-}) => {
+const DownloadButton: React.FC<DownloadProps> = ({ data, type, divId }) => {
   return (
-    <Button
-      className="ml-4 h-[30px] "
-      variant="secondary"
-      onClick={() => {
-        let resultingData = "";
-        if (type === "line") {
-          const lineData = data as LineGraphData;
+    <DropdownMenu>
+      <DropdownMenuTrigger className=" mx-4 h-[30px]">
+        <Button variant="outline" className="h-[30px]">
+          <Download size={16} className="px-0" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>Download as</DropdownMenuLabel>
+        <DropdownMenuItem
+          onClick={() => {
+            let resultingData = "";
 
-          resultingData = downloadLineData(lineData, downloadFormat);
-        }
+            if (type === "line") {
+              const lineData = data as LineGraphData;
 
-        const element = document.createElement("a");
-        const file = new Blob([resultingData], {
-          type: "text/plain",
-        });
-        element.href = URL.createObjectURL(file);
-        element.download = (data.title || "data") + "." + downloadFormat;
-        document.body.appendChild(element); // Required for this to work in FireFox
-        element.click();
-      }}
-    >
-      <Download size={16} className="px-0" />
-    </Button>
+              resultingData = downloadLineData(lineData, "json");
+            }
+
+            const element = document.createElement("a");
+            const file = new Blob([resultingData], {
+              type: "text/plain",
+            });
+            element.href = URL.createObjectURL(file);
+            element.download = (data.title || "data") + "." + "json";
+            document.body.appendChild(element); // Required for this to work in FireFox
+            element.click();
+          }}
+        >
+          JSON
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            let resultingData = "";
+
+            if (type === "line") {
+              const lineData = data as LineGraphData;
+
+              resultingData = downloadLineData(lineData, "csv");
+            }
+
+            const element = document.createElement("a");
+            const file = new Blob([resultingData], {
+              type: "text/plain",
+            });
+            element.href = URL.createObjectURL(file);
+            element.download = (data.title || "data") + "." + "csv";
+            document.body.appendChild(element); // Required for this to work in FireFox
+            element.click();
+          }}
+        >
+          CSV
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={async () => {
+            await downloadPNG(divId, data.title || "plot");
+          }}
+        >
+          PNG
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
@@ -88,6 +130,28 @@ const downloadLineData = (
   } else {
     return "Failed to download data";
   }
+};
+
+const downloadPNG = async (divId: string, title: string) => {
+  const plotlyDiv = document.getElementById(divId) as HTMLElement;
+
+  type TPlotly = {
+    toImage: (
+      plotlyDiv: HTMLElement,
+      format: { format: string }
+    ) => Promise<string>;
+  };
+
+  const plotly = Plotly as TPlotly;
+
+  const url = await plotly.toImage(plotlyDiv, { format: "png" });
+
+  const link = document.createElement("a");
+  link.download = title + ".png";
+  link.href = url;
+  link.click();
+
+  return true;
 };
 
 export default DownloadButton;
