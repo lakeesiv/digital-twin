@@ -142,8 +142,8 @@ const barChartData: BarGraphData = {
   data: {
     x: stages,
     y: [
-      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
-      [20, 18, 16, 14, 12, 10, 30, 12, 40, 20, 30],
+      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 10, 12],
+      [20, 18, 16, 14, 12, 10, 30, 12, 40, 20, 30, 10, 12],
     ],
     labels: ["Target", "Actual"],
   },
@@ -203,17 +203,27 @@ const BottleneckListItem: React.FC<BottleneckListItemProps> = ({
   return (
     <ListItem>
       <div>
-        <Title>{stage}</Title>
+        <Text className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+          {stage}
+        </Text>
         <Text>
           Target: {target} | Actual: {actual}
         </Text>
       </div>
       <BadgeDelta
-        deltaType={actual > target ? "increase" : "decrease"}
+        deltaType={
+          actual > target
+            ? "increase"
+            : actual < target
+            ? "decrease"
+            : "unchanged"
+        }
         className={
           actual > target
             ? "bg-red-500 text-red-100"
-            : "bg-green-100 text-green-800"
+            : actual < target
+            ? "bg-green-500 text-green-100"
+            : "bg-gray-100 text-gray-800"
         }
       >
         {roundToDP(((actual - target) / target) * 100, 1)} %
