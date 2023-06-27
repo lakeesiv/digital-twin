@@ -16,6 +16,7 @@ import {
 } from "~/ui/select";
 import { getColor } from "./utils";
 import { capilatizeFirstLetter } from "~/utils";
+import DownloadButton from "./download";
 
 const Plot = createPlotlyComponent(Plotly as object);
 
@@ -140,24 +141,17 @@ const LineChart: React.FC<LineProps> = ({
               </SelectGroup>
             </SelectContent>
           </Select>
-          <Button
-            className="ml-4 h-[30px] "
-            variant="secondary"
-            onClick={() => {
-              // download data as JSON
-              //   return alert("This feature is not yet implemented");
-              //   const element = document.createElement("a");
-              //   const file = new Blob([JSON.stringify(parsedData)], {
-              //     type: "text/plain",
-              //   });
-              //   element.href = URL.createObjectURL(file);
-              //   element.download = "data.json";
-              //   document.body.appendChild(element); // Required for this to work in FireFox
-              //   element.click();
+          <DownloadButton
+            data={{
+              title,
+              xlabel,
+              ylabel,
+              data: data,
+              labels: labels,
             }}
-          >
-            <Download size={16} className="px-0" />
-          </Button>
+            type="line"
+            downloadFormat="json"
+          />
         </div>
       </Flex>
       <div className="mx-auto mt-8 h-[250px] ring-0">
