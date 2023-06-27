@@ -1,10 +1,9 @@
 import { Card, Flex, Title } from "@tremor/react";
-import { Download } from "lucide-react";
 import { useTheme } from "next-themes";
 import Plotly from "plotly.js-cartesian-dist-min";
 import React, { useEffect } from "react";
 import createPlotlyComponent from "react-plotly.js/factory";
-import { Button } from "~/ui/button";
+import DownloadButton from "./download";
 import { getColor } from "./utils";
 
 const Plot = createPlotlyComponent(Plotly as object);
@@ -81,24 +80,16 @@ const BarChart: React.FC<BarProps> = ({
       <Flex>
         <Title>{title}</Title>
         <div className="flex justify-center">
-          <Button
-            className="ml-4 h-[30px] "
-            variant="secondary"
-            onClick={() => {
-              // download data as JSON
-              //   return alert("This feature is not yet implemented");
-              //   const element = document.createElement("a");
-              //   const file = new Blob([JSON.stringify(parsedData)], {
-              //     type: "text/plain",
-              //   });
-              //   element.href = URL.createObjectURL(file);
-              //   element.download = "data.json";
-              //   document.body.appendChild(element); // Required for this to work in FireFox
-              //   element.click();
+          <DownloadButton
+            divId={divId}
+            data={{
+              data: data,
+              title: title,
+              xlabel: xlabel,
+              ylabel: ylabel,
             }}
-          >
-            <Download size={16} className="px-0" />
-          </Button>
+            type="bar"
+          />
         </div>
       </Flex>
       <div className="mx-auto mt-8 h-full pb-16 ring-0">

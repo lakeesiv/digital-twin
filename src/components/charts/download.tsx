@@ -40,6 +40,11 @@ const DownloadButton: React.FC<DownloadProps> = ({ data, type, divId }) => {
               resultingData = downloadLineData(lineData, "json");
             }
 
+            if (type === "bar") {
+              const barData = data as BarGraphData;
+              resultingData = downloadBarData(barData, "json");
+            }
+
             const element = document.createElement("a");
             const file = new Blob([resultingData], {
               type: "text/plain",
@@ -58,8 +63,12 @@ const DownloadButton: React.FC<DownloadProps> = ({ data, type, divId }) => {
 
             if (type === "line") {
               const lineData = data as LineGraphData;
-
               resultingData = downloadLineData(lineData, "csv");
+            }
+
+            if (type === "bar") {
+              const barData = data as BarGraphData;
+              resultingData = downloadBarData(barData, "csv");
             }
 
             const element = document.createElement("a");
@@ -122,6 +131,40 @@ const downloadLineData = (
           const curr = data.data.y[j] as number[];
           csv += `${curr[i]}` + ",";
         }
+      }
+
+      csv += "\n";
+    }
+    return csv;
+  } else {
+    return "Failed to download data";
+  }
+};
+
+const downloadBarData = (
+  data: BarGraphData,
+  downloadFormat: DownloadFormats
+) => {
+  const resultingData: ExportedData = {};
+  const categories = data.data.x;
+  resultingData["Categories"] = categories;
+
+  const labels = data.data.labels;
+
+  for (let i = 0; i < data.data.labels.length; i++) {
+    resultingData[labels[i]] = data.data.y[i];
+  }
+
+  if (downloadFormat === "json") {
+    return JSON.stringify(resultingData, null, 2);
+  } else if (downloadFormat === "csv") {
+    let csv = "Categories," + labels.join(",") + "\n";
+    for (let i = 0; i < data.data.x.length; i++) {
+      csv += `${data.data.x[i]}` + ",";
+
+      for (let j = 0; j < data.data.labels.length; j++) {
+        const curr = data.data.y[j];
+        csv += `${curr[i]}` + ",";
       }
 
       csv += "\n";
