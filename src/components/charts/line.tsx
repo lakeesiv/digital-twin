@@ -27,6 +27,7 @@ export type LineGraphData = {
     y: number[][] | number[]; // each array is a line [[...], [...], [...]]  or single line [...]
   };
   labels: string[]; // each label is a line ["label1", "label2", "label3"]
+  visible?: boolean[]; // each boolean is a line [true, false, true]
 };
 
 interface LineProps extends LineGraphData {
@@ -65,6 +66,7 @@ const LineChart: React.FC<LineProps> = ({
   dateTime,
   fill = true,
   height = 250,
+  visible,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -100,6 +102,7 @@ const LineChart: React.FC<LineProps> = ({
         line: { shape: mapCurveStyle(curveStyle) },
         type: "scattergl",
         name: labels[i],
+        visible: visible ? (visible[i] ? true : "legendonly") : true,
       });
     }
   } else {
