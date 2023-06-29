@@ -79,7 +79,17 @@ const JobsEntry: React.FC<JobsEntryProps> = ({ title, status, type }) => {
             </>
           )}
           {type === "scenario" && status === "completed" && (
-            <Button icon={ArrowUpRight} size="xs">
+            <Button
+              icon={ArrowUpRight}
+              size="xs"
+              onClick={() => {
+                // open new tab
+                window.open(
+                  "/digital-hospital/jobs/scenario?id=" + title,
+                  "_blank"
+                );
+              }}
+            >
               Scenario Analysis
             </Button>
           )}
