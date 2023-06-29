@@ -35,6 +35,7 @@ interface LineProps extends LineGraphData {
   divId: string;
   dateTime?: boolean;
   fill?: boolean;
+  height?: number;
 }
 
 /**
@@ -63,6 +64,7 @@ const LineChart: React.FC<LineProps> = ({
   divId,
   dateTime,
   fill = true,
+  height = 250,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -152,7 +154,7 @@ const LineChart: React.FC<LineProps> = ({
           />
         </div>
       </Flex>
-      <div className="mx-auto mt-8 h-[250px] ring-0">
+      <div className={"mx-auto mt-8 ring-0 " + `h-[${height}px]`}>
         <Plot
           divId={divId}
           data={plottingData as object[]}
