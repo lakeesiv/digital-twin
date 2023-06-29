@@ -11,7 +11,7 @@ import {
   SelectItem,
 } from "~/ui/select";
 
-interface GridLayoutProps {
+interface GridLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   gridColumns?: 1 | 2 | 3;
   children: React.ReactNode;
 }
@@ -19,6 +19,7 @@ interface GridLayoutProps {
 const GridLayout: React.FC<GridLayoutProps> = ({
   children,
   gridColumns = 2,
+  ...props
 }) => {
   const [numberOfColumns, setNumberOfColumns] = useState<1 | 2 | 3>(
     gridColumns
@@ -33,7 +34,7 @@ const GridLayout: React.FC<GridLayoutProps> = ({
     );
 
   return (
-    <div>
+    <div {...props}>
       <Flex>
         <div></div>
         <div className="flex justify-center space-x-2">
