@@ -50,7 +50,7 @@ const DownloadButton: React.FC<DownloadProps> = ({ data, type, divId }) => {
               type: "text/plain",
             });
             element.href = URL.createObjectURL(file);
-            element.download = (data.title || "data") + "." + "json";
+            element.download = getTitle(data, "data") + "." + "json";
             document.body.appendChild(element); // Required for this to work in FireFox
             element.click();
           }}
@@ -76,7 +76,7 @@ const DownloadButton: React.FC<DownloadProps> = ({ data, type, divId }) => {
               type: "text/plain",
             });
             element.href = URL.createObjectURL(file);
-            element.download = (data.title || "data") + "." + "csv";
+            element.download = getTitle(data, "data") + "." + "csv";
             document.body.appendChild(element); // Required for this to work in FireFox
             element.click();
           }}
@@ -85,7 +85,7 @@ const DownloadButton: React.FC<DownloadProps> = ({ data, type, divId }) => {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={async () => {
-            await downloadPNG(divId, data.title || "plot");
+            await downloadPNG(divId, getTitle(data, "plot"));
           }}
         >
           PNG
@@ -195,6 +195,16 @@ const downloadPNG = async (divId: string, title: string) => {
   link.click();
 
   return true;
+};
+
+const getTitle = (data: LineGraphData | BarGraphData, fallback: string) => {
+  let title = data.title || fallback;
+
+  if (typeof data.title !== "string") {
+    title = fallback;
+  }
+
+  return title as string;
 };
 
 export default DownloadButton;

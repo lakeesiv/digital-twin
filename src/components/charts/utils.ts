@@ -18,5 +18,5 @@ const colors = [
 ];
 
 export const getColor = (index: number) => {
-  return colors[index % colors.length] as string;
+  return colors[index % colors.length];
 };
