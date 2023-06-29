@@ -17,6 +17,9 @@ import type { BarGraphData } from "~/components/charts/bar";
 import type { LineGraphData } from "~/components/charts/line";
 import Layout from "~/components/layout";
 import GridLayout from "~/components/layout/grid-layout";
+import BottleNeckList, {
+  mockBottleNeckData,
+} from "~/components/twins/digital-hospital/bottlenecklist";
 import { Badge } from "~/ui/badge";
 import { ScrollArea } from "~/ui/scroll-area";
 import { roundToDP } from "~/utils";
@@ -128,8 +131,20 @@ const ScenarioPage = () => {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <Card className="px-8">
-                <Title>TAT by Stage</Title>
+              <Card className="px-4">
+                <Title>Turn Around Times (TAT)</Title>
+                <GridLayout>
+                  <Card>
+                    <Title className="text-2xl">Percent Differences</Title>
+                    <Divider className="mb-0 mt-2" />
+                    <BottleNeckList data={mockBottleNeckData.data} />
+                  </Card>
+                  <BarChart
+                    {...mockBottleNeckData}
+                    extraBottomPadding={20}
+                    divId="tat-by-stage"
+                  ></BarChart>
+                </GridLayout>
               </Card>
             </TabPanel>
             <TabPanel>
