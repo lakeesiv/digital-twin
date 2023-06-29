@@ -128,99 +128,128 @@ const ScenarioPage = () => {
             ))}
           </TabList>
           <TabPanels>
-            <TabPanel>
-              <Card className="px-4">
-                <Title>Turn Around Times (TAT) by Stage</Title>
-                <GridLayout>
-                  <Card>
-                    <Title className="text-2xl">Percent Differences</Title>
-                    <Divider className="mb-0 mt-2" />
-                    <BottleNeckList data={mockBottleNeckData.data} />
-                  </Card>
-                  <BarChart
-                    {...mockBottleNeckData}
-                    extraBottomPadding={20}
-                    divId="tat-by-stage"
-                  ></BarChart>
-                </GridLayout>
-                <Title className="mt-8">Resource Allocation</Title>
+            {[...Array(5).keys()].map((i) => (
+              <TabPanel key={i}>
+                <Card className="px-4">
+                  <Title>Turn Around Times (TAT) by Stage</Title>
+                  <GridLayout>
+                    <Card>
+                      <Title className="text-2xl">Percent Differences</Title>
+                      <Divider className="mb-0 mt-2" />
+                      <BottleNeckList data={mockBottleNeckData.data} />
+                    </Card>
+                    <BarChart
+                      {...mockBottleNeckData}
+                      extraBottomPadding={20}
+                      divId="tat-by-stage"
+                    ></BarChart>
+                  </GridLayout>
+                  <Title className="mt-8">Resource Allocation</Title>
 
-                <GridLayout gridColumns={3}>
-                  <LineChart
-                    defaultCurveStyle="step"
-                    data={{
-                      x: boneStationData.busy.data.x,
-                      y: [boneStationData.busy.data.y],
-                    }}
-                    xlabel="Time (hours)"
-                    ylabel="Busy resources"
-                    labels={["Number of Resources"]}
-                    title="Busy Bone Station Resources"
-                    divId="bone-station-busy"
-                  />
-                  <LineChart
-                    defaultCurveStyle="step"
-                    data={{
-                      x: boneStationData.waiting.data.x,
-                      y: [boneStationData.waiting.data.y],
-                    }}
-                    xlabel="Time (hours)"
-                    ylabel="Waiting resources"
-                    labels={["Number of Resources"]}
-                    title="Waiting Bone Station Resources"
-                    divId="bone-station-wait"
-                  />
-                  <LineChart
-                    defaultCurveStyle="step"
-                    data={{
-                      x: boneStationData.busy.data.x,
-                      y: [boneStationData.busy.data.y],
-                    }}
-                    xlabel="Time (hours)"
-                    ylabel="Busy resources"
-                    labels={["Number of Resources"]}
-                    title="Busy Bone Station Resources"
-                    divId="bone-station-busy-1"
-                  />
-                  <LineChart
-                    defaultCurveStyle="step"
-                    data={{
-                      x: boneStationData.busy.data.x,
-                      y: [boneStationData.busy.data.y],
-                    }}
-                    xlabel="Time (hours)"
-                    ylabel="Busy resources"
-                    labels={["Number of Resources"]}
-                    title="Busy Bone Station Resources"
-                    divId="bone-station-busy-2"
-                  />
-                  <LineChart
-                    defaultCurveStyle="step"
-                    data={{
-                      x: boneStationData.busy.data.x,
-                      y: [boneStationData.busy.data.y],
-                    }}
-                    xlabel="Time (hours)"
-                    ylabel="Busy resources"
-                    labels={["Number of Resources"]}
-                    title="Busy Bone Station Resources"
-                    divId="bone-station-busy-3"
-                  />
-                  <LineChart
-                    defaultCurveStyle="step"
-                    data={{
-                      x: boneStationData.busy.data.x,
-                      y: [boneStationData.busy.data.y],
-                    }}
-                    xlabel="Time (hours)"
-                    ylabel="Busy resources"
-                    labels={["Number of Resources"]}
-                    title="Busy Bone Station Resources"
-                    divId="bone-station-busy-4"
-                  />
-                </GridLayout>
-              </Card>
-            </TabPanel>
+                  <GridLayout gridColumns={3}>
+                    <LineChart
+                      defaultCurveStyle="step"
+                      data={{
+                        x: boneStationData.busy.data.x,
+                        y: [boneStationData.busy.data.y],
+                      }}
+                      xlabel="Time (hours)"
+                      ylabel="Busy resources"
+                      labels={["Number of Resources"]}
+                      title="Busy Bone Station Resources"
+                      divId="bone-station-busy"
+                    />
+                    <LineChart
+                      defaultCurveStyle="step"
+                      data={{
+                        x: boneStationData.waiting.data.x,
+                        y: [boneStationData.waiting.data.y],
+                      }}
+                      xlabel="Time (hours)"
+                      ylabel="Waiting resources"
+                      labels={["Number of Resources"]}
+                      title="Waiting Bone Station Resources"
+                      divId="bone-station-wait"
+                    />
+                    <LineChart
+                      defaultCurveStyle="step"
+                      data={{
+                        x: boneStationData.busy.data.x,
+                        y: [boneStationData.busy.data.y],
+                      }}
+                      xlabel="Time (hours)"
+                      ylabel="Busy resources"
+                      labels={["Number of Resources"]}
+                      title="Busy Bone Station Resources"
+                      divId="bone-station-busy-1"
+                    />
+                    <LineChart
+                      defaultCurveStyle="step"
+                      data={{
+                        x: boneStationData.busy.data.x,
+                        y: [boneStationData.busy.data.y],
+                      }}
+                      xlabel="Time (hours)"
+                      ylabel="Busy resources"
+                      labels={["Number of Resources"]}
+                      title="Busy Bone Station Resources"
+                      divId="bone-station-busy-2"
+                    />
+                    <LineChart
+                      defaultCurveStyle="step"
+                      data={{
+                        x: boneStationData.busy.data.x,
+                        y: [boneStationData.busy.data.y],
+                      }}
+                      xlabel="Time (hours)"
+                      ylabel="Busy resources"
+                      labels={["Number of Resources"]}
+                      title="Busy Bone Station Resources"
+                      divId="bone-station-busy-3"
+                    />
+                    <LineChart
+                      defaultCurveStyle="step"
+                      data={{
+                        x: boneStationData.busy.data.x,
+                        y: [boneStationData.busy.data.y],
+                      }}
+                      xlabel="Time (hours)"
+                      ylabel="Busy resources"
+                      labels={["Number of Resources"]}
+                      title="Busy Bone Station Resources"
+                      divId="bone-station-busy-4"
+                    />
+                  </GridLayout>
+
+                  <GridLayout>
+                    <Card>
+                      <Title className="text-2xl">Percent Utilizations</Title>
+                      <Divider className="mb-0 mt-2" />
+                      <MetricsList
+                        data={resourceUtilizationMock.data}
+                        unit="%"
+                      />
+                    </Card>
+                    <BarChart
+                      {...resourceUtilizationMock}
+                      extraBottomPadding={20}
+                      divId="percent-utilization"
+                    />
+                  </GridLayout>
+
+                  <Title className="mt-8">Daily Resource Utilization</Title>
+                  <div className="mt-4">
+                    <LineChart
+                      defaultCurveStyle="linear"
+                      fill={false}
+                      {...lineChartData}
+                      divId="daily-utilization"
+                      height={600}
+                    />
+                  </div>
+                </Card>
+              </TabPanel>
+            ))}
           </TabPanels>
         </TabGroup>
       </div>
@@ -243,6 +272,17 @@ const stages = [
   "Reporting",
   "Dispatch",
 ];
+
+const resourceUtilizationMock: BarGraphData = {
+  data: {
+    x: stages,
+    y: [[100, 50, 60, 60, 20, 100, 20, 24, 70, 80, 80, 90, 100]],
+    labels: ["% Utilization"],
+  },
+  xlabel: "Stages",
+  ylabel: "% Utilization",
+  title: "% Utilization by Stage",
+};
 
 const barChartData: BarGraphData = {
   data: {
@@ -286,31 +326,31 @@ const lineChartData: LineGraphData = {
   labels: stages,
 };
 
-const barChartData2: BarGraphData = {
-  data: {
-    x: [...Array(18).keys()],
-    y: [
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-      randomArrayValues(18),
-    ],
-    labels: stages,
-  },
-  xlabel: "Days",
-  ylabel: "Daily Utilization %",
-  title: "Daily Utilization % (Click on legend to toggle)",
-};
+// const barChartData2: BarGraphData = {
+//   data: {
+//     x: [...Array(18).keys()],
+//     y: [
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//       randomArrayValues(18),
+//     ],
+//     labels: stages,
+//   },
+//   xlabel: "Days",
+//   ylabel: "Daily Utilization %",
+//   title: "Daily Utilization % (Click on legend to toggle)",
+// };
 
 export default ScenarioPage;
