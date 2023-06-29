@@ -13,7 +13,7 @@ export type BarGraphData = {
   xlabel: string;
   ylabel: string;
   data: {
-    x: string[]; // categories
+    x: string[] | number[]; // categories
     labels: string[]; // each label is a line ["label1", "label2", "label3"]
     y: number[][]; // each array is a line [[label1_val, label2val, label3val], [...], [...]]
   };
@@ -23,6 +23,7 @@ interface BarProps extends BarGraphData {
   cardProps?: React.ComponentProps<typeof Card>;
   divId: string;
   extraBottomPadding?: number;
+  stacked?: boolean;
 }
 
 /**
@@ -44,6 +45,7 @@ const BarChart: React.FC<BarProps> = ({
   data,
   divId,
   extraBottomPadding,
+  stacked = false,
 }) => {
   const { theme } = useTheme();
   // reference to the card to observe resize
@@ -72,6 +74,8 @@ const BarChart: React.FC<BarProps> = ({
       },
       type: "bar",
       name: data.labels[i],
+      // text: data.labels[i],
+      // text: data.y[i].map((val) => val.toFixed(2)),
     });
   }
 
@@ -96,7 +100,7 @@ const BarChart: React.FC<BarProps> = ({
         <Plot
           divId={divId}
           data={plottingData as object[]}
-          layout={getLayout(theme, xlabel, ylabel, extraBottomPadding)}
+          layout={getLayout(theme, xlabel, ylabel, extraBottomPadding, stacked)}
           useResizeHandler
           className="h-full w-full"
           config={chartConfig as object}
@@ -110,7 +114,8 @@ const getLayout = (
   theme: string | undefined,
   xlabel: string,
   ylabel: string,
-  extraBottomPadding?: number
+  extraBottomPadding?: number,
+  stacked?: boolean
 ) => {
   if (!theme) {
     theme = "light";
@@ -118,6 +123,7 @@ const getLayout = (
 
   const layout: Partial<Plotly.Layout> = {
     autosize: true,
+    barmode: stacked ? "stack" : "group",
     font: {
       family: "sans-serif",
       color:

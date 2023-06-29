@@ -1,23 +1,13 @@
-import {
-  Card,
-  List,
-  ListItem,
-  Title,
-  Text,
-  Divider,
-  BadgeDelta,
-} from "@tremor/react";
+import { Card, Divider, List, ListItem, Text, Title } from "@tremor/react";
+import dynamic from "next/dynamic";
 import React from "react";
+import type { BarGraphData } from "~/components/charts/bar";
+import type { LineGraphData } from "~/components/charts/line";
 import Layout from "~/components/layout";
 import GridLayout from "~/components/layout/grid-layout";
-import dynamic from "next/dynamic";
-import type { BarGraphData } from "~/components/charts/bar";
-import { roundToDP } from "~/utils";
-import { ScrollArea } from "~/ui/scroll-area";
-import Data from "~/data.json";
-import type { BoneStationData } from "~/components/twins/digital-hospital/types";
 import { Badge } from "~/ui/badge";
-import { LineGraphData } from "~/components/charts/line";
+import { ScrollArea } from "~/ui/scroll-area";
+import { roundToDP } from "~/utils";
 
 const BarChart = dynamic(() => import("~/components/charts/bar"), {
   ssr: false,
@@ -28,11 +18,9 @@ const LineChart = dynamic(() => import("~/components/charts/line"), {
 });
 
 const UtilizationPage = () => {
-  const boneStationData = Data.bone_station as BoneStationData;
-
   return (
-    <Layout title="Resoruce Utilization">
-      <h1 className="text-3xl font-bold">Resource Utilization</h1>
+    <Layout title="Resource Utilization">
+      <h1 className="text-3xl font-bold">Average Resource Utilization</h1>
       <GridLayout>
         <Card>
           <Title className="text-2xl">Percent Utilizations</Title>
@@ -43,9 +31,9 @@ const UtilizationPage = () => {
           {...barChartData}
           extraBottomPadding={20}
           divId="tat-by-stage"
-        ></BarChart>
+        />
       </GridLayout>
-      <h1 className="mt-8 text-3xl font-bold">Resource Allocation by Time</h1>
+      <h1 className="mt-8 text-3xl font-bold"> Daily Utilization</h1>
       <div className="mt-4">
         <LineChart
           defaultCurveStyle="linear"
@@ -53,6 +41,12 @@ const UtilizationPage = () => {
           {...lineChartData}
           divId="daily-utilization"
           height={600}
+        />
+        <BarChart
+          {...barChartData2}
+          extraBottomPadding={20}
+          divId="bar-daily-util"
+          stacked
         />
       </div>
     </Layout>
@@ -117,6 +111,33 @@ const lineChartData: LineGraphData = {
   labels: stages,
 };
 
+const barChartData2: BarGraphData = {
+  data: {
+    x: [...Array(18).keys()],
+    y: [
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+    ],
+    labels: stages,
+  },
+  xlabel: "Days",
+  ylabel: "Daily Utilization %",
+  title: "Daily Utilization % (Click on legend to toggle)",
+};
+
 interface UtilizationListProps {
   data: BarGraphData["data"];
 }
@@ -148,7 +169,7 @@ const UtilizationList: React.FC<UtilizationListProps> = ({ data }) => {
 
 interface UtlizationItemProps {
   percentile: number;
-  stage: string;
+  stage: string | number;
 }
 const UtlizationItem: React.FC<UtlizationItemProps> = ({
   percentile,
