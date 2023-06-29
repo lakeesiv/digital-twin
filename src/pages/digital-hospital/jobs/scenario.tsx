@@ -37,11 +37,11 @@ const ScenarioPage = () => {
     <Layout title="Scenario Analysis">
       <h1 className="text-3xl font-bold">Lab Metrics</h1>
       <GridLayout>
-        <Card>
+        {/* <Card>
           <Title className="text-2xl">Lab TAT for Scenario</Title>
           <Divider className="mb-0 mt-2" />
           <MetricsList data={barChartData.data} order="asc" unit="hr" />
-        </Card>
+        </Card> */}
         <BarChart
           extraBottomPadding={20}
           divId="tat-by-stage"
@@ -60,8 +60,6 @@ const ScenarioPage = () => {
           ylabel="Lab TAT for Scenario"
           title="Lab TAT for Scenario"
         />
-      </GridLayout>
-      <GridLayout className="mt-4">
         <BarChart
           data={{
             x: [
@@ -80,6 +78,8 @@ const ScenarioPage = () => {
           extraBottomPadding={20}
           divId="mean-ultization-by-stage"
         />
+      </GridLayout>
+      <div className="mt-4">
         <LineChart
           fill={false}
           data={{
@@ -104,9 +104,9 @@ const ScenarioPage = () => {
           title="Daily Utilization %"
           divId="daily-utilization"
         />
-      </GridLayout>
-      <h1 className="mt-8 text-3xl font-bold">Individual Scenario Metrics</h1>
-      <div className="mt-4">
+      </div>
+      <h1 className="mt-12 text-3xl font-bold">Individual Scenario Metrics</h1>
+      <div className="my-4">
         <TabGroup
           index={tabIndex}
           onIndexChange={(index) => {
@@ -127,10 +127,13 @@ const ScenarioPage = () => {
               </Tab>
             ))}
           </TabList>
-          <TabPanels>
+          <TabPanels className="my-4">
             {[...Array(5).keys()].map((i) => (
               <TabPanel key={i}>
                 <Card className="px-4">
+                  <h1 className="text-2xl font-bold">Bottlenecks</h1>
+                  <Divider className="mb-4 mt-2" />
+
                   <Title>Turn Around Times (TAT) by Stage</Title>
                   <GridLayout>
                     <Card>
@@ -220,6 +223,10 @@ const ScenarioPage = () => {
                       divId="bone-station-busy-4"
                     />
                   </GridLayout>
+                </Card>
+
+                <Card className="mt-4">
+                  <h1 className="text-2xl font-bold">Resource Utilization</h1>
 
                   <GridLayout>
                     <Card>
@@ -237,7 +244,6 @@ const ScenarioPage = () => {
                     />
                   </GridLayout>
 
-                  <Title className="mt-8">Daily Resource Utilization</Title>
                   <div className="mt-4">
                     <LineChart
                       defaultCurveStyle="linear"
@@ -321,7 +327,7 @@ const lineChartData: LineGraphData = {
   },
   xlabel: "Days",
   ylabel: "Daily Utilization %",
-  title: "Daily Utilization % (Click on legend to toggle)",
+  title: "Daily Utilization % [Click on legend to toggle]",
   visible: [true, true, true],
   labels: stages,
 };
