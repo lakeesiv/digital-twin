@@ -9,7 +9,7 @@ import { getColor } from "./utils";
 const Plot = createPlotlyComponent(Plotly as object);
 
 export type BarGraphData = {
-  title?: string; // optional
+  title?: string | JSX.Element; // optional
   xlabel: string;
   ylabel: string;
   data: {

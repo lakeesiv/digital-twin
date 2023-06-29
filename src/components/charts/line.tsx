@@ -19,7 +19,7 @@ import { getColor } from "./utils";
 const Plot = createPlotlyComponent(Plotly as object);
 
 export type LineGraphData = {
-  title?: string; // optional
+  title?: string | JSX.Element; // title can be a string or a JSX element
   xlabel: string;
   ylabel: string;
   data: {
@@ -122,6 +122,7 @@ const LineChart: React.FC<LineProps> = ({
     <Card className="mx-auto" {...cardProps} ref={cardRef}>
       <Flex>
         <Title>{title}</Title>
+
         <div className="flex justify-center">
           <Select
             onValueChange={(value) =>
