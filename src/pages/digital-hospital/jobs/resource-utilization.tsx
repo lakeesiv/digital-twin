@@ -112,7 +112,8 @@ const lineChartData: LineGraphData = {
   },
   xlabel: "Days",
   ylabel: "Daily Utilization %",
-  title: "Daily Utilization %",
+  title: "Daily Utilization % (Click on legend to toggle)",
+  visible: [true, true, true],
   labels: stages,
 };
 
