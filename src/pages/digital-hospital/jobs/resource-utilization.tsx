@@ -17,6 +17,7 @@ import { ScrollArea } from "~/ui/scroll-area";
 import Data from "~/data.json";
 import type { BoneStationData } from "~/components/twins/digital-hospital/types";
 import { Badge } from "~/ui/badge";
+import { LineGraphData } from "~/components/charts/line";
 
 const BarChart = dynamic(() => import("~/components/charts/bar"), {
   ssr: false,
@@ -45,80 +46,15 @@ const UtilizationPage = () => {
         ></BarChart>
       </GridLayout>
       <h1 className="mt-8 text-3xl font-bold">Resource Allocation by Time</h1>
-      <GridLayout gridColumns={3}>
+      <div className="mt-4">
         <LineChart
-          defaultCurveStyle="step"
-          data={{
-            x: boneStationData.busy.data.x,
-            y: [boneStationData.busy.data.y],
-          }}
-          xlabel="Time (hours)"
-          ylabel="Busy resources"
-          labels={["Number of Resources"]}
-          title="Busy Bone Station Resources"
-          divId="bone-station-busy"
+          defaultCurveStyle="linear"
+          fill={false}
+          {...lineChartData}
+          divId="daily-utilization"
+          height={600}
         />
-        <LineChart
-          defaultCurveStyle="step"
-          data={{
-            x: boneStationData.waiting.data.x,
-            y: [boneStationData.waiting.data.y],
-          }}
-          xlabel="Time (hours)"
-          ylabel="Waiting resources"
-          labels={["Number of Resources"]}
-          title="Waiting Bone Station Resources"
-          divId="bone-station-wait"
-        />
-        <LineChart
-          defaultCurveStyle="step"
-          data={{
-            x: boneStationData.busy.data.x,
-            y: [boneStationData.busy.data.y],
-          }}
-          xlabel="Time (hours)"
-          ylabel="Busy resources"
-          labels={["Number of Resources"]}
-          title="Busy Bone Station Resources"
-          divId="bone-station-busy-1"
-        />
-        <LineChart
-          defaultCurveStyle="step"
-          data={{
-            x: boneStationData.busy.data.x,
-            y: [boneStationData.busy.data.y],
-          }}
-          xlabel="Time (hours)"
-          ylabel="Busy resources"
-          labels={["Number of Resources"]}
-          title="Busy Bone Station Resources"
-          divId="bone-station-busy-2"
-        />
-        <LineChart
-          defaultCurveStyle="step"
-          data={{
-            x: boneStationData.busy.data.x,
-            y: [boneStationData.busy.data.y],
-          }}
-          xlabel="Time (hours)"
-          ylabel="Busy resources"
-          labels={["Number of Resources"]}
-          title="Busy Bone Station Resources"
-          divId="bone-station-busy-3"
-        />
-        <LineChart
-          defaultCurveStyle="step"
-          data={{
-            x: boneStationData.busy.data.x,
-            y: [boneStationData.busy.data.y],
-          }}
-          xlabel="Time (hours)"
-          ylabel="Busy resources"
-          labels={["Number of Resources"]}
-          title="Busy Bone Station Resources"
-          divId="bone-station-busy-4"
-        />
-      </GridLayout>
+      </div>
     </Layout>
   );
 };
@@ -148,6 +84,36 @@ const barChartData: BarGraphData = {
   xlabel: "Stages",
   ylabel: "% Utilization",
   title: "% Utilization by Stage",
+};
+
+const randomArrayValues = (length: number) => {
+  return Array.from({ length }, () => Math.random() * 100);
+};
+const lineChartData: LineGraphData = {
+  data: {
+    x: [...Array(18).keys()],
+    y: [
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+      randomArrayValues(18),
+    ],
+  },
+  xlabel: "Days",
+  ylabel: "Daily Utilization %",
+  title: "Daily Utilization %",
+  labels: stages,
 };
 
 interface UtilizationListProps {
