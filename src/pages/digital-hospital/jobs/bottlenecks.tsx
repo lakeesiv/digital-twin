@@ -1,21 +1,12 @@
-import {
-  Card,
-  List,
-  ListItem,
-  Title,
-  Text,
-  Divider,
-  BadgeDelta,
-} from "@tremor/react";
-import React from "react";
+import { Card, Divider, Title } from "@tremor/react";
+import dynamic from "next/dynamic";
 import Layout from "~/components/layout";
 import GridLayout from "~/components/layout/grid-layout";
-import dynamic from "next/dynamic";
-import type { BarGraphData } from "~/components/charts/bar";
-import { roundToDP } from "~/utils";
-import { ScrollArea } from "~/ui/scroll-area";
-import Data from "~/data.json";
+import BottleNeckList, {
+  mockBottleNeckData,
+} from "~/components/twins/digital-hospital/bottlenecklist";
 import type { BoneStationData } from "~/components/twins/digital-hospital/types";
+import Data from "~/data.json";
 
 const BarChart = dynamic(() => import("~/components/charts/bar"), {
   ssr: false,
@@ -35,10 +26,10 @@ const BottlenecksPage = () => {
         <Card>
           <Title className="text-2xl">Percent Differences</Title>
           <Divider className="mb-0 mt-2" />
-          <BottleNeckList data={barChartData.data} />
+          <BottleNeckList data={mockBottleNeckData.data} />
         </Card>
         <BarChart
-          {...barChartData}
+          {...mockBottleNeckData}
           extraBottomPadding={20}
           divId="tat-by-stage"
         ></BarChart>
@@ -119,116 +110,6 @@ const BottlenecksPage = () => {
         />
       </GridLayout>
     </Layout>
-  );
-};
-
-const stages = [
-  "Reception",
-  "Cutup",
-  "Processing",
-  "Embedding",
-  "Microtomy",
-  "Staining",
-  "Cover slipping",
-  "Scanning",
-  "Collation",
-  "QC",
-  "Allocation",
-  "Reporting",
-  "Dispatch",
-];
-
-const barChartData: BarGraphData = {
-  data: {
-    x: stages,
-    y: [
-      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 10, 12],
-      [20, 18, 16, 14, 12, 10, 30, 12, 40, 20, 30, 10, 12],
-    ],
-    labels: ["Target", "Actual"],
-  },
-  xlabel: "Stages",
-  ylabel: "TAT",
-  title: "TAT by Stage",
-};
-
-interface BottleneckListProps {
-  data: BarGraphData["data"];
-}
-
-const BottleNeckList: React.FC<BottleneckListProps> = ({ data }) => {
-  const stages = data.x;
-  if (!data.y) return null;
-  if (!data.y[0]) return null;
-  if (!data.y[1]) return null;
-  if (!data.y[0][0]) return null;
-
-  const percentIncrease = data.y[1].map((actual, index) => {
-    const targets = data.y[0];
-    const currentTarget = targets[index];
-    return roundToDP(((actual - currentTarget) / currentTarget) * 100, 2);
-  });
-
-  // order by percetage decrease
-  const sortedIndexes = percentIncrease
-    .map((_, index) => index)
-    .sort((a, b) => percentIncrease[b] - percentIncrease[a]);
-
-  return (
-    <ScrollArea className="h-[300px]">
-      <List>
-        {sortedIndexes.map((index) => (
-          <BottleneckListItem
-            key={stages[index]}
-            target={data.y[0][index]}
-            actual={data.y[1][index]}
-            stage={stages[index]}
-          />
-        ))}
-      </List>
-    </ScrollArea>
-  );
-};
-
-interface BottleneckListItemProps {
-  target: number;
-  actual: number;
-  stage: string;
-}
-const BottleneckListItem: React.FC<BottleneckListItemProps> = ({
-  target,
-  actual,
-  stage,
-}) => {
-  return (
-    <ListItem>
-      <div>
-        <Text className="text-lg font-semibold text-gray-700 dark:text-gray-300">
-          {stage}
-        </Text>
-        <Text>
-          Target: {target} | Actual: {actual}
-        </Text>
-      </div>
-      <BadgeDelta
-        deltaType={
-          actual > target
-            ? "increase"
-            : actual < target
-            ? "decrease"
-            : "unchanged"
-        }
-        className={
-          actual > target
-            ? "bg-red-500 text-red-100"
-            : actual < target
-            ? "bg-green-500 text-green-100"
-            : "bg-gray-100 text-gray-800"
-        }
-      >
-        {roundToDP(((actual - target) / target) * 100, 1)} %
-      </BadgeDelta>
-    </ListItem>
   );
 };
 

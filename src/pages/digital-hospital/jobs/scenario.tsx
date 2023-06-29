@@ -60,7 +60,7 @@ const ScenarioPage = () => {
           title="Lab TAT for Scenario"
         />
       </GridLayout>
-      <GridLayout>
+      <GridLayout className="mt-4">
         <BarChart
           data={{
             x: [
@@ -129,7 +129,7 @@ const ScenarioPage = () => {
           <TabPanels>
             <TabPanel>
               <Card className="px-8">
-                <Title>Single File Upload</Title>
+                <Title>TAT by Stage</Title>
               </Card>
             </TabPanel>
             <TabPanel>
