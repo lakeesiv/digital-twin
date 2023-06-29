@@ -158,7 +158,10 @@ const LineChart: React.FC<LineProps> = ({
           />
         </div>
       </Flex>
-      <div className={"mx-auto mt-8 ring-0 " + `h-[${height}px]`}>
+      <div
+        className={"mx-auto mt-8 ring-0 " + `h-[${height}px]`}
+        style={{ height: `${height}px` }}
+      >
         <Plot
           divId={divId}
           data={plottingData as object[]}

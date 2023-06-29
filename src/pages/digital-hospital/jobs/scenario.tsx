@@ -102,7 +102,8 @@ const ScenarioPage = () => {
           xlabel="Days"
           ylabel="Daily Utilization %"
           title="Daily Utilization %"
-          divId="daily-utilization"
+          divId="daily-utilization-per-scenario"
+          height={300}
         />
       </div>
       <h1 className="mt-12 text-3xl font-bold">Individual Scenario Metrics</h1>
@@ -160,7 +161,8 @@ const ScenarioPage = () => {
                       ylabel="Busy resources"
                       labels={["Number of Resources"]}
                       title="Busy Bone Station Resources"
-                      divId="bone-station-busy"
+                      divId={"bone-station-busy" + String(i)}
+                      height={200}
                     />
                     <LineChart
                       defaultCurveStyle="step"
@@ -172,7 +174,8 @@ const ScenarioPage = () => {
                       ylabel="Waiting resources"
                       labels={["Number of Resources"]}
                       title="Waiting Bone Station Resources"
-                      divId="bone-station-wait"
+                      divId={"bone-station-wait" + String(i)}
+                      height={200}
                     />
                     <LineChart
                       defaultCurveStyle="step"
@@ -184,43 +187,8 @@ const ScenarioPage = () => {
                       ylabel="Busy resources"
                       labels={["Number of Resources"]}
                       title="Busy Bone Station Resources"
-                      divId="bone-station-busy-1"
-                    />
-                    <LineChart
-                      defaultCurveStyle="step"
-                      data={{
-                        x: boneStationData.busy.data.x,
-                        y: [boneStationData.busy.data.y],
-                      }}
-                      xlabel="Time (hours)"
-                      ylabel="Busy resources"
-                      labels={["Number of Resources"]}
-                      title="Busy Bone Station Resources"
-                      divId="bone-station-busy-2"
-                    />
-                    <LineChart
-                      defaultCurveStyle="step"
-                      data={{
-                        x: boneStationData.busy.data.x,
-                        y: [boneStationData.busy.data.y],
-                      }}
-                      xlabel="Time (hours)"
-                      ylabel="Busy resources"
-                      labels={["Number of Resources"]}
-                      title="Busy Bone Station Resources"
-                      divId="bone-station-busy-3"
-                    />
-                    <LineChart
-                      defaultCurveStyle="step"
-                      data={{
-                        x: boneStationData.busy.data.x,
-                        y: [boneStationData.busy.data.y],
-                      }}
-                      xlabel="Time (hours)"
-                      ylabel="Busy resources"
-                      labels={["Number of Resources"]}
-                      title="Busy Bone Station Resources"
-                      divId="bone-station-busy-4"
+                      divId={"bone-station-busy2" + String(i)}
+                      height={200}
                     />
                   </GridLayout>
                 </Card>
