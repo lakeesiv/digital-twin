@@ -1,18 +1,15 @@
 import {
   Card,
   Divider,
-  List,
-  ListItem,
   Tab,
   TabGroup,
   TabList,
   TabPanel,
   TabPanels,
-  Text,
   Title,
 } from "@tremor/react";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import { useState } from "react";
 import type { BarGraphData } from "~/components/charts/bar";
 import type { LineGraphData } from "~/components/charts/line";
 import Layout from "~/components/layout";
@@ -20,9 +17,9 @@ import GridLayout from "~/components/layout/grid-layout";
 import BottleNeckList, {
   mockBottleNeckData,
 } from "~/components/twins/digital-hospital/bottlenecklist";
-import { Badge } from "~/ui/badge";
-import { ScrollArea } from "~/ui/scroll-area";
-import { roundToDP } from "~/utils";
+import MetricsList from "~/components/twins/digital-hospital/metrics-list";
+import type { BoneStationData } from "~/components/twins/digital-hospital/types";
+import Data from "~/data.json";
 
 const BarChart = dynamic(() => import("~/components/charts/bar"), {
   ssr: false,
@@ -34,15 +31,16 @@ const LineChart = dynamic(() => import("~/components/charts/line"), {
 
 const ScenarioPage = () => {
   const [tabIndex, setTabIndex] = useState(0);
+  const boneStationData = Data.bone_station as BoneStationData;
 
   return (
     <Layout title="Scenario Analysis">
       <h1 className="text-3xl font-bold">Lab Metrics</h1>
       <GridLayout>
         <Card>
-          <Title className="text-2xl">Percent Utilizations</Title>
+          <Title className="text-2xl">Lab TAT for Scenario</Title>
           <Divider className="mb-0 mt-2" />
-          <UtilizationList data={barChartData.data} />
+          <MetricsList data={barChartData.data} order="asc" unit="hr" />
         </Card>
         <BarChart
           extraBottomPadding={20}
@@ -132,7 +130,7 @@ const ScenarioPage = () => {
           <TabPanels>
             <TabPanel>
               <Card className="px-4">
-                <Title>Turn Around Times (TAT)</Title>
+                <Title>Turn Around Times (TAT) by Stage</Title>
                 <GridLayout>
                   <Card>
                     <Title className="text-2xl">Percent Differences</Title>
@@ -145,11 +143,82 @@ const ScenarioPage = () => {
                     divId="tat-by-stage"
                   ></BarChart>
                 </GridLayout>
-              </Card>
-            </TabPanel>
-            <TabPanel>
-              <Card className="px-8">
-                <Title>Multi File Upload</Title>
+                <Title className="mt-8">Resource Allocation</Title>
+
+                <GridLayout gridColumns={3}>
+                  <LineChart
+                    defaultCurveStyle="step"
+                    data={{
+                      x: boneStationData.busy.data.x,
+                      y: [boneStationData.busy.data.y],
+                    }}
+                    xlabel="Time (hours)"
+                    ylabel="Busy resources"
+                    labels={["Number of Resources"]}
+                    title="Busy Bone Station Resources"
+                    divId="bone-station-busy"
+                  />
+                  <LineChart
+                    defaultCurveStyle="step"
+                    data={{
+                      x: boneStationData.waiting.data.x,
+                      y: [boneStationData.waiting.data.y],
+                    }}
+                    xlabel="Time (hours)"
+                    ylabel="Waiting resources"
+                    labels={["Number of Resources"]}
+                    title="Waiting Bone Station Resources"
+                    divId="bone-station-wait"
+                  />
+                  <LineChart
+                    defaultCurveStyle="step"
+                    data={{
+                      x: boneStationData.busy.data.x,
+                      y: [boneStationData.busy.data.y],
+                    }}
+                    xlabel="Time (hours)"
+                    ylabel="Busy resources"
+                    labels={["Number of Resources"]}
+                    title="Busy Bone Station Resources"
+                    divId="bone-station-busy-1"
+                  />
+                  <LineChart
+                    defaultCurveStyle="step"
+                    data={{
+                      x: boneStationData.busy.data.x,
+                      y: [boneStationData.busy.data.y],
+                    }}
+                    xlabel="Time (hours)"
+                    ylabel="Busy resources"
+                    labels={["Number of Resources"]}
+                    title="Busy Bone Station Resources"
+                    divId="bone-station-busy-2"
+                  />
+                  <LineChart
+                    defaultCurveStyle="step"
+                    data={{
+                      x: boneStationData.busy.data.x,
+                      y: [boneStationData.busy.data.y],
+                    }}
+                    xlabel="Time (hours)"
+                    ylabel="Busy resources"
+                    labels={["Number of Resources"]}
+                    title="Busy Bone Station Resources"
+                    divId="bone-station-busy-3"
+                  />
+                  <LineChart
+                    defaultCurveStyle="step"
+                    data={{
+                      x: boneStationData.busy.data.x,
+                      y: [boneStationData.busy.data.y],
+                    }}
+                    xlabel="Time (hours)"
+                    ylabel="Busy resources"
+                    labels={["Number of Resources"]}
+                    title="Busy Bone Station Resources"
+                    divId="bone-station-busy-4"
+                  />
+                </GridLayout>
               </Card>
             </TabPanel>
           </TabPanels>
@@ -242,53 +311,6 @@ const barChartData2: BarGraphData = {
   xlabel: "Days",
   ylabel: "Daily Utilization %",
   title: "Daily Utilization % (Click on legend to toggle)",
-};
-
-interface UtilizationListProps {
-  data: BarGraphData["data"];
-}
-
-const UtilizationList: React.FC<UtilizationListProps> = ({ data }) => {
-  const stages = data.x;
-
-  const percentIncrease = data.y[0];
-
-  // order by percetage decrease
-  const sortedIndexes = percentIncrease
-    .map((_, index) => index)
-    .sort((a, b) => percentIncrease[b] - percentIncrease[a]);
-
-  return (
-    <ScrollArea className="h-[300px]">
-      <List>
-        {sortedIndexes.map((index) => (
-          <UtlizationItem
-            key={stages[index]}
-            percentile={data.y[0][index]}
-            stage={stages[index]}
-          />
-        ))}
-      </List>
-    </ScrollArea>
-  );
-};
-
-interface UtlizationItemProps {
-  percentile: number;
-  stage: string | number;
-}
-const UtlizationItem: React.FC<UtlizationItemProps> = ({
-  percentile,
-  stage,
-}) => {
-  return (
-    <ListItem>
-      <Text className="text-lg font-semibold text-gray-700 dark:text-gray-300">
-        {stage}
-      </Text>
-      <Badge>{roundToDP(percentile, 2)} hr</Badge>
-    </ListItem>
-  );
 };
 
 export default ScenarioPage;

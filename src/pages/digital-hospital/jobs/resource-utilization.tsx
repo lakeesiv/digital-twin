@@ -1,13 +1,10 @@
-import { Card, Divider, List, ListItem, Text, Title } from "@tremor/react";
+import { Card, Divider, Title } from "@tremor/react";
 import dynamic from "next/dynamic";
-import React from "react";
 import type { BarGraphData } from "~/components/charts/bar";
 import type { LineGraphData } from "~/components/charts/line";
 import Layout from "~/components/layout";
 import GridLayout from "~/components/layout/grid-layout";
-import { Badge } from "~/ui/badge";
-import { ScrollArea } from "~/ui/scroll-area";
-import { roundToDP } from "~/utils";
+import MetricsList from "~/components/twins/digital-hospital/metrics-list";
 
 const BarChart = dynamic(() => import("~/components/charts/bar"), {
   ssr: false,
@@ -25,7 +22,7 @@ const UtilizationPage = () => {
         <Card>
           <Title className="text-2xl">Percent Utilizations</Title>
           <Divider className="mb-0 mt-2" />
-          <UtilizationList data={barChartData.data} />
+          <MetricsList data={barChartData.data} unit="%" />
         </Card>
         <BarChart
           {...barChartData}
@@ -136,53 +133,6 @@ const barChartData2: BarGraphData = {
   xlabel: "Days",
   ylabel: "Daily Utilization %",
   title: "Daily Utilization % (Click on legend to toggle)",
-};
-
-interface UtilizationListProps {
-  data: BarGraphData["data"];
-}
-
-const UtilizationList: React.FC<UtilizationListProps> = ({ data }) => {
-  const stages = data.x;
-
-  const percentIncrease = data.y[0];
-
-  // order by percetage decrease
-  const sortedIndexes = percentIncrease
-    .map((_, index) => index)
-    .sort((a, b) => percentIncrease[b] - percentIncrease[a]);
-
-  return (
-    <ScrollArea className="h-[300px]">
-      <List>
-        {sortedIndexes.map((index) => (
-          <UtlizationItem
-            key={stages[index]}
-            percentile={data.y[0][index]}
-            stage={stages[index]}
-          />
-        ))}
-      </List>
-    </ScrollArea>
-  );
-};
-
-interface UtlizationItemProps {
-  percentile: number;
-  stage: string | number;
-}
-const UtlizationItem: React.FC<UtlizationItemProps> = ({
-  percentile,
-  stage,
-}) => {
-  return (
-    <ListItem>
-      <Text className="text-lg font-semibold text-gray-700 dark:text-gray-300">
-        {stage}
-      </Text>
-      <Badge>{roundToDP(percentile, 2)} %</Badge>
-    </ListItem>
-  );
 };
 
 export default UtilizationPage;
