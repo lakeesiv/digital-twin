@@ -16,6 +16,7 @@ import { roundToDP } from "~/utils";
 import { ScrollArea } from "~/ui/scroll-area";
 import Data from "~/data.json";
 import type { BoneStationData } from "~/components/twins/digital-hospital/types";
+import { Badge } from "~/ui/badge";
 
 const BarChart = dynamic(() => import("~/components/charts/bar"), {
   ssr: false,
@@ -29,13 +30,13 @@ const UtilizationPage = () => {
   const boneStationData = Data.bone_station as BoneStationData;
 
   return (
-    <Layout title="Bottlenecks">
-      <h1 className="text-3xl font-bold">Turn Around Times</h1>
+    <Layout title="Resoruce Utilization">
+      <h1 className="text-3xl font-bold">Resource Utilization</h1>
       <GridLayout>
         <Card>
-          <Title className="text-2xl">Percent Differences</Title>
+          <Title className="text-2xl">Percent Utilizations</Title>
           <Divider className="mb-0 mt-2" />
-          <BottleNeckList data={barChartData.data} />
+          <UtilizationList data={barChartData.data} />
         </Card>
         <BarChart
           {...barChartData}
@@ -141,33 +142,22 @@ const stages = [
 const barChartData: BarGraphData = {
   data: {
     x: stages,
-    y: [
-      [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 10, 12],
-      [20, 18, 16, 14, 12, 10, 30, 12, 40, 20, 30, 10, 12],
-    ],
-    labels: ["Target", "Actual"],
+    y: [[100, 50, 60, 60, 20, 100, 20, 24, 70, 80, 80, 90, 100]],
+    labels: ["% Utilization"],
   },
   xlabel: "Stages",
-  ylabel: "TAT",
-  title: "TAT by Stage",
+  ylabel: "% Utilization",
+  title: "% Utilization by Stage",
 };
 
-interface BottleneckListProps {
+interface UtilizationListProps {
   data: BarGraphData["data"];
 }
 
-const BottleNeckList: React.FC<BottleneckListProps> = ({ data }) => {
+const UtilizationList: React.FC<UtilizationListProps> = ({ data }) => {
   const stages = data.x;
-  if (!data.y) return null;
-  if (!data.y[0]) return null;
-  if (!data.y[1]) return null;
-  if (!data.y[0][0]) return null;
 
-  const percentIncrease = data.y[1].map((actual, index) => {
-    const targets = data.y[0];
-    const currentTarget = targets[index];
-    return roundToDP(((actual - currentTarget) / currentTarget) * 100, 2);
-  });
+  const percentIncrease = data.y[0];
 
   // order by percetage decrease
   const sortedIndexes = percentIncrease
@@ -178,10 +168,9 @@ const BottleNeckList: React.FC<BottleneckListProps> = ({ data }) => {
     <ScrollArea className="h-[300px]">
       <List>
         {sortedIndexes.map((index) => (
-          <BottleneckListItem
+          <UtlizationItem
             key={stages[index]}
-            target={data.y[0][index]}
-            actual={data.y[1][index]}
+            percentile={data.y[0][index]}
             stage={stages[index]}
           />
         ))}
@@ -190,44 +179,20 @@ const BottleNeckList: React.FC<BottleneckListProps> = ({ data }) => {
   );
 };
 
-interface BottleneckListItemProps {
-  target: number;
-  actual: number;
+interface UtlizationItemProps {
+  percentile: number;
   stage: string;
 }
-const BottleneckListItem: React.FC<BottleneckListItemProps> = ({
-  target,
-  actual,
+const UtlizationItem: React.FC<UtlizationItemProps> = ({
+  percentile,
   stage,
 }) => {
   return (
     <ListItem>
-      <div>
-        <Text className="text-lg font-semibold text-gray-700 dark:text-gray-300">
-          {stage}
-        </Text>
-        <Text>
-          Target: {target} | Actual: {actual}
-        </Text>
-      </div>
-      <BadgeDelta
-        deltaType={
-          actual > target
-            ? "increase"
-            : actual < target
-            ? "decrease"
-            : "unchanged"
-        }
-        className={
-          actual > target
-            ? "bg-red-500 text-red-100"
-            : actual < target
-            ? "bg-green-500 text-green-100"
-            : "bg-gray-100 text-gray-800"
-        }
-      >
-        {roundToDP(((actual - target) / target) * 100, 1)} %
-      </BadgeDelta>
+      <Text className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+        {stage}
+      </Text>
+      <Badge>{roundToDP(percentile, 2)} %</Badge>
     </ListItem>
   );
 };
