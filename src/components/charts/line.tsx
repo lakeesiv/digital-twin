@@ -222,12 +222,20 @@ const getLayout = (
     xaxis: {
       showgrid: false,
       linecolor: "rgba(0, 0, 0, 0)",
+      zerolinecolor:
+        theme === "dark"
+          ? "#rgba(75, 85, 99, 0.4)"
+          : "rgba(209, 213, 219, 0.4)",
       title: {
         text: xlabel,
       },
     },
     yaxis: {
       gridcolor:
+        theme === "dark"
+          ? "#rgba(75, 85, 99, 0.4)"
+          : "rgba(209, 213, 219, 0.4)",
+      zerolinecolor:
         theme === "dark"
           ? "#rgba(75, 85, 99, 0.4)"
           : "rgba(209, 213, 219, 0.4)",
