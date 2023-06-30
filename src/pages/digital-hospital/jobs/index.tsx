@@ -8,6 +8,7 @@ import {
   Title,
 } from "@tremor/react";
 import { ArrowUpRight, Square, SquareStack } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 import Layout from "~/components/layout";
 import StatusBage from "~/components/status-badge";
@@ -55,43 +56,18 @@ const JobsEntry: React.FC<JobsEntryProps> = ({ title, status, type }) => {
         </div>
         <div className="flex items-center space-x-6 pl-8">
           {type === "process" && status === "completed" && (
-            <>
-              <Button
-                icon={ArrowUpRight}
-                size="xs"
-                onClick={() => {
-                  window.location.href =
-                    "/digital-hospital/jobs/bottlenecks?id=" + title;
-                }}
-              >
-                Bottlenecks
+            <Link href={"/digital-hospital/jobs/results?id=" + title}>
+              <Button icon={ArrowUpRight} size="xs">
+                Results
               </Button>
-              <Button
-                icon={ArrowUpRight}
-                size="xs"
-                onClick={() => {
-                  window.location.href =
-                    "/digital-hospital/jobs/resource-utilization?id=" + title;
-                }}
-              >
-                Resource Utilization
-              </Button>
-            </>
+            </Link>
           )}
           {type === "scenario" && status === "completed" && (
-            <Button
-              icon={ArrowUpRight}
-              size="xs"
-              onClick={() => {
-                // open new tab
-                window.open(
-                  "/digital-hospital/jobs/scenario?id=" + title,
-                  "_blank"
-                );
-              }}
-            >
-              Scenario Analysis
-            </Button>
+            <Link href={"/digital-hospital/jobs/scenario?id=" + title}>
+              <Button icon={ArrowUpRight} size="xs">
+                Results (Scenario Analysis)
+              </Button>
+            </Link>
           )}
           {status === "in-progress" && (
             <div className="flex items-center space-x-4">
