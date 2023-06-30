@@ -57,32 +57,35 @@ const DownloadButton: React.FC<DownloadProps> = ({ data, type, divId }) => {
         >
           JSON
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            let resultingData = "";
+        {data.data.x[0] instanceof Array ? null : (
+          <DropdownMenuItem
+            onClick={() => {
+              let resultingData = "";
 
-            if (type === "line") {
-              const lineData = data as LineChartData;
-              resultingData = downloadLineData(lineData, "csv");
-            }
+              if (type === "line") {
+                const lineData = data as LineChartData;
+                resultingData = downloadLineData(lineData, "csv");
+              }
 
-            if (type === "bar") {
-              const barData = data as BarChartData;
-              resultingData = downloadBarData(barData, "csv");
-            }
+              if (type === "bar") {
+                const barData = data as BarChartData;
+                resultingData = downloadBarData(barData, "csv");
+              }
 
-            const element = document.createElement("a");
-            const file = new Blob([resultingData], {
-              type: "text/plain",
-            });
-            element.href = URL.createObjectURL(file);
-            element.download = getTitle(data, "data") + "." + "csv";
-            document.body.appendChild(element); // Required for this to work in FireFox
-            element.click();
-          }}
-        >
-          CSV
-        </DropdownMenuItem>
+              const element = document.createElement("a");
+              const file = new Blob([resultingData], {
+                type: "text/plain",
+              });
+              element.href = URL.createObjectURL(file);
+              element.download = getTitle(data, "data") + "." + "csv";
+              document.body.appendChild(element); // Required for this to work in FireFox
+              element.click();
+            }}
+          >
+            CSV
+          </DropdownMenuItem>
+        )}
+
         <DropdownMenuItem
           onClick={async () => {
             await downloadPNG(divId, getTitle(data, "plot"));
@@ -105,7 +108,16 @@ const downloadLineData = (
 ) => {
   const resultingData: ExportedData = {};
   const xlabel = data.xlabel;
-  resultingData[xlabel] = data.data.x;
+
+  if (data.data.x[0] instanceof Array) {
+    const x = data.data.x as number[][];
+    for (let i = 0; i < x.length; i++) {
+      const id = xlabel + " " + data.labels[i];
+      resultingData[id] = x[i];
+    }
+  } else {
+    resultingData[xlabel] = data.data.x as number[];
+  }
 
   const labels = data.labels;
 
@@ -120,22 +132,28 @@ const downloadLineData = (
   if (downloadFormat === "json") {
     return JSON.stringify(resultingData, null, 2);
   } else if (downloadFormat === "csv") {
-    let csv = xlabel + "," + labels.join(",") + "\n";
-    for (let i = 0; i < data.data.x.length; i++) {
-      csv += `${data.data.x[i]}` + ",";
+    if (data.data.x[0] instanceof Array) {
+      return "Error CSV not supported for multiple x values";
+    } else {
+      let csv = xlabel + "," + labels.join(",") + "\n";
+      data.data.x = data.data.x as number[];
 
-      if (data.labels.length === 1) {
-        csv += `${data.data.y[i] as number}` + ",";
-      } else {
-        for (let j = 0; j < data.labels.length; j++) {
-          const curr = data.data.y[j] as number[];
-          csv += `${curr[i]}` + ",";
+      for (let i = 0; i < data.data.x.length; i++) {
+        csv += `${data.data.x[i]}` + ",";
+
+        if (data.labels.length === 1) {
+          csv += `${data.data.y[i] as number}` + ",";
+        } else {
+          for (let j = 0; j < data.labels.length; j++) {
+            const curr = data.data.y[j] as number[];
+            csv += `${curr[i]}` + ",";
+          }
         }
-      }
 
-      csv += "\n";
+        csv += "\n";
+      }
+      return csv;
     }
-    return csv;
   } else {
     return "Failed to download data";
   }
