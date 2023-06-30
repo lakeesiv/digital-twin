@@ -20,6 +20,13 @@ import BottleNeckList, {
 import MetricsList from "~/components/twins/digital-hospital/metrics-list";
 import type { BoneStationData } from "~/components/twins/digital-hospital/types";
 import Data from "~/data.json";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/ui/tooltip";
+import { Info } from "lucide-react";
 
 const BarChart = dynamic(() => import("~/components/charts/bar"), {
   ssr: false,
@@ -264,21 +271,39 @@ const resourceUtilizationMock: BarChartData = {
   ylabel: "% Utilization",
   title: "% Utilization by Stage",
 };
-
-const barChartData: BarChartData = {
-  data: {
-    x: ["Scenario 1", "Scenario 2", "Scenario 3", "Scenario 4", "Scenario 5"],
-    y: [[30, 20, 60, 70, 50]],
-    labels: ["% Utilization"],
-  },
-  xlabel: "Scenarios",
-  ylabel: "TAT for Scenario",
-  title: "TAT for Scenario",
-};
-
 const randomArrayValues = (length: number) => {
   return Array.from({ length }, () => Math.random() * 100);
 };
+
+const TextWithInfo = ({ text, info }: { text: string; info: string }) => {
+  return (
+    <div className="flex flex-row justify-center">
+      <p>{text}</p>
+      <div className="ml-4 mt-[1.5px]">
+        <TooltipProvider>
+          <Tooltip delayDuration={200}>
+            <TooltipTrigger>
+              <Info
+                className="h-6 w-6 text-gray-500 hover:text-gray-700
+              dark:text-gray-300 dark:hover:text-gray-400"
+              />
+            </TooltipTrigger>
+            <TooltipContent>
+              <span
+                className="whitespace-pre-wrap text-sm text-gray-500
+              dark:text-gray-300
+              "
+              >
+                {info}
+              </span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+    </div>
+  );
+};
+
 const lineChartData: LineChartData = {
   data: {
     x: [...Array(18).keys()],
@@ -302,36 +327,14 @@ const lineChartData: LineChartData = {
   },
   xlabel: "Days",
   ylabel: "Daily Utilization %",
-  title: "Daily Utilization % [Click on legend to toggle]",
+  title: (
+    <TextWithInfo
+      text="Daily Utilization"
+      info={`Click on the Legend to toggle\nthe visibility of the lines`}
+    />
+  ),
   visible: [true, true, true],
   labels: stages,
 };
-
-// const barChartData2: BarGraphData = {
-//   data: {
-//     x: [...Array(18).keys()],
-//     y: [
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//       randomArrayValues(18),
-//     ],
-//     labels: stages,
-//   },
-//   xlabel: "Days",
-//   ylabel: "Daily Utilization %",
-//   title: "Daily Utilization % (Click on legend to toggle)",
-// };
 
 export default ScenarioPage;
