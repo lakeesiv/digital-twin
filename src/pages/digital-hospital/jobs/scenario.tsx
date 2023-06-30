@@ -145,7 +145,7 @@ const ScenarioPage = () => {
                     <BarChart
                       {...mockBottleNeckData}
                       extraBottomPadding={20}
-                      divId="tat-by-stage"
+                      divId={"tat-by-stage" + String(i)}
                     ></BarChart>
                   </GridLayout>
                   <Title className="mt-8">Resource Allocation</Title>
@@ -208,7 +208,7 @@ const ScenarioPage = () => {
                     <BarChart
                       {...resourceUtilizationMock}
                       extraBottomPadding={20}
-                      divId="percent-utilization"
+                      divId={"percent-utilization" + String(i)}
                     />
                   </GridLayout>
 
