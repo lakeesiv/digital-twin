@@ -26,11 +26,11 @@ const LineChart = dynamic(() => import("~/components/charts/line"), {
   ssr: false,
 });
 
-const ScenarioPage = () => {
+const ResultsPage = () => {
   const boneStationData = Data.bone_station as BoneStationData;
 
   return (
-    <Layout title="Scenario Analysis">
+    <Layout title="Results">
       <h1 className="text-3xl font-bold">Results</h1>
       <div className="my-4">
         <Card className="px-4">
@@ -224,4 +224,4 @@ const lineChartData: LineChartData = {
   labels: stages,
 };
 
-export default ScenarioPage;
+export default ResultsPage;
