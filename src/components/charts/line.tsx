@@ -23,7 +23,7 @@ export type LineChartData = {
   xlabel: string;
   ylabel: string;
   data: {
-    x: number[];
+    x: number[] | number[][]; // either one array of x values (global), or an array of arrays of x values for each line
     y: number[][] | number[]; // each array is a line [[...], [...], [...]]  or single line [...]
   };
   labels: string[]; // each label is a line ["label1", "label2", "label3"]
@@ -86,7 +86,21 @@ const LineChart: React.FC<LineProps> = ({
     return () => resizeObserver.disconnect(); // clean up
   }, [divId]);
 
-  const x = dateTime ? data.x.map((d) => new Date(d)) : data.x;
+  let x = data.x as number[] | number[][] | Date[] | Date[][];
+  let individualX = false;
+
+  if (dateTime) {
+    // x = (x as number[]).map((x) => new Date(x));
+    if (x[0] instanceof Array) {
+      x = (x as number[][]).map((x) => x.map((x) => new Date(x)));
+    } else {
+      x = (x as number[]).map((x) => new Date(x));
+    }
+  }
+
+  if (x[0] instanceof Array) {
+    individualX = true;
+  }
 
   const plottingData: Partial<Plotly.Data>[] = [];
 
@@ -95,7 +109,7 @@ const LineChart: React.FC<LineProps> = ({
     // multiple lines
     for (let i = 0; i < labels.length; i++) {
       plottingData.push({
-        x: x,
+        x: individualX ? x[i] : x,
         y: data.y[i],
         marker: { color: getColor(i) },
         fill: fill ? "tozeroy" : "none",
@@ -108,7 +122,7 @@ const LineChart: React.FC<LineProps> = ({
   } else {
     // single line
     plottingData.push({
-      x: x,
+      x: individualX ? x[0] : x,
       y: data.y,
       marker: { color: getColor(0) },
       fill: "tozeroy",
