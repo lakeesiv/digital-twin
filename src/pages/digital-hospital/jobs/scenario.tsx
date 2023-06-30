@@ -16,7 +16,7 @@ import Layout from "~/components/layout";
 import GridLayout from "~/components/layout/grid-layout";
 import BottleNeckList, {
   mockBottleNeckData,
-} from "~/components/twins/digital-hospital/bottlenecklist";
+} from "~/components/twins/digital-hospital/percentage-change-list";
 import MetricsList from "~/components/twins/digital-hospital/metrics-list";
 import type { BoneStationData } from "~/components/twins/digital-hospital/types";
 import Data from "~/data.json";

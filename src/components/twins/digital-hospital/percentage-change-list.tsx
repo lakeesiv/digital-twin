@@ -4,11 +4,11 @@ import type { BarGraphData } from "~/components/charts/bar";
 import { roundToDP } from "~/utils";
 import { stages } from ".";
 
-interface BottleneckListProps {
+interface PercentChangeListProps {
   data: BarGraphData["data"];
 }
 
-const BottleNeckList: React.FC<BottleneckListProps> = ({ data }) => {
+const PercentChangeList: React.FC<PercentChangeListProps> = ({ data }) => {
   const stages = data.x;
   if (!data.y) return null;
   if (!data.y[0]) return null;
@@ -30,7 +30,7 @@ const BottleNeckList: React.FC<BottleneckListProps> = ({ data }) => {
     <ScrollArea className="h-[300px]">
       <List>
         {sortedIndexes.map((index) => (
-          <BottleneckListItem
+          <PercentChangeListItem
             key={stages[index]}
             target={data.y[0][index]}
             actual={data.y[1][index]}
@@ -42,12 +42,12 @@ const BottleNeckList: React.FC<BottleneckListProps> = ({ data }) => {
   );
 };
 
-interface BottleneckListItemProps {
+interface PercentChangeListItemProps {
   target: number;
   actual: number;
   stage: string | number;
 }
-const BottleneckListItem: React.FC<BottleneckListItemProps> = ({
+const PercentChangeListItem: React.FC<PercentChangeListItemProps> = ({
   target,
   actual,
   stage,
@@ -98,4 +98,4 @@ export const mockBottleNeckData: BarGraphData = {
   title: "TAT by Stage",
 };
 
-export default BottleNeckList;
+export default PercentChangeList;
