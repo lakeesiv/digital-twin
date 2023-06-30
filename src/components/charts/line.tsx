@@ -64,7 +64,7 @@ const LineChart: React.FC<LineProps> = ({
   defaultCurveStyle = "linear",
   divId,
   dateTime,
-  fill = true,
+  fill = false,
   height = 250,
   visible,
 }) => {

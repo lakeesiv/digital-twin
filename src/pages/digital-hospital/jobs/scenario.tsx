@@ -155,12 +155,18 @@ const ScenarioPage = () => {
                     <LineChart
                       defaultCurveStyle="step"
                       data={{
-                        x: boneStationData.busy.data.x,
-                        y: [boneStationData.busy.data.y],
+                        x: [
+                          boneStationData.busy.data.x,
+                          boneStationData.waiting.data.x,
+                        ],
+                        y: [
+                          boneStationData.busy.data.y,
+                          boneStationData.waiting.data.y,
+                        ],
                       }}
                       xlabel="Time (hours)"
                       ylabel="Busy resources"
-                      labels={["Number of Resources"]}
+                      labels={["Busy", "Waiting"]}
                       title="Busy Bone Station Resources"
                       divId={"bone-station-busy" + String(i)}
                       height={200}
