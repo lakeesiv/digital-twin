@@ -18,7 +18,7 @@ import { getColor } from "./utils";
 
 const Plot = createPlotlyComponent(Plotly as object);
 
-export type LineGraphData = {
+export type LineChartData = {
   title?: string | JSX.Element; // title can be a string or a JSX element
   xlabel: string;
   ylabel: string;
@@ -30,7 +30,7 @@ export type LineGraphData = {
   visible?: boolean[]; // each boolean is a line [true, false, true]
 };
 
-interface LineProps extends LineGraphData {
+interface LineProps extends LineChartData {
   cardProps?: React.ComponentProps<typeof Card>;
   defaultCurveStyle?: "linear" | "step" | "natural";
   divId: string;
@@ -47,7 +47,7 @@ interface LineProps extends LineGraphData {
  * @param {string} [props.title] - The title for the chart (optional).
  * @param {React.ComponentProps<typeof Card>} [props.cardProps] - The props for the Card component (optional).
  * @param {string[]} props.labels - The labels for the data lines.
- * @param {LineGraphData['data']} props.data - The data for the chart.
+ * @param {LineChartData['data']} props.data - The data for the chart.
  * @param {'linear' | 'step' | 'natural'} [props.defaultCurveStyle='linear'] - The default curve style for the chart (optional).
  * @param {string} props.divId - The ID of the div element that the chart will be rendered in.
  * @param {boolean} [props.dateTime] - Whether the x-axis is a date/time axis (optional).

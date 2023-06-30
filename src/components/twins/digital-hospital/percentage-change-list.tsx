@@ -1,11 +1,11 @@
 import { ScrollArea } from "~/ui/scroll-area";
 import { ListItem, BadgeDelta, Text, List } from "@tremor/react";
-import type { BarGraphData } from "~/components/charts/bar";
+import type { BarChartData } from "~/components/charts/bar";
 import { roundToDP } from "~/utils";
 import { stages } from ".";
 
 interface PercentChangeListProps {
-  data: BarGraphData["data"];
+  data: BarChartData["data"];
 }
 
 const PercentChangeList: React.FC<PercentChangeListProps> = ({ data }) => {
@@ -84,7 +84,7 @@ const PercentChangeListItem: React.FC<PercentChangeListItemProps> = ({
   );
 };
 
-export const mockBottleNeckData: BarGraphData = {
+export const mockBottleNeckData: BarChartData = {
   data: {
     x: stages,
     y: [

@@ -1,11 +1,11 @@
 import { List, ListItem, Text } from "@tremor/react";
-import type { BarGraphData } from "~/components/charts/bar";
+import type { BarChartData } from "~/components/charts/bar";
 import { Badge } from "~/ui/badge";
 import { ScrollArea } from "~/ui/scroll-area";
 import { roundToDP } from "~/utils";
 
 interface MetricsListProps {
-  data: BarGraphData["data"];
+  data: BarChartData["data"];
   order?: "asc" | "desc";
   unit?: string;
 }

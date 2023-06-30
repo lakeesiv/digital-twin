@@ -1,7 +1,7 @@
 import { Card, Divider, Title } from "@tremor/react";
 import dynamic from "next/dynamic";
-import type { BarGraphData } from "~/components/charts/bar";
-import type { LineGraphData } from "~/components/charts/line";
+import type { BarChartData } from "~/components/charts/bar";
+import type { LineChartData } from "~/components/charts/line";
 import Layout from "~/components/layout";
 import GridLayout from "~/components/layout/grid-layout";
 import MetricsList from "~/components/twins/digital-hospital/metrics-list";
@@ -66,7 +66,7 @@ const stages = [
   "Dispatch",
 ];
 
-const barChartData: BarGraphData = {
+const barChartData: BarChartData = {
   data: {
     x: stages,
     y: [[100, 50, 60, 60, 20, 100, 20, 24, 70, 80, 80, 90, 100]],
@@ -80,7 +80,7 @@ const barChartData: BarGraphData = {
 const randomArrayValues = (length: number) => {
   return Array.from({ length }, () => Math.random() * 100);
 };
-const lineChartData: LineGraphData = {
+const lineChartData: LineChartData = {
   data: {
     x: [...Array(18).keys()],
     y: [
@@ -108,7 +108,7 @@ const lineChartData: LineGraphData = {
   labels: stages,
 };
 
-const barChartData2: BarGraphData = {
+const barChartData2: BarChartData = {
   data: {
     x: [...Array(18).keys()],
     y: [

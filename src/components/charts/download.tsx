@@ -1,6 +1,6 @@
 import React from "react";
-import type { BarGraphData } from "./bar";
-import type { LineGraphData } from "./line";
+import type { BarChartData } from "./bar";
+import type { LineChartData } from "./line";
 import { Button } from "~/ui/button";
 import { Download } from "lucide-react";
 import {
@@ -15,7 +15,7 @@ import Plotly from "plotly.js-cartesian-dist-min";
 type DownloadFormats = "json" | "csv";
 
 interface DownloadProps {
-  data: BarGraphData | LineGraphData;
+  data: BarChartData | LineChartData;
   type: "bar" | "line";
   divId: string;
 }
@@ -35,13 +35,13 @@ const DownloadButton: React.FC<DownloadProps> = ({ data, type, divId }) => {
             let resultingData = "";
 
             if (type === "line") {
-              const lineData = data as LineGraphData;
+              const lineData = data as LineChartData;
 
               resultingData = downloadLineData(lineData, "json");
             }
 
             if (type === "bar") {
-              const barData = data as BarGraphData;
+              const barData = data as BarChartData;
               resultingData = downloadBarData(barData, "json");
             }
 
@@ -62,12 +62,12 @@ const DownloadButton: React.FC<DownloadProps> = ({ data, type, divId }) => {
             let resultingData = "";
 
             if (type === "line") {
-              const lineData = data as LineGraphData;
+              const lineData = data as LineChartData;
               resultingData = downloadLineData(lineData, "csv");
             }
 
             if (type === "bar") {
-              const barData = data as BarGraphData;
+              const barData = data as BarChartData;
               resultingData = downloadBarData(barData, "csv");
             }
 
@@ -100,7 +100,7 @@ type ExportedData = {
 };
 
 const downloadLineData = (
-  data: LineGraphData,
+  data: LineChartData,
   downloadFormat: DownloadFormats
 ) => {
   const resultingData: ExportedData = {};
@@ -142,7 +142,7 @@ const downloadLineData = (
 };
 
 const downloadBarData = (
-  data: BarGraphData,
+  data: BarChartData,
   downloadFormat: DownloadFormats
 ) => {
   const resultingData: ExportedData = {};
@@ -197,7 +197,7 @@ const downloadPNG = async (divId: string, title: string) => {
   return true;
 };
 
-const getTitle = (data: LineGraphData | BarGraphData, fallback: string) => {
+const getTitle = (data: LineChartData | BarChartData, fallback: string) => {
   let title = data.title || fallback;
 
   if (typeof data.title !== "string") {

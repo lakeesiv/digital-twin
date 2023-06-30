@@ -8,7 +8,7 @@ import { getColor } from "./utils";
 
 const Plot = createPlotlyComponent(Plotly as object);
 
-export type BarGraphData = {
+export type BarChartData = {
   title?: string | JSX.Element; // optional
   xlabel: string;
   ylabel: string;
@@ -19,7 +19,7 @@ export type BarGraphData = {
   };
 };
 
-interface BarProps extends BarGraphData {
+interface BarProps extends BarChartData {
   cardProps?: React.ComponentProps<typeof Card>;
   divId: string;
   extraBottomPadding?: number;
@@ -33,7 +33,7 @@ interface BarProps extends BarGraphData {
  * @param {string} props.xlabel - The label for the x-axis.
  * @param {string} [props.title] - The title of the chart (optional).
  * @param {React.ComponentProps<typeof Card>} [props.cardProps] - Additional props to pass to the Card component (optional).
- * @param {BarGraphData['data']} props.data - The data to be displayed on the chart.
+ * @param {BarChartData['data']} props.data - The data to be displayed on the chart.
  * @param {string} props.divId - The ID of the div element that will contain the chart.
  * @returns {JSX.Element} A Plotly chart component that displays a bar graph.
  */

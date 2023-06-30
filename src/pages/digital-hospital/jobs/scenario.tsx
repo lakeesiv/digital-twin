@@ -10,8 +10,8 @@ import {
 } from "@tremor/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import type { BarGraphData } from "~/components/charts/bar";
-import type { LineGraphData } from "~/components/charts/line";
+import type { BarChartData } from "~/components/charts/bar";
+import type { LineChartData } from "~/components/charts/line";
 import Layout from "~/components/layout";
 import GridLayout from "~/components/layout/grid-layout";
 import BottleNeckList, {
@@ -247,7 +247,7 @@ const stages = [
   "Dispatch",
 ];
 
-const resourceUtilizationMock: BarGraphData = {
+const resourceUtilizationMock: BarChartData = {
   data: {
     x: stages,
     y: [[100, 50, 60, 60, 20, 100, 20, 24, 70, 80, 80, 90, 100]],
@@ -258,7 +258,7 @@ const resourceUtilizationMock: BarGraphData = {
   title: "% Utilization by Stage",
 };
 
-const barChartData: BarGraphData = {
+const barChartData: BarChartData = {
   data: {
     x: ["Scenario 1", "Scenario 2", "Scenario 3", "Scenario 4", "Scenario 5"],
     y: [[30, 20, 60, 70, 50]],
@@ -272,7 +272,7 @@ const barChartData: BarGraphData = {
 const randomArrayValues = (length: number) => {
   return Array.from({ length }, () => Math.random() * 100);
 };
-const lineChartData: LineGraphData = {
+const lineChartData: LineChartData = {
   data: {
     x: [...Array(18).keys()],
     y: [
