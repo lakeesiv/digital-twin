@@ -16,6 +16,7 @@ export type BarChartData = {
     x: string[] | number[]; // categories
     labels: string[]; // each label is a line ["label1", "label2", "label3"]
     y: number[][]; // each array is a line [[label1_val, label2val, label3val], [...], [...]]
+    error?: number[][]; // same format as y
   };
 };
 
@@ -74,6 +75,10 @@ const BarChart: React.FC<BarProps> = ({
       },
       type: "bar",
       name: data.labels[i],
+      error_y: {
+        type: "data",
+        array: data.error ? data.error[i] : [],
+      },
       // text: data.labels[i],
       // text: data.y[i].map((val) => val.toFixed(2)),
     });

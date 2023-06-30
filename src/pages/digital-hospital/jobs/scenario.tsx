@@ -54,6 +54,7 @@ const ScenarioPage = () => {
               "Scenario 5",
             ],
             y: [[30, 20, 60, 70, 50]],
+            error: [[5, 5, 5, 5, 5]],
             labels: ["TAT"],
           }}
           xlabel="Scenarios"
