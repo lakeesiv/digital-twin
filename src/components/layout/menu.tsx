@@ -29,7 +29,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
   {
     title: "Digital Hospital Simulation",
-    href: "/digital-hospital/simulation",
+    href: "/digital-hospital/simulate",
     description: "Run a simulation for the Digital Hospital",
   },
   // {
@@ -87,14 +87,14 @@ export function NavigationMenuDemo() {
               <ListItem
                 key="User Guide"
                 title="User Guide"
-                href="/docs/user-guide"
+                href="https://lakeesiv.github.io/digital-twin-docs/docs/user-guide/intro"
               >
                 User Guide for the Digital Twin Website
               </ListItem>
               <ListItem
                 key="Technical Guide"
                 title="Technical Guide"
-                href="/docs/technical-guide"
+                href="https://lakeesiv.github.io/digital-twin-docs/docs/category/technical-guide"
               >
                 Technical documentation for the development of the Digital Twin
                 Website
