@@ -269,6 +269,7 @@ const getLayout = (
 const chartConfig = {
   responsive: true,
   displaylogo: false,
+  showTips: false,
   modeBarButtonsToRemove: [
     "zoom2d",
     "pan2d",

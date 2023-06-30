@@ -177,6 +177,7 @@ const getLayout = (
 
 const chartConfig = {
   responsive: true,
+  showTips: false,
   displaylogo: false,
   modeBarButtonsToRemove: [
     "zoom2d",
