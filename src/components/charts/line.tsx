@@ -18,6 +18,12 @@ import { getColor } from "./utils";
 
 const Plot = createPlotlyComponent(Plotly as object);
 
+interface TimeUnit {
+  current: "hour" | "day" | "week";
+  target: "hour" | "day" | "week";
+  options: ("hour" | "day" | "week")[];
+}
+
 export type LineChartData = {
   title?: string | JSX.Element; // title can be a string or a JSX element
   xlabel: string;
@@ -28,6 +34,7 @@ export type LineChartData = {
   };
   labels: string[]; // each label is a line ["label1", "label2", "label3"]
   visible?: boolean[]; // each boolean is a line [true, false, true]
+  timeUnit?: "hour" | "day" | "week";
 };
 
 interface LineProps extends LineChartData {
@@ -67,13 +74,18 @@ const LineChart: React.FC<LineProps> = ({
   fill = false,
   height = 250,
   visible,
+  timeUnit: t,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
   );
+  const [timeUnit, setTimeUnit] = useState<"hour" | "day" | "week" | undefined>(
+    t
+  );
 
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
+  // const plottingData = useMemo<Partial<Plotly.Data>[]>(() => [], []);
 
   // observe the card div for resize and resize the plotly chart
   useEffect(() => {
@@ -85,6 +97,26 @@ const LineChart: React.FC<LineProps> = ({
     resizeObserver.observe(cardRef.current);
     return () => resizeObserver.disconnect(); // clean up
   }, [divId]);
+
+  const plottingData: Partial<Plotly.Data>[] = [];
+
+  useEffect(() => {
+    if (timeUnit) {
+      plottingData.forEach((data: { x: number[] }) => {
+        data.x = data.x.map((x) => {
+          if (timeUnit === "hour") {
+            return x;
+          } else if (timeUnit === "day") {
+            return x / 24;
+          } else if (timeUnit === "week") {
+            return x / (24 * 7);
+          } else {
+            return x;
+          }
+        });
+      });
+    }
+  }, [timeUnit, plottingData]);
 
   let x = data.x as number[] | number[][] | Date[] | Date[][];
   let individualX = false;
@@ -101,8 +133,6 @@ const LineChart: React.FC<LineProps> = ({
   if (x[0] instanceof Array) {
     individualX = true;
   }
-
-  const plottingData: Partial<Plotly.Data>[] = [];
 
   // check if data.y is an array of arrays or not
   if (Array.isArray(data.y[0])) {
@@ -138,6 +168,25 @@ const LineChart: React.FC<LineProps> = ({
         <Title>{title}</Title>
 
         <div className="flex justify-center">
+          {timeUnit && (
+            <Select
+              onValueChange={(value) =>
+                setTimeUnit(value as "hour" | "day" | "week")
+              }
+            >
+              <SelectTrigger className="mr-4 h-[30px] w-[100px]">
+                <SelectValue placeholder={capilatizeFirstLetter(t || "hour")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Time Unit</SelectLabel>
+                  <SelectItem value="hour">Hour</SelectItem>
+                  <SelectItem value="day">Day</SelectItem>
+                  <SelectItem value="week">Week</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
           <Select
             onValueChange={(value) =>
               setCurveStyle(value as "linear" | "step" | "natural")
