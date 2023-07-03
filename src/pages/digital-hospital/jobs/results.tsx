@@ -152,11 +152,11 @@ const resourceUtilizationMock: BarChartData = {
   data: {
     x: stages,
     y: [[100, 50, 60, 60, 20, 100, 20, 24, 70, 80, 80, 90, 100]],
-    labels: ["% Utilization"],
+    labels: ["% Average Utilization"],
   },
   xlabel: "Stages",
-  ylabel: "% Utilization",
-  title: "% Utilization by Stage",
+  ylabel: "% Average Utilization",
+  title: "% Average Utilization by Stage",
 };
 const randomArrayValues = (length: number) => {
   return Array.from({ length }, () => Math.random() * 100);
