@@ -8,7 +8,6 @@ import {
   TabPanels,
   Title,
 } from "@tremor/react";
-import dynamic from "next/dynamic";
 import { useState } from "react";
 import type { BarChartData } from "~/components/charts/bar";
 import type { LineChartData } from "~/components/charts/line";
@@ -28,14 +27,7 @@ import {
 } from "~/ui/tooltip";
 import { Info } from "lucide-react";
 import RCPathComparison from "~/components/twins/digital-hospital/rc-path-comparison";
-
-const BarChart = dynamic(() => import("~/components/charts/bar"), {
-  ssr: false,
-});
-
-const LineChart = dynamic(() => import("~/components/charts/line"), {
-  ssr: false,
-});
+import { BarChart, LineChart } from "~/components/charts";
 
 const ScenarioPage = () => {
   const [tabIndex, setTabIndex] = useState(0);

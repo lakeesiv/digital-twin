@@ -15,11 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/ui/select";
-import dynamic from "next/dynamic";
-
-const LineChart = dynamic(() => import("~/components/charts/line"), {
-  ssr: false,
-});
+import { LineChart } from "~/components/charts";
 
 const generateData = () => {
   type Result = {

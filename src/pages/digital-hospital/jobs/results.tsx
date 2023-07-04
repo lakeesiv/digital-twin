@@ -1,6 +1,5 @@
 import { Card, Divider, Title } from "@tremor/react";
 import { Info } from "lucide-react";
-import dynamic from "next/dynamic";
 import type { BarChartData } from "~/components/charts/bar";
 import type { LineChartData } from "~/components/charts/line";
 import Layout from "~/components/layout";
@@ -18,14 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/ui/tooltip";
-
-const BarChart = dynamic(() => import("~/components/charts/bar"), {
-  ssr: false,
-});
-
-const LineChart = dynamic(() => import("~/components/charts/line"), {
-  ssr: false,
-});
+import { BarChart, LineChart } from "~/components/charts";
 
 const ResultsPage = () => {
   const boneStationData = Data.bone_station as BoneStationData;
