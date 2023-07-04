@@ -34,7 +34,8 @@ export type LineChartData = {
   };
   labels: string[]; // each label is a line ["label1", "label2", "label3"]
   visible?: boolean[]; // each boolean is a line [true, false, true]
-  timeUnit?: "hour" | "day" | "week";
+  timeUnit?: TimeUnit;
+  allowSelectLineStyle?: boolean;
 };
 
 interface LineProps extends LineChartData {
@@ -75,13 +76,16 @@ const LineChart: React.FC<LineProps> = ({
   height = 250,
   visible,
   timeUnit: t,
+  allowSelectLineStyle = false,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
   );
+
   const [timeUnit, setTimeUnit] = useState<"hour" | "day" | "week" | undefined>(
-    t
+    t?.target
   );
+  const [xlabelState, setXlabelState] = useState<string>(xlabel);
 
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
@@ -107,14 +111,21 @@ const LineChart: React.FC<LineProps> = ({
           if (timeUnit === "hour") {
             return x;
           } else if (timeUnit === "day") {
-            return x / 24;
+            return t?.current === "hour" ? x / 24 : x;
           } else if (timeUnit === "week") {
-            return x / (24 * 7);
+            return t?.current === "hour"
+              ? x / (24 * 7)
+              : t?.current === "day"
+              ? x / 7
+              : x;
           } else {
             return x;
           }
         });
       });
+
+      const newXLabel = "Time (" + capilatizeFirstLetter(timeUnit) + ")";
+      setXlabelState(newXLabel);
     }
   }, [timeUnit, plottingData]);
 
@@ -174,44 +185,50 @@ const LineChart: React.FC<LineProps> = ({
                 setTimeUnit(value as "hour" | "day" | "week")
               }
             >
-              <SelectTrigger className="mr-4 h-[30px] w-[100px]">
-                <SelectValue placeholder={capilatizeFirstLetter(t || "hour")} />
+              <SelectTrigger className="h-[30px] w-[100px]">
+                <SelectValue
+                  placeholder={capilatizeFirstLetter(t?.target || "hour")}
+                />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Time Unit</SelectLabel>
-                  <SelectItem value="hour">Hour</SelectItem>
-                  <SelectItem value="day">Day</SelectItem>
-                  <SelectItem value="week">Week</SelectItem>
+                  {t?.options.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {capilatizeFirstLetter(option)}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
           )}
-          <Select
-            onValueChange={(value) =>
-              setCurveStyle(value as "linear" | "step" | "natural")
-            }
-          >
-            <SelectTrigger className="h-[30px] w-[100px]">
-              <SelectValue
-                placeholder={capilatizeFirstLetter(
-                  defaultCurveStyle || "Linear"
-                )}
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Line Style</SelectLabel>
-                <SelectItem value="linear">Linear</SelectItem>
-                <SelectItem value="step">Step</SelectItem>
-                <SelectItem value="natural">Smooth</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          {allowSelectLineStyle && (
+            <Select
+              onValueChange={(value) =>
+                setCurveStyle(value as "linear" | "step" | "natural")
+              }
+            >
+              <SelectTrigger className="h-[30px] w-[100px]">
+                <SelectValue
+                  placeholder={capilatizeFirstLetter(
+                    defaultCurveStyle || "Linear"
+                  )}
+                />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Line Style</SelectLabel>
+                  <SelectItem value="linear">Linear</SelectItem>
+                  <SelectItem value="step">Step</SelectItem>
+                  <SelectItem value="natural">Smooth</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
           <DownloadButton
             data={{
               title,
-              xlabel,
+              xlabel: xlabelState,
               ylabel,
               data: data,
               labels: labels,
@@ -228,7 +245,7 @@ const LineChart: React.FC<LineProps> = ({
         <Plot
           divId={divId}
           data={plottingData as object[]}
-          layout={getLayout(theme, xlabel, ylabel)}
+          layout={getLayout(theme, xlabelState, ylabel)}
           useResizeHandler
           className="h-full w-full"
           config={chartConfig as object}
