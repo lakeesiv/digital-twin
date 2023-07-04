@@ -177,6 +177,11 @@ const ScenarioPage = () => {
                       title="Busy Bone Station Resources"
                       divId={"bone-station-busy" + String(i)}
                       height={200}
+                      timeUnit={{
+                        current: "hour",
+                        target: "day",
+                        options: ["hour", "day", "week"],
+                      }}
                     />
                     <LineChart
                       defaultCurveStyle="step"
@@ -190,6 +195,11 @@ const ScenarioPage = () => {
                       title="Waiting Bone Station Resources"
                       divId={"bone-station-wait" + String(i)}
                       height={200}
+                      timeUnit={{
+                        current: "hour",
+                        target: "day",
+                        options: ["hour", "day", "week"],
+                      }}
                     />
                     <LineChart
                       defaultCurveStyle="step"
@@ -203,6 +213,11 @@ const ScenarioPage = () => {
                       title="Busy Bone Station Resources"
                       divId={"bone-station-busy2" + String(i)}
                       height={200}
+                      timeUnit={{
+                        current: "hour",
+                        target: "day",
+                        options: ["hour", "day", "week"],
+                      }}
                     />
                   </GridLayout>
                 </Card>
@@ -233,6 +248,11 @@ const ScenarioPage = () => {
                       {...lineChartData}
                       divId="daily-utilization"
                       height={600}
+                      timeUnit={{
+                        current: "day",
+                        target: "day",
+                        options: ["day", "week"],
+                      }}
                     />
                   </div>
                 </Card>
