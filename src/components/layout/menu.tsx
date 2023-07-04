@@ -51,18 +51,19 @@ export function NavigationMenuDemo() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Button variant="secondary" href="/">
+          <Button variant="secondary" href="/" asChild>
             Digital Twin Website
           </Button>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/sensors" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Sensors
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
+          <Link href="/sensors" legacyBehavior passHref>
+            <NavigationMenuLink
+              className={navigationMenuTriggerStyle()}
+              href="/sensors"
+            >
+              Sensors
+            </NavigationMenuLink>
+          </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Twins</NavigationMenuTrigger>
@@ -104,6 +105,7 @@ export function NavigationMenuDemo() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Button
+            asChild
             variant="outline"
             onClick={() => {
               setTheme(theme === "dark" ? "light" : "dark");
