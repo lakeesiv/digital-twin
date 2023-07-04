@@ -9,6 +9,7 @@ import MetricsList from "~/components/twins/digital-hospital/metrics-list";
 import BottleNeckList, {
   mockBottleNeckData,
 } from "~/components/twins/digital-hospital/percentage-change-list";
+import RCPathComparison from "~/components/twins/digital-hospital/rc-path-comparison";
 import type { BoneStationData } from "~/components/twins/digital-hospital/types";
 import Data from "~/data.json";
 import {
@@ -31,7 +32,9 @@ const ResultsPage = () => {
 
   return (
     <Layout title="Results">
-      <h1 className="text-3xl font-bold">Results</h1>
+      <h1 className="mb-4 text-3xl font-bold">Results</h1>
+      <RCPathComparison />
+
       <div className="my-4">
         <Card className="px-4">
           <h1 className="text-2xl font-bold">Bottlenecks</h1>

@@ -27,6 +27,7 @@ import {
   TooltipTrigger,
 } from "~/ui/tooltip";
 import { Info } from "lucide-react";
+import RCPathComparison from "~/components/twins/digital-hospital/rc-path-comparison";
 
 const BarChart = dynamic(() => import("~/components/charts/bar"), {
   ssr: false,
@@ -140,7 +141,9 @@ const ScenarioPage = () => {
             {[...Array(5).keys()].map((i) => (
               <TabPanel key={i}>
                 <Card className="px-4">
-                  <h1 className="text-2xl font-bold">Bottlenecks</h1>
+                  <RCPathComparison />
+
+                  <h1 className="mt-4 text-2xl font-bold">Bottlenecks</h1>
                   <Divider className="mb-4 mt-2" />
 
                   <Title>Turn Around Times (TAT) by Stage</Title>
