@@ -239,7 +239,7 @@ const lineChartData: LineChartData = {
   ylabel: "Daily Utilization %",
   title: (
     <TextWithInfo
-      text="Daily Utilization"
+      text="Daily Utilization % by Stage"
       info={`Click on the Legend to toggle\nthe visibility of the lines`}
     />
   ),
