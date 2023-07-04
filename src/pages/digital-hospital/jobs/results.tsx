@@ -29,7 +29,7 @@ const ResultsPage = () => {
 
       <div className="my-4">
         <Card className="px-4">
-          <h1 className="text-2xl font-bold">Bottlenecks</h1>
+          <h1 className="text-2xl font-bold">Output Analysis</h1>
           <Divider className="mb-4 mt-2" />
 
           <Title>Turn Around Times (TAT) by Stage</Title>
