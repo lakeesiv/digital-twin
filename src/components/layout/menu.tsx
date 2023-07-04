@@ -105,7 +105,6 @@ export function NavigationMenuDemo() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Button
-            asChild
             variant="outline"
             onClick={() => {
               setTheme(theme === "dark" ? "light" : "dark");
