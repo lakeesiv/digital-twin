@@ -45,7 +45,9 @@ export default function RCPathComparison() {
           />
 
           <Callout
-            className="mt-6 font-mono text-sm"
+            className="mt-6 font-mono text-sm
+			dark:bg-gray-800
+			"
             icon={item.value < item.target ? TrendingDown : TrendingUp}
             color={item.value < item.target ? "red" : "green"}
             title={item.value < item.target ? "Underperforming" : "On Target"}
