@@ -15,6 +15,7 @@ import DownloadButton from "./download";
 import { getColor } from "./utils";
 import Plotly from "plotly.js";
 import Plot from "react-plotly.js";
+import type { LineChartData } from "./line";
 
 interface TimeUnit {
   current: "hour" | "day" | "week";
@@ -22,20 +23,13 @@ interface TimeUnit {
   options: ("hour" | "day" | "week")[];
 }
 
-export type LineChartData = {
-  title?: string | JSX.Element; // title can be a string or a JSX element
-  xlabel: string;
-  ylabel: string;
-  data: {
-    x: number[] | number[][]; // either one array of x values (global), or an array of arrays of x values for each line
-    y: number[][] | number[]; // each array is a line [[...], [...], [...]]  or single line [...]
-  };
-  labels: string[]; // each label is a line ["label1", "label2", "label3"]
-  visible?: boolean[]; // each boolean is a line [true, false, true]
-  timeUnit?: TimeUnit;
+export type LineComparsionData = {
+  lineData1: LineChartData;
+  lineData2: LineChartData;
+  title: string;
 };
 
-interface LineProps extends LineChartData {
+interface LineComparisonProps extends LineComparsionData {
   cardProps?: React.ComponentProps<typeof Card>;
   defaultCurveStyle?: "linear" | "step" | "natural";
   divId: string;
@@ -45,49 +39,35 @@ interface LineProps extends LineChartData {
   allowSelectLineStyle?: boolean;
 }
 
-/**
- * A line chart component that uses Plotly.js to render a line chart.
- * @param {LineProps} props - The props for the LineChart component.
- * @param {string} props.ylabel - The label for the y-axis.
- * @param {string} props.xlabel - The label for the x-axis.
- * @param {string} [props.title] - The title for the chart (optional).
- * @param {React.ComponentProps<typeof Card>} [props.cardProps] - The props for the Card component (optional).
- * @param {string[]} props.labels - The labels for the data lines.
- * @param {LineChartData['data']} props.data - The data for the chart.
- * @param {'linear' | 'step' | 'natural'} [props.defaultCurveStyle='linear'] - The default curve style for the chart (optional).
- * @param {string} props.divId - The ID of the div element that the chart will be rendered in.
- * @param {boolean} [props.dateTime] - Whether the x-axis is a date/time axis (optional).
- * @param {boolean} [props.fill=true] - Whether to fill the area under the lines (optional).
- * @returns {JSX.Element} The LineChart component.
- */
-const LineChart: React.FC<LineProps> = ({
-  ylabel,
-  xlabel,
+const LineComparison: React.FC<LineComparisonProps> = ({
+  //   ylabel,
+  //   xlabel,
   title,
   cardProps,
-  labels,
-  data,
+  //   labels,
+  //   data,
   defaultCurveStyle = "linear",
   divId,
   dateTime,
   fill = false,
   height = 250,
-  visible,
-  timeUnit: t,
+  //   visible,
+  //   timeUnit: t,
   allowSelectLineStyle = false,
+  lineData1,
+  lineData2,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
   );
 
   const [timeUnit, setTimeUnit] = useState<"hour" | "day" | "week" | undefined>(
-    t?.target
+    lineData1.timeUnit?.target
   );
-  const [xlabelState, setXlabelState] = useState<string>(xlabel);
+  const [xlabelState, setXlabelState] = useState<string>(lineData1.xlabel);
 
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
-  // const plottingData = useMemo<Partial<Plotly.Data>[]>(() => [], []);
 
   // observe the card div for resize and resize the plotly chart
   useEffect(() => {
@@ -102,72 +82,108 @@ const LineChart: React.FC<LineProps> = ({
 
   const plottingData: Partial<Plotly.Data>[] = [];
 
-  useEffect(() => {
-    if (timeUnit) {
-      plottingData.forEach((data: { x: number[] }) => {
-        data.x = data.x.map((x) => {
-          if (timeUnit === "hour") {
-            return x;
-          } else if (timeUnit === "day") {
-            return t?.current === "hour" ? x / 24 : x;
-          } else if (timeUnit === "week") {
-            return t?.current === "hour"
-              ? x / (24 * 7)
-              : t?.current === "day"
-              ? x / 7
-              : x;
-          } else {
-            return x;
-          }
-        });
-      });
+  //   useEffect(() => {
+  //     if (timeUnit) {
+  //       plottingData.forEach((data: { x: number[] }) => {
+  //         data.x = data.x.map((x) => {
+  //           if (timeUnit === "hour") {
+  //             return x;
+  //           } else if (timeUnit === "day") {
+  //             return t?.current === "hour" ? x / 24 : x;
+  //           } else if (timeUnit === "week") {
+  //             return t?.current === "hour"
+  //               ? x / (24 * 7)
+  //               : t?.current === "day"
+  //               ? x / 7
+  //               : x;
+  //           } else {
+  //             return x;
+  //           }
+  //         });
+  //       });
 
-      const newXLabel = "Time (" + capilatizeFirstLetter(timeUnit) + ")";
-      setXlabelState(newXLabel);
-    }
-  }, [timeUnit, plottingData]);
+  //       const newXLabel = "Time (" + capilatizeFirstLetter(timeUnit) + ")";
+  //       setXlabelState(newXLabel);
+  //     }
+  //   }, [timeUnit, plottingData]);
 
-  let x = data.x as number[] | number[][] | Date[] | Date[][];
+  let x1 = lineData1.data.x as number[] | number[][] | Date[] | Date[][];
+  let x2 = lineData2.data.x as number[] | number[][] | Date[] | Date[][];
   let individualX = false;
 
   if (dateTime) {
     // x = (x as number[]).map((x) => new Date(x));
-    if (x[0] instanceof Array) {
-      x = (x as number[][]).map((x) => x.map((x) => new Date(x)));
+    if (x1[0] instanceof Array) {
+      x1 = (x1 as number[][]).map((x) => x.map((x) => new Date(x)));
     } else {
-      x = (x as number[]).map((x) => new Date(x));
+      x1 = (x1 as number[]).map((x) => new Date(x));
+    }
+
+    if (x2[0] instanceof Array) {
+      x2 = (x2 as number[][]).map((x) => x.map((x) => new Date(x)));
+    } else {
+      x2 = (x2 as number[]).map((x) => new Date(x));
     }
   }
 
-  if (x[0] instanceof Array) {
+  if (x1[0] instanceof Array) {
     individualX = true;
   }
 
   // check if data.y is an array of arrays or not
-  if (Array.isArray(data.y[0])) {
+  if (Array.isArray(lineData1.data.y[0])) {
     // multiple lines
-    for (let i = 0; i < labels.length; i++) {
+    for (let i = 0; i < lineData1.labels.length; i++) {
       plottingData.push({
-        x: individualX ? x[i] : x,
-        y: data.y[i],
+        x: individualX ? x1[i] : x1,
+        y: lineData1.data.y[i],
         marker: { color: getColor(i) },
         fill: fill ? "tozeroy" : "none",
         line: { shape: mapCurveStyle(curveStyle) },
         type: "scattergl",
-        name: labels[i],
-        visible: visible ? (visible[i] ? true : "legendonly") : true,
+        name: lineData1.labels[i],
+        // visible: visible ? (visible[i] ? true : "legendonly") : true,
       });
     }
   } else {
     // single line
     plottingData.push({
-      x: individualX ? x[0] : x,
-      y: data.y,
+      x: individualX ? x1[0] : x1,
+      y: lineData1.data.y,
       marker: { color: getColor(0) },
       fill: fill ? "tozeroy" : "none",
       line: { shape: mapCurveStyle(curveStyle) },
       type: "scattergl",
-      name: labels[0],
+      name: lineData1.labels[0],
+    });
+  }
+
+  if (Array.isArray(lineData2.data.y[0])) {
+    // multiple lines
+    for (let i = 0; i < lineData2.labels.length; i++) {
+      plottingData.push({
+        x: individualX ? x2[i] : x2,
+        y: lineData2.data.y[i],
+        marker: { color: getColor(i + 3) },
+        fill: fill ? "tozeroy" : "none",
+        line: { shape: mapCurveStyle(curveStyle) },
+        type: "scattergl",
+        name: lineData2.labels[i],
+        yaxis: "y2",
+        // visible: visible ? (visible[i] ? true : "legendonly") : true,
+      });
+    }
+  } else {
+    // single line
+    plottingData.push({
+      x: individualX ? x2[0] : x2,
+      y: lineData2.data.y,
+      marker: { color: getColor(1) },
+      fill: fill ? "tozeroy" : "none",
+      line: { shape: mapCurveStyle(curveStyle) },
+      type: "scattergl",
+      name: lineData2.labels[0],
+      yaxis: "y2",
     });
   }
 
@@ -177,7 +193,7 @@ const LineChart: React.FC<LineProps> = ({
         <Title>{title}</Title>
 
         <div className="flex justify-center">
-          {timeUnit && (
+          {/* {timeUnit && (
             <Select
               onValueChange={(value) =>
                 setTimeUnit(value as "hour" | "day" | "week")
@@ -199,7 +215,7 @@ const LineChart: React.FC<LineProps> = ({
                 </SelectGroup>
               </SelectContent>
             </Select>
-          )}
+          )} */}
           {allowSelectLineStyle && (
             <Select
               onValueChange={(value) =>
@@ -223,7 +239,7 @@ const LineChart: React.FC<LineProps> = ({
               </SelectContent>
             </Select>
           )}
-          <DownloadButton
+          {/* <DownloadButton
             data={{
               title,
               xlabel: xlabelState,
@@ -233,7 +249,7 @@ const LineChart: React.FC<LineProps> = ({
             }}
             type="line"
             divId={divId}
-          />
+          /> */}
         </div>
       </Flex>
       <div
@@ -243,7 +259,10 @@ const LineChart: React.FC<LineProps> = ({
         <Plot
           divId={divId}
           data={plottingData as object[]}
-          layout={getLayout(theme, xlabelState, ylabel)}
+          layout={getLayout(theme, xlabelState, [
+            lineData1.ylabel,
+            lineData2.ylabel,
+          ])}
           useResizeHandler
           className="h-full w-full"
           config={chartConfig as object}
@@ -269,7 +288,7 @@ const mapCurveStyle = (style: "linear" | "step" | "natural") => {
 const getLayout = (
   theme: string | undefined,
   xlabel: string,
-  ylabel: string
+  ylabels: string[]
 ) => {
   if (!theme) {
     theme = "light";
@@ -321,7 +340,26 @@ const getLayout = (
       linecolor: "rgba(0, 0, 0, 0)",
       griddash: "dot",
       title: {
-        text: ylabel,
+        text: ylabels[0],
+      },
+      hoverformat: ".2f",
+    },
+    yaxis2: {
+      gridcolor:
+        theme === "dark"
+          ? "#rgba(75, 85, 99, 0.4)"
+          : "rgba(209, 213, 219, 0.4)",
+      zerolinecolor:
+        theme === "dark"
+          ? "#rgba(75, 85, 99, 0.4)"
+          : "rgba(209, 213, 219, 0.4)",
+      showgrid: true,
+      linecolor: "rgba(0, 0, 0, 0)",
+      griddash: "dot",
+      overlaying: "y",
+      side: "right",
+      title: {
+        text: ylabels[1],
       },
       hoverformat: ".2f",
     },
@@ -367,4 +405,4 @@ const chartConfig = {
   ],
 };
 
-export default LineChart;
+export default LineComparison;

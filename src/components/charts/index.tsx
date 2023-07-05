@@ -11,3 +11,7 @@ export const BarChart = dynamic(() => import("./bar"), {
 export const ScatterMap = dynamic(() => import("./scatter-map"), {
   ssr: false,
 });
+
+export const LineComparison = dynamic(() => import("./line-comparison"), {
+  ssr: false,
+});
