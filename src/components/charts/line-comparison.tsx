@@ -1,6 +1,8 @@
 import { Card, Flex, Title } from "@tremor/react";
 import { useTheme } from "next-themes";
+import Plotly from "plotly.js";
 import React, { useEffect, useState } from "react";
+import Plot from "react-plotly.js";
 import {
   Select,
   SelectContent,
@@ -11,11 +13,8 @@ import {
   SelectValue,
 } from "~/ui/select";
 import { capilatizeFirstLetter } from "~/utils";
-import DownloadButton from "./download";
-import { CHART_CONFIG, getColor, titleToId } from "./utils";
-import Plotly from "plotly.js";
-import Plot from "react-plotly.js";
 import type { LineChartData } from "./line";
+import { CHART_CONFIG, getColor, titleToId } from "./utils";
 
 interface TimeUnit {
   current: "hour" | "day" | "week";
@@ -27,6 +26,7 @@ export type LineComparsionData = {
   lineData1: LineChartData;
   lineData2: LineChartData;
   title: string;
+  timeUnit?: TimeUnit;
 };
 
 interface LineComparisonProps extends LineComparsionData {
@@ -41,19 +41,14 @@ interface LineComparisonProps extends LineComparsionData {
 }
 
 const LineComparison: React.FC<LineComparisonProps> = ({
-  //   ylabel,
-  //   xlabel,
   title,
   cardProps,
-  //   labels,
-  //   data,
   defaultCurveStyle = "linear",
   divId = titleToId(title),
   dateTime,
   fill = false,
   height = 250,
-  //   visible,
-  //   timeUnit: t,
+  timeUnit: t,
   allowSelectLineStyle = true,
   lineData1,
   lineData2,
@@ -65,7 +60,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   const [shareYAxis, setShareYAxis] = useState<boolean>(shareYAxisProp);
 
   const [timeUnit, setTimeUnit] = useState<"hour" | "day" | "week" | undefined>(
-    lineData1.timeUnit?.target
+    t?.current || undefined
   );
   const [xlabelState, setXlabelState] = useState<string>(lineData1.xlabel);
 
@@ -85,30 +80,30 @@ const LineComparison: React.FC<LineComparisonProps> = ({
 
   const plottingData: Partial<Plotly.Data>[] = [];
 
-  //   useEffect(() => {
-  //     if (timeUnit) {
-  //       plottingData.forEach((data: { x: number[] }) => {
-  //         data.x = data.x.map((x) => {
-  //           if (timeUnit === "hour") {
-  //             return x;
-  //           } else if (timeUnit === "day") {
-  //             return t?.current === "hour" ? x / 24 : x;
-  //           } else if (timeUnit === "week") {
-  //             return t?.current === "hour"
-  //               ? x / (24 * 7)
-  //               : t?.current === "day"
-  //               ? x / 7
-  //               : x;
-  //           } else {
-  //             return x;
-  //           }
-  //         });
-  //       });
+  useEffect(() => {
+    if (timeUnit) {
+      plottingData.forEach((data: { x: number[] }) => {
+        data.x = data.x.map((x) => {
+          if (timeUnit === "hour") {
+            return x;
+          } else if (timeUnit === "day") {
+            return t?.current === "hour" ? x / 24 : x;
+          } else if (timeUnit === "week") {
+            return t?.current === "hour"
+              ? x / (24 * 7)
+              : t?.current === "day"
+              ? x / 7
+              : x;
+          } else {
+            return x;
+          }
+        });
+      });
 
-  //       const newXLabel = "Time (" + capilatizeFirstLetter(timeUnit) + ")";
-  //       setXlabelState(newXLabel);
-  //     }
-  //   }, [timeUnit, plottingData]);
+      const newXLabel = "Time (" + capilatizeFirstLetter(timeUnit) + ")";
+      setXlabelState(newXLabel);
+    }
+  }, [timeUnit, plottingData]);
 
   let x1 = lineData1.data.x as number[] | number[][] | Date[] | Date[][];
   let x2 = lineData2.data.x as number[] | number[][] | Date[] | Date[][];
@@ -195,13 +190,13 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         <Title>{title}</Title>
 
         <div className="flex justify-center">
-          {/* {timeUnit && (
+          {timeUnit && (
             <Select
               onValueChange={(value) =>
                 setTimeUnit(value as "hour" | "day" | "week")
               }
             >
-              <SelectTrigger className="h-[30px] w-[100px]">
+              <SelectTrigger className="mr-4 h-[30px] w-[100px]">
                 <SelectValue
                   placeholder={capilatizeFirstLetter(t?.target || "hour")}
                 />
@@ -217,7 +212,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
                 </SelectGroup>
               </SelectContent>
             </Select>
-          )} */}
+          )}
 
           <Select
             onValueChange={(value) =>

@@ -52,7 +52,16 @@ const Map = () => {
 
   return (
     <Layout title="Map">
-      <LineComparison lineData1={data1} lineData2={data4} title="Comparison" />
+      <LineComparison
+        lineData1={data1}
+        lineData2={data4}
+        timeUnit={{
+          current: "hour",
+          target: "day",
+          options: ["hour", "day", "week"],
+        }}
+        title="Comparison"
+      />
       <GridLayout>
         <LineChart {...data1} />
         <LineChart {...data2} />
