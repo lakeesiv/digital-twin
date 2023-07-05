@@ -2,14 +2,16 @@ import Layout from "~/components/layout";
 import { useRouter } from "next/router";
 import Chart from "~/components/chart";
 import { useState, useEffect } from "react";
-// import SockJS from "sockjs-client";
+import SockJS from "sockjs-client";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const [isConnected, setIsConnected] = useState(false);
   // const [fooEvents, setFooEvents] = useState<any[]>([]);
-  const socket: WebSocket = new WebSocket("ws://129.169.50.112/echo/websocket");
+  const socket: WebSocket = new SockJS(
+    "https://tfc-app9.cl.cam.ac.uk/rtmonitor/A/mqtt_acp"
+  );
 
   useEffect(() => {
     setMounted(true);
