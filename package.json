@@ -28,6 +28,7 @@
     "@tremor/react": "^3.2.2",
     "@trpc/next": "^10.26.0",
     "@types/react-plotly.js": "^2.6.0",
+    "@types/sockjs-client": "^1.5.1",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
@@ -39,7 +40,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.0",
     "react-plotly.js": "^2.6.0",
-    "socket.io-client": "^4.7.1",
+    "sockjs-client": "^1.6.1",
     "tailwind-merge": "^1.13.2",
     "tailwindcss-animate": "^1.0.6",
     "zod": "^3.21.4"

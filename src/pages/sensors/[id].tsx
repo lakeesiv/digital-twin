@@ -2,14 +2,14 @@ import Layout from "~/components/layout";
 import { useRouter } from "next/router";
 import Chart from "~/components/chart";
 import { useState, useEffect } from "react";
-import { io } from "socket.io-client";
+// import SockJS from "sockjs-client";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
-  const socket = io("https://129.169.50.112");
-  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [isConnected, setIsConnected] = useState(false);
   // const [fooEvents, setFooEvents] = useState<any[]>([]);
+  const socket: WebSocket = new WebSocket("ws://129.169.50.112/echo/websocket");
 
   useEffect(() => {
     setMounted(true);
@@ -18,27 +18,39 @@ export default function Home() {
       setIsConnected(true);
     }
 
-    function onConnectError(err: Error) {
-      console.log("Error connecting to socket.io server", err);
-    }
-    function onDisconnect() {
-      setIsConnected(false);
-    }
+    // function onConnectError(err: Error) {
+    //   console.log("Error connecting to socket.io server", err);
+    // }
+    // function onDisconnect() {
+    //   setIsConnected(false);
+    // }
 
     // function onFooEvent(value) {
     //   setFooEvents((previous) => [...previous, value]);
     // }
 
-    socket.on("connect", onConnect);
-    socket.on("connect_error", onConnectError);
-    socket.on("disconnect", onDisconnect);
+    // socket.on("connect", onConnect);
+    // socket.on("connect_error", onConnectError);
+    // socket.on("disconnect", onDisconnect);
     // socket.on("foo", onFooEvent);
-
-    return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-      // socket.off("foo", onFooEvent);
+    socket.onopen = function () {
+      console.log("open");
+      onConnect();
     };
+
+    socket.onmessage = function (e) {
+      console.log("message", e.data);
+      // sock.close();
+    };
+
+    // socket.onclose = function () {
+    //   console.log("close");
+    // };
+
+    // return () => {
+    //   socket.off("connect", onConnect);
+    //   socket.off("disconnect", onDisconnect);
+    // };
   }, []);
 
   if (!mounted) {
