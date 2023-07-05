@@ -18,10 +18,9 @@ export default function Home() {
       setIsConnected(true);
     }
 
-    function onConnectError() {
-      console.log("Error connecting to socket.io server");
+    function onConnectError(err: Error) {
+      console.log("Error connecting to socket.io server", err);
     }
-
     function onDisconnect() {
       setIsConnected(false);
     }
