@@ -28,14 +28,37 @@ const Map = () => {
     },
   };
 
+  const data3 = {
+    title: "Line 3",
+    labels: ["3"],
+    xlabel: "xlabel3",
+    ylabel: "ylabel3",
+    data: {
+      x: [100, 200, 300, 400, 500, 600, 700, 800],
+      y: [7700, 1200, 3400, 5600, 7800, 9000, 1200, 3400],
+    },
+  };
+
+  const data4 = {
+    title: "Line 4",
+    labels: ["4"],
+    xlabel: "xlabel4",
+    ylabel: "ylabel4",
+    data: {
+      x: [1, 2, 3],
+      y: [1, 2, 3],
+    },
+  };
+
   return (
     <Layout title="Map">
+      <LineComparison lineData1={data1} lineData2={data4} title="Comparison" />
       <GridLayout>
         <LineChart {...data1} />
         <LineChart {...data2} />
+        <LineChart {...data3} />
+        <LineChart {...data4} />
       </GridLayout>
-
-      <LineComparison lineData1={data1} lineData2={data2} title="Comparison" />
 
       {/* <ScatterMap divId="map" title="Map" /> */}
     </Layout>

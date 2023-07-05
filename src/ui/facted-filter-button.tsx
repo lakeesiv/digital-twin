@@ -21,6 +21,7 @@ interface FactedFilterButtonProps {
   selectedFilters: string[];
   setSelectedFilters: React.Dispatch<React.SetStateAction<string[]>>;
   title: string;
+  limit?: number;
 }
 
 const FacetedFilterButton = ({
@@ -28,6 +29,7 @@ const FacetedFilterButton = ({
   selectedFilters,
   setSelectedFilters,
   title,
+  limit,
 }: FactedFilterButtonProps) => {
   return (
     <Popover>
@@ -78,9 +80,13 @@ const FacetedFilterButton = ({
             <CommandGroup>
               {filters.map((option) => {
                 const isSelected = selectedFilters.includes(option);
+                const numberSelected = selectedFilters.length;
                 return (
                   <CommandItem
                     key={option}
+                    disabled={
+                      limit ? numberSelected >= limit && !isSelected : false
+                    }
                     onSelect={() => {
                       if (isSelected) {
                         setSelectedFilters(
@@ -96,13 +102,25 @@ const FacetedFilterButton = ({
                         "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                         isSelected
                           ? "bg-primary text-primary-foreground"
-                          : "opacity-50 [&_svg]:invisible"
+                          : "opacity-50 [&_svg]:invisible",
+                        limit && numberSelected >= limit && !isSelected
+                          ? "cursor-not-allowed"
+                          : "cursor-pointer"
                       )}
                     >
                       <Check className={cn("h-4 w-4")} />
                     </div>
 
-                    <span className="font-mono">{option}</span>
+                    <span
+                      className={cn(
+                        "font-mono",
+                        limit && numberSelected >= limit && !isSelected
+                          ? "cursor-not-allowed text-red-500"
+                          : "cursor-pointer"
+                      )}
+                    >
+                      {option}
+                    </span>
                     {/* {true && (
                       <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
                         {option}

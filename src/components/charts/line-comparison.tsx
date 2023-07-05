@@ -224,9 +224,9 @@ const LineComparison: React.FC<LineComparisonProps> = ({
               setShareYAxis(value === "true" ? true : false)
             }
           >
-            <SelectTrigger className="h-[30px] w-[100px]">
+            <SelectTrigger className="mr-4 h-[30px] w-[100px]">
               <SelectValue
-                placeholder={shareYAxisProp ? "Share Y" : "Seperate Y"}
+                placeholder={shareYAxisProp ? "Share" : "Seperate"}
               />
             </SelectTrigger>
             <SelectContent>
