@@ -31,16 +31,11 @@ const Map = () => {
   return (
     <Layout title="Map">
       <GridLayout>
-        <LineChart {...data1} divId="line-1" />
-        <LineChart {...data2} divId="line-2" />
+        <LineChart {...data1} />
+        <LineChart {...data2} />
       </GridLayout>
 
-      <LineComparison
-        lineData1={data1}
-        lineData2={data2}
-        title="Comparison"
-        divId="comparison"
-      />
+      <LineComparison lineData1={data1} lineData2={data2} title="Comparison" />
 
       {/* <ScatterMap divId="map" title="Map" /> */}
     </Layout>

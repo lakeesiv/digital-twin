@@ -37,6 +37,7 @@ interface LineComparisonProps extends LineComparsionData {
   fill?: boolean;
   height?: number;
   allowSelectLineStyle?: boolean;
+  shareYAxis?: boolean;
 }
 
 const LineComparison: React.FC<LineComparisonProps> = ({
@@ -56,10 +57,12 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   allowSelectLineStyle = true,
   lineData1,
   lineData2,
+  shareYAxis: shareYAxisProp = true,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
   );
+  const [shareYAxis, setShareYAxis] = useState<boolean>(shareYAxisProp);
 
   const [timeUnit, setTimeUnit] = useState<"hour" | "day" | "week" | undefined>(
     lineData1.timeUnit?.target
@@ -168,7 +171,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         line: { shape: mapCurveStyle(curveStyle) },
         type: "scattergl",
         name: lineData2.labels[i],
-        yaxis: "y2",
+        yaxis: shareYAxis ? undefined : "y2",
         // visible: visible ? (visible[i] ? true : "legendonly") : true,
       });
     }
@@ -182,7 +185,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
       line: { shape: mapCurveStyle(curveStyle) },
       type: "scattergl",
       name: lineData2.labels[0],
-      yaxis: "y2",
+      yaxis: shareYAxis ? undefined : "y2",
     });
   }
 
@@ -215,6 +218,25 @@ const LineComparison: React.FC<LineComparisonProps> = ({
               </SelectContent>
             </Select>
           )} */}
+
+          <Select
+            onValueChange={(value) =>
+              setShareYAxis(value === "true" ? true : false)
+            }
+          >
+            <SelectTrigger className="h-[30px] w-[100px]">
+              <SelectValue
+                placeholder={shareYAxisProp ? "Share Y" : "Seperate Y"}
+              />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Y Axis</SelectLabel>
+                <SelectItem value="true">Share</SelectItem>
+                <SelectItem value="false">Seperate</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
           {allowSelectLineStyle && (
             <Select
               onValueChange={(value) =>
@@ -258,10 +280,12 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         <Plot
           divId={divId}
           data={plottingData as object[]}
-          layout={getLayout(theme, xlabelState, [
-            lineData1.ylabel,
-            lineData2.ylabel,
-          ])}
+          layout={getLayout(
+            theme,
+            xlabelState,
+            [lineData1.ylabel, lineData2.ylabel],
+            shareYAxis
+          )}
           useResizeHandler
           className="h-full w-full"
           config={CHART_CONFIG as object}
@@ -287,7 +311,8 @@ const mapCurveStyle = (style: "linear" | "step" | "natural") => {
 const getLayout = (
   theme: string | undefined,
   xlabel: string,
-  ylabels: string[]
+  ylabels: string[],
+  shareYAxis: boolean
 ) => {
   if (!theme) {
     theme = "light";
@@ -328,13 +353,9 @@ const getLayout = (
     },
     yaxis: {
       gridcolor:
-        theme === "dark"
-          ? "#rgba(75, 85, 99, 0.4)"
-          : "rgba(209, 213, 219, 0.4)",
+        theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)",
       zerolinecolor:
-        theme === "dark"
-          ? "#rgba(75, 85, 99, 0.4)"
-          : "rgba(209, 213, 219, 0.4)",
+        theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)",
       showgrid: true,
       linecolor: "rgba(0, 0, 0, 0)",
       griddash: "dot",
@@ -342,21 +363,17 @@ const getLayout = (
         text: ylabels[0],
       },
       hoverformat: ".2f",
-      titlefont: { color: getColor(0) },
-      tickfont: { color: getColor(0) },
+      titlefont: !shareYAxis ? { color: getColor(0) } : undefined,
+      tickfont: !shareYAxis ? { color: getColor(0) } : undefined,
     },
     yaxis2: {
       gridcolor:
-        theme === "dark"
-          ? "#rgba(75, 85, 99, 0.4)"
-          : "rgba(209, 213, 219, 0.4)",
+        theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)",
       zerolinecolor:
-        theme === "dark"
-          ? "#rgba(75, 85, 99, 0.4)"
-          : "rgba(209, 213, 219, 0.4)",
+        theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)",
 
-      titlefont: { color: getColor(1) },
-      tickfont: { color: getColor(1) },
+      titlefont: !shareYAxis ? { color: getColor(1) } : undefined,
+      tickfont: !shareYAxis ? { color: getColor(1) } : undefined,
       showgrid: true,
       linecolor: "rgba(0, 0, 0, 0)",
       griddash: "dot",
