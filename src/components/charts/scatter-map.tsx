@@ -5,20 +5,15 @@ import DownloadButton from "./download";
 import { getColor } from "./utils";
 import Plotly from "plotly.js";
 import Plot from "react-plotly.js";
+import { env } from "~/env.mjs";
 
 interface ScatterMapProps {
   cardProps?: React.ComponentProps<typeof Card>;
   divId: string;
-  extraBottomPadding?: number;
   title: string;
 }
 
-const ScatterMap: React.FC<ScatterMapProps> = ({
-  title,
-  cardProps,
-  divId,
-  extraBottomPadding,
-}) => {
+const ScatterMap: React.FC<ScatterMapProps> = ({ title, cardProps, divId }) => {
   const { theme } = useTheme();
   // reference to the card to observe resize
   const cardRef = React.useRef<HTMLDivElement>(null);
@@ -29,11 +24,6 @@ const ScatterMap: React.FC<ScatterMapProps> = ({
       Plots: { resize: (el: string) => void };
       setPlotConfig: (config: object) => void;
     };
-
-    Lib.setPlotConfig({
-      mapboxAccessToken:
-        "pk.eyJ1Ijoic2FtYXJ5Y2FybG9zIiwiYSI6ImNrcm5tY3J4eDA0ZGMyd3BnM2J0Zm5jZ2gifQ.2hW6KZGxJ1QhYVQVZ5P8RQ",
-    });
 
     if (!cardRef.current) return;
     const resizeObserver = new ResizeObserver(() => {
@@ -69,11 +59,11 @@ const ScatterMap: React.FC<ScatterMapProps> = ({
           /> */}
         </div>
       </Flex>
-      <div className="mx-auto mt-8 h-full pb-16 ring-0">
+      <div className="mx-auto mt-8 h-full pb-4 ring-0">
         <Plot
           divId={divId}
           data={plottingData as object[]}
-          layout={getLayout(theme, extraBottomPadding)}
+          layout={getLayout(theme)}
           useResizeHandler
           className="h-full w-full"
           config={chartConfig as object}
@@ -90,6 +80,9 @@ const getLayout = (theme: string | undefined, extraBottomPadding?: number) => {
 
   const layout: Partial<Plotly.Layout> = {
     autosize: true,
+    mapbox: {
+      style: theme === "dark" ? "dark" : "streets",
+    },
     font: {
       family: "sans-serif",
       color:
@@ -104,10 +97,10 @@ const getLayout = (theme: string | undefined, extraBottomPadding?: number) => {
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     paper_bgcolor: "rgba(0, 0, 0, 0)",
     margin: {
-      l: 40,
+      l: 0,
       r: 0,
-      b: 40 + (extraBottomPadding || 0),
-      t: 10,
+      b: 0,
+      t: 0,
       pad: 0,
     },
     xaxis: {
@@ -131,6 +124,7 @@ const getLayout = (theme: string | undefined, extraBottomPadding?: number) => {
 };
 
 const chartConfig = {
+  mapboxAccessToken: env.NEXT_PUBLIC_MAPBOX_TOKEN,
   responsive: true,
   showTips: false,
   displaylogo: false,
