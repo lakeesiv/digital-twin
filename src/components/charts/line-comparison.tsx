@@ -12,7 +12,7 @@ import {
 } from "~/ui/select";
 import { capilatizeFirstLetter } from "~/utils";
 import DownloadButton from "./download";
-import { getColor } from "./utils";
+import { CHART_CONFIG, getColor, titleToId } from "./utils";
 import Plotly from "plotly.js";
 import Plot from "react-plotly.js";
 import type { LineChartData } from "./line";
@@ -32,7 +32,7 @@ export type LineComparsionData = {
 interface LineComparisonProps extends LineComparsionData {
   cardProps?: React.ComponentProps<typeof Card>;
   defaultCurveStyle?: "linear" | "step" | "natural";
-  divId: string;
+  divId?: string;
   dateTime?: boolean;
   fill?: boolean;
   height?: number;
@@ -47,13 +47,13 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   //   labels,
   //   data,
   defaultCurveStyle = "linear",
-  divId,
+  divId = titleToId(title),
   dateTime,
   fill = false,
   height = 250,
   //   visible,
   //   timeUnit: t,
-  allowSelectLineStyle = false,
+  allowSelectLineStyle = true,
   lineData1,
   lineData2,
 }) => {
@@ -142,7 +142,6 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         line: { shape: mapCurveStyle(curveStyle) },
         type: "scattergl",
         name: lineData1.labels[i],
-        // visible: visible ? (visible[i] ? true : "legendonly") : true,
       });
     }
   } else {
@@ -265,7 +264,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
           ])}
           useResizeHandler
           className="h-full w-full"
-          config={chartConfig as object}
+          config={CHART_CONFIG as object}
         />
       </div>
     </Card>
@@ -343,6 +342,8 @@ const getLayout = (
         text: ylabels[0],
       },
       hoverformat: ".2f",
+      titlefont: { color: getColor(0) },
+      tickfont: { color: getColor(0) },
     },
     yaxis2: {
       gridcolor:
@@ -353,6 +354,9 @@ const getLayout = (
         theme === "dark"
           ? "#rgba(75, 85, 99, 0.4)"
           : "rgba(209, 213, 219, 0.4)",
+
+      titlefont: { color: getColor(1) },
+      tickfont: { color: getColor(1) },
       showgrid: true,
       linecolor: "rgba(0, 0, 0, 0)",
       griddash: "dot",
@@ -366,43 +370,6 @@ const getLayout = (
   };
 
   return layout as object; // fixing type error
-};
-
-const chartConfig = {
-  responsive: true,
-  displaylogo: false,
-  showTips: false,
-  modeBarButtonsToRemove: [
-    "zoom2d",
-    "pan2d",
-    "select2d",
-    "lasso2d",
-    "zoomIn2d",
-    "zoomOut2d",
-    "autoScale2d",
-    // "resetScale2d",
-    "hoverClosestCartesian",
-    "hoverCompareCartesian",
-    "zoom3d",
-    "pan3d",
-    "resetCameraDefault3d",
-    "resetCameraLastSave3d",
-    "hoverClosest3d",
-    "orbitRotation",
-    "tableRotation",
-    "zoomInGeo",
-    "zoomOutGeo",
-    "resetGeo",
-    "hoverClosestGeo",
-    // "toImage",
-    "sendDataToCloud",
-    "hoverClosestGl2d",
-    "hoverClosestPie",
-    "toggleHover",
-    "resetViews",
-    "toggleSpikelines",
-    "resetViewMapbox",
-  ],
 };
 
 export default LineComparison;

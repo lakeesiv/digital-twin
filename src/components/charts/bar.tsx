@@ -2,12 +2,12 @@ import { Card, Flex, Title } from "@tremor/react";
 import { useTheme } from "next-themes";
 import React, { useEffect } from "react";
 import DownloadButton from "./download";
-import { getColor } from "./utils";
+import { CHART_CONFIG, getColor, titleToId } from "./utils";
 import Plotly from "plotly.js";
 import Plot from "react-plotly.js";
 
 export type BarChartData = {
-  title?: string | JSX.Element; // optional
+  title: string | JSX.Element;
   xlabel: string;
   ylabel: string;
   data: {
@@ -20,7 +20,7 @@ export type BarChartData = {
 
 interface BarProps extends BarChartData {
   cardProps?: React.ComponentProps<typeof Card>;
-  divId: string;
+  divId?: string;
   extraBottomPadding?: number;
   stacked?: boolean;
 }
@@ -42,7 +42,7 @@ const BarChart: React.FC<BarProps> = ({
   title,
   cardProps,
   data,
-  divId,
+  divId = titleToId(title),
   extraBottomPadding,
   stacked = false,
 }) => {
@@ -77,8 +77,6 @@ const BarChart: React.FC<BarProps> = ({
         type: "data",
         array: data.error ? data.error[i] : [],
       },
-      // text: data.labels[i],
-      // text: data.y[i].map((val) => val.toFixed(2)),
     });
   }
 
@@ -106,7 +104,7 @@ const BarChart: React.FC<BarProps> = ({
           layout={getLayout(theme, xlabel, ylabel, extraBottomPadding, stacked)}
           useResizeHandler
           className="h-full w-full"
-          config={chartConfig as object}
+          config={CHART_CONFIG as object}
         />
       </div>
     </Card>
@@ -171,43 +169,6 @@ const getLayout = (
   };
 
   return layout as object; // return as object to avoid type error
-};
-
-const chartConfig = {
-  responsive: true,
-  showTips: false,
-  displaylogo: false,
-  modeBarButtonsToRemove: [
-    "zoom2d",
-    "pan2d",
-    "select2d",
-    "lasso2d",
-    "zoomIn2d",
-    "zoomOut2d",
-    "autoScale2d",
-    // "resetScale2d",
-    "hoverClosestCartesian",
-    "hoverCompareCartesian",
-    "zoom3d",
-    "pan3d",
-    "resetCameraDefault3d",
-    "resetCameraLastSave3d",
-    "hoverClosest3d",
-    "orbitRotation",
-    "tableRotation",
-    "zoomInGeo",
-    "zoomOutGeo",
-    "resetGeo",
-    "hoverClosestGeo",
-    // "toImage",
-    "sendDataToCloud",
-    "hoverClosestGl2d",
-    "hoverClosestPie",
-    "toggleHover",
-    "resetViews",
-    "toggleSpikelines",
-    "resetViewMapbox",
-  ],
 };
 
 export default BarChart;

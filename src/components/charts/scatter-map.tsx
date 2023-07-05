@@ -2,18 +2,22 @@ import { Card, Flex, Title } from "@tremor/react";
 import { useTheme } from "next-themes";
 import React, { useEffect } from "react";
 import DownloadButton from "./download";
-import { getColor } from "./utils";
+import { CHART_CONFIG, titleToId } from "./utils";
 import Plotly from "plotly.js";
 import Plot from "react-plotly.js";
 import { env } from "~/env.mjs";
 
 interface ScatterMapProps {
   cardProps?: React.ComponentProps<typeof Card>;
-  divId: string;
+  divId?: string;
   title: string;
 }
 
-const ScatterMap: React.FC<ScatterMapProps> = ({ title, cardProps, divId }) => {
+const ScatterMap: React.FC<ScatterMapProps> = ({
+  title,
+  cardProps,
+  divId = titleToId(title),
+}) => {
   const { theme } = useTheme();
   // reference to the card to observe resize
   const cardRef = React.useRef<HTMLDivElement>(null);
@@ -67,7 +71,10 @@ const ScatterMap: React.FC<ScatterMapProps> = ({ title, cardProps, divId }) => {
           layout={getLayout(theme)}
           useResizeHandler
           className="h-full w-full"
-          config={chartConfig as object}
+          config={{
+            ...CHART_CONFIG,
+            mapboxAccessToken: env.NEXT_PUBLIC_MAPBOX_TOKEN,
+          }}
         />
       </div>
     </Card>
@@ -122,44 +129,6 @@ const getLayout = (theme: string | undefined) => {
   };
 
   return layout as object; // return as object to avoid type error
-};
-
-const chartConfig = {
-  mapboxAccessToken: env.NEXT_PUBLIC_MAPBOX_TOKEN,
-  responsive: true,
-  showTips: false,
-  displaylogo: false,
-  modeBarButtonsToRemove: [
-    "zoom2d",
-    "pan2d",
-    "select2d",
-    "lasso2d",
-    "zoomIn2d",
-    "zoomOut2d",
-    "autoScale2d",
-    // "resetScale2d",
-    "hoverClosestCartesian",
-    "hoverCompareCartesian",
-    "zoom3d",
-    "pan3d",
-    "resetCameraDefault3d",
-    "resetCameraLastSave3d",
-    "hoverClosest3d",
-    "orbitRotation",
-    "tableRotation",
-    "zoomInGeo",
-    "zoomOutGeo",
-    "resetGeo",
-    "hoverClosestGeo",
-    // "toImage",
-    "sendDataToCloud",
-    "hoverClosestGl2d",
-    "hoverClosestPie",
-    "toggleHover",
-    "resetViews",
-    "toggleSpikelines",
-    "resetViewMapbox",
-  ],
 };
 
 export default ScatterMap;

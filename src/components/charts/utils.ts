@@ -20,3 +20,50 @@ const colors = [
 export const getColor = (index: number) => {
   return colors[index % colors.length];
 };
+
+export const titleToId = (title: string | JSX.Element) => {
+  // replace all non-alphanumeric characters with dashes and lowercase
+
+  if (typeof title === "object") {
+    title = "plotly-chart";
+  }
+
+  return title.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
+};
+
+export const CHART_CONFIG = {
+  responsive: true,
+  displaylogo: false,
+  showTips: false,
+  modeBarButtonsToRemove: [
+    "zoom2d",
+    "pan2d",
+    "select2d",
+    "lasso2d",
+    "zoomIn2d",
+    "zoomOut2d",
+    "autoScale2d",
+    // "resetScale2d",
+    "hoverClosestCartesian",
+    "hoverCompareCartesian",
+    "zoom3d",
+    "pan3d",
+    "resetCameraDefault3d",
+    "resetCameraLastSave3d",
+    "hoverClosest3d",
+    "orbitRotation",
+    "tableRotation",
+    "zoomInGeo",
+    "zoomOutGeo",
+    "resetGeo",
+    "hoverClosestGeo",
+    // "toImage",
+    "sendDataToCloud",
+    "hoverClosestGl2d",
+    "hoverClosestPie",
+    "toggleHover",
+    "resetViews",
+    "toggleSpikelines",
+    "resetViewMapbox",
+  ],
+};

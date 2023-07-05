@@ -12,7 +12,7 @@ import {
 } from "~/ui/select";
 import { capilatizeFirstLetter } from "~/utils";
 import DownloadButton from "./download";
-import { getColor } from "./utils";
+import { CHART_CONFIG, getColor, titleToId } from "./utils";
 import Plotly from "plotly.js";
 import Plot from "react-plotly.js";
 
@@ -23,7 +23,7 @@ interface TimeUnit {
 }
 
 export type LineChartData = {
-  title?: string | JSX.Element; // title can be a string or a JSX element
+  title: string | JSX.Element; // title can be a string or a JSX element
   xlabel: string;
   ylabel: string;
   data: {
@@ -38,7 +38,7 @@ export type LineChartData = {
 interface LineProps extends LineChartData {
   cardProps?: React.ComponentProps<typeof Card>;
   defaultCurveStyle?: "linear" | "step" | "natural";
-  divId: string;
+  divId?: string;
   dateTime?: boolean;
   fill?: boolean;
   height?: number;
@@ -68,7 +68,7 @@ const LineChart: React.FC<LineProps> = ({
   labels,
   data,
   defaultCurveStyle = "linear",
-  divId,
+  divId = titleToId(title),
   dateTime,
   fill = false,
   height = 250,
@@ -246,7 +246,7 @@ const LineChart: React.FC<LineProps> = ({
           layout={getLayout(theme, xlabelState, ylabel)}
           useResizeHandler
           className="h-full w-full"
-          config={chartConfig as object}
+          config={CHART_CONFIG as object}
         />
       </div>
     </Card>
@@ -328,43 +328,6 @@ const getLayout = (
   };
 
   return layout as object; // fixing type error
-};
-
-const chartConfig = {
-  responsive: true,
-  displaylogo: false,
-  showTips: false,
-  modeBarButtonsToRemove: [
-    "zoom2d",
-    "pan2d",
-    "select2d",
-    "lasso2d",
-    "zoomIn2d",
-    "zoomOut2d",
-    "autoScale2d",
-    // "resetScale2d",
-    "hoverClosestCartesian",
-    "hoverCompareCartesian",
-    "zoom3d",
-    "pan3d",
-    "resetCameraDefault3d",
-    "resetCameraLastSave3d",
-    "hoverClosest3d",
-    "orbitRotation",
-    "tableRotation",
-    "zoomInGeo",
-    "zoomOutGeo",
-    "resetGeo",
-    "hoverClosestGeo",
-    // "toImage",
-    "sendDataToCloud",
-    "hoverClosestGl2d",
-    "hoverClosestPie",
-    "toggleHover",
-    "resetViews",
-    "toggleSpikelines",
-    "resetViewMapbox",
-  ],
 };
 
 export default LineChart;
