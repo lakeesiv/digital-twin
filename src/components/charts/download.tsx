@@ -23,11 +23,11 @@ interface DownloadProps {
 const DownloadButton: React.FC<DownloadProps> = ({ data, type, divId }) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="mx-4 h-[30px]  focus:outline-none focus:ring-transparent">
-        {/* <Button variant="outline" className="h-[30px]"> */}
-        <Download size={16} className="px-0" />
-        {/* </Button> */}
-      </DropdownMenuTrigger>
+      <Button variant="outline" className="h-[30px]" asChild>
+        <DropdownMenuTrigger className="mx-4 h-[30px]  focus:outline-none focus:ring-transparent">
+          <Download size={16} className="px-0" />
+        </DropdownMenuTrigger>
+      </Button>
       <DropdownMenuContent>
         <DropdownMenuLabel>Download as</DropdownMenuLabel>
         <DropdownMenuItem
