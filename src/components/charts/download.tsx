@@ -10,7 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "~/ui/dropdown-menu";
-import Plotly from "plotly.js-cartesian-dist-min";
+import Plotly from "plotly.js";
 
 type DownloadFormats = "json" | "csv";
 

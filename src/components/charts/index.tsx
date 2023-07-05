@@ -7,3 +7,7 @@ export const LineChart = dynamic(() => import("./line"), {
 export const BarChart = dynamic(() => import("./bar"), {
   ssr: false,
 });
+
+export const ScatterMap = dynamic(() => import("./scatter-map"), {
+  ssr: false,
+});
