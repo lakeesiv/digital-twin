@@ -34,7 +34,7 @@
     "lucide-react": "^0.246.0",
     "next": "^13.4.2",
     "next-themes": "^0.2.1",
-    "plotly.js-cartesian-dist-min": "^2.24.2",
+    "plotly.js": "^2.24.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.0",

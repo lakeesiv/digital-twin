@@ -1,4 +1,4 @@
-declare module "plotly.js-cartesian-dist-min" {
+declare module "plotly.js" {
   import * as Plotly from "plotly.js";
   export default Plotly;
 }

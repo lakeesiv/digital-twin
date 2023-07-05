@@ -77,7 +77,7 @@ dependencies:
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@13.4.2)(react-dom@18.2.0)(react@18.2.0)
-  plotly.js-cartesian-dist-min:
+  plotly.js:
     specifier: ^2.24.2
     version: 2.24.2
   react:
@@ -4606,10 +4606,6 @@ packages:
   /pirates@4.0.5:
     resolution: {integrity: sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==}
     engines: {node: '>= 6'}
-
-  /plotly.js-cartesian-dist-min@2.24.2:
-    resolution: {integrity: sha512-8uaRSjPZygFMZqc17r57kthr72oyWN3wFePeLlmYG/JzxmiitlPQhhPK+XwY+RWl/6LYGGuQ0HIBtrO2gtFHbw==}
-    dev: false
 
   /plotly.js@2.24.2:
     resolution: {integrity: sha512-4Sx0bjEO2K8kdt0lvsne7/b2bc9h45SVEDGoA7hnoyZ6tU58aGMJTwXl+nmbE7P1jTVaPF3FmBy7w0NUCR1qtQ==}

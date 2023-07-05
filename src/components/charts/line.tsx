@@ -1,8 +1,6 @@
 import { Card, Flex, Title } from "@tremor/react";
 import { useTheme } from "next-themes";
-import Plotly from "plotly.js-cartesian-dist-min";
 import React, { useEffect, useState } from "react";
-import createPlotlyComponent from "react-plotly.js/factory";
 import {
   Select,
   SelectContent,
@@ -15,8 +13,8 @@ import {
 import { capilatizeFirstLetter } from "~/utils";
 import DownloadButton from "./download";
 import { getColor } from "./utils";
-
-const Plot = createPlotlyComponent(Plotly as object);
+import Plotly from "plotly.js";
+import Plot from "react-plotly.js";
 
 interface TimeUnit {
   current: "hour" | "day" | "week";
