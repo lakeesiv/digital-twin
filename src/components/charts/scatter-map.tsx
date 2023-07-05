@@ -37,9 +37,10 @@ const ScatterMap: React.FC<ScatterMapProps> = ({ title, cardProps, divId }) => {
 
   plottingData.push({
     type: "scattermapbox",
-    lat: [40.7128],
-    lon: [-74.006],
+    lat: [40.7128, 40.8],
+    lon: [-74.006, -74.2],
     mode: "markers",
+    text: [10, 20],
   });
 
   return (
@@ -73,7 +74,7 @@ const ScatterMap: React.FC<ScatterMapProps> = ({ title, cardProps, divId }) => {
   );
 };
 
-const getLayout = (theme: string | undefined, extraBottomPadding?: number) => {
+const getLayout = (theme: string | undefined) => {
   if (!theme) {
     theme = "light";
   }
