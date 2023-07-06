@@ -16,6 +16,8 @@ import {
   SelectValue,
 } from "~/ui/select";
 import { LineChart } from "~/components/charts";
+import LineComparison from "./line-comparison";
+import type { LineChartData } from "./charts/line";
 
 const generateData = () => {
   type Result = {
@@ -75,9 +77,29 @@ export default function Example() {
     "all",
   ]);
 
-  // useEffect(() => {
-  //   console.log(dates);
-  // }, [dates]);
+  const humidityChart: LineChartData = {
+    data: data.humidity,
+    title: "Humidity",
+    xlabel: "Time",
+    ylabel: "Humidity",
+    labels: ["Humidity"],
+  };
+
+  const temperatureChart: LineChartData = {
+    data: data.temperature,
+    title: "Temperature",
+    xlabel: "Time",
+    ylabel: "Temperature",
+    labels: ["Temperature"],
+  };
+
+  const pressureChart: LineChartData = {
+    data: data.pressure,
+    title: "Pressure",
+    xlabel: "Time",
+    ylabel: "Pressure",
+    labels: ["Pressure"],
+  };
 
   return (
     <div>
@@ -125,50 +147,14 @@ export default function Example() {
           (layout === "grid" ? "grid-cols-2" : "grid-cols-1")
         }
       >
-        {/* {filters.map((filter, i) => {
-          return (
-            <TimeSeriesLine
-              key={filter}
-              data={data}
-              categories={[filter]}
-              index="timestamp"
-              colors={[getColor(i)]}
-              title={capaitalize(filter)}
-            />
-          );
-        })} */}
         {filters.includes("humidity") && (
-          <LineChart
-            data={data.humidity}
-            title="Humidity"
-            xlabel="Time"
-            ylabel="Humidity"
-            divId="humidity"
-            labels={["Humidity"]}
-            dateTime
-          />
+          <LineChart {...humidityChart} dateTime />
         )}
         {filters.includes("temperature") && (
-          <LineChart
-            data={data.temperature}
-            title="Temperature"
-            xlabel="Time"
-            ylabel="Temperature"
-            divId="temperature"
-            labels={["Temperature"]}
-            dateTime
-          />
+          <LineChart {...temperatureChart} dateTime />
         )}
         {filters.includes("pressure") && (
-          <LineChart
-            data={data.pressure}
-            title="Pressure"
-            xlabel="Time"
-            ylabel="Pressure"
-            divId="pressure"
-            labels={["Pressure"]}
-            dateTime
-          />
+          <LineChart {...pressureChart} dateTime />
         )}
         {filters.includes("all") && (
           <LineChart
@@ -186,6 +172,10 @@ export default function Example() {
           />
         )}
       </div>
+      <LineComparison
+        className="mt-8"
+        allData={[humidityChart, temperatureChart, pressureChart]}
+      />
     </div>
   );
 }

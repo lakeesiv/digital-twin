@@ -15,18 +15,21 @@ import {
 import { type LineChartData } from "./charts/line";
 import { LineComparisonChart } from "./charts";
 
-interface LineComparisonProps {
+interface LineComparisonProps extends React.HTMLAttributes<HTMLDivElement> {
   allData: LineChartData[];
 }
 
-const LineComparison: React.FC<LineComparisonProps> = ({ allData }) => {
+const LineComparison: React.FC<LineComparisonProps> = ({
+  allData,
+  ...props
+}) => {
   const [filters, setFilters] = React.useState<string[]>([]);
   const [timeUnit, setTimeUnit] = React.useState<"hour" | "day">("hour");
   const [useTimeSeries, setUseTimeSeries] = React.useState<boolean>(false);
   const allTitles = allData.map((d) => d.title);
 
   return (
-    <Card>
+    <Card {...props}>
       <div className="mb-4 flex items-center space-x-4">
         <FacetedFilterButton
           filters={allTitles as string[]}
