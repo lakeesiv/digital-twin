@@ -55,17 +55,15 @@ const FacetedFilterButton = ({
                     {selectedFilters.length} selected
                   </Badge>
                 ) : (
-                  filters
-                    .filter((option) => selectedFilters.includes(option))
-                    .map((option) => (
-                      <Badge
-                        variant="secondary"
-                        key={option}
-                        className="rounded-sm px-1 font-mono"
-                      >
-                        {option}
-                      </Badge>
-                    ))
+                  selectedFilters.map((option) => (
+                    <Badge
+                      variant="secondary"
+                      key={option}
+                      className="rounded-sm px-1 font-mono"
+                    >
+                      {option}
+                    </Badge>
+                  ))
                 )}
               </div>
             </>
