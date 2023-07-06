@@ -14,6 +14,7 @@ import {
 } from "~/ui/select";
 import { type LineChartData } from "./charts/line";
 import { LineComparisonChart } from "./charts";
+import Tooltip from "~/ui/tooltip";
 
 interface LineComparisonProps extends React.HTMLAttributes<HTMLDivElement> {
   allData: LineChartData[];
@@ -50,7 +51,11 @@ const LineComparison: React.FC<LineComparisonProps> = ({
               setUseTimeSeries(e);
             }}
           />
-          <Label htmlFor="time-series">Time Series</Label>
+          <Tooltip
+            tooltip={`Allows you to change the time unit of the X axis to hour, day, or week\nSpecifiy source time unit in the select box`}
+          >
+            <Label htmlFor="time-series">Time Series</Label>
+          </Tooltip>
           {useTimeSeries && (
             <Select
               onValueChange={(value) => setTimeUnit(value as "hour" | "day")}
@@ -60,7 +65,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Default Time Unit</SelectLabel>
+                  <SelectLabel>Source Time Unit</SelectLabel>
                   <SelectItem value="hour">Hour</SelectItem>
                   <SelectItem value="day">Day</SelectItem>
                 </SelectGroup>
@@ -77,7 +82,9 @@ const LineComparison: React.FC<LineComparisonProps> = ({
               setUseDateTime(e);
             }}
           />
-          <Label htmlFor="date-time">Date Time</Label>
+          <Tooltip tooltip="Converts X axis from Unix timestamp to date time">
+            <Label htmlFor="date-time">Date Time</Label>
+          </Tooltip>
         </div>
       </div>
       {filters.length === 2 ? (

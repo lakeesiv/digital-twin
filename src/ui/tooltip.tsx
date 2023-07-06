@@ -25,4 +25,31 @@ const TooltipContent = React.forwardRef<
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
+interface DefaultTooltipProps extends React.HTMLAttributes<HTMLDivElement> {
+  tooltip: string;
+}
+
+const DefaultTooltip: React.FC<DefaultTooltipProps> = ({
+  children,
+  tooltip,
+}) => {
+  return (
+    <TooltipProvider>
+      <Tooltip delayDuration={200}>
+        <TooltipTrigger className="mb-1">{children}</TooltipTrigger>
+        <TooltipContent>
+          <span
+            className="whitespace-pre-wrap text-sm text-gray-500
+        dark:text-gray-300
+        "
+          >
+            {tooltip}
+          </span>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+};
+
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+export default DefaultTooltip;
