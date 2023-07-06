@@ -348,9 +348,9 @@ const getLayout = (
       showgrid: false,
       linecolor: "rgba(0, 0, 0, 0)",
       zerolinecolor: fontColor,
-      title: {
-        text: xlabel,
-      },
+      // title: {
+      //   text: xlabel || "",
+      // },
     },
     yaxis: {
       gridcolor: fontColor,
@@ -382,6 +382,8 @@ const getLayout = (
       hoverformat: ".2f",
     },
   };
+
+  console.log(layout);
 
   return layout as object; // fixing type error
 };
