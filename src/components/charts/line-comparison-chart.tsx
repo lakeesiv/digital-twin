@@ -14,7 +14,7 @@ import {
 } from "~/ui/select";
 import { capilatizeFirstLetter } from "~/utils";
 import type { LineChartData } from "./line";
-import { CHART_CONFIG, getColor, titleToId } from "./utils";
+import { CHART_CONFIG, getColor, titleToId, mapCurveStyle } from "./utils";
 
 interface TimeUnit {
   current: "hour" | "day" | "week";
@@ -62,7 +62,6 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   const [timeUnit, setTimeUnit] = useState<"hour" | "day" | "week" | undefined>(
     t?.current || undefined
   );
-  const [xlabelState, setXlabelState] = useState<string>(lineData1.xlabel);
 
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
@@ -99,14 +98,6 @@ const LineComparison: React.FC<LineComparisonProps> = ({
           }
         });
       });
-
-      if (t) {
-        const newXLabel = "Time (" + capilatizeFirstLetter(timeUnit) + ")";
-        setXlabelState(newXLabel);
-      }
-    }
-    if (!t) {
-      setXlabelState(lineData1.xlabel + " | " + lineData2.xlabel);
     }
   }, [timeUnit, plottingData, t]);
 
@@ -172,7 +163,6 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         type: "scattergl",
         name: lineData2.labels[i],
         yaxis: shareYAxis ? undefined : "y2",
-        // visible: visible ? (visible[i] ? true : "legendonly") : true,
       });
     }
   } else {
@@ -282,7 +272,6 @@ const LineComparison: React.FC<LineComparisonProps> = ({
           data={plottingData as object[]}
           layout={getLayout(
             theme,
-            xlabelState,
             lineData1.ylabel,
             lineData2.ylabel,
             shareYAxis
@@ -296,22 +285,8 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   );
 };
 
-const mapCurveStyle = (style: "linear" | "step" | "natural") => {
-  switch (style) {
-    case "linear":
-      return "linear";
-    case "step":
-      return "hv";
-    case "natural":
-      return "spline";
-    default:
-      return "linear";
-  }
-};
-
 const getLayout = (
   theme: string | undefined,
-  xlabel: string,
   ylabel1: string,
   ylabel2: string,
   shareYAxis: boolean
@@ -351,7 +326,7 @@ const getLayout = (
       linecolor: "rgba(0, 0, 0, 0)",
       zerolinecolor: fontColor,
       // title: {
-      //   text: xlabel || "",
+      //   text: xlabel || "", // NOTE: Adding a statef xlabel causes the chart axis to mess up on initial load
       // },
     },
     yaxis: {
@@ -385,7 +360,7 @@ const getLayout = (
     },
   };
 
-  return layout as object; // fixing type error
+  return layout as object;
 };
 
 export default LineComparison;

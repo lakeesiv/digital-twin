@@ -12,7 +12,7 @@ import {
 } from "~/ui/select";
 import { capilatizeFirstLetter } from "~/utils";
 import DownloadButton from "./download";
-import { CHART_CONFIG, getColor, titleToId } from "./utils";
+import { CHART_CONFIG, getColor, titleToId, mapCurveStyle } from "./utils";
 import Plotly from "plotly.js";
 import Plot from "react-plotly.js";
 
@@ -251,19 +251,6 @@ const LineChart: React.FC<LineProps> = ({
       </div>
     </Card>
   );
-};
-
-const mapCurveStyle = (style: "linear" | "step" | "natural") => {
-  switch (style) {
-    case "linear":
-      return "linear";
-    case "step":
-      return "hv";
-    case "natural":
-      return "spline";
-    default:
-      return "linear";
-  }
 };
 
 const getLayout = (

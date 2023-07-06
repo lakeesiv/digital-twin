@@ -67,3 +67,16 @@ export const CHART_CONFIG = {
     "resetViewMapbox",
   ],
 };
+
+export const mapCurveStyle = (style: "linear" | "step" | "natural") => {
+  switch (style) {
+    case "linear":
+      return "linear";
+    case "step":
+      return "hv";
+    case "natural":
+      return "spline";
+    default:
+      return "linear";
+  }
+};
