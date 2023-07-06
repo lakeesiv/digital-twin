@@ -383,8 +383,6 @@ const getLayout = (
     },
   };
 
-  console.log(layout);
-
   return layout as object; // fixing type error
 };
 

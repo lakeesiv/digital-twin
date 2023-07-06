@@ -67,6 +67,24 @@ export default function Home() {
         Sensor ID: {router.query.id} | Socket:{" "}
         {isConnected ? "Connected" : "Disconnected"}
       </h1>
+      <button
+        onClick={() => {
+          socket.send(
+            JSON.stringify({
+              msg_type: "rt_connect",
+              client_data: {
+                rt_client_name: "Socket Client",
+                rt_client_id: "socket_client",
+                rt_client_url:
+                  "https://tfc-app4.cl.cam.ac.uk/backdoor/socket-client/index.html",
+                rt_token: "888",
+              },
+            })
+          );
+        }}
+      >
+        AAA
+      </button>
       <Chart />
     </Layout>
   );

@@ -98,6 +98,9 @@ dependencies:
   react-plotly.js:
     specifier: ^2.6.0
     version: 2.6.0(plotly.js@2.24.2)(react@18.2.0)
+  react-use-websocket:
+    specifier: ^4.3.1
+    version: 4.3.1(react-dom@18.2.0)(react@18.2.0)
   sockjs-client:
     specifier: ^1.6.1
     version: 1.6.1
@@ -5077,6 +5080,16 @@ packages:
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-use-websocket@4.3.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-zHPLWrgcqydJaak2O5V9hiz4q2dwkwqNQqpgFVmSuPxLZdsZlnDs8DVHy3WtHH+A6ms/8aHIyX7+7ulOcrnR0Q==}
+    peerDependencies:
+      react: '>= 18.0.0'
+      react-dom: '>= 18.0.0'
+    dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
