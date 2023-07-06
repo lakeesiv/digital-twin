@@ -101,6 +101,17 @@ export default function Example() {
     labels: ["Pressure"],
   };
 
+  const allCharts: LineChartData = {
+    data: {
+      x: [data.humidity.x, data.temperature.x, data.pressure.x],
+      y: [data.humidity.y, data.temperature.y, data.pressure.y],
+    },
+    title: "All",
+    xlabel: "Time",
+    ylabel: "Params",
+    labels: ["Pressure", "Humidity", "Temperature"],
+  };
+
   return (
     <div>
       <Flex>
@@ -157,19 +168,7 @@ export default function Example() {
           <LineChart {...pressureChart} dateTime />
         )}
         {filters.includes("all") && (
-          <LineChart
-            data={{
-              x: data.pressure.x,
-              y: [data.pressure.y, data.humidity.y, data.temperature.y],
-            }}
-            title="All"
-            xlabel="Time"
-            ylabel="Params"
-            divId="all"
-            labels={["Pressure", "Humidity", "Temperature"]}
-            dateTime
-            fill={false}
-          />
+          <LineChart {...allCharts} dateTime fill={false} />
         )}
       </div>
       <LineComparison
