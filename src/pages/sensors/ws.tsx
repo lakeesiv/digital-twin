@@ -70,7 +70,7 @@ const WS = () => {
           onClick={handleClickSendMessage}
           disabled={readyState !== ReadyState.OPEN}
         >
-          Click Me to send 'Hello'
+          Click Me to send
         </button>
         <span>The WebSocket is currently {connectionStatus}</span>
         {lastMessage ? (
