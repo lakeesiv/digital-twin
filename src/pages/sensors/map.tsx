@@ -6,9 +6,23 @@ import type { LineChartData } from "~/components/charts/line";
 import GridLayout from "~/components/layout/grid-layout";
 import FacetedFilterButton from "~/ui/facted-filter-button";
 import { Card } from "@tremor/react";
+import { Label } from "~/ui/label";
+import { Switch } from "~/ui/switch";
+import { Settings } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "~/ui/select";
 
 const Map = () => {
   const [filters, setFilters] = React.useState<string[]>([]);
+  const [timeUnit, setTimeUnit] = React.useState<"hour" | "day">("hour");
+  const [useTimeSeries, setUseTimeSeries] = React.useState<boolean>(false);
 
   const data1: LineChartData = {
     title: "Line 1",
@@ -60,7 +74,7 @@ const Map = () => {
   return (
     <Layout title="Map">
       <Card>
-        <div className="mb-4">
+        <div className="mb-4 flex items-center space-x-4">
           <FacetedFilterButton
             filters={allTitles as string[]}
             selectedFilters={filters}
@@ -68,6 +82,31 @@ const Map = () => {
             title="Select Two Lines"
             limit={2}
           />
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="time-series"
+              onCheckedChange={(e) => {
+                setUseTimeSeries(e);
+              }}
+            />
+            <Label htmlFor="time-series">Time Series</Label>
+            {useTimeSeries && (
+              <Select
+                onValueChange={(value) => setTimeUnit(value as "hour" | "day")}
+              >
+                <SelectTrigger className="ml-8 h-[30px] w-[80px]">
+                  <SelectValue placeholder="Hour" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Default Time Unit</SelectLabel>
+                    <SelectItem value="hour">Hour</SelectItem>
+                    <SelectItem value="day">Day</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
+          </div>
         </div>
         {filters.length === 2 ? (
           <LineComparison
@@ -77,11 +116,20 @@ const Map = () => {
             lineData2={
               allData.find((d) => d.title === filters[1]) as LineChartData
             }
-            // timeUnit={{
-            //   current: "hour",
-            //   target: "day",
-            //   options: ["hour", "day", "week"],
-            // }}
+            timeUnit={
+              useTimeSeries
+                ? {
+                    current: timeUnit,
+                    target: timeUnit,
+                    options:
+                      timeUnit === "hour"
+                        ? ["hour", "day", "week"]
+                        : timeUnit === "day"
+                        ? ["day", "week"]
+                        : ["week"],
+                  }
+                : undefined
+            }
             title="Comparison"
           />
         ) : (

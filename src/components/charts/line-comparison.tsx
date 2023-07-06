@@ -100,10 +100,15 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         });
       });
 
-      const newXLabel = "Time (" + capilatizeFirstLetter(timeUnit) + ")";
-      setXlabelState(newXLabel);
+      if (t) {
+        const newXLabel = "Time (" + capilatizeFirstLetter(timeUnit) + ")";
+        setXlabelState(newXLabel);
+      }
     }
-  }, [timeUnit, plottingData]);
+    if (!t) {
+      setXlabelState(lineData1.xlabel + " | " + lineData2.xlabel);
+    }
+  }, [timeUnit, plottingData, t]);
 
   let x1 = lineData1.data.x as number[] | number[][] | Date[] | Date[][];
   let x2 = lineData2.data.x as number[] | number[][] | Date[] | Date[][];
@@ -190,7 +195,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         <Title>{title}</Title>
 
         <div className="flex justify-center">
-          {timeUnit && (
+          {t && (
             <Select
               onValueChange={(value) =>
                 setTimeUnit(value as "hour" | "day" | "week")
@@ -355,7 +360,7 @@ const getLayout = (
       linecolor: "rgba(0, 0, 0, 0)",
       griddash: "dot",
       title: {
-        text: ylabels[0],
+        text: shareYAxis ? ylabels[0] + " | " + ylabels[1] : ylabels[0],
       },
       hoverformat: ".2f",
       titlefont: !shareYAxis ? { color: getColor(0) } : undefined,
