@@ -31,7 +31,7 @@ export type LineComparsionData = {
 
 interface LineComparisonProps extends LineComparsionData {
   cardProps?: React.ComponentProps<typeof Card>;
-  defaultCurveStyle?: "linear" | "step" | "natural";
+  defaultCurveStyle?: "linear" | "step" | "smooth";
   divId?: string;
   dateTime?: boolean;
   fill?: boolean;
@@ -54,7 +54,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   lineData2,
   shareYAxis: shareYAxisProp = true, // rename shareYAxis to shareYAxisProp
 }) => {
-  const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
+  const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "smooth">(
     defaultCurveStyle || "linear"
   );
   const [shareYAxis, setShareYAxis] = useState<boolean>(shareYAxisProp);
@@ -245,7 +245,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
           {allowSelectLineStyle && (
             <Select
               onValueChange={(value) =>
-                setCurveStyle(value as "linear" | "step" | "natural")
+                setCurveStyle(value as "linear" | "step" | "smooth")
               }
             >
               <SelectTrigger className="h-[30px] w-[100px]">
@@ -260,7 +260,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
                   <SelectLabel>Line Style</SelectLabel>
                   <SelectItem value="linear">Linear</SelectItem>
                   <SelectItem value="step">Step</SelectItem>
-                  <SelectItem value="natural">Smooth</SelectItem>
+                  <SelectItem value="smooth">Smooth</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

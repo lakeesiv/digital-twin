@@ -68,13 +68,17 @@ export const CHART_CONFIG = {
   ],
 };
 
-export const mapCurveStyle = (style: "linear" | "step" | "natural") => {
+export const mapCurveStyle = (
+  style: "linear" | "step" | "natural" | "smooth"
+) => {
   switch (style) {
     case "linear":
       return "linear";
     case "step":
       return "hv";
     case "natural":
+      return "spline";
+    case "smooth":
       return "spline";
     default:
       return "linear";
