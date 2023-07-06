@@ -321,6 +321,8 @@ const getLayout = (
   }
 
   const fontColor =
+    theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(0, 0, 0, 0.9)";
+  const gridColor =
     theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)";
 
   const layout: Partial<Plotly.Layout> = {
@@ -353,8 +355,8 @@ const getLayout = (
       // },
     },
     yaxis: {
-      gridcolor: fontColor,
-      zerolinecolor: fontColor,
+      gridcolor: gridColor,
+      zerolinecolor: gridColor,
       showgrid: true,
       linecolor: "rgba(0, 0, 0, 0)",
       griddash: "dot",
@@ -366,8 +368,8 @@ const getLayout = (
       tickfont: !shareYAxis ? { color: getColor(0) } : fontColor,
     },
     yaxis2: {
-      gridcolor: fontColor,
-      zerolinecolor: fontColor,
+      gridcolor: gridColor,
+      zerolinecolor: gridColor,
 
       titlefont: !shareYAxis ? { color: getColor(1) } : fontColor,
       tickfont: !shareYAxis ? { color: getColor(1) } : fontColor,
