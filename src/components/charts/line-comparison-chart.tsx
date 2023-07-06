@@ -48,11 +48,11 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   dateTime,
   fill = false,
   height = 250,
-  timeUnit: t,
+  timeUnit: timeUnitProp, // rename timeUnit to timeUnitProp
   allowSelectLineStyle = true,
   lineData1,
   lineData2,
-  shareYAxis: shareYAxisProp = true,
+  shareYAxis: shareYAxisProp = true, // rename shareYAxis to shareYAxisProp
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -60,7 +60,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   const [shareYAxis, setShareYAxis] = useState<boolean>(shareYAxisProp);
 
   const [timeUnit, setTimeUnit] = useState<"hour" | "day" | "week" | undefined>(
-    t?.current || undefined
+    timeUnitProp?.current || undefined
   );
 
   const { theme } = useTheme();
@@ -77,8 +77,10 @@ const LineComparison: React.FC<LineComparisonProps> = ({
     return () => resizeObserver.disconnect(); // clean up
   }, [divId]);
 
+  // define the data to be plotted on the chart
   const plottingData: Partial<Plotly.Data>[] = [];
 
+  // convert the x-axis to different time units if needed
   useEffect(() => {
     if (timeUnit) {
       plottingData.forEach((data: { x: number[] }) => {
@@ -86,11 +88,11 @@ const LineComparison: React.FC<LineComparisonProps> = ({
           if (timeUnit === "hour") {
             return x;
           } else if (timeUnit === "day") {
-            return t?.current === "hour" ? x / 24 : x;
+            return timeUnitProp?.current === "hour" ? x / 24 : x;
           } else if (timeUnit === "week") {
-            return t?.current === "hour"
+            return timeUnitProp?.current === "hour"
               ? x / (24 * 7)
-              : t?.current === "day"
+              : timeUnitProp?.current === "day"
               ? x / 7
               : x;
           } else {
@@ -99,12 +101,14 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         });
       });
     }
-  }, [timeUnit, plottingData, t]);
+  }, [timeUnit, plottingData, timeUnitProp]);
 
+  // x values for both lines
   let x1 = lineData1.data.x as number[] | number[][] | Date[] | Date[][];
   let x2 = lineData2.data.x as number[] | number[][] | Date[] | Date[][];
   let individualX = false;
 
+  // convert x values to dates if needed
   if (dateTime) {
     // x = (x as number[]).map((x) => new Date(x));
     if (x1[0] instanceof Array) {
@@ -120,9 +124,14 @@ const LineComparison: React.FC<LineComparisonProps> = ({
     }
   }
 
+  // check if data.x is an array of arrays or not (multiple lines)
   if (x1[0] instanceof Array) {
     individualX = true;
   }
+
+  /*
+   * -------------------- Handle First Line --------------------
+   */
 
   // check if data.y is an array of arrays or not
   if (Array.isArray(lineData1.data.y[0])) {
@@ -150,6 +159,10 @@ const LineComparison: React.FC<LineComparisonProps> = ({
       name: lineData1.labels[0],
     });
   }
+
+  /*
+   * -------------------- Handle Second Line --------------------
+   */
 
   if (Array.isArray(lineData2.data.y[0])) {
     // multiple lines
@@ -185,7 +198,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         <Title>{title}</Title>
 
         <div className="flex justify-center">
-          {t && (
+          {timeUnitProp && (
             <Select
               onValueChange={(value) =>
                 setTimeUnit(value as "hour" | "day" | "week")
@@ -193,13 +206,15 @@ const LineComparison: React.FC<LineComparisonProps> = ({
             >
               <SelectTrigger className="mr-4 h-[30px] w-[100px]">
                 <SelectValue
-                  placeholder={capilatizeFirstLetter(t?.current || "hour")}
+                  placeholder={capilatizeFirstLetter(
+                    timeUnitProp?.current || "hour"
+                  )}
                 />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Time Unit</SelectLabel>
-                  {t?.options.map((option) => (
+                  {timeUnitProp?.options.map((option) => (
                     <SelectItem key={option} value={option}>
                       {capilatizeFirstLetter(option)}
                     </SelectItem>
@@ -296,7 +311,7 @@ const getLayout = (
   }
 
   const fontColor =
-    theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(0, 0, 0, 0.9)";
+    theme === "dark" ? "rgba(150, 150, 150, 0.4)" : "rgba(0, 0, 0, 0.9)";
   const gridColor =
     theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)";
 
