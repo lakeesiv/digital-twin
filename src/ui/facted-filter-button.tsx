@@ -113,7 +113,7 @@ const FacetedFilterButton = ({
                       className={cn(
                         "font-mono",
                         limit && numberSelected >= limit && !isSelected
-                          ? "cursor-not-allowed text-red-500"
+                          ? "cursor-not-allowed opacity-25"
                           : "cursor-pointer"
                       )}
                     >
