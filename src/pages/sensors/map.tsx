@@ -1,7 +1,7 @@
 import React from "react";
 import { ScatterMap } from "~/components/charts";
 import Layout from "~/components/layout";
-import { LineChart, LineComparison } from "~/components/charts";
+import { LineChart, LineComparisonChart } from "~/components/charts";
 import type { LineChartData } from "~/components/charts/line";
 import GridLayout from "~/components/layout/grid-layout";
 import FacetedFilterButton from "~/ui/facted-filter-button";
@@ -109,7 +109,7 @@ const Map = () => {
           </div>
         </div>
         {filters.length === 2 ? (
-          <LineComparison
+          <LineComparisonChart
             lineData1={
               allData.find((d) => d.title === filters[0]) as LineChartData
             }

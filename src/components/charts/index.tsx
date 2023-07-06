@@ -12,6 +12,9 @@ export const ScatterMap = dynamic(() => import("./scatter-map"), {
   ssr: false,
 });
 
-export const LineComparison = dynamic(() => import("./line-comparison"), {
-  ssr: false,
-});
+export const LineComparisonChart = dynamic(
+  () => import("./line-comparison-chart"),
+  {
+    ssr: false,
+  }
+);
