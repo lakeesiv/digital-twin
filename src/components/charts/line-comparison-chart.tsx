@@ -283,7 +283,8 @@ const LineComparison: React.FC<LineComparisonProps> = ({
           layout={getLayout(
             theme,
             xlabelState,
-            [lineData1.ylabel, lineData2.ylabel],
+            lineData1.ylabel,
+            lineData2.ylabel,
             shareYAxis
           )}
           useResizeHandler
@@ -311,19 +312,22 @@ const mapCurveStyle = (style: "linear" | "step" | "natural") => {
 const getLayout = (
   theme: string | undefined,
   xlabel: string,
-  ylabels: string[],
+  ylabel1: string,
+  ylabel2: string,
   shareYAxis: boolean
 ) => {
   if (!theme) {
     theme = "light";
   }
 
+  const fontColor =
+    theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)";
+
   const layout: Partial<Plotly.Layout> = {
     autosize: true,
     font: {
       family: "sans-serif",
-      color:
-        theme === "dark" ? "rgba(150, 150, 150, 0.4)" : "rgb(50, 50, 50, 0.4)",
+      color: fontColor,
     },
     modebar: {
       bgcolor: "rgba(0, 0, 0, 0)",
@@ -343,44 +347,37 @@ const getLayout = (
     xaxis: {
       showgrid: false,
       linecolor: "rgba(0, 0, 0, 0)",
-      zerolinecolor:
-        theme === "dark"
-          ? "#rgba(75, 85, 99, 0.4)"
-          : "rgba(209, 213, 219, 0.4)",
+      zerolinecolor: fontColor,
       title: {
         text: xlabel,
       },
     },
     yaxis: {
-      gridcolor:
-        theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)",
-      zerolinecolor:
-        theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)",
+      gridcolor: fontColor,
+      zerolinecolor: fontColor,
       showgrid: true,
       linecolor: "rgba(0, 0, 0, 0)",
       griddash: "dot",
       title: {
-        text: shareYAxis ? ylabels[0] + " | " + ylabels[1] : ylabels[0],
+        text: shareYAxis ? ylabel1 + " | " + ylabel2 : ylabel1,
       },
       hoverformat: ".2f",
-      titlefont: !shareYAxis ? { color: getColor(0) } : undefined,
-      tickfont: !shareYAxis ? { color: getColor(0) } : undefined,
+      titlefont: !shareYAxis ? { color: getColor(0) } : fontColor,
+      tickfont: !shareYAxis ? { color: getColor(0) } : fontColor,
     },
     yaxis2: {
-      gridcolor:
-        theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)",
-      zerolinecolor:
-        theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)",
+      gridcolor: fontColor,
+      zerolinecolor: fontColor,
 
-      titlefont: !shareYAxis ? { color: getColor(1) } : undefined,
-      tickfont: !shareYAxis ? { color: getColor(1) } : undefined,
+      titlefont: !shareYAxis ? { color: getColor(1) } : fontColor,
+      tickfont: !shareYAxis ? { color: getColor(1) } : fontColor,
       showgrid: true,
       linecolor: "rgba(0, 0, 0, 0)",
       griddash: "dot",
       overlaying: "y",
       side: "right",
       title: {
-        text: ylabels[1],
+        text: ylabel1,
       },
       hoverformat: ".2f",
     },

@@ -1,10 +1,29 @@
-import { LineChart } from "~/components/charts";
-import type { LineChartData } from "~/components/charts/line";
+import React from "react";
+import { ScatterMap } from "~/components/charts";
 import Layout from "~/components/layout";
+import { LineChart, LineComparisonChart } from "~/components/charts";
+import type { LineChartData } from "~/components/charts/line";
 import GridLayout from "~/components/layout/grid-layout";
-import LineComparison from "~/components/line-comparison";
+import FacetedFilterButton from "~/ui/facted-filter-button";
+import { Card } from "@tremor/react";
+import { Label } from "~/ui/label";
+import { Switch } from "~/ui/switch";
+import { Settings } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "~/ui/select";
 
 const Map = () => {
+  const [filters, setFilters] = React.useState<string[]>([]);
+  const [timeUnit, setTimeUnit] = React.useState<"hour" | "day">("hour");
+  const [useTimeSeries, setUseTimeSeries] = React.useState<boolean>(false);
+
   const data1: LineChartData = {
     title: "Line 1",
     labels: ["1"],
@@ -50,10 +69,76 @@ const Map = () => {
   };
 
   const allData = [data1, data2, data3, data4];
+  const allTitles = allData.map((d) => d.title);
 
   return (
     <Layout title="Map">
-      <LineComparison allData={allData} />
+      <LineComparisonChart lineData1={data1} lineData2={data2} title="a" />
+      {/* <Card>
+        <div className="mb-4 flex items-center space-x-4">
+          <FacetedFilterButton
+            filters={allTitles as string[]}
+            selectedFilters={filters}
+            setSelectedFilters={setFilters}
+            title="Select Two Lines"
+            limit={2}
+          />
+          <div className="flex items-center space-x-2 rounded-sm border border-dashed border-input p-2  hover:text-accent-foreground">
+            <Switch
+              id="time-series"
+              onCheckedChange={(e) => {
+                setUseTimeSeries(e);
+              }}
+            />
+            <Label htmlFor="time-series">Time Series</Label>
+            {useTimeSeries && (
+              <Select
+                onValueChange={(value) => setTimeUnit(value as "hour" | "day")}
+              >
+                <SelectTrigger className="ml-8 h-[30px] w-[80px]">
+                  <SelectValue placeholder="Hour" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Default Time Unit</SelectLabel>
+                    <SelectItem value="hour">Hour</SelectItem>
+                    <SelectItem value="day">Day</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
+          </div>
+        </div>
+        {filters.length === 2 ? (
+          <LineComparisonChart
+            lineData1={
+              allData.find((d) => d.title === filters[0]) as LineChartData
+            }
+            lineData2={
+              allData.find((d) => d.title === filters[1]) as LineChartData
+            }
+            timeUnit={
+              useTimeSeries
+                ? {
+                    current: timeUnit,
+                    target: timeUnit,
+                    options:
+                      timeUnit === "hour"
+                        ? ["hour", "day", "week"]
+                        : timeUnit === "day"
+                        ? ["day", "week"]
+                        : ["week"],
+                  }
+                : undefined
+            }
+            title="Comparison"
+          />
+        ) : (
+          <Card className="py-40 text-center text-2xl font-semibold ">
+            Select two lines to compare
+          </Card>
+        )}
+      </Card> */}
       <GridLayout>
         <LineChart {...data1} />
         <LineChart {...data2} />

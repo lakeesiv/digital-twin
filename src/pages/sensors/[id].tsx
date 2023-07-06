@@ -9,23 +9,25 @@ export default function Home() {
   const router = useRouter();
   const [isConnected, setIsConnected] = useState(false);
   // const [fooEvents, setFooEvents] = useState<any[]>([]);
-  // const socket: WebSocket = new SockJS("http://129.169.50.112:8082");
+  const socket: WebSocket = new WebSocket(
+    "ws://129.169.50.112:8083/rtmonitor/WS/mqtt_csn"
+  );
   //  129.169.50.112:8083 WS
   //  129.169.50.112:8082 SockJS
 
   useEffect(() => {
     setMounted(true);
 
-    // function onConnect() {
-    //   setIsConnected(true);
-    // }
+    function onConnect() {
+      setIsConnected(true);
+    }
 
-    // function onConnectError(err: Error) {
-    //   console.log("Error connecting to socket.io server", err);
-    // }
-    // function onDisconnect() {
-    //   setIsConnected(false);
-    // }
+    function onConnectError(err: Error) {
+      console.log("Error connecting to socket.io server", err);
+    }
+    function onDisconnect() {
+      setIsConnected(false);
+    }
 
     // function onFooEvent(value) {
     //   setFooEvents((previous) => [...previous, value]);
@@ -35,19 +37,19 @@ export default function Home() {
     // socket.on("connect_error", onConnectError);
     // socket.on("disconnect", onDisconnect);
     // socket.on("foo", onFooEvent);
-    // socket.onopen = function () {
-    //   console.log("open");
-    //   onConnect();
-    // };
+    socket.onopen = function () {
+      console.log("open");
+      onConnect();
+    };
 
-    // socket.onmessage = function (e) {
-    //   console.log("message", e.data);
-    //   // sock.close();
-    // };
+    socket.onmessage = function (e) {
+      console.log("message", e.data);
+      // sock.close();
+    };
 
-    // socket.onclose = function () {
-    //   console.log("close");
-    // };
+    socket.onclose = function () {
+      console.log("close");
+    };
 
     // return () => {
     //   socket.off("connect", onConnect);
