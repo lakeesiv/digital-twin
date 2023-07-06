@@ -4,8 +4,12 @@ import Layout from "~/components/layout";
 import { LineChart, LineComparison } from "~/components/charts";
 import type { LineChartData } from "~/components/charts/line";
 import GridLayout from "~/components/layout/grid-layout";
+import FacetedFilterButton from "~/ui/facted-filter-button";
+import { Card } from "@tremor/react";
 
 const Map = () => {
+  const [filters, setFilters] = React.useState<string[]>([]);
+
   const data1: LineChartData = {
     title: "Line 1",
     labels: ["1"],
@@ -50,18 +54,42 @@ const Map = () => {
     },
   };
 
+  const allData = [data1, data2, data3, data4];
+  const allTitles = allData.map((d) => d.title);
+
   return (
     <Layout title="Map">
-      <LineComparison
-        lineData1={data1}
-        lineData2={data4}
-        timeUnit={{
-          current: "hour",
-          target: "day",
-          options: ["hour", "day", "week"],
-        }}
-        title="Comparison"
-      />
+      <Card>
+        <div className="mb-4">
+          <FacetedFilterButton
+            filters={allTitles as string[]}
+            selectedFilters={filters}
+            setSelectedFilters={setFilters}
+            title="Select Two Lines"
+            limit={2}
+          />
+        </div>
+        {filters.length === 2 ? (
+          <LineComparison
+            lineData1={
+              allData.find((d) => d.title === filters[0]) as LineChartData
+            }
+            lineData2={
+              allData.find((d) => d.title === filters[1]) as LineChartData
+            }
+            // timeUnit={{
+            //   current: "hour",
+            //   target: "day",
+            //   options: ["hour", "day", "week"],
+            // }}
+            title="Comparison"
+          />
+        ) : (
+          <Card className="py-40 text-center text-2xl font-semibold ">
+            Select two lines to compare
+          </Card>
+        )}
+      </Card>
       <GridLayout>
         <LineChart {...data1} />
         <LineChart {...data2} />

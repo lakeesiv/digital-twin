@@ -198,7 +198,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
             >
               <SelectTrigger className="mr-4 h-[30px] w-[100px]">
                 <SelectValue
-                  placeholder={capilatizeFirstLetter(t?.target || "hour")}
+                  placeholder={capilatizeFirstLetter(t?.current || "hour")}
                 />
               </SelectTrigger>
               <SelectContent>
