@@ -25,7 +25,6 @@ import {
   FormLabel,
   FormMessage,
 } from "~/ui/form";
-import { Input } from "~/ui/input";
 import {
   Select,
   SelectContent,
@@ -44,9 +43,15 @@ const formSchema = z.object({
     .min(3)
     .max(20)
     .nonempty()
-    .refine(noWhitespace, "No whitespace allowed in Job ID"),
+    .refine(noWhitespace, "No whitespace allowed in Job ID")
+    .optional(),
+  timestamp: z
+    .number()
+    .int()
+    .default(Math.floor(Date.now() / 1000)),
   weeks: z.number().int().min(1).max(10),
   files: z.custom<FileList>().nullable(),
+  confidenceAnalysis: z.boolean().default(false),
 });
 
 export default function SimulatePage() {
@@ -56,7 +61,7 @@ export default function SimulatePage() {
   const ProcessForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      weeks: 1,
+      weeks: 3,
     },
   });
 
@@ -152,7 +157,7 @@ export default function SimulatePage() {
           <Card className="mt-4 flex flex-col space-y-4 p-8">
             <Title>Configurations</Title>
             <div className="flex items-start space-x-4 align-top">
-              <FormField
+              {/* <FormField
                 control={ProcessForm.control}
                 name="jobId"
                 render={({ field }) => (
@@ -165,7 +170,7 @@ export default function SimulatePage() {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
               <FormField
                 control={ProcessForm.control}
                 name="weeks"
@@ -180,10 +185,10 @@ export default function SimulatePage() {
                         defaultValue={String(field.value)}
                       >
                         <SelectTrigger className="w-[180px]">
-                          <SelectValue placeholder="1" />
+                          <SelectValue placeholder="3" />
                         </SelectTrigger>
                         <SelectContent>
-                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+                          {[3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
                             <SelectItem key={item} value={String(item)}>
                               {item}
                             </SelectItem>
@@ -192,7 +197,43 @@ export default function SimulatePage() {
                       </Select>
                     </FormControl>
                     <FormDescription>
-                      Number of Weeks to run the simulation for
+                      <span className="whitespace-break-spaces">
+                        {`Number of weeks to run\nthe simulation for`}
+                      </span>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={ProcessForm.control}
+                name="confidenceAnalysis"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confidence Analysis</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={(value) => {
+                          field.onChange(value === "Yes");
+                        }}
+                        defaultValue={field.value ? "Yes" : "No"}
+                      >
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="1" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {["No", "Yes"].map((item) => (
+                            <SelectItem key={item} value={String(item)}>
+                              {item}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormDescription>
+                      <span className="whitespace-break-spaces">
+                        {`Run confidence analysis on the simulation\n(This takes much longer to run, only use this after you have run the simulation without it)`}
+                      </span>
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
