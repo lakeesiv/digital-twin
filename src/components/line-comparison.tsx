@@ -26,6 +26,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   const [filters, setFilters] = React.useState<string[]>([]);
   const [timeUnit, setTimeUnit] = React.useState<"hour" | "day">("hour");
   const [useTimeSeries, setUseTimeSeries] = React.useState<boolean>(false);
+  const [useDateTime, setUseDateTime] = React.useState<boolean>(false);
   const allTitles = allData.map((d) => d.title);
 
   return (
@@ -41,7 +42,11 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         <div className="flex items-center space-x-2">
           <Switch
             id="time-series"
+            checked={useTimeSeries}
             onCheckedChange={(e) => {
+              if (useDateTime && e) {
+                setUseDateTime(false);
+              }
               setUseTimeSeries(e);
             }}
           />
@@ -62,6 +67,17 @@ const LineComparison: React.FC<LineComparisonProps> = ({
               </SelectContent>
             </Select>
           )}
+          <Switch
+            id="date-time"
+            checked={useDateTime}
+            onCheckedChange={(e) => {
+              if (useTimeSeries && e) {
+                setUseTimeSeries(false);
+              }
+              setUseDateTime(e);
+            }}
+          />
+          <Label htmlFor="date-time">Date Time</Label>
         </div>
       </div>
       {filters.length === 2 ? (
@@ -72,6 +88,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
           lineData2={
             allData.find((d) => d.title === filters[1]) as LineChartData
           }
+          dateTime={useDateTime}
           timeUnit={
             useTimeSeries
               ? {
