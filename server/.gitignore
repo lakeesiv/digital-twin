@@ -9,3 +9,5 @@ example.ipynb
 ~$*.xlsx
 
 test_logs/
+ws_client.py 
+WSManager.py
