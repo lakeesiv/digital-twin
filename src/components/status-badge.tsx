@@ -4,17 +4,23 @@ import { Text } from "@tremor/react";
 interface StatusBageProps {
   message?: string;
   status: "active" | "inactive";
+  animated?: boolean;
   color: string;
 }
 
-const StatusBage: React.FC<StatusBageProps> = ({ color, message, status }) => {
+const StatusBage: React.FC<StatusBageProps> = ({
+  color,
+  message,
+  status,
+  animated = true,
+}) => {
   return (
     <div className="flex items-center justify-center space-x-3 rounded-xl ">
       {/* Text */}
       <Text>{message}</Text>
       {/* Status Icon */}
       <div className="relative mt-[2px] flex h-3 w-3">
-        {status === "active" && (
+        {status === "active" && animated && (
           <span
             className={`absolute inline-flex h-full w-full animate-ping rounded-full duration-1000 bg-${color}-400 opacity-75`}
           ></span>
