@@ -36,12 +36,35 @@ const WS = () => {
         const lastMessageDataBlob = lastMessage?.data as Blob;
         const text = await blobToText(lastMessageDataBlob);
 
-        const jsonPayload = JSON.parse(text) as {
+        type MessageBase = {
           msg_type: string;
         };
 
+        type Message = MessageBase & Record<string, unknown>;
+
+        let jsonPayload = JSON.parse(text) as Message;
+
         if (jsonPayload.msg_type === "rt_connect_ok") {
           setRtConnected(true);
+        }
+        if (jsonPayload.msg_type === "feed_mqtt") {
+          const payload = jsonPayload as {
+            msg_type: string;
+            request_data: {
+              acp_id: string;
+              acp_ts: string;
+              payload_cooked: { [key: string]: number };
+            }[];
+          };
+
+          const firstRecord = payload.request_data[0];
+          const { acp_id, acp_ts, payload_cooked } = firstRecord;
+          jsonPayload = {
+            msg_type: "feed_mqtt",
+            acp_id,
+            acp_ts,
+            payload: payload_cooked,
+          };
         }
 
         setMessageHistory((prev) => [...prev, jsonPayload]);
@@ -134,7 +157,9 @@ const WS = () => {
         </div>
         <div className="mt-4 flex flex-col space-y-2">
           {messageHistory.map((message, idx) => (
-            <span key={idx}>{message ? JSON.stringify(message, null, 2) : null}</span>
+            <span key={idx} className="whitespace-pre font-mono text-xs">
+              {message ? JSON.stringify(message, null, 2) : null}
+            </span>
           ))}
         </div>
       </div>
