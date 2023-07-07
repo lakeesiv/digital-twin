@@ -1,168 +1,54 @@
 import { Badge } from "@tremor/react";
-import React, { useState, useCallback, useEffect } from "react";
-import useWebSocket, { ReadyState } from "react-use-websocket";
+import { useCallback } from "react";
 import Layout from "~/components/layout";
 import { Button } from "~/ui/button";
-
-async function blobToText(blob: Blob): Promise<string> {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const text = reader.result as string;
-      resolve(text);
-    };
-
-    reader.onerror = () => {
-      reject(new Error("Error reading blob as text."));
-    };
-
-    reader.readAsText(blob);
-  });
-}
+import useRTWebSocket from "~/websockets/useWebSocket";
 
 const WS = () => {
-  const [messageHistory, setMessageHistory] = useState<object[]>([]);
-  const [rtConnected, setRtConnected] = useState<boolean>(false);
-
-  const { sendMessage, sendJsonMessage, lastMessage, readyState } =
-    useWebSocket(
-      // "ws://129.169.50.112:8083/rtmonitor/WS/mqtt_csn"
-      "wss://tfc-app9.cl.cam.ac.uk/rtmonitor/WS/mqtt_acp"
-    );
-
-  useEffect(() => {
-    const handleLastMessage = async () => {
-      if (lastMessage !== null) {
-        const lastMessageDataBlob = lastMessage?.data as Blob;
-        const text = await blobToText(lastMessageDataBlob);
-
-        type MessageBase = {
-          msg_type: string;
-          request_data?: {
-            acp_id: string;
-            acp_ts: string;
-            payload_cooked: { [key: string]: number };
-          }[];
-        };
-
-        type Message = MessageBase;
-
-        const jsonPayload = JSON.parse(text) as Message;
-        let res = jsonPayload as object | any[];
-
-        if (jsonPayload.msg_type === "rt_connect_ok") {
-          setRtConnected(true);
-        }
-        if (
-          jsonPayload.msg_type === "feed_mqtt" ||
-          jsonPayload.msg_type === "rt_data"
-        ) {
-          const payload = jsonPayload as {
-            msg_type: string;
-            request_data: {
-              acp_id: string;
-              acp_ts: string;
-              payload_cooked: { [key: string]: number };
-            }[];
-          };
-
-          res = payload.request_data.map((d) => ({
-            msg_type: jsonPayload.msg_type,
-            acp_id: d.acp_id,
-            acp_ts: d.acp_ts,
-            payload_cooked: d.payload_cooked,
-          }));
-        }
-
-        setMessageHistory((prev) => [...prev, res]);
-      }
-    };
-    handleLastMessage().catch((e) => console.error(e));
-  }, [lastMessage, setMessageHistory]);
-
-  useEffect(() => {
-    if (readyState === ReadyState.OPEN && !rtConnected) {
-      sendJsonMessage({
-        msg_type: "rt_connect",
-        client_data: {
-          rt_client_name: "Socket Client",
-          rt_client_id: "socket_client",
-          rt_client_url:
-            "https://tfc-app4.cl.cam.ac.uk/backdoor/socket-client/index.html",
-          rt_token: "888",
-        },
-      });
-    }
-    if (readyState === ReadyState.CLOSED) {
-      setRtConnected(false);
-    }
-  }, [readyState]);
-
-  const handleClickSendMessage = useCallback(
-    () =>
-      sendMessage(
-        JSON.stringify({
-          msg_type: "rt_connect",
-          client_data: {
-            rt_client_name: "Socket Client",
-            rt_client_id: "socket_client",
-            rt_client_url:
-              "https://tfc-app4.cl.cam.ac.uk/backdoor/socket-client/index.html",
-            rt_token: "888",
-          },
-        })
-      ),
-    []
-  );
+  const { messageHistory, sendJsonMessage, connectionStatus, rtConnected } =
+    useRTWebSocket("wss://tfc-app9.cl.cam.ac.uk/rtmonitor/WS/mqtt_acp");
 
   const handleOnRequestLastestMessage = useCallback(() => {
-    sendMessage(
-      JSON.stringify({
-        msg_type: "rt_request",
-        request_id: "A",
-        options: ["latest_msg"],
-      })
-    );
+    sendJsonMessage({
+      msg_type: "rt_request",
+      request_id: "A",
+      options: ["latest_msg"],
+    });
   }, []);
 
   const handleOnRequestLatestRecords = useCallback(() => {
-    sendMessage(
-      JSON.stringify({
-        msg_type: "rt_request",
-        request_id: "A",
-        options: ["latest_records"],
-      })
-    );
+    sendJsonMessage({
+      msg_type: "rt_request",
+      request_id: "A",
+      options: ["latest_records"],
+    });
   }, []);
 
   const handleSubscribe = useCallback(() => {
-    sendMessage(
-      JSON.stringify({
-        msg_type: "rt_subscribe",
-        request_id: "A",
-      })
-    );
+    sendJsonMessage({
+      msg_type: "rt_subscribe",
+      request_id: "A",
+    });
   }, []);
 
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: "Connecting",
-    [ReadyState.OPEN]: "Connected",
-    [ReadyState.CLOSING]: "Closing",
-    [ReadyState.CLOSED]: "Closed",
-    [ReadyState.UNINSTANTIATED]: "Uninstantiated",
-  }[readyState];
+  // const connectionStatus = {
+  //   [ReadyState.CONNECTING]: "Connecting",
+  //   [ReadyState.OPEN]: "Connected",
+  //   [ReadyState.CLOSING]: "Closing",
+  //   [ReadyState.CLOSED]: "Closed",
+  //   [ReadyState.UNINSTANTIATED]: "Uninstantiated",
+  // }[readyState];
 
   return (
     <Layout>
       <div>
         <div className="flex items-center space-x-2">
-          <Button
+          {/* <Button
             onClick={handleClickSendMessage}
-            disabled={readyState !== ReadyState.OPEN}
+            disabled={connectionStatus === c}
           >
             RTConnect
-          </Button>
+          </Button> */}
           <Badge color={connectionStatus === "Connected" ? "lime" : "red"}>
             WS: {connectionStatus}
           </Badge>
