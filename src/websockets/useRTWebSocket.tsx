@@ -115,7 +115,7 @@ const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
     messageHistory,
     rtConnected,
     connectionStatus,
-    lastMessage,
+    lastMessage: messageHistory[messageHistory.length - 1],
   };
 };
 
