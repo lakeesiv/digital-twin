@@ -1,20 +1,12 @@
-import { Badge } from "@tremor/react";
 import { useCallback } from "react";
 import Layout from "~/components/layout";
+import WSStatus from "~/components/ws-status";
 import { Button } from "~/ui/button";
 import useRTWebSocket from "~/websockets/useRTWebSocket";
 
 const WS = () => {
   const { messageHistory, sendJsonMessage, connectionStatus, rtConnected } =
-    useRTWebSocket("wss://tfc-app9.cl.cam.ac.uk/rtmonitor/WS/mqtt_acp", {
-      onConnect: () => {
-        sendJsonMessage({
-          msg_type: "rt_request",
-          request_id: "A",
-          options: ["latest_records"],
-        });
-      },
-    });
+    useRTWebSocket("wss://tfc-app9.cl.cam.ac.uk/rtmonitor/WS/mqtt_acp");
 
   const handleOnRequestLastestMessage = useCallback(() => {
     sendJsonMessage({
@@ -39,30 +31,14 @@ const WS = () => {
     });
   }, []);
 
-  // const connectionStatus = {
-  //   [ReadyState.CONNECTING]: "Connecting",
-  //   [ReadyState.OPEN]: "Connected",
-  //   [ReadyState.CLOSING]: "Closing",
-  //   [ReadyState.CLOSED]: "Closed",
-  //   [ReadyState.UNINSTANTIATED]: "Uninstantiated",
-  // }[readyState];
-
   return (
     <Layout>
       <div>
         <div className="flex items-center space-x-2">
-          {/* <Button
-            onClick={handleClickSendMessage}
-            disabled={connectionStatus === c}
-          >
-            RTConnect
-          </Button> */}
-          <Badge color={connectionStatus === "Connected" ? "lime" : "red"}>
-            WS: {connectionStatus}
-          </Badge>
-          <Badge color={rtConnected ? "lime" : "red"}>
-            RT: {rtConnected ? "Connected" : "Disconnected"}
-          </Badge>
+          <WSStatus
+            connectionStatus={connectionStatus}
+            rtConnected={rtConnected}
+          />
           {rtConnected && (
             <>
               <Button onClick={handleOnRequestLastestMessage}>
@@ -76,11 +52,14 @@ const WS = () => {
           )}
         </div>
         <div className="mt-4 flex flex-col space-y-2">
-          {messageHistory.map((message, idx) => (
-            <span key={idx} className="whitespace-pre font-mono text-xs">
-              {message ? JSON.stringify(message, null, 2) : null}
-            </span>
-          ))}
+          {messageHistory
+            .slice(0)
+            .reverse()
+            .map((message, idx) => (
+              <span key={idx} className="whitespace-pre font-mono text-xs">
+                {message ? JSON.stringify(message, null, 2) : null}
+              </span>
+            ))}
         </div>
       </div>
     </Layout>

@@ -1,14 +1,12 @@
 import Layout from "~/components/layout";
-import { DataTable } from "~/components/sensors/data-table";
 import { columns } from "~/components/sensors/columns";
+import { DataTable } from "~/components/sensors/data-table";
 // import data from "~/mock";
-import useRTRecords from "~/websockets/useRTRecords";
-import { Badge, Button } from "@tremor/react";
 import WSStatus from "~/components/ws-status";
+import useRTRecords from "~/websockets/useRTRecords";
 
 export default function Home() {
-  const { records, refreshRecords, connectionStatus, rtConnected } =
-    useRTRecords();
+  const { records, connectionStatus, rtConnected } = useRTRecords();
 
   return (
     <Layout title="Home">
@@ -17,9 +15,6 @@ export default function Home() {
           connectionStatus={connectionStatus}
           rtConnected={rtConnected}
         />
-        {/* <Button size="xs" onClick={refreshRecords}>
-          Refresh
-        </Button> */}
       </div>
       {records && records.length > 0 && (
         <DataTable
