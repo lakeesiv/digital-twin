@@ -19,7 +19,7 @@ async function blobToText(blob: Blob): Promise<string> {
 }
 
 type WebSocketMessage = {
-  msg_type: string;
+  msg_type: "rt_connect" | "rt_connect_ok" | "rt_data" | "feed_mqtt";
   request_data?: {
     acp_id: string;
     acp_ts: string;
@@ -85,13 +85,13 @@ const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
     if (readyState === ReadyState.OPEN && !rtConnected) {
       sendJsonMessage({
         msg_type: "rt_connect",
-        client_data: {
-          rt_client_name: "Socket Client",
-          rt_client_id: "socket_client",
-          rt_client_url:
-            "https://tfc-app4.cl.cam.ac.uk/backdoor/socket-client/index.html",
-          rt_token: "888",
-        },
+        // client_data: {
+        //   rt_client_name: "Socket Client",
+        //   rt_client_id: "socket_client",
+        //   rt_client_url:
+        //     "https://tfc-app4.cl.cam.ac.uk/backdoor/socket-client/index.html",
+        //   rt_token: "888",
+        // },
       });
     }
     if (readyState === ReadyState.CLOSED) {
@@ -105,7 +105,12 @@ const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
     [ReadyState.CLOSING]: "Closing",
     [ReadyState.CLOSED]: "Closed",
     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
-  }[readyState];
+  }[readyState] as
+    | "Connecting"
+    | "Connected"
+    | "Closing"
+    | "Closed"
+    | "Uninstantiated";
 
   return {
     sendMessage,
