@@ -2,7 +2,7 @@ import { Badge } from "@tremor/react";
 import { useCallback } from "react";
 import Layout from "~/components/layout";
 import { Button } from "~/ui/button";
-import useRTWebSocket from "~/websockets/useWebSocket";
+import useRTWebSocket from "~/websockets/useRTWebSocket";
 
 const WS = () => {
   const { messageHistory, sendJsonMessage, connectionStatus, rtConnected } =
