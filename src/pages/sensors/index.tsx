@@ -1,12 +1,12 @@
 import Layout from "~/components/layout";
 import { DataTable } from "~/components/sensors/data-table";
 import { columns } from "~/components/sensors/columns";
-import data from "~/mock";
+// import data from "~/mock";
 import useRTRecords from "~/websockets/useRTRecords";
 import { Badge, Button } from "@tremor/react";
 
 export default function Home() {
-  const { history, refreshRecords, connectionStatus, rtConnected } =
+  const { records, refreshRecords, connectionStatus, rtConnected } =
     useRTRecords();
 
   return (
@@ -22,7 +22,20 @@ export default function Home() {
           Refresh
         </Button>
       </div>
-      <DataTable columns={columns} data={data} />
+      {records && records.length > 0 && (
+        <DataTable
+          columns={columns}
+          data={records.map((record) => {
+            return {
+              id: record.acp_id,
+              lastReading: record.payload_cooked,
+              lastUpdateTimestamp: record.acp_ts,
+              location: "Cambridge",
+            };
+          })}
+          // data={data}
+        />
+      )}
     </Layout>
   );
 }

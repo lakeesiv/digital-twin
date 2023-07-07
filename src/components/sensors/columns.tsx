@@ -12,14 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "~/ui/dropdown-menu";
 
-interface LastReading extends Record<string, unknown> {
-  battery: number;
-}
 export type SensorData = {
   id: string;
   location: string;
   lastUpdateTimestamp: string;
-  lastReading: LastReading;
+  lastReading: Record<string, number>;
 };
 
 export const columns: ColumnDef<SensorData>[] = [
@@ -64,7 +61,7 @@ export const columns: ColumnDef<SensorData>[] = [
     header: "Last Reading",
     cell: ({ row }) => {
       const data = row.original.lastReading;
-      let stringified = JSON.stringify(data, null, 2);
+      let stringified = JSON.stringify(data, null, 2) || "";
       // remove first and last curly braces
       stringified = stringified.slice(2, -2);
       // remove quotation marks

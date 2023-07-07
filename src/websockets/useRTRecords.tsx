@@ -21,8 +21,14 @@ const useRTRecords = () => {
     });
   }, []);
 
+  type RecordType = {
+    acp_id: string;
+    acp_ts: string;
+    payload_cooked: Record<string, number>;
+  };
+
   return {
-    history: lastMessage,
+    records: lastMessage as any as RecordType[],
     refreshRecords,
     connectionStatus,
     rtConnected,
