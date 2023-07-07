@@ -1,6 +1,8 @@
+import { Badge } from "@tremor/react";
 import React, { useState, useCallback, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import Layout from "~/components/layout";
+import { Button } from "~/ui/button";
 
 async function blobToText(blob: Blob): Promise<string> {
   return new Promise<string>((resolve, reject) => {
@@ -20,10 +22,12 @@ async function blobToText(blob: Blob): Promise<string> {
 }
 
 const WS = () => {
-  const [messageHistory, setMessageHistory] = useState<string[]>([]);
+  const [messageHistory, setMessageHistory] = useState<object[]>([]);
+  const [rtConnected, setRtConnected] = useState<boolean>(false);
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    "ws://129.169.50.112:8083/rtmonitor/WS/mqtt_csn"
+    // "ws://129.169.50.112:8083/rtmonitor/WS/mqtt_csn"
+    "wss://tfc-app9.cl.cam.ac.uk/rtmonitor/WS/mqtt_acp"
   );
 
   useEffect(() => {
@@ -31,8 +35,16 @@ const WS = () => {
       if (lastMessage !== null) {
         const lastMessageDataBlob = lastMessage?.data as Blob;
         const text = await blobToText(lastMessageDataBlob);
-        console.log(text);
-        setMessageHistory((prev) => [...prev, text]);
+
+        const jsonPayload = JSON.parse(text) as {
+          msg_type: string;
+        };
+
+        if (jsonPayload.msg_type === "rt_connect_ok") {
+          setRtConnected(true);
+        }
+
+        setMessageHistory((prev) => [...prev, jsonPayload]);
       }
     };
     handleLastMessage().catch((e) => console.error(e));
@@ -55,9 +67,38 @@ const WS = () => {
     []
   );
 
+  const handleOnRequestLastestMessage = useCallback(() => {
+    sendMessage(
+      JSON.stringify({
+        msg_type: "rt_request",
+        request_id: "A",
+        options: ["latest_msg"],
+      })
+    );
+  }, []);
+
+  const handleOnRequestLatestRecords = useCallback(() => {
+    sendMessage(
+      JSON.stringify({
+        msg_type: "rt_request",
+        request_id: "A",
+        options: ["latest_records"],
+      })
+    );
+  }, []);
+
+  const handleSubscribe = useCallback(() => {
+    sendMessage(
+      JSON.stringify({
+        msg_type: "rt_subscribe",
+        request_id: "A",
+      })
+    );
+  }, []);
+
   const connectionStatus = {
     [ReadyState.CONNECTING]: "Connecting",
-    [ReadyState.OPEN]: "Open",
+    [ReadyState.OPEN]: "Connected",
     [ReadyState.CLOSING]: "Closing",
     [ReadyState.CLOSED]: "Closed",
     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
@@ -66,21 +107,36 @@ const WS = () => {
   return (
     <Layout>
       <div>
-        <button
-          onClick={handleClickSendMessage}
-          disabled={readyState !== ReadyState.OPEN}
-        >
-          Click Me to send
-        </button>
-        <span>The WebSocket is currently {connectionStatus}</span>
-        {lastMessage ? (
-          <span>Last message: {String(lastMessage.data)}</span>
-        ) : null}
-        <ul>
+        <div className="flex items-center space-x-2">
+          <Button
+            onClick={handleClickSendMessage}
+            disabled={readyState !== ReadyState.OPEN}
+          >
+            RTConnect
+          </Button>
+          <Badge color={connectionStatus === "Connected" ? "lime" : "red"}>
+            WS: {connectionStatus}
+          </Badge>
+          <Badge color={rtConnected ? "lime" : "red"}>
+            RT: {rtConnected ? "Connected" : "Disconnected"}
+          </Badge>
+          {rtConnected && (
+            <>
+              <Button onClick={handleOnRequestLastestMessage}>
+                Req Latest
+              </Button>
+              <Button onClick={handleOnRequestLatestRecords}>
+                Req Records
+              </Button>
+              <Button onClick={handleSubscribe}>Subscribe</Button>
+            </>
+          )}
+        </div>
+        <div className="mt-4 flex flex-col space-y-2">
           {messageHistory.map((message, idx) => (
-            <span key={idx}>{message ? String(message) : null}</span>
+            <span key={idx}>{message ? JSON.stringify(message, null, 2) : null}</span>
           ))}
-        </ul>
+        </div>
       </div>
     </Layout>
   );
