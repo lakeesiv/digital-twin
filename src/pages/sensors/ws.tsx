@@ -6,7 +6,15 @@ import useRTWebSocket from "~/websockets/useRTWebSocket";
 
 const WS = () => {
   const { messageHistory, sendJsonMessage, connectionStatus, rtConnected } =
-    useRTWebSocket("wss://tfc-app9.cl.cam.ac.uk/rtmonitor/WS/mqtt_acp");
+    useRTWebSocket("wss://tfc-app9.cl.cam.ac.uk/rtmonitor/WS/mqtt_acp", {
+      onConnect: () => {
+        sendJsonMessage({
+          msg_type: "rt_request",
+          request_id: "A",
+          options: ["latest_records"],
+        });
+      },
+    });
 
   const handleOnRequestLastestMessage = useCallback(() => {
     sendJsonMessage({

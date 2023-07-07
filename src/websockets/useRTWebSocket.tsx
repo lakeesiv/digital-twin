@@ -30,9 +30,7 @@ type WebSocketMessage = {
 type WebSocketResponse = WebSocketMessage | WebSocketMessage[];
 
 type WebSocketOptions = {
-  url: string;
   onConnect?: () => void;
-  onDisconnect?: () => void;
 };
 
 const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
@@ -52,7 +50,7 @@ const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
         const jsonPayload = JSON.parse(text) as WebSocketMessage;
         let res = jsonPayload as WebSocketResponse;
 
-        if (jsonPayload.msg_type === "rt_connect_ok") {
+        if (jsonPayload.msg_type === "rt_connect_ok" && !rtConnected) {
           setRtConnected(true);
           onConnect?.();
         }
@@ -81,7 +79,7 @@ const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
       }
     };
     handleLastMessage().catch((e) => console.error(e));
-  }, [lastMessage, setMessageHistory, onConnect]);
+  }, [lastMessage, setMessageHistory]);
 
   useEffect(() => {
     if (readyState === ReadyState.OPEN && !rtConnected) {
