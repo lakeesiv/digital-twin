@@ -25,10 +25,11 @@ const WS = () => {
   const [messageHistory, setMessageHistory] = useState<object[]>([]);
   const [rtConnected, setRtConnected] = useState<boolean>(false);
 
-  const { sendMessage, lastMessage, readyState } = useWebSocket(
-    // "ws://129.169.50.112:8083/rtmonitor/WS/mqtt_csn"
-    "wss://tfc-app9.cl.cam.ac.uk/rtmonitor/WS/mqtt_acp"
-  );
+  const { sendMessage, sendJsonMessage, lastMessage, readyState } =
+    useWebSocket(
+      // "ws://129.169.50.112:8083/rtmonitor/WS/mqtt_csn"
+      "wss://tfc-app9.cl.cam.ac.uk/rtmonitor/WS/mqtt_acp"
+    );
 
   useEffect(() => {
     const handleLastMessage = async () => {
@@ -38,16 +39,25 @@ const WS = () => {
 
         type MessageBase = {
           msg_type: string;
+          request_data?: {
+            acp_id: string;
+            acp_ts: string;
+            payload_cooked: { [key: string]: number };
+          }[];
         };
 
-        type Message = MessageBase & Record<string, unknown>;
+        type Message = MessageBase;
 
-        let jsonPayload = JSON.parse(text) as Message;
+        const jsonPayload = JSON.parse(text) as Message;
+        let res = jsonPayload as object | any[];
 
         if (jsonPayload.msg_type === "rt_connect_ok") {
           setRtConnected(true);
         }
-        if (jsonPayload.msg_type === "feed_mqtt") {
+        if (
+          jsonPayload.msg_type === "feed_mqtt" ||
+          jsonPayload.msg_type === "rt_data"
+        ) {
           const payload = jsonPayload as {
             msg_type: string;
             request_data: {
@@ -57,21 +67,37 @@ const WS = () => {
             }[];
           };
 
-          const firstRecord = payload.request_data[0];
-          const { acp_id, acp_ts, payload_cooked } = firstRecord;
-          jsonPayload = {
-            msg_type: "feed_mqtt",
-            acp_id,
-            acp_ts,
-            payload: payload_cooked,
-          };
+          res = payload.request_data.map((d) => ({
+            msg_type: jsonPayload.msg_type,
+            acp_id: d.acp_id,
+            acp_ts: d.acp_ts,
+            payload_cooked: d.payload_cooked,
+          }));
         }
 
-        setMessageHistory((prev) => [...prev, jsonPayload]);
+        setMessageHistory((prev) => [...prev, res]);
       }
     };
     handleLastMessage().catch((e) => console.error(e));
   }, [lastMessage, setMessageHistory]);
+
+  useEffect(() => {
+    if (readyState === ReadyState.OPEN && !rtConnected) {
+      sendJsonMessage({
+        msg_type: "rt_connect",
+        client_data: {
+          rt_client_name: "Socket Client",
+          rt_client_id: "socket_client",
+          rt_client_url:
+            "https://tfc-app4.cl.cam.ac.uk/backdoor/socket-client/index.html",
+          rt_token: "888",
+        },
+      });
+    }
+    if (readyState === ReadyState.CLOSED) {
+      setRtConnected(false);
+    }
+  }, [readyState]);
 
   const handleClickSendMessage = useCallback(
     () =>
