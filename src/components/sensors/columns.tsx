@@ -114,7 +114,7 @@ export const columns: ColumnDef<SensorData>[] = [
             <DropdownMenuItem
               onClick={() => {
                 const { id } = sensorData;
-                const url = `/sensors/${id}`;
+                const url = `/sensors/live/${id}`;
                 window.open(url, "_blank");
               }}
             >
