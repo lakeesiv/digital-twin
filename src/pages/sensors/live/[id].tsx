@@ -1,13 +1,10 @@
 import Layout from "~/components/layout";
 import { useRouter } from "next/router";
 // import Chart from "~/components/chart";
-import { useState, useEffect } from "react";
 import useSubscribeById from "~/websockets/useSubscribeById";
 import WSStatus from "~/components/ws-status";
-import dynamic from "next/dynamic";
 
 function Home() {
-  const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
   const {

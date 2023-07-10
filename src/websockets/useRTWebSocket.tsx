@@ -46,9 +46,7 @@ const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
     const handleLastMessage = async () => {
       if (lastMessage == null) return;
 
-      console.log("lastMessage", lastMessage);
-
-      if (options?.condition) {
+      if (options?.condition !== undefined) {
         if (!options.condition) return;
       }
 
@@ -61,7 +59,7 @@ const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
       if (jsonPayload.msg_type === "rt_connect_ok" && !rtConnected) {
         setRtConnected(true);
         onConnect?.();
-        // return;
+        return;
       }
 
       if (
