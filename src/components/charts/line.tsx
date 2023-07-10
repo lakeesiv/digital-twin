@@ -43,6 +43,7 @@ interface LineProps extends LineChartData {
   fill?: boolean;
   height?: number;
   allowSelectLineStyle?: boolean;
+  chartType?: "webgl" | "svg";
 }
 
 /**
@@ -75,6 +76,7 @@ const LineChart: React.FC<LineProps> = ({
   visible,
   timeUnit: t,
   allowSelectLineStyle = false,
+  chartType = "webgl",
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -153,7 +155,7 @@ const LineChart: React.FC<LineProps> = ({
         marker: { color: getColor(i) },
         fill: fill ? "tozeroy" : "none",
         line: { shape: mapCurveStyle(curveStyle) },
-        type: "scattergl",
+        type: chartType === "webgl" ? "scattergl" : "scatter",
         name: labels[i],
         visible: visible ? (visible[i] ? true : "legendonly") : true,
       });
@@ -166,7 +168,7 @@ const LineChart: React.FC<LineProps> = ({
       marker: { color: getColor(0) },
       fill: fill ? "tozeroy" : "none",
       line: { shape: mapCurveStyle(curveStyle) },
-      type: "scattergl",
+      type: chartType === "webgl" ? "scattergl" : "scatter",
       name: labels[0],
     });
   }

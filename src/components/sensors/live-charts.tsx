@@ -4,7 +4,7 @@ import {
   type DateRangePickerValue,
 } from "@tremor/react";
 import { Grid, LayoutGrid, Rows } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LineChart } from "~/components/charts";
 import FacetedFilterButton from "~/ui/facted-filter-button";
 import {
@@ -38,6 +38,14 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
   const defaultIcon = <Grid size={18} />;
 
   const allCharts: LineChartData[] = [];
+
+  useEffect(() => {
+    if (filters.length === 0) {
+      setFilters(
+        getAllAttributes(sensorData.map((message) => message.payload))
+      );
+    }
+  }, [sensorData]);
 
   filters.forEach((filter) => {
     allCharts.push({
@@ -103,7 +111,12 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
         }
       >
         {allCharts.map((chart) => (
-          <LineChart key={chart.title as string} {...chart} dateTime />
+          <LineChart
+            key={chart.title as string}
+            {...chart}
+            dateTime
+            chartType="svg"
+          />
         ))}
       </div>
 
