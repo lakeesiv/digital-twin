@@ -42,8 +42,8 @@ const useSubscribeById = (id: string) => {
       // subscribe to the WS
       sendJsonMessage(subscriptionMessage);
     },
-
     condition: id !== undefined,
+    keepAlive: true,
   });
 
   return {

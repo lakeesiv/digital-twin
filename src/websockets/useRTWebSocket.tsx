@@ -32,6 +32,9 @@ type WebSocketResponse = WebSocketMessage | WebSocketMessage[];
 type WebSocketOptions = {
   onConnect?: () => void;
   condition?: boolean;
+  keepAlive?: boolean;
+  keepAliveInterval?: number;
+  keepAliveLog?: boolean;
 };
 
 const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
@@ -40,7 +43,10 @@ const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
   const { onConnect } = options || {};
 
   const { sendMessage, sendJsonMessage, lastMessage, readyState } =
-    useWebSocket(url);
+    useWebSocket(url, {
+      onError: (e) => console.error(e),
+      onClose: (e) => console.error("WS Closed", e),
+    });
 
   useEffect(() => {
     const handleLastMessage = async () => {
@@ -97,6 +103,17 @@ const useRTWebSocket = (url: string, options?: WebSocketOptions) => {
     }
     if (readyState === ReadyState.CLOSED) {
       setRtConnected(false);
+    }
+  }, [readyState]);
+
+  useEffect(() => {
+    if (readyState === ReadyState.OPEN && options?.keepAlive) {
+      const interval = setInterval(() => {
+        const keepAliveMessage = {};
+        sendJsonMessage(keepAliveMessage);
+        if (options?.keepAliveLog) console.log("Sending keep alive message");
+      }, options?.keepAliveInterval || 1000);
+      return () => clearInterval(interval);
     }
   }, [readyState]);
 
