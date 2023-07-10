@@ -330,8 +330,8 @@ const getLayout = (
     plot_bgcolor: "rgba(0, 0, 0, 0)",
     paper_bgcolor: "rgba(0, 0, 0, 0)",
     margin: {
-      l: 40,
-      r: 20,
+      l: 60,
+      r: 10,
       b: 40,
       t: 10,
       pad: 0,
