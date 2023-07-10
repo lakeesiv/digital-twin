@@ -24,7 +24,7 @@ function Home() {
       <div>
         <div className="flex items-center space-x-2">
           <WSStatus
-            connectionStatus={connectionStatus}
+            connectionStatus={connectionStatus ? "Connected" : "Closed"}
             rtConnected={rtConnected}
           />
         </div>
