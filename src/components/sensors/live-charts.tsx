@@ -3,7 +3,7 @@ import {
   Flex,
   type DateRangePickerValue,
 } from "@tremor/react";
-import { LayoutGrid, Rows } from "lucide-react";
+import { Grid, LayoutGrid, Rows } from "lucide-react";
 import React, { useState } from "react";
 import { LineChart } from "~/components/charts";
 import FacetedFilterButton from "~/ui/facted-filter-button";
@@ -29,12 +29,13 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData }) => {
   const [filters, setFilters] = useState<string[]>(
     getAllAttributes(sensorData.map((message) => message.payload))
   );
-  const [layout, setLayout] = useState<"rows" | "grid">("grid");
   const [dates, setDates] = useState<DateRangePickerValue>({
     from: new Date(),
     to: new Date(),
     selectValue: "tdy",
   });
+  const [numberOfColumns, setNumberOfColumns] = useState<1 | 2 | 3>(3);
+  const defaultIcon = <Grid size={18} />;
 
   const allCharts: LineChartData[] = [];
 
@@ -73,20 +74,23 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData }) => {
           />
           <Select
             onValueChange={(value) => {
-              setLayout(value as "rows" | "grid");
+              setNumberOfColumns(parseInt(value) as 1 | 2 | 3);
             }}
           >
-            <SelectTrigger className="h-[37px] w-[80px]">
-              <SelectValue placeholder={<LayoutGrid size={18} />} />
+            <SelectTrigger className="h-[37px] w-[70px]">
+              <SelectValue placeholder={defaultIcon} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Layout</SelectLabel>
-                <SelectItem value="rows">
+                <SelectItem value="1">
                   <Rows size={18} />
                 </SelectItem>
-                <SelectItem value="grid">
+                <SelectItem value="2">
                   <LayoutGrid size={18} />
+                </SelectItem>
+                <SelectItem value="3">
+                  <Grid size={18} />
                 </SelectItem>
               </SelectGroup>
             </SelectContent>
@@ -95,8 +99,7 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData }) => {
       </Flex>
       <div
         className={
-          "mx-auto grid  gap-4 pt-4 " +
-          (layout === "grid" ? "grid-cols-2" : "grid-cols-1")
+          "mx-auto grid  gap-4 pt-4 " + `grid-cols-${numberOfColumns || 3}`
         }
       >
         {allCharts.map((chart) => (
