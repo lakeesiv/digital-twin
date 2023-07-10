@@ -369,7 +369,7 @@ const getLayout = (
       overlaying: "y",
       side: "right",
       title: {
-        text: ylabel1,
+        text: ylabel2,
       },
       hoverformat: ".2f",
     },
