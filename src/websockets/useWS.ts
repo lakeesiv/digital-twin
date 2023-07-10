@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SockJS from "sockjs-client";
 
-type WebSocketMessage = {
+export type WebSocketMessage = {
   msg_type: "rt_connect" | "rt_connect_ok" | "rt_data" | "feed_mqtt";
   request_data?: {
     acp_id: string;
@@ -10,7 +10,7 @@ type WebSocketMessage = {
   }[];
 };
 
-type ParsedMessage = {
+export type ParsedMessage = {
   msg_type: string;
   acp_id: string;
   acp_ts: string;
@@ -75,6 +75,10 @@ const useWS = (url: string, options?: Options) => {
           acp_ts: d.acp_ts,
           payload: d.payload_cooked,
         }));
+
+        if (parsedData.length === 1) {
+          parsedData = parsedData[0];
+        }
       }
 
       setMessageHistory((prev) => [...prev, parsedData]);

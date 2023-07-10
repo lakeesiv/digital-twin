@@ -1,5 +1,5 @@
 import { REQUEST_ID, SOCK_JS_URL } from "./config";
-import useWS from "./useWS";
+import useWS, { type ParsedMessage } from "./useWS";
 
 const useSubscribeById = (id: string | undefined) => {
   const filter = [
@@ -37,11 +37,11 @@ const useSubscribeById = (id: string | undefined) => {
   });
 
   return {
-    lastMessage,
+    lastMessage: lastMessage as ParsedMessage,
     sendJsonMessage,
     connectionStatus,
     rtConnected,
-    messageHistory,
+    messageHistory: messageHistory as ParsedMessage[],
   };
 };
 
