@@ -21,11 +21,11 @@ import { type ParsedMessage } from "~/websockets/useWS";
 import { type LineChartData } from "../charts/line";
 import LineComparison from "../line-comparison";
 
-interface LiveChartsProps {
+interface LiveChartsProps extends React.HTMLAttributes<HTMLDivElement> {
   sensorData: ParsedMessage[];
 }
 
-const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData }) => {
+const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
   const [filters, setFilters] = useState<string[]>(
     getAllAttributes(sensorData.map((message) => message.payload))
   );
@@ -53,7 +53,7 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData }) => {
   });
 
   return (
-    <div>
+    <div {...props}>
       <Flex>
         <div>
           <FacetedFilterButton
