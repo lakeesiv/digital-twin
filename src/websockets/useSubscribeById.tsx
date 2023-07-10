@@ -5,36 +5,53 @@ const useSubscribeById = (id: string) => {
   const filter = [
     {
       key: "acp_id",
-      test: "in",
-      value: [id],
+      test: "=",
+      value: id,
     },
   ];
 
-  const { lastMessage, sendJsonMessage, connectionStatus, rtConnected } =
-    useRTWebSocket(WS_URL, {
-      onConnect: () => {
-        // get latest message from the WS
-        sendJsonMessage({
-          msg_type: "rt_request",
-          request_id: REQUEST_ID,
-          options: ["latest_msg"],
-          filters: filter,
-        });
+  const {
+    lastMessage,
+    sendJsonMessage,
+    connectionStatus,
+    rtConnected,
+    messageHistory,
+  } = useRTWebSocket(WS_URL, {
+    onConnect: () => {
+      // get latest message from the WS
 
-        // subscribe to the WS
-        sendJsonMessage({
-          msg_type: "rt_subscribe",
-          request_id: REQUEST_ID,
-          filters: filter,
-        });
-      },
-    });
+      const latestRecordsMessaage = {
+        msg_type: "rt_request",
+        request_id: REQUEST_ID,
+        options: ["latest_records"],
+        filters: filter,
+      };
+
+      console.log("Sending latest records message", latestRecordsMessaage);
+
+      sendJsonMessage(latestRecordsMessaage);
+
+      const subscriptionMessage = {
+        msg_type: "rt_subscribe",
+        request_id: REQUEST_ID,
+        filters: filter,
+      };
+
+      console.log("Sending subscription message", subscriptionMessage);
+
+      // subscribe to the WS
+      sendJsonMessage(subscriptionMessage);
+    },
+
+    condition: id !== undefined,
+  });
 
   return {
     lastMessage,
     sendJsonMessage,
     connectionStatus,
     rtConnected,
+    messageHistory,
   };
 };
 

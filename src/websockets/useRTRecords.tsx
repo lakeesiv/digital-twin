@@ -3,16 +3,21 @@ import useRTWebSocket from "./useRTWebSocket";
 import { REQUEST_ID, WS_URL } from "./config";
 
 const useRTRecords = () => {
-  const { lastMessage, sendJsonMessage, connectionStatus, rtConnected } =
-    useRTWebSocket(WS_URL, {
-      onConnect: () => {
-        sendJsonMessage({
-          msg_type: "rt_request",
-          request_id: REQUEST_ID,
-          options: ["latest_records"],
-        });
-      },
-    });
+  const {
+    lastMessage,
+    sendJsonMessage,
+    connectionStatus,
+    rtConnected,
+    messageHistory,
+  } = useRTWebSocket(WS_URL, {
+    onConnect: () => {
+      sendJsonMessage({
+        msg_type: "rt_request",
+        request_id: REQUEST_ID,
+        options: ["latest_records"],
+      });
+    },
+  });
 
   const refreshRecords = useCallback(() => {
     sendJsonMessage({
@@ -33,6 +38,7 @@ const useRTRecords = () => {
     refreshRecords,
     connectionStatus,
     rtConnected,
+    messageHistory,
   };
 };
 
