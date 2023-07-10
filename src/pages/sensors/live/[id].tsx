@@ -1,8 +1,8 @@
-import Layout from "~/components/layout";
 import { useRouter } from "next/router";
-// import Chart from "~/components/chart";
-import useSubscribeById from "~/websockets/useSubscribeById";
+import Layout from "~/components/layout";
+import LiveCharts from "~/components/sensors/live-charts";
 import WSStatus from "~/components/ws-status";
+import useSubscribeById from "~/websockets/useSubscribeById";
 
 function Page() {
   const router = useRouter();
@@ -34,6 +34,8 @@ function Page() {
               </span>
             ))}
         </div>
+
+        <LiveCharts sensorData={messageHistory} />
       </div>
     </Layout>
   );
