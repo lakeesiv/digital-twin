@@ -26,7 +26,7 @@ export const columns: ColumnDef<SensorData>[] = [
     cell: ({ row }) => {
       const data = row.original.id;
       return (
-        <a href={`/sensors/${data}`} className="font-mono text-blue-500">
+        <a href={`/sensors/live/${data}`} className="font-mono text-blue-500">
           {data}
         </a>
       );
