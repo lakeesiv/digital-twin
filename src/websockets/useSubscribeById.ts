@@ -1,7 +1,7 @@
 import { REQUEST_ID, SOCK_JS_URL } from "./config";
-import useSockJs from "./useSockJs";
+import useWS from "./useWS";
 
-const useSubscribeById = (id: string) => {
+const useSubscribeById = (id: string | undefined) => {
   const filter = [
     {
       key: "acp_id",
@@ -16,27 +16,24 @@ const useSubscribeById = (id: string) => {
     connectionStatus,
     rtConnected,
     messageHistory,
-  } = useSockJs(SOCK_JS_URL, {
+  } = useWS(SOCK_JS_URL, {
     onConnect: () => {
-      // get latest message from the WS
-      const latestRecordsMessaage = {
+      // request latest records
+      sendJsonMessage({
         msg_type: "rt_request",
         request_id: REQUEST_ID,
         options: ["latest_records"],
         filters: filter,
-      };
-      console.log("Sending latest records message", latestRecordsMessaage);
-      sendJsonMessage(latestRecordsMessaage);
-      const subscriptionMessage = {
+      });
+
+      // subscribe to new records
+      sendJsonMessage({
         msg_type: "rt_subscribe",
         request_id: REQUEST_ID,
         filters: filter,
-      };
-      console.log("Sending subscription message", subscriptionMessage);
-      // subscribe to the WS
-      sendJsonMessage(subscriptionMessage);
+      });
     },
-    condition: id !== undefined,
+    condition: id !== undefined, // only connect when id is defined
   });
 
   return {

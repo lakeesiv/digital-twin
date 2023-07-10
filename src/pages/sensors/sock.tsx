@@ -2,11 +2,11 @@ import { useCallback } from "react";
 import Layout from "~/components/layout";
 import WSStatus from "~/components/ws-status";
 import { Button } from "~/ui/button";
-import useSockJs from "~/websockets/useSockJs";
+import useWS from "~/websockets/useWS";
 
 const WS = () => {
   const { messageHistory, sendJsonMessage, connectionStatus, rtConnected } =
-    useSockJs("https://tfc-app9.cl.cam.ac.uk/rtmonitor/A/mqtt_acp", {
+    useWS("https://tfc-app9.cl.cam.ac.uk/rtmonitor/A/mqtt_acp", {
       onConnect: () => {
         console.log("onOpen");
       },
@@ -40,7 +40,7 @@ const WS = () => {
       <div>
         <div className="flex items-center space-x-2">
           <WSStatus
-            connectionStatus={connectionStatus ? "Connected" : "Closed"}
+            connectionStatus={connectionStatus}
             rtConnected={rtConnected}
           />
           {rtConnected && (

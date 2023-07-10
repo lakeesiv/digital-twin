@@ -2,12 +2,7 @@ import React from "react";
 import StatusBage from "./status-badge";
 import { useToast } from "~/ui/use-toast";
 interface WSStatusProps {
-  connectionStatus:
-    | "Connecting"
-    | "Connected"
-    | "Closing"
-    | "Closed"
-    | "Uninstantiated";
+  connectionStatus: "Connected" | "Disconnected" | "Uninstantiated";
   rtConnected: boolean;
   alert?: boolean;
 }
@@ -21,7 +16,7 @@ const WSStatus: React.FC<WSStatusProps> = ({
 
   React.useEffect(() => {
     if (alert) {
-      if (connectionStatus === "Closed") {
+      if (connectionStatus === "Disconnected") {
         toast.toast({
           title: "WebSocket Disconnected",
           description: "WebSocket connection is lost.",

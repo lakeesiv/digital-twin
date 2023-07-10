@@ -1,16 +1,17 @@
 import { useCallback } from "react";
-import useRTWebSocket from "./useRTWebSocket";
-import { REQUEST_ID, WS_URL } from "./config";
+import { REQUEST_ID, SOCK_JS_URL } from "./config";
+import useWS from "./useWS";
 
-const useRTRecords = () => {
+const useRecords = () => {
   const {
     lastMessage,
     sendJsonMessage,
     connectionStatus,
     rtConnected,
     messageHistory,
-  } = useRTWebSocket(WS_URL, {
+  } = useWS(SOCK_JS_URL, {
     onConnect: () => {
+      // get all latest records
       sendJsonMessage({
         msg_type: "rt_request",
         request_id: REQUEST_ID,
@@ -30,7 +31,7 @@ const useRTRecords = () => {
   type RecordType = {
     acp_id: string;
     acp_ts: string;
-    payload_cooked: Record<string, number>;
+    payload: Record<string, number>;
   };
 
   return {
@@ -42,4 +43,4 @@ const useRTRecords = () => {
   };
 };
 
-export default useRTRecords;
+export default useRecords;

@@ -4,19 +4,15 @@ import { useRouter } from "next/router";
 import useSubscribeById from "~/websockets/useSubscribeById";
 import WSStatus from "~/components/ws-status";
 
-function Home() {
+function Page() {
   const router = useRouter();
 
-  const {
-    // lastMessage,
-    // sendJsonMessage,
-    connectionStatus,
-    rtConnected,
-    messageHistory,
-  } = useSubscribeById(router.query.id as string);
+  const { connectionStatus, rtConnected, messageHistory } = useSubscribeById(
+    router.query.id as string | undefined
+  );
 
   if (!router.query.id) {
-    return <div>Missing id</div>;
+    return null;
   }
 
   return (
@@ -24,7 +20,7 @@ function Home() {
       <div>
         <div className="flex items-center space-x-2">
           <WSStatus
-            connectionStatus={connectionStatus ? "Connected" : "Closed"}
+            connectionStatus={connectionStatus}
             rtConnected={rtConnected}
           />
         </div>
@@ -43,4 +39,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Page;
