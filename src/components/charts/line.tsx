@@ -132,7 +132,7 @@ const LineChart: React.FC<LineProps> = ({
   visible,
   timeUnit: t,
   allowSelectCurveStyle: allowSelectLineStyle = false,
-  chartType = "webgl",
+  chartType = "svg",
   info,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
