@@ -1,3 +1,31 @@
+/**
+ *
+ * LiveCharts: Renders live charts for sensor data.
+ *
+ * @param {ParsedMessage[]} sensorData - An array of parsed sensor data messages.
+ * @returns {JSX.Element} - A React component that renders live charts for sensor data.
+ *
+ * @description This file contains the LiveCharts component, which is responsible for rendering live charts for sensor data. The component takes in an array of parsed sensor data messages and renders a chart for each attribute in the data. The component also includes a filter button and a date range picker to allow users to filter and select the data they want to see.
+ *
+ * @example
+ *
+ * ```
+ * import LiveCharts from '~/components/sensors/live-charts';
+ *
+ * const sensorData = [{...}, {...}, {...}];
+ *
+ * function App() {
+ *   return (
+ *     <LiveCharts sensorData={sensorData} />
+ *   );
+ * }
+ * ```
+ *
+ *
+ * @author
+ * Lakee Sivaraya <ls914@cam.ac.uk>
+ */
+
 import {
   DateRangePicker,
   Flex,
@@ -35,7 +63,6 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
     selectValue: "tdy",
   });
   const [numberOfColumns, setNumberOfColumns] = useState<1 | 2 | 3>(3);
-  const defaultIcon = <Grid size={18} />;
 
   const allCharts: LineChartData[] = [];
 
@@ -43,10 +70,11 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
     if (filters.length === 0) {
       setFilters(
         getAllAttributes(sensorData.map((message) => message.payload))
-      );
+      ); // if no filters are selected, select all
     }
   }, [sensorData]);
 
+  // create a chart for each filter and add it to the array
   filters.forEach((filter) => {
     allCharts.push({
       title: capilatizeFirstLetter(filter),
@@ -86,7 +114,7 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
             }}
           >
             <SelectTrigger className="h-[37px] w-[70px]">
-              <SelectValue placeholder={defaultIcon} />
+              <SelectValue placeholder={<Grid size={18} />} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -106,27 +134,28 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
         </div>
       </Flex>
       <div
-        className={
-          "mx-auto grid  gap-4 pt-4 " + `grid-cols-${numberOfColumns || 3}`
-        }
+        className={"mx-auto grid  gap-4 pt-4 " + `grid-cols-${numberOfColumns}`}
       >
         {allCharts.map((chart) => (
+          // For all selected charts, create a line chart
           <LineChart
             key={chart.title as string}
             {...chart}
-            dateTime
-            chartType="svg"
+            dateTime // use date time for x axis (UNIX timestamp)
+            chartType="svg" // SVG as WebGL does not allow for more than 8 lines
           />
         ))}
       </div>
 
       {allCharts.length > 1 && (
+        // If there are more than 1 charts, then show the comparison chart component
         <LineComparison className="mt-8" allData={allCharts} />
       )}
     </div>
   );
 };
 
+// get all attributes from an object of { string: number}
 const getAllAttributes = (obj: { [key: string]: number }[]) =>
   obj.reduce((acc, curr) => {
     Object.keys(curr).forEach((key) => {

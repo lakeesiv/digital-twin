@@ -1,3 +1,27 @@
+/**
+ * columns.tsx: A component that defines the columns for the sensor data table.
+ *
+ * @description This file exports an array of column definitions for the sensor data table. Each column definition includes an accessor key, header, and cell component. The table is built using the @tanstack/react-table library.
+ *
+ * @see {@link https://tanstack.com/table/v8/docs/guide/introduction}
+ *
+ * @example
+ *
+ * ```
+ * import { columns } from '~/components/sensors/columns';
+ * import { DataTable } from "~/ui/table/data-table";
+ *
+ * function SensorDataTable() {
+ *   return (
+ *     <DataTable columns={columns} data={sensorData} />
+ *   );
+ * }
+ * ```
+ *
+ * @author
+ * Lakee Sivaraya <ls914@cam.ac.uk>
+ */
+
 import type { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import SortableColumn from "~/ui/table/table-sortable-column";

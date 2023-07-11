@@ -1,3 +1,39 @@
+/**
+ * toolbar.tsx: A component that renders the toolbar for the sensor data table.
+ *
+ * @description This file exports a React component that renders the toolbar for the sensor data table. The toolbar contains various filter options and a search bar to filter the data in the table. The component receives a Table object as a prop and uses it to filter the data in the table.
+ *
+ * @example
+ *
+ * ```
+ * import { DataTableToolbar } from '~/components/sensors/toolbar';
+ * import { useTable } from '@tanstack/react-table';
+ * import { columns } from './columns';
+ * import { data } from './data';
+ *
+ * function SensorPage() {
+ *   const table = useTable({ columns, data });
+ *
+ *   return (
+ *     <div>
+ *       <h1>Sensor Page</h1>
+ *       <DataTableToolbar table={table} />
+ *       <DataTable table={table} />
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * @param {Object} props The props object that contains the Table object.
+ * @param {Table} props.table The Table object that contains the data to be displayed in the table.
+ *
+ * @returns {JSX.Element} A React component that renders the toolbar for the sensor data table.
+ *
+ *
+ * @author
+ * Lakee Sivaraya <ls914@cam.ac.uk>
+ */
+
 import type { Table } from "@tanstack/react-table";
 import { X } from "lucide-react";
 import { Button } from "~/ui/button";

@@ -37,30 +37,15 @@ export type LineChartData = {
 
 interface LineProps extends LineChartData {
   cardProps?: React.ComponentProps<typeof Card>;
-  defaultCurveStyle?: "linear" | "step" | "natural";
   divId?: string;
   dateTime?: boolean;
   fill?: boolean;
   height?: number;
-  allowSelectLineStyle?: boolean;
+  defaultCurveStyle?: "linear" | "step" | "natural";
+  allowSelectCurveStyle?: boolean;
   chartType?: "webgl" | "svg";
 }
 
-/**
- * A line chart component that uses Plotly.js to render a line chart.
- * @param {LineProps} props - The props for the LineChart component.
- * @param {string} props.ylabel - The label for the y-axis.
- * @param {string} props.xlabel - The label for the x-axis.
- * @param {string} [props.title] - The title for the chart (optional).
- * @param {React.ComponentProps<typeof Card>} [props.cardProps] - The props for the Card component (optional).
- * @param {string[]} props.labels - The labels for the data lines.
- * @param {LineChartData['data']} props.data - The data for the chart.
- * @param {'linear' | 'step' | 'natural'} [props.defaultCurveStyle='linear'] - The default curve style for the chart (optional).
- * @param {string} props.divId - The ID of the div element that the chart will be rendered in.
- * @param {boolean} [props.dateTime] - Whether the x-axis is a date/time axis (optional).
- * @param {boolean} [props.fill=true] - Whether to fill the area under the lines (optional).
- * @returns {JSX.Element} The LineChart component.
- */
 const LineChart: React.FC<LineProps> = ({
   ylabel,
   xlabel,
@@ -75,7 +60,7 @@ const LineChart: React.FC<LineProps> = ({
   height = 250,
   visible,
   timeUnit: t,
-  allowSelectLineStyle = false,
+  allowSelectCurveStyle: allowSelectLineStyle = false,
   chartType = "webgl",
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
