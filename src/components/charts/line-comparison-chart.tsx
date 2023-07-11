@@ -127,7 +127,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   allowSelectLineStyle = true,
   lineData1,
   lineData2,
-  shareYAxis: shareYAxisProp = true, // rename shareYAxis to shareYAxisProp
+  shareYAxis: shareYAxisProp = false, // rename shareYAxis to shareYAxisProp
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "smooth">(
     defaultCurveStyle || "linear"
@@ -340,17 +340,6 @@ const LineComparison: React.FC<LineComparisonProps> = ({
               </SelectContent>
             </Select>
           )}
-          {/* <DownloadButton
-            data={{
-              title,
-              xlabel: xlabelState,
-              ylabel,
-              data: data,
-              labels: labels,
-            }}
-            type="line"
-            divId={divId}
-          /> */}
         </div>
       </Flex>
       <div
@@ -416,7 +405,7 @@ const getLayout = (
       linecolor: "rgba(0, 0, 0, 0)",
       zerolinecolor: fontColor,
       // title: {
-      //   text: xlabel || "", // NOTE: Adding a statef xlabel causes the chart axis to mess up on initial load
+      //   text: xlabel || "", // !! NOTE: Adding a stateful xlabel causes the chart axis to mess up on initial load
       // },
     },
     yaxis: {
