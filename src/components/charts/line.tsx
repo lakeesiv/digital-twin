@@ -1,3 +1,66 @@
+/**
+ * line.tsx: A component that defines a line chart.
+ * !! IMPORTANT !!
+ * DO NOT IMPORT THIS FILE DIRECTLY. Instead, import the component from '~/components/charts'.
+ *
+ * @description This file exports a React functional component that renders a line chart using the Plotly.js library. The component takes in data in the form of an object with x and y values, and renders a line chart with the specified data. The component also includes a download button and allows for customization of the curve style and time unit.
+ *
+ * @see {@link https://plotly.com/javascript/line-charts/}
+ *
+ * @example
+ *
+ * ```
+ * import { LineChart } from '~/components/charts';
+ *
+ * function MyComponent() {
+ *   const data = {
+ *     x: [1, 2, 3, 4, 5],
+ *     y: [10, 20, 30, 40, 50],
+ *   };
+ *
+ *   return (
+ *     <LineChart
+ *       title="My Line Chart"
+ *       xlabel="X Label"
+ *       ylabel="Y Label"
+ *       data={data}
+ *     />
+ *   );
+ * }
+ * ```
+ *
+ * @interface LineChartData
+ * @property {string | JSX.Element} title - The title of the chart.
+ * @property {string} xlabel - The label for the x-axis.
+ * @property {string} ylabel - The label for the y-axis.
+ * @property {Object} data - The data for the chart.
+ * @property {number[] | number[][]} data.x - The x values for the chart. Can be either a single array of x values (global), or an array of arrays of x values for each line.
+ * @property {number[][] | number[]} data.y - The y values for the chart. Can be either an array of arrays of y values for each line, or a single array of y values.
+ * @property {string[]} labels - The labels for each line in the chart.
+ * @property {boolean[]} [visible] - An optional array of booleans indicating whether each line is visible or not.
+ * @property {TimeUnit} [timeUnit] - An optional object specifying the current and target time units for the chart, as well as the available options for time unit selection.
+ *
+ * @interface LineProps
+ * @extends LineChartData
+ * @property {React.ComponentProps<typeof Card>} [cardProps] - Additional props to pass to the Card component.
+ * @property {string} [divId] - The ID of the div containing the chart.
+ * @property {boolean} [dateTime] - Whether to display the x-axis as a date/time axis.
+ * @property {boolean} [fill] - Whether to fill the area under the lines.
+ * @property {number} [height] - The height of the chart in pixels.
+ * @property {"linear" | "step" | "natural"} [defaultCurveStyle="linear"] - The default curve style for the lines.
+ * @property {boolean} [allowSelectCurveStyle=false] - Whether to allow the user to select the curve style for the lines.
+ * @property {"webgl" | "svg"} [chartType="webgl"] - The type of chart to render.
+ *
+ * @interface TimeUnit
+ * @property {"hour" | "day" | "week"} current - The current time unit of the data.
+ * @property {"hour" | "day" | "week"} target - The target time unit to display.
+ * @property {("hour" | "day" | "week")[]} options - The available options for time unit selection.
+ *
+ *
+ * @author
+ * Lakee Sivaraya <ls914@cam.ac.uk>
+ */
+
 import { Card, Flex, Title } from "@tremor/react";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
@@ -17,9 +80,9 @@ import Plotly from "plotly.js";
 import Plot from "react-plotly.js";
 
 interface TimeUnit {
-  current: "hour" | "day" | "week";
-  target: "hour" | "day" | "week";
-  options: ("hour" | "day" | "week")[];
+  current: "hour" | "day" | "week"; // current time unit of the data
+  target: "hour" | "day" | "week"; // target time unit to display
+  options: ("hour" | "day" | "week")[]; // options for time unit selection
 }
 
 export type LineChartData = {

@@ -1,3 +1,31 @@
+/**
+ * Download: Renders a download button for downloading chart data in different formats.
+ *
+ * @param {DownloadProps} props - The props object containing the chart data, chart type, and div ID.
+ * @returns {JSX.Element} - A React component that renders a download button for downloading chart data in different formats.
+ *
+ * @description This file contains the Download component, which is responsible for rendering a download button for downloading chart data in different formats. The component takes in the chart data, chart type, and div ID as props and renders a dropdown menu with options to download the data in JSON, CSV, and PNG formats. The component also includes functions to download the data in the selected format and save it as a file. A divId prop is required to download the chart as a PNG.
+ *
+ * @example
+ *
+ * ```
+ * import Download from '~/components/charts/download';
+ *
+ * const chartData = {...};
+ * const chartType = 'line';
+ * const divId = 'chart';
+ *
+ * function App() {
+ *   return (
+ *     <Download data={chartData} type={chartType} divId={divId} />
+ *   );
+ * }
+ * ```
+ *
+ * @author
+ * Lakee Sivaraya <ls914@cam.ac.uk>
+ */
+
 import React from "react";
 import type { BarChartData } from "./bar";
 import type { LineChartData } from "./line";

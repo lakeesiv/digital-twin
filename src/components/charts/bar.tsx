@@ -1,3 +1,48 @@
+/**
+ * bar.tsx: A component that defines a bar chart.
+ * !! IMPORTANT !!
+ * DO NOT IMPORT THIS FILE DIRECTLY. Instead, import the component from '~/components/charts'.
+ *
+ * @description This file exports a React functional component that renders a bar chart using the Plotly.js library. The component takes in data in the form of an object with categories, labels, and values, and renders a bar chart with the specified data. The component also includes a download button.
+ *
+ * @see {@link https://plotly.com/javascript/bar-charts/}
+ *
+ * @example
+ *
+ * ```
+ * import { BarChart } from '~/components/charts';
+ *
+ * function MyComponent() {
+ *   const data = {
+ *     x: ['Category 1', 'Category 2', 'Category 3'],
+ *     labels: ['Label 1', 'Label 2', 'Label 3'],
+ *     y: [
+ *       [10, 20, 30],
+ *       [15, 25, 35],
+ *       [5, 10, 15],
+ *     ],
+ *     error: [
+ *       [1, 2, 3],
+ *       [2, 3, 4],
+ *       [0.5, 1, 1.5],
+ *     ], /// optional
+ *   };
+ *
+ *   return (
+ *     <BarChart
+ *       title="My Bar Chart"
+ *       xlabel="X Label"
+ *       ylabel="Y Label"
+ *       data={data}
+ *     />
+ *   );
+ * }
+ * ```
+ *
+ * @author
+ * Lakee Sivaraya <ls914@cam.ac.uk>
+ */
+
 import { Card, Flex, Title } from "@tremor/react";
 import { useTheme } from "next-themes";
 import React, { useEffect } from "react";
@@ -7,7 +52,7 @@ import Plotly from "plotly.js";
 import Plot from "react-plotly.js";
 
 export type BarChartData = {
-  title: string | JSX.Element;
+  title: string;
   xlabel: string;
   ylabel: string;
   data: {
@@ -25,17 +70,6 @@ interface BarProps extends BarChartData {
   stacked?: boolean;
 }
 
-/**
- * A Plotly chart component that displays a bar graph.
- * @param {BarProps} props - The props object containing the chart data and configuration.
- * @param {string} props.ylabel - The label for the y-axis.
- * @param {string} props.xlabel - The label for the x-axis.
- * @param {string} [props.title] - The title of the chart (optional).
- * @param {React.ComponentProps<typeof Card>} [props.cardProps] - Additional props to pass to the Card component (optional).
- * @param {BarChartData['data']} props.data - The data to be displayed on the chart.
- * @param {string} props.divId - The ID of the div element that will contain the chart.
- * @returns {JSX.Element} A Plotly chart component that displays a bar graph.
- */
 const BarChart: React.FC<BarProps> = ({
   ylabel,
   xlabel,

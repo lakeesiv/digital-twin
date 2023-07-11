@@ -1,3 +1,78 @@
+/**
+ * line-comparison-chart.tsx: A component that defines a line comparison chart.
+ * !! IMPORTANT !!
+ * DO NOT IMPORT THIS FILE DIRECTLY. Instead, import the component from '~/components/charts'.
+ *
+ * @description This file exports a React functional component that renders a line comparison chart using the Plotly.js library. The component takes in two sets of data in the form of objects with x and y values, and renders a line comparison chart with the specified data. The component also includes a download button and allows for customization of the curve style and time unit.
+ *
+ * @see {@link https://plotly.com/javascript/line-charts/}
+ *
+ * @example
+ *
+ * ```
+ * import { LineComparison } from '~/components/charts';
+ *
+ * function MyComponent() {
+ *     const lineData1 = {
+ *       data: {
+ *         x: [1, 2, 3, 4, 5],
+ *         y: [10, 20, 30, 40, 50]
+ *       },
+ *       labels: ["Label 1"],
+ *       ylabel: "Y Label",
+ *       xlabel: "X Label",
+ *       title: "My Line Chart"
+ *     };
+ *
+ *     const lineData2 = {
+ *       data: {
+ *         x: [1, 2, 3, 4, 5],
+ *         y: [20, 30, 40, 50, 60]
+ *       },
+ *       labels: ["Label 2"],
+ *       ylabel: "Y Label",
+ *       xlabel: "X Label",
+ *       title: "My Line Chart"
+ *     };
+ *
+ *   return (
+ *     <LineComparison
+ *       title="My Line Comparison Chart"
+ *       lineData1={lineData1}
+ *       lineData2={lineData2}
+ *     />
+ *   );
+ * }
+ * ```
+ *
+ * @interface LineComparsionData
+ * @property {LineChartData} lineData1 - The data for the first line.
+ * @property {LineChartData} lineData2 - The data for the second line.
+ * @property {string | JSX.Element} title - The title of the chart.
+ * @property {TimeUnit} [timeUnit] - An optional object specifying the current and target time units for the chart, as well as the available options for time unit selection.
+ *
+ * @interface LineComparisonProps
+ * @extends LineComparsionData
+ * @property {React.ComponentProps<typeof Card>} [cardProps] - Additional props to pass to the Card component.
+ * @property {string} [divId] - The ID of the div containing the chart.
+ * @property {boolean} [dateTime] - Whether to display the x-axis as a date/time axis.
+ * @property {boolean} [fill] - Whether to fill the area under the lines.
+ * @property {number} [height] - The height of the chart in pixels.
+ * @property {"linear" | "step" | "natural"} [defaultCurveStyle="linear"] - The default curve style for the lines.
+ * @property {boolean} [allowSelectLineStyle=true] - Whether to allow the user to select the line style for the lines.
+ * @property {boolean} [shareYAxis=true] - Whether to share the y-axis between the two lines.
+ *
+ * @interface TimeUnit
+ * @property {"hour" | "day" | "week"} current - The current time unit of the data.
+ * @property {"hour" | "day" | "week"} target - The target time unit to display.
+ * @property {("hour" | "day" | "week")[]} options - The available options for time unit selection.
+ *
+ * @see {@link https://plotly.com/javascript/line-charts/}
+ *
+ * @author
+ * Lakee Sivaraya <ls914@cam.ac.uk>
+ */
+
 import { Card, Flex, Title } from "@tremor/react";
 import { useTheme } from "next-themes";
 import Plotly from "plotly.js";
