@@ -9,25 +9,18 @@ import {
   Title,
 } from "@tremor/react";
 import { useState } from "react";
+import { BarChart, LineChart } from "~/components/charts";
 import type { BarChartData } from "~/components/charts/bar";
 import type { LineChartData } from "~/components/charts/line";
 import Layout from "~/components/layout";
 import GridLayout from "~/components/layout/grid-layout";
+import MetricsList from "~/components/twins/digital-hospital/metrics-list";
 import BottleNeckList, {
   mockBottleNeckData,
 } from "~/components/twins/digital-hospital/percentage-change-list";
-import MetricsList from "~/components/twins/digital-hospital/metrics-list";
+import RCPathComparison from "~/components/twins/digital-hospital/rc-path-comparison";
 import type { BoneStationData } from "~/components/twins/digital-hospital/types";
 import Data from "~/data.json";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "~/ui/tooltip";
-import { Info } from "lucide-react";
-import RCPathComparison from "~/components/twins/digital-hospital/rc-path-comparison";
-import { BarChart, LineChart } from "~/components/charts";
 
 const ScenarioPage = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -290,35 +283,6 @@ const randomArrayValues = (length: number) => {
   return Array.from({ length }, () => Math.random() * 100);
 };
 
-const TextWithInfo = ({ text, info }: { text: string; info: string }) => {
-  return (
-    <div className="flex flex-row justify-center">
-      <p>{text}</p>
-      <div className="ml-4 mt-[1.5px]">
-        <TooltipProvider>
-          <Tooltip delayDuration={200}>
-            <TooltipTrigger>
-              <Info
-                className="h-6 w-6 text-gray-500 hover:text-gray-700
-              dark:text-gray-300 dark:hover:text-gray-400"
-              />
-            </TooltipTrigger>
-            <TooltipContent>
-              <span
-                className="whitespace-pre-wrap text-sm text-gray-500
-              dark:text-gray-300
-              "
-              >
-                {info}
-              </span>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </div>
-    </div>
-  );
-};
-
 const lineChartData: LineChartData = {
   data: {
     x: [...Array(18).keys()],
@@ -342,12 +306,8 @@ const lineChartData: LineChartData = {
   },
   xlabel: "Days",
   ylabel: "Daily Utilization %",
-  title: (
-    <TextWithInfo
-      text="Daily Utilization"
-      info={`Click on the Legend to toggle\nthe visibility of the lines`}
-    />
-  ),
+  title: "Daily Utilization % by Stage",
+  info: `Click on the Legend to toggle\nthe visibility of the lines`,
   visible: [true, true, true],
   labels: stages,
 };

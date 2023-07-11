@@ -63,7 +63,9 @@
 
 import { Card, Flex, Title } from "@tremor/react";
 import { useTheme } from "next-themes";
+import Plotly from "plotly.js";
 import React, { useEffect, useState } from "react";
+import Plot from "react-plotly.js";
 import {
   Select,
   SelectContent,
@@ -73,11 +75,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/ui/select";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/ui/tooltip";
 import { capilatizeFirstLetter } from "~/utils";
 import DownloadButton from "./download";
-import { CHART_CONFIG, getColor, titleToId, mapCurveStyle } from "./utils";
-import Plotly from "plotly.js";
-import Plot from "react-plotly.js";
+import { CHART_CONFIG, getColor, mapCurveStyle, titleToId } from "./utils";
+import { Info } from "lucide-react";
 
 interface TimeUnit {
   current: "hour" | "day" | "week"; // current time unit of the data
@@ -86,7 +93,7 @@ interface TimeUnit {
 }
 
 export type LineChartData = {
-  title: string | JSX.Element; // title can be a string or a JSX element
+  title: string; // title can be a string or a JSX element
   xlabel: string;
   ylabel: string;
   data: {
@@ -96,6 +103,7 @@ export type LineChartData = {
   labels: string[]; // each label is a line ["label1", "label2", "label3"]
   visible?: boolean[]; // each boolean is a line [true, false, true]
   timeUnit?: TimeUnit;
+  info?: string; // additional info to display in the card
 };
 
 interface LineProps extends LineChartData {
@@ -125,6 +133,7 @@ const LineChart: React.FC<LineProps> = ({
   timeUnit: t,
   allowSelectCurveStyle: allowSelectLineStyle = false,
   chartType = "webgl",
+  info,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -224,7 +233,34 @@ const LineChart: React.FC<LineProps> = ({
   return (
     <Card className="mx-auto" {...cardProps} ref={cardRef}>
       <Flex>
-        <Title>{title}</Title>
+        {!info ? (
+          <Title>{title}</Title>
+        ) : (
+          <div className="flex flex-row justify-center">
+            {title}
+            <div className="ml-4 mt-[1.5px]">
+              <TooltipProvider>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger>
+                    <Info
+                      className="h-6 w-6 text-gray-500 hover:text-gray-700
+  dark:text-gray-300 dark:hover:text-gray-400"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <span
+                      className="whitespace-pre-wrap text-sm text-gray-500
+  dark:text-gray-300
+  "
+                    >
+                      {info}
+                    </span>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+          </div>
+        )}
 
         <div className="flex justify-center">
           {timeUnit && (
