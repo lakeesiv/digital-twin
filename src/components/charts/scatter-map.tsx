@@ -1,11 +1,10 @@
 import { Card, Flex, Title } from "@tremor/react";
 import { useTheme } from "next-themes";
-import React, { useEffect } from "react";
-import DownloadButton from "./download";
-import { CHART_CONFIG, titleToId } from "./utils";
 import Plotly from "plotly.js";
+import React, { useEffect } from "react";
 import Plot from "react-plotly.js";
 import { env } from "~/env.mjs";
+import { CHART_CONFIG, titleToId } from "./utils";
 
 interface ScatterMapProps {
   cardProps?: React.ComponentProps<typeof Card>;

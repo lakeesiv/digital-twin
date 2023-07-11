@@ -34,7 +34,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
     <Card {...props}>
       <div className="mb-4 flex items-center space-x-4">
         <FacetedFilterButton
-          filters={allTitles as string[]}
+          filters={allTitles}
           selectedFilters={filters}
           setSelectedFilters={setFilters}
           title="Select Two Lines"

@@ -139,7 +139,7 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
         {allCharts.map((chart) => (
           // For all selected charts, create a line chart
           <LineChart
-            key={chart.title as string}
+            key={chart.title}
             {...chart}
             dateTime // use date time for x axis (UNIX timestamp)
             chartType="svg" // SVG as WebGL does not allow for more than 8 lines

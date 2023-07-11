@@ -250,7 +250,7 @@ const getTitle = (data: LineChartData | BarChartData, fallback: string) => {
     title = fallback;
   }
 
-  return title as string;
+  return title;
 };
 
 export default DownloadButton;
