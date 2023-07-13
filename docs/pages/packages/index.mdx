@@ -1,0 +1,19 @@
+# Packages
+
+import { FileTree } from "nextra/components";
+
+<FileTree>
+  <FileTree.Folder name="packages" defaultOpen>
+    <FileTree.Folder name="charts" />
+    <FileTree.Folder name="ui" />
+    <FileTree.Folder name="tailwind-config" />
+    <FileTree.Folder name="eslint-config-custom" />
+  </FileTree.Folder>
+</FileTree>
+
+This folder contains all the packages that are used in the project. Each package contains code that is reused througout the monorepo.
+
+- `tailwind-config` - Tailwind configuration for the project.
+- `eslint-config-custom` - ESLint configuration for the project.
+- `ui` - See [UI](/packages/ui).
+- `charts` - See [Charts](/packages/charts).

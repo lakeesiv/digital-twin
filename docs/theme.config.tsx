@@ -2,7 +2,7 @@ import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
-  logo: <span>Digital Twin Frontend Docs</span>,
+  logo: <strong>Digital Twin Frontend Docs</strong>,
   project: {
     link: "https://github.com/lakeesiv/digital-twin",
   },
@@ -19,7 +19,7 @@ const config: DocsThemeConfig = {
     titleTemplate: "%s - DT Frontend",
   }),
   sidebar: {
-    defaultMenuCollapseLevel: 2,
+    defaultMenuCollapseLevel: 1,
   },
 };
 

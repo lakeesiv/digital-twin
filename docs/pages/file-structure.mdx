@@ -15,3 +15,38 @@ import { FileTree } from "nextra/components";
     <FileTree.Folder name="eslint-config-custom" />
   </FileTree.Folder>
 </FileTree>
+
+### `.github/workflows`
+
+This folder contains the GitHub Actions workflows for the project. Currently, there is only one workflow, `deploy-docs.yml`, which is responsible for deploying the docs site to GitHub Pages.
+
+- `deploy-docs.yml` - GitHub Actions workflow for deploying the docs site to GitHub Pages
+
+### `.vscode`
+
+This folder contains the VS Code settings for the project. Currently, there is only one setting, `settings.json`,it mainly hides the build folder from the VS Code file explorer to reduce clutter.
+
+import { Callout } from "nextra/components";
+
+<Callout>
+  It is imporant to note that it also hides a few config files, such as
+  `.eslintrc.js` and `.prettierrc.js`, which are used to configure ESLint and
+  Prettier respectively, if you want to edit these files, you will need to
+  unhide them in the settings.
+</Callout>
+
+### `docs`
+
+This folder contains the docs, i.e this site. It is built using [Nextra](nextra.site). The doc file are written in Markdown. For more information on how to write docs, see the Nextra link.
+
+### `web`
+
+This folder contains the web app. It is built using [Next.js](https://nextjs.org/). The web app is written in TypeScript and uses [Tailwind CSS](https://tailwindcss.com/) for styling. For more information, see the `Web` directory in the docs.
+
+### `server`
+
+This folder runs the simulation server for the digital hospital.
+
+### `packages`
+
+This folder contains the packages that are used in the project. These are turborepo packages, which means that they are all in the same repo and can be used by all the apps, such as `web` and `docs`, this allows for commonly used code to be shared between the apps. More details on the packages can be found in the `Packages` directory in the docs.

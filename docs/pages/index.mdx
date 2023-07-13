@@ -5,7 +5,7 @@ import { Callout } from "nextra/components";
 This directory contains the technical details for the digital twin website developed by Lakee Sivaraya.
 Use the sidebar to navigate to the different sections of the documentation.
 
-# Pre-requisites
+## Pre-requisites
 
 Make sure you have `node` and `npm` installed on your machine. You can check this by running the following commands in your terminal:
 
@@ -16,7 +16,7 @@ npm -v
 
 If you don't have them installed, you can download them from [here](https://nodejs.org/en/download/).
 
-## Tools
+### Tools
 
 We are using the `Next.js` framework in Typescript to build the website (using Pages Router). It is imporant that you have a good understanding of how Next.js works. You can read the documentation [here](https://nextjs.org/docs/getting-started) (
 important: make sure read the docs for the Pages Router and not the App Router).
@@ -25,13 +25,28 @@ important: make sure read the docs for the Pages Router and not the App Router).
   Important: make sure read the docs for the **Pages Router** and not the App
   Router
 </Callout>
+
+The entire repository is a [Turborepo](https://turbo.build/) project. Turbo is a tool that allows you to build your website in a modular way. You can read more about Turbo [here](https://turbo.build/docs), it is important that you have a good understanding of how Turbo works. Turborepo allows us to cache our packages and builds our website faster.
+
+Install the Turbo CLI by running the following command in your terminal:
+
+```bash
+npm install -g turbo
+```
+
 We also use the following tools:
 
 - Tailwind CSS (Styling) - https://tailwindcss.com/
 - Radix UI (Design System) - https://www.radix-ui.com/
 - Tremor (Dashboard Components) - https://tremor.so/
 
-# Installation
+<Callout type="info">
+
+It is assumed that you have a good understanding of how these tools work particularly React using functional components and hooks.
+
+</Callout>
+
+## Installation
 
 Firstly you need to have the `pnpm` package manager installed. You can install it by running the following command in your terminal:
 
@@ -45,7 +60,40 @@ Then clone the repo and install the dependencies:
 pnpm install
 ```
 
-# Running the website
+## Running the website
+
+You either run the website from the root directory or from the `web` directory.
+
+import { Tabs, Tab } from "nextra/components";
+
+<Tabs 
+  items={
+    ["root", "web"]
+  }
+>
+<Tab value="root">
+
+To run the website in development mode, run the following command:
+
+```bash
+pnpm dev:web
+```
+
+To run the website in production mode, you need to build the website first:
+
+```bash
+pnpm build:web
+```
+
+Then run the following command:
+
+```bash
+pnpm start:web
+```
+
+</Tab>
+
+<Tab value="web">
 
 To run the website in development mode, run the following command:
 
@@ -64,3 +112,7 @@ Then run the following command:
 ```bash
 pnpm start
 ```
+
+</Tab>
+
+</Tabs>

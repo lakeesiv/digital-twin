@@ -1,0 +1,15 @@
+# UI
+
+This folder contains reusable UI components that can be used in any project. These components are taken from
+[shadcn/ui](https://ui.shadcn.com/) with slight modifications. See the website for more information.
+
+The UI is built and bundled using `tsup` this allows `Turborepo` to cache the build and only rebuild when necessary hence
+when we use the `ui` package in other projects it will be fast.
+
+import { Callout } from "nextra/components";
+
+<Callout type="warning">
+  It should be noted that if the build for `ui` fails then the build for the
+  other projects will fail as well so only edit the `ui` package if you know
+  what you are doing.
+</Callout>
