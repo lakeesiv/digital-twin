@@ -66,6 +66,7 @@ export type BarChartData = {
 export interface BarProps extends BarChartData {
   cardProps?: CardProps;
   divId?: string;
+  height?: number;
   extraBottomPadding?: number;
   stacked?: boolean;
 }
@@ -79,6 +80,7 @@ const BarChart: React.FC<BarProps> = ({
   divId = titleToId(title),
   extraBottomPadding,
   stacked = false,
+  height = 250,
 }) => {
   const { theme } = useTheme();
   // reference to the card to observe resize
@@ -131,7 +133,10 @@ const BarChart: React.FC<BarProps> = ({
           />
         </div>
       </Flex>
-      <div className="mx-auto mt-8 h-full pb-16 ring-0">
+      <div
+        className={"mx-auto mt-8 ring-0 " + `h-[${height}px]`}
+        style={{ height: `${height}px` }}
+      >
         <Plot
           divId={divId}
           data={plottingData as object[]}
