@@ -1,0 +1,86 @@
+# Line Comparison Chart
+
+import { LineComparisonChart, LineChartData } from "charts";
+
+The Line Comparison Chart is a chart tht is used to compare two lines. It takes in the following parameters:
+
+```tsx
+type LineComparsionData = {
+  lineData1: LineChartData;
+  lineData2: LineChartData;
+  title: string;
+  timeUnit?: TimeUnit;
+};
+```
+
+```tsx
+type TimeUnit = {
+  current: "hour" | "day" | "week";
+  target: "hour" | "day" | "week";
+  options: ("hour" | "day" | "week")[];
+};
+```
+
+Where `LineChartData` is defined in the `LineChart` section. The `timeUnit` parameter is optional and it allows you to specify the time unit of the x-axis and what you can toggle between. If you do not specify a time unit, the chart will default to the numerical value of the x-axis.
+
+## Example
+
+```tsx
+<LineComparisonChart
+  lineData1={{
+    data: {
+      x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      y: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+    },
+    labels: ["Line 1"],
+    title: "Line 1",
+    xlabel: "x1",
+    ylabel: "y1",
+  }}
+  lineData2={{
+    data: {
+      x: [6, 7, 8, 9, 10],
+      y: [[36, 57, 38, 29, 110]],
+    },
+    labels: ["Line 2"],
+    title: "Line 2",
+    xlabel: "x2",
+    ylabel: "y2",
+  }}
+  title="Line Comparison Chart"
+  timeUnit={{
+    current: "hour",
+    target: "hour",
+    options: ["hour", "day", "week"],
+  }}
+/>
+```
+
+<LineComparisonChart
+  lineData1={{
+    data: {
+      x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      y: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+    },
+    labels: ["Line 1"],
+    title: "Line 1",
+    xlabel: "x1",
+    ylabel: "y1",
+  }}
+  lineData2={{
+    data: {
+      x: [6, 7, 8, 9, 10],
+      y: [[36, 57, 38, 29, 110]],
+    },
+    labels: ["Line 2"],
+    title: "Line 2",
+    xlabel: "x2",
+    ylabel: "y2",
+  }}
+  title="Line Comparison Chart"
+  timeUnit={{
+    current: "hour",
+    target: "hour",
+    options: ["hour", "day", "week"],
+  }}
+/>
