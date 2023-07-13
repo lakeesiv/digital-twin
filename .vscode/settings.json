@@ -1,17 +1,15 @@
 {
   "files.exclude": {
-    // ".eslintrc.cjs": true,
-    ".next": true,
-    "next-env.d.ts": true,
-    "next.config.mjs": true,
-    "node_modules": true,
-    "pnpm-lock.yaml": true,
-    "postcss.config.cjs": true,
-    "prettier.config.cjs": true,
-    "public": true,
+    "**/node_modules": true,
+    "**/.turbo": true,
+    "**/.next": true,
+    "**/out": true,
+    "**/dist": true,
     "**/*.d.ts": true,
-    "components.json": true
-    // "tsconfig.json": true
-  },
-  "flake8.args": ["--max-line-length=120", "--ignore=E303,E225,W293,W391"]
+    "**/postcss.config.js": true,
+    "**/postcss.config.cjs": true,
+    "**/prettier.config.cjs": true,
+    "**/.eslintrc.*": true,
+    "**/tailwind.config.js": true
+  }
 }
