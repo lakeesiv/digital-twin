@@ -1,22 +1,37 @@
 # File Structure
 
-```bash filename="src"
-src
-├── components
-│   ├── layout
-│   ├── home
-│   ├── sensors
-│   ├── twins
-│  	*.tsx
-├── websockets
-│   *.ts
-├── pages
-│   ├── digital-hospital
-│   ├── sensors
-│   *.tsx
-├── styles/globals.css
-├── utils
-```
+import { FileTree } from "nextra/components";
+
+<FileTree>
+  <FileTree.Folder name="src" defaultOpen>
+  <FileTree.Folder name="components" defaultOpen>
+    <FileTree.Folder name="layout" >
+    </FileTree.Folder>
+    <FileTree.Folder name="home" >
+    </FileTree.Folder>
+    <FileTree.Folder name="sensors" >
+    </FileTree.Folder>
+    <FileTree.Folder name="twins" defaultOpen>
+      <FileTree.Folder name="digital-twins" />
+    </FileTree.Folder>
+      <FileTree.File name="*.tsx" />
+
+  </FileTree.Folder>
+
+<FileTree.Folder name="websockets">
+  <FileTree.File name="*.ts" />
+</FileTree.Folder>
+<FileTree.Folder name="pages" defaultOpen>
+  <FileTree.Folder name="digital-hospital" />
+  <FileTree.Folder name="sensors" />
+  <FileTree.File name="*.tsx" />
+</FileTree.Folder>
+<FileTree.File name="styles/globals.css" />
+<FileTree.Folder name="utils" />
+
+  </FileTree.Folder>
+
+</FileTree>
 
 ## Components
 
@@ -48,11 +63,11 @@ This folder contains components used in the sensors page of the application.
 
 ### Twins
 
-```bash title="src/components/twins"
-twins
-├── digital-twins
-```
-
+<FileTree>
+  <FileTree.Folder name="twins" defaultOpen>
+    <FileTree.Folder name="digital-twins" />
+  </FileTree.Folder>
+</FileTree>
 #### Digital Twins
 
 This folder contains components used in the digital twins page of the application.

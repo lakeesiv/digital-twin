@@ -1,14 +1,17 @@
 # File Structure
 
-```bash filename="Repo"
-├── .github/workflows
-├── .vscode
-├── docs
-├── web
-├── server
-├── packages
-│   ├── charts
-│   ├── ui
-│   ├── tailwind-config
-│   ├── eslint-config-custom
-```
+import { FileTree } from "nextra/components";
+
+<FileTree>
+  <FileTree.Folder name=".github/workflows" />
+  <FileTree.Folder name=".vscode" />
+  <FileTree.Folder name="docs" />
+  <FileTree.Folder name="web" />
+  <FileTree.Folder name="server" />
+  <FileTree.Folder name="packages" defaultOpen>
+    <FileTree.Folder name="charts" />
+    <FileTree.Folder name="ui" />
+    <FileTree.Folder name="tailwind-config" />
+    <FileTree.Folder name="eslint-config-custom" />
+  </FileTree.Folder>
+</FileTree>

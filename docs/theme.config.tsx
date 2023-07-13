@@ -18,6 +18,9 @@ const config: DocsThemeConfig = {
   useNextSeoProps: () => ({
     titleTemplate: "%s - DT Frontend",
   }),
+  sidebar: {
+    defaultMenuCollapseLevel: 2,
+  },
 };
 
 export default config;
