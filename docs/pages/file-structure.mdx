@@ -1,69 +1,14 @@
 # File Structure
 
-```bash filename="src"
-src
-├── components
+```bash filename="Repo"
+├── .github/workflows
+├── .vscode
+├── docs
+├── web
+├── server
+├── packages
 │   ├── charts
-│   ├── layout
-│   ├── home
-│   ├── sensors
-│   ├── twins
-│  	*.tsx
-├── ui/
-│   ├── table
-│  	*.tsx
-├── websockets
-│   *.ts
-├── pages
-│   ├── digital-hospital
-│   ├── sensors
-│   *.tsx
-├── styles/globals.css
-├── utils
+│   ├── ui
+│   ├── tailwind-config
+│   ├── eslint-config-custom
 ```
-
-## Components
-
-### Charts
-
-This folder contains all the charts used in the application. Details about the charts can be found in the
-[Charts](/docs/category/charts) section of the documentation under Modules > Charts.
-
-### Layout
-
-This folder contains the layout components used in the application.
-
-- `index` file contains the main layout of the
-  application.
-- `menu` contains the menu component used in the application.
-- `grid-layout` contains the grid layout component used in the application which can be used to toggle between the grid and list view of the child components.
-
-### Home
-
-This folder contains components used in the home page of the application.
-
-- `digital-twins` contains the digital twins section of the home page which links to the digital twins page.
-- `sensors` contains the sensors section of the home page which links to the sensors page and displays low battery sensors and last updated sensors.
-
-### Sensors
-
-This folder contains components used in the sensors page of the application.
-
-- `live-charts` displays the sensors data from the websockets in the form of charts. The charts are updated in real time. We have the ability to filter the data by the data type and we can compare the data using the `LineComparison` component.
-- `live-message-list` displays the live messages from the websockets in the form of a list. The messages are updated in real time.
-- `data-table` displays the sensors data from the websockets in the form of a table.
-- `columns` contains the columns definition for the data table.
-- `toolbar` contains the toolbar component for the data table.
-
-### Twins
-
-```bash title="src/components/twins"
-twins
-├── digital-twins
-```
-
-#### Digital Twins
-
-This folder contains components used in the digital twins page of the application.
-
-TODO: Add details about the components.
