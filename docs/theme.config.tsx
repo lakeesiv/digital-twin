@@ -4,9 +4,8 @@ import { DocsThemeConfig } from "nextra-theme-docs";
 const config: DocsThemeConfig = {
   logo: <span>Digital Twin Frontend Docs</span>,
   project: {
-    link: "https://github.com/shuding/nextra-docs-template",
+    link: "https://github.com/lakeesiv/digital-twin",
   },
-  // docsRepositoryBase: "https://github.com/shuding/nextra-docs-template",
   footer: {
     text: "Digital Twin Frontend - Lakee Sivaraya",
   },
@@ -16,6 +15,9 @@ const config: DocsThemeConfig = {
   feedback: {
     content: "",
   },
+  useNextSeoProps: () => ({
+    titleTemplate: "%s - DT Frontend",
+  }),
 };
 
 export default config;

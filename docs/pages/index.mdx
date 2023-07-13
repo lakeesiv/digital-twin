@@ -1,11 +1,66 @@
+import { Callout } from "nextra/components";
+
 # Introduction
 
-Welcome to Nextra! This is a basic docs template. You can use it as a starting point for your own project :)
+This directory contains the technical details for the digital twin website developed by Lakee Sivaraya.
+Use the sidebar to navigate to the different sections of the documentation.
 
-## What is Nextra?
+# Pre-requisites
 
-A **simple**, **powerful** and **flexible** site generation framework with everything you love from Next.js.
+Make sure you have `node` and `npm` installed on your machine. You can check this by running the following commands in your terminal:
 
-## Documentation
+```bash
+node -v
+npm -v
+```
 
-The documentation is available at [https://nextra.site](https://nextra.site).
+If you don't have them installed, you can download them from [here](https://nodejs.org/en/download/).
+
+## Tools
+
+We are using the `Next.js` framework in Typescript to build the website (using Pages Router). It is imporant that you have a good understanding of how Next.js works. You can read the documentation [here](https://nextjs.org/docs/getting-started) (
+important: make sure read the docs for the Pages Router and not the App Router).
+
+<Callout type="warning">
+  Important: make sure read the docs for the **Pages Router** and not the App
+  Router
+</Callout>
+We also use the following tools:
+
+- Tailwind CSS (Styling) - https://tailwindcss.com/
+- Radix UI (Design System) - https://www.radix-ui.com/
+- Tremor (Dashboard Components) - https://tremor.so/
+
+# Installation
+
+Firstly you need to have the `pnpm` package manager installed. You can install it by running the following command in your terminal:
+
+```bash
+npm install -g pnpm
+```
+
+Then clone the repo and install the dependencies:
+
+```bash
+pnpm install
+```
+
+# Running the website
+
+To run the website in development mode, run the following command:
+
+```bash
+pnpm dev
+```
+
+To run the website in production mode, you need to build the website first:
+
+```bash
+pnpm build
+```
+
+Then run the following command:
+
+```bash
+pnpm start
+```

@@ -1,3 +1,6 @@
 {
-  "index": "Intro"
+  "index": "Intro",
+  "line": "Line",
+  "bar": "Bar",
+  "line-comparison": "Line Comparison"
 }

@@ -1,0 +1,45 @@
+---
+sidebar_label: Job Handling
+sidebar_position: 1
+---
+
+# Job Handling
+
+## Overview
+
+When we run a simulation (which we will refer as a job), we need to make a request to the simulation server (a python server) that runs the simulation in _the background_, the simulation takes some time to run, so we do not wait for the simulation to finish, instead we tell the user that the simulation is running.
+
+![image](./img/job-flow.excalidraw.png)
+
+Once a job is invoked, the simulation server will start running the simulation, we require that the simulation server outputs two files:
+
+- `progress.json`: a file that contains the progress of the simulation, this file is updated by the simulator
+- `result.json`: a file that contains the result of the simulation
+
+The front end will poll the simulation server for the progress of the simulation, where the simulation server will return the `progress.json` file, the front end will then update the progress bar accordingly. If the simulation is finished, the front end will then request the `result.json` file, and display the result to the user.
+
+## Simulation files
+
+A job is tagged with a `jobId` which is used to identify the job. Then the JSON files will be saved under the directory `./results/<jobId>/`.
+
+```bash filename="/results/<jobId>/"
+├── progress.json
+└── result.json
+```
+
+### Progress file
+
+The schema for the progress file is as follows:
+
+```json
+{
+  "progress": 0.5,
+  ...
+}
+```
+
+TODO: We haven't decided what to put in the progress file yet, but we will need to put the progress of the simulation in the file.
+
+### Result file
+
+TODO: we haven't decided what to put in the result file yet, but we will need to put the result of the simulation in the file all in a JSON format that cn be easily graphed.
