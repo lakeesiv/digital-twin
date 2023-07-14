@@ -1,35 +1,28 @@
 import { Callout, Card, CategoryBar, Grid, Metric, Text } from "@tremor/react";
 import { TrendingDown, TrendingUp } from "lucide-react";
+import { cn } from "ui";
 
 const categories = [
   {
-    title: "7 Day Progress",
+    title: "3 Day Progress",
     value: 50,
     target: 80,
-  },
-  {
-    title: "10 Day Progress",
-    value: 90,
-    target: 90,
-  },
-  {
-    title: "12 Day Progress",
-    value: 92,
-    target: 95,
-  },
-  {
-    title: "21 Day Progress",
-    value: 99,
-    target: 95,
-  },
+  }
 ];
 
-export default function RCPathComparison() {
+interface LatTATProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export default function LatTAT(
+	{...props} : LatTATProps
+) {
+
+	const gridClassName = cn("gap-6", props.className);
+
   return (
-    <Grid numItemsSm={2} numItemsLg={5} className="gap-6">
+    <Grid numItemsSm={2} numItemsLg={2} className={gridClassName}>
       <Card>
-        <h1 className="text-2xl font-bold">Overall TAT</h1>
-        <Metric className="pt-4">90 hrs </Metric>
+        <h1 className="text-2xl font-bold">Lab TAT</h1>
+        <Metric className="pt-4">20 hrs </Metric>
       </Card>
       {categories.map((item) => (
         <Card key={item.title}>
@@ -52,7 +45,7 @@ export default function RCPathComparison() {
             color={item.value < item.target ? "orange" : "green"}
             title={item.value < item.target ? "Underperforming" : "On Target"}
           >
-            RCPath Target {item.target} %
+        Target {item.target} %
           </Callout>
         </Card>
       ))}

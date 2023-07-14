@@ -9,6 +9,7 @@ import BottleNeckList, {
   mockBottleNeckData,
 } from "~/components/twins/digital-hospital/percentage-change-list";
 import RCPathComparison from "~/components/twins/digital-hospital/rc-path-comparison";
+import LatTAT from "~/components/twins/digital-hospital/lat-tat";
 import type { BoneStationData } from "~/components/twins/digital-hospital/types";
 import Data from "~/data.json";
 
@@ -19,6 +20,7 @@ const ResultsPage = () => {
     <Layout title="Results">
       <h1 className="mb-4 text-3xl font-bold">Results</h1>
       <RCPathComparison />
+      <LatTAT className="mt-4"/>
 
       <div className="my-4">
         <Card className="px-4">

@@ -13,6 +13,7 @@ import { BarChart, LineChart } from "charts";
 import { useState } from "react";
 import Layout from "~/components/layout";
 import GridLayout from "~/components/layout/grid-layout";
+import LatTAT from "~/components/twins/digital-hospital/lat-tat";
 import MetricsList from "~/components/twins/digital-hospital/metrics-list";
 import BottleNeckList, {
   mockBottleNeckData,
@@ -126,6 +127,7 @@ const ScenarioPage = () => {
               <TabPanel key={i}>
                 <Card className="px-4">
                   <RCPathComparison />
+                  <LatTAT className="mt-4"/>
 
                   <h1 className="mt-4 text-2xl font-bold">Output Analysis</h1>
                   <Divider className="mb-4 mt-2" />
