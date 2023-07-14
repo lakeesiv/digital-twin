@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "turbo dev --no-daemon",
     "dev:docs": "turbo dev --no-daemon --filter=docs",
-    "dev:web": "turbo dev --no-daemon --filter=web --filter=ui",
+    "dev:web": "turbo dev --no-daemon --filter=web",
     "build": "turbo build --no-daemon",
     "build:docs": "turbo build --no-daemon --filter=docs --filter=ui",
     "build:web": "turbo build --no-daemon --filter=web --filter=ui",
