@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <Layout title="Home">
-      <Grid numItemsMd={2} className="mt-6 gap-6">
+      <Grid numItemsMd={2} className="gap-6">
         <Card>
           <div className="min-h-56">
             <div className="flex space-x-4">
