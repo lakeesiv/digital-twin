@@ -7,16 +7,13 @@ const categories = [
     title: "3 Day Progress",
     value: 50,
     target: 80,
-  }
+  },
 ];
 
-interface LatTATProps extends React.HTMLAttributes<HTMLDivElement> {}
+type LabTATProps = React.HTMLAttributes<HTMLDivElement>;
 
-export default function LatTAT(
-	{...props} : LatTATProps
-) {
-
-	const gridClassName = cn("gap-6", props.className);
+const LabTAT: React.FC<LabTATProps> = ({ ...props }) => {
+  const gridClassName = cn("gap-6", props.className);
 
   return (
     <Grid numItemsSm={2} numItemsLg={2} className={gridClassName}>
@@ -45,10 +42,12 @@ export default function LatTAT(
             color={item.value < item.target ? "orange" : "green"}
             title={item.value < item.target ? "Underperforming" : "On Target"}
           >
-        Target {item.target} %
+            Target {item.target} %
           </Callout>
         </Card>
       ))}
     </Grid>
   );
-}
+};
+
+export default LabTAT;
