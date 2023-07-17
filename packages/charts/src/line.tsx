@@ -62,6 +62,7 @@
  */
 
 import { Card, Flex, Title, type CardProps } from "@tremor/react";
+import { Info } from "lucide-react";
 import { useTheme } from "next-themes";
 import Plotly from "plotly.js";
 import React, { useEffect, useState } from "react";
@@ -74,12 +75,19 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from "ui";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui";
-import { capilatizeFirstLetter } from "./utils";
 import DownloadButton from "./download";
-import { CHART_CONFIG, getColor, mapCurveStyle, titleToId } from "./utils";
-import { Info } from "lucide-react";
+import {
+  CHART_CONFIG,
+  capilatizeFirstLetter,
+  getColor,
+  mapCurveStyle,
+  titleToId,
+} from "./utils";
 
 export interface TimeUnit {
   current: "hour" | "day" | "week"; // current time unit of the data
@@ -110,6 +118,7 @@ export interface LineProps extends LineChartData {
   defaultCurveStyle?: "linear" | "step" | "natural";
   allowSelectCurveStyle?: boolean;
   chartType?: "webgl" | "svg";
+  rangeSlider?: boolean;
 }
 
 export const LineChart: React.FC<LineProps> = ({
@@ -129,6 +138,7 @@ export const LineChart: React.FC<LineProps> = ({
   allowSelectCurveStyle: allowSelectLineStyle = false,
   chartType = "svg",
   info,
+  rangeSlider = false,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -324,7 +334,7 @@ export const LineChart: React.FC<LineProps> = ({
         <Plot
           divId={divId}
           data={plottingData as object[]}
-          layout={getLayout(theme, xlabelState, ylabel)}
+          layout={getLayout(theme, xlabelState, ylabel, dateTime, rangeSlider)}
           useResizeHandler
           className="h-full w-full"
           config={CHART_CONFIG as object}
@@ -337,18 +347,24 @@ export const LineChart: React.FC<LineProps> = ({
 const getLayout = (
   theme: string | undefined,
   xlabel: string,
-  ylabel: string
+  ylabel: string,
+  dateTime?: boolean,
+  rangeSlider?: boolean
 ) => {
   if (!theme) {
     theme = "light";
   }
+  const fontColor =
+    theme === "dark" ? "rgba(150, 150, 150, 0.4)" : "rgba(0, 0, 0, 0.9)";
+  const gridColor =
+    theme === "dark" ? "rgba(75, 85, 99, 0.4)" : "rgba(209, 213, 219, 0.4)";
+  const buttonBgColor = theme === "dark" ? "rgb(2, 8, 23)" : undefined;
 
   const layout: Partial<Plotly.Layout> = {
     autosize: true,
     font: {
       family: "sans-serif",
-      color:
-        theme === "dark" ? "rgba(150, 150, 150, 0.4)" : "rgb(50, 50, 50, 0.4)",
+      color: theme === fontColor,
     },
     modebar: {
       bgcolor: "rgba(0, 0, 0, 0)",
@@ -368,23 +384,54 @@ const getLayout = (
     xaxis: {
       showgrid: false,
       linecolor: "rgba(0, 0, 0, 0)",
-      zerolinecolor:
-        theme === "dark"
-          ? "#rgba(75, 85, 99, 0.4)"
-          : "rgba(209, 213, 219, 0.4)",
+      zerolinecolor: gridColor,
       title: {
         text: xlabel,
       },
+      rangeselector: dateTime
+        ? {
+            buttons: [
+              {
+                step: "hour",
+                stepmode: "backward",
+                count: 1,
+                label: "1hr",
+              },
+              {
+                step: "hour",
+                stepmode: "backward",
+                count: 24 * 7,
+                label: "1w",
+              },
+              {
+                step: "month",
+                stepmode: "backward",
+                count: 1,
+                label: "1m",
+              },
+              {
+                step: "year",
+                stepmode: "backward",
+                count: 1,
+                label: "1y",
+              },
+              {
+                step: "all",
+                label: "All",
+              },
+            ],
+            font: {
+              color: fontColor,
+            },
+            bgcolor: buttonBgColor,
+            showactive: true,
+          }
+        : undefined,
+      rangeslider: rangeSlider ?? {},
     },
     yaxis: {
-      gridcolor:
-        theme === "dark"
-          ? "#rgba(75, 85, 99, 0.4)"
-          : "rgba(209, 213, 219, 0.4)",
-      zerolinecolor:
-        theme === "dark"
-          ? "#rgba(75, 85, 99, 0.4)"
-          : "rgba(209, 213, 219, 0.4)",
+      gridcolor: gridColor,
+      zerolinecolor: gridColor,
       showgrid: true,
       linecolor: "rgba(0, 0, 0, 0)",
       griddash: "dot",
