@@ -18,6 +18,7 @@ export * from "./switch";
 export * from "./select";
 export * from "./toast";
 export * from "./toaster";
+export * from "./toggle";
 export * from "./tooltip";
 export * from "./use-toast";
 
