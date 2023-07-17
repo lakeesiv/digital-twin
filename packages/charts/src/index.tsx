@@ -28,3 +28,7 @@ export const LineComparisonChart = dynamic(
 export const ScatterMap = dynamic(() => import("./scatter-map"), {
   ssr: false,
 });
+
+export const ImageScatter = dynamic(() => import("./image-scatter"), {
+  ssr: false,
+});

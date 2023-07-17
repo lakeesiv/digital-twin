@@ -3,6 +3,7 @@ import Layout from "~/components/layout";
 import WSStatus from "~/components/ws-status";
 import { Button } from "ui";
 import useWS from "~/websockets/useWS";
+import { ImageScatter } from "charts";
 
 const WS = () => {
   const { messageHistory, sendJsonMessage, connectionStatus, rtConnected } =
@@ -37,6 +38,17 @@ const WS = () => {
 
   return (
     <Layout>
+      <ImageScatter
+        title="test"
+        data={{
+          x: [1, 2, 3, 4, 5],
+          y: [1, 2, 3, 4, 5],
+        }}
+        xlabel="x"
+        ylabel="y"
+        labels={["a"]}
+        marker="scatter"
+      />
       <div>
         <div className="flex items-center space-x-2">
           <WSStatus
