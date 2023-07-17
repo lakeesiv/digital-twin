@@ -108,7 +108,12 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>([
+    {
+      id: "lastUpdateTimestamp",
+      desc: true,
+    },
+  ]);
   const [mounted, setMounted] = React.useState(false);
 
   const table = useReactTable({

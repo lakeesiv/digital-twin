@@ -65,6 +65,7 @@ export const columns: ColumnDef<SensorData>[] = [
   },
   {
     accessorKey: "lastUpdateTimestamp",
+    id: "lastUpdateTimestamp",
     header: ({ column }) => {
       return <SortableColumn column={column} title="Last Update" />;
     },
@@ -93,7 +94,7 @@ export const columns: ColumnDef<SensorData>[] = [
       stringified = stringified.replace(/,/g, "");
 
       return (
-        <span className="line-clamp-4 hover:line-clamp-none whitespace-pre font-mono transition-all ease-in-out">
+        <span className="line-clamp-4 whitespace-pre font-mono transition-all ease-in-out hover:line-clamp-none">
           {stringified}
         </span>
       );
