@@ -120,6 +120,7 @@ export interface LineProps extends LineChartData {
   defaultCurveStyle?: "linear" | "step" | "natural";
   allowSelectCurveStyle?: boolean;
   chartType?: "webgl" | "svg";
+  marker?: "line" | "scatter";
 }
 
 export const LineChart: React.FC<LineProps> = ({
@@ -139,6 +140,7 @@ export const LineChart: React.FC<LineProps> = ({
   allowSelectCurveStyle: allowSelectLineStyle = false,
   chartType = "svg",
   info,
+  marker = "line",
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -221,6 +223,7 @@ export const LineChart: React.FC<LineProps> = ({
         type: chartType === "webgl" ? "scattergl" : "scatter",
         name: labels[i],
         visible: visible ? (visible[i] ? true : "legendonly") : true,
+        mode: marker === "line" ? "lines+markers" : "markers",
       });
     }
   } else {
@@ -233,6 +236,7 @@ export const LineChart: React.FC<LineProps> = ({
       line: { shape: mapCurveStyle(curveStyle) },
       type: chartType === "webgl" ? "scattergl" : "scatter",
       name: labels[0],
+      mode: marker === "line" ? "lines+markers" : "markers",
     });
   }
 
