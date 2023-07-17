@@ -40,14 +40,31 @@ const WS = () => {
     <Layout>
       <ImageScatter
         title="test"
-        data={{
-          x: [1, 2, 3, 4, 5],
-          y: [1, 2, 3, 4, 5],
-        }}
+        data={[
+          {
+            ts: 1629780000,
+            x: 1,
+            y: 2,
+            sensor: "a",
+            data: {
+              temperature: 1,
+              humidity: 2,
+            },
+          },
+          {
+            ts: 1629780001,
+            x: 2,
+            y: 3,
+            sensor: "b",
+            data: {
+              temperature: 2,
+              humidity: 3,
+            },
+          },
+        ]}
         xlabel="x"
         ylabel="y"
-        labels={["a"]}
-        marker="scatter"
+        labels={["a", "b"]}
       />
       <div>
         <div className="flex items-center space-x-2">

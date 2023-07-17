@@ -3,7 +3,7 @@
   "include": [".", "plotly.js.d.ts"],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
-    "lib": ["es2016", "dom"],
+    "lib": ["es2017", "dom"],
     "module": "ESNext",
     "target": "ES6",
     "jsx": "react-jsx",
