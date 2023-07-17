@@ -38,7 +38,9 @@ export function Menu() {
         <Icon
           // variant="outline"
           icon={theme === "dark" ? MoonIcon : SunIcon}
-          className="ml-auto bg-gray-100 text-black dark:bg-gray-900 dark:text-white"
+          className="ml-auto bg-gray-100 text-black dark:bg-gray-900 dark:text-white
+          hover:bg-gray-200 dark:hover:bg-gray-800
+          "
           onClick={() => {
             setTheme(theme === "dark" ? "light" : "dark");
           }}
