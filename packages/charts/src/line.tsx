@@ -62,7 +62,7 @@
  */
 
 import { Card, Flex, Title, type CardProps } from "@tremor/react";
-import { Info } from "lucide-react";
+import { Info, MoveHorizontal } from "lucide-react";
 import { useTheme } from "next-themes";
 import Plotly from "plotly.js";
 import React, { useEffect, useState } from "react";
@@ -79,6 +79,8 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  Toggle,
+  DefaultTooltip,
 } from "ui";
 import DownloadButton from "./download";
 import {
@@ -118,7 +120,6 @@ export interface LineProps extends LineChartData {
   defaultCurveStyle?: "linear" | "step" | "natural";
   allowSelectCurveStyle?: boolean;
   chartType?: "webgl" | "svg";
-  rangeSlider?: boolean;
 }
 
 export const LineChart: React.FC<LineProps> = ({
@@ -138,7 +139,6 @@ export const LineChart: React.FC<LineProps> = ({
   allowSelectCurveStyle: allowSelectLineStyle = false,
   chartType = "svg",
   info,
-  rangeSlider = false,
 }) => {
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
@@ -148,6 +148,7 @@ export const LineChart: React.FC<LineProps> = ({
     t?.target
   );
   const [xlabelState, setXlabelState] = useState<string>(xlabel);
+  const [rangeSlider, setrangeSlider] = useState(false);
 
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
@@ -267,7 +268,18 @@ export const LineChart: React.FC<LineProps> = ({
           </div>
         )}
 
-        <div className="flex justify-center">
+        <div className="flex justify-center space-x-2">
+          {dateTime && (
+            <DefaultTooltip tooltip="Toggle Ranger Slider">
+              <Toggle
+                variant="outline"
+                className="h-[30px] w-[30px]"
+                onPressedChange={() => setrangeSlider(!rangeSlider)}
+              >
+                <MoveHorizontal size={16} className="px-0" />
+              </Toggle>
+            </DefaultTooltip>
+          )}
           {timeUnit && (
             <Select
               onValueChange={(value: string) =>
