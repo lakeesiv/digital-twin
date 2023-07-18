@@ -184,7 +184,13 @@ export const ImageScatter: React.FC<LineProps> = ({
   console.log(plottingData);
 
   return (
-    <Card {...cardProps} ref={cardRef}>
+    <Card
+      {...cardProps}
+      ref={cardRef}
+      style={{
+        width: "650px",
+      }}
+    >
       <Flex>
         {!info ? (
           <Title>{title}</Title>
