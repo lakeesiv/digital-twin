@@ -3,11 +3,13 @@ const withNextra = require("nextra")({
   themeConfig: "./theme.config.tsx",
 });
 
+const basePath = process.env.GITHUB_ACTIONS ? "/digital-twin" : "";
+
 module.exports = withNextra({
   transpilePackages: ["charts"],
   images: {
     unoptimized: true,
   },
-  basePath: "/digital-twin",
+  basePath: basePath,
   output: "export",
 });
