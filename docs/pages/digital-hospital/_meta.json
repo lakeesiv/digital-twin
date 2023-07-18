@@ -1,3 +1,5 @@
 {
-  "jobs": "Jobs"
+  "index": "Introduction",
+  "jobs": "Jobs",
+  "json-schema": "JSON Schema"
 }
