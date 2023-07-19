@@ -9,6 +9,7 @@
     "build:web": "turbo build --no-daemon --filter=web --filter=ui",
     "start:web": "turbo start --no-daemon --filter=web",
     "start:docs": "turbo start --no-daemon --filter=docs",
+    "start": "turbo start --no-daemon",
     "lint": "turbo lint --no-daemon",
     "clean": "turbo clean --no-daemon",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
