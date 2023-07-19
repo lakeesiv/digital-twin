@@ -19,10 +19,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.32.3",
+    "serve": "^14.2.0",
     "ui": "workspace:*"
   },
   "devDependencies": {
-    "serve": "^14.2.0",
     "@types/node": "18.11.10",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
