@@ -1,7 +1,7 @@
 FROM node:18-alpine AS base
 
 # This Dockerfile is copy-pasted into our main docs at /docs/handbook/deploying-with-docker.
-# Make sure you update both files!
+# Make sure you update both files! # TODO FIX
 
 FROM base AS builder
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
@@ -10,7 +10,6 @@ RUN apk update
 # Set working directory
 WORKDIR /app
 RUN yarn global add turbo
-RUN yarn global add pnpm
 COPY . .
 RUN turbo prune --scope=web --docker
 
@@ -23,7 +22,8 @@ WORKDIR /app
 # First install the dependencies (as they change less often)
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/yarn.lock ./yarn.lock
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+RUN npm install -g pnpm
 RUN pnpm install
 
 # Build the project
@@ -47,13 +47,13 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
 
-COPY --from=installer /app/apps/web/next.config.js .
-COPY --from=installer /app/apps/web/package.json .
+COPY --from=installer /app/web/next.config.js .
+COPY --from=installer /app/web/package.json .
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
-COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+COPY --from=installer --chown=nextjs:nodejs /app/web/.next/standalone ./
+COPY --from=installer --chown=nextjs:nodejs /app/web/.next/static ./web/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/web/public ./web/public
 
 CMD ["pnpm", "start"]
