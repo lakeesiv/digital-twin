@@ -53,11 +53,13 @@ const formSchema = z.object({
   confidenceAnalysis: z.boolean().default(false),
 });
 
+export type FormValues = z.infer<typeof formSchema>;
+
 export default function SimulatePage() {
   const [tabIndex, setTabIndex] = useState(0);
   const toast = useToast();
 
-  const ProcessForm = useForm<z.infer<typeof formSchema>>({
+  const ProcessForm = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       weeks: 3,
@@ -69,7 +71,7 @@ export default function SimulatePage() {
     ProcessForm.setValue("files", files);
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: FormValues) {
     if (!values.files) {
       toast.toast({
         title: "No files selected",
@@ -104,7 +106,7 @@ export default function SimulatePage() {
             icon={Square}
             className={
               tabIndex === 0
-                ? "dark:bg-background border-[1px] border-gray-200 bg-white text-black dark:border-black dark:text-gray-300"
+                ? "border-[1px] border-gray-200 bg-white text-black dark:border-black dark:bg-background dark:text-gray-300"
                 : ""
             }
           >
@@ -114,7 +116,7 @@ export default function SimulatePage() {
             icon={SquareStack}
             className={
               tabIndex === 1
-                ? "dark:bg-background border-[1px] border-gray-200 bg-white text-black dark:border-black dark:text-gray-300"
+                ? "border-[1px] border-gray-200 bg-white text-black dark:border-black dark:bg-background dark:text-gray-300"
                 : ""
             }
           >
@@ -136,7 +138,7 @@ export default function SimulatePage() {
               <Title>Multi File Upload</Title>
               <Callout
                 title="Please name the files in the following format: 1.xlsx, 2.xlsx, 3.xlsx, 4.xlsx, 5.xlsx for the scenario number"
-                className="dark:bg-blue-950 my-4 bg-blue-100 text-blue-900 dark:text-blue-200"
+                className="my-4 bg-blue-100 text-blue-900 dark:bg-blue-950 dark:text-blue-200"
               ></Callout>
               <FileUploadMultiple
                 multiple

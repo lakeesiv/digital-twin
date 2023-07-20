@@ -197,24 +197,22 @@ Here we plot how the utilization for stage varies per day of the simulation. Dat
 
 Or in Typescript
 
-```tsx
-type Results = {
+````tsx
+export type SimulationResults = {
   overallTAT: number;
   progress: {
-    [stage: number]: number;
+    "7": number;
+    "10": number;
+    "12": number;
+    "21": number;
   };
   labTAT: number;
   labProgress: {
-    [stage: number]: number;
+    "3": number;
   };
-};
-
-type Data = {
   tat_by_stage: BarChartData;
   resource_allocation: LineChartData[];
   utilization_by_stage: BarChartData;
   daily_utilization_by_stage: LineChartData;
-};
-
-export type SimulationResults = Results & Data;
-```
+};```
+````
