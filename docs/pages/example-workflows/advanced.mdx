@@ -49,6 +49,8 @@ but we do not support that, so to make TypeScript happy we need to cast the type
 
 Once we subscribe to the WS, we can display the subscription status using the `WSStatus` component from `~/components/ws-status`.
 
+![image](./img/ws-status.png)
+
 ```tsx {3-4, 9-11, 19-25} showLineNumbers
 import { useRouter } from "next/router";
 import Layout from "~/components/layout";
@@ -85,6 +87,8 @@ export default Page;
 ### Create `LiveMessageList` Component
 
 Now we have the websocket messages in `messageHistory` we could display in a subcomponet to prevent having everything in one file. This component will have a scrollable list which dislays all the messages in json and formatted nicely. We will call this component `LiveMessageList`. Lets create it in `components/sensors/live-message-list.tsx`
+
+![image](./img/live-message-list.png)
 
 ```tsx showLineNumbers
 import React from "react";
@@ -185,6 +189,8 @@ export default Page;
 ```
 
 ### Create `LiveCharts` Component
+
+![image](./img/live-charts.png)
 
 Now this is the complicated component. This component will allow us to plot all the graphs of the data, filter by the graphs and compare the data between KPIs. We will call this component `LiveCharts`. Lets create it in `components/sensors/live-charts.tsx`
 
@@ -391,6 +397,8 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
 Now we map over the `allCharts` array and create a `LineChart` for each chart. We also pass in the `allCharts` array to the `LineComparison` component to allow the user to compare the charts.
 
 #### Grid Layout and Date Time selection
+
+![image](./img/layout.png)
 
 We want to user to be able to change the number of columns to display the graphs in, this allows the graphs to be seen more clearly. Also we would like to select date times for quering the data.
 
