@@ -1,6 +1,11 @@
 import { useCallback } from "react";
 import { REQUEST_ID, SOCK_JS_URL } from "./config";
 import useWS from "./useWS";
+export type RecordType = {
+  acp_id: string;
+  acp_ts: string;
+  payload: Record<string, number>;
+};
 
 const useRecords = () => {
   const {
@@ -27,12 +32,6 @@ const useRecords = () => {
       options: ["latest_records"],
     });
   }, []);
-
-  type RecordType = {
-    acp_id: string;
-    acp_ts: string;
-    payload: Record<string, number>;
-  };
 
   return {
     records: lastMessage as any as RecordType[],

@@ -3,7 +3,6 @@ import { BrainCircuit, RadioTower } from "lucide-react";
 import DigitalTwinsView from "~/components/home/digital-twins";
 import SensorsView from "~/components/home/sensors";
 import Layout from "~/components/layout";
-import data from "~/mock";
 import { Button } from "ui";
 import Link from "next/link";
 
@@ -16,23 +15,7 @@ export default function Home() {
             <div className="flex space-x-4">
               <RadioTower /> <Title>Sensors</Title>
             </div>
-            <SensorsView
-              numberOfItems={5}
-              lowBatteryData={data.map((sensor) => ({
-                name: sensor.id,
-                description: `${sensor.location} | ${sensor.lastReading.battery}% `,
-                location: sensor.location,
-                battery: sensor.lastReading.battery,
-                timestamp: parseInt(sensor.lastUpdateTimestamp),
-              }))}
-              recentlyUpdatedData={data.map((sensor) => ({
-                name: sensor.id,
-                description: `${sensor.location} | ${sensor.lastReading.battery}%`,
-                location: sensor.location,
-                battery: sensor.lastReading.battery,
-                timestamp: parseInt(sensor.lastUpdateTimestamp),
-              }))}
-            />
+            <SensorsView numberOfItems={5} />
             <Button size="sm" variant="outline" className="mt-4">
               <Link href="/sensors" passHref>
                 View details

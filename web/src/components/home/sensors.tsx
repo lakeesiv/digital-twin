@@ -10,67 +10,14 @@ import {
   TabPanels,
   Text,
 } from "@tremor/react";
-import {
-  ArrowUpRight,
-  BatteryFull,
-  BatteryLow,
-  BatteryMedium,
-  BatteryWarning,
-  Clock,
-} from "lucide-react";
+import { ArrowUpRight, BatteryLow, Clock, Radio } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-// import data from "~/mock";
-
-type TabViewItem = {
-  name: string;
-  description: string;
-  location: string;
-  battery: number;
-  timestamp: number;
-};
+import useRecords, { RecordType } from "~/websockets/useRecords";
 
 interface TabViewProps {
-  data: TabViewItem[];
+  data: FilteredData[];
 }
-
-const BatteryIcon = ({ battery }: { battery: number }) => {
-  type Colors = "red" | "yellow" | "orange" | "green";
-  const iconMap = {
-    veryLow: BatteryWarning,
-    low: BatteryLow,
-    medium: BatteryMedium,
-    high: BatteryFull,
-  };
-
-  const colorMap: Record<keyof typeof iconMap, Colors> = {
-    veryLow: "red",
-    low: "orange",
-    medium: "yellow",
-    high: "green",
-  };
-  let status = "low" as keyof typeof iconMap;
-
-  if (battery < 10) {
-    status = "veryLow";
-  } else if (battery < 30) {
-    status = "low";
-  } else if (battery < 60) {
-    status = "medium";
-  } else {
-    status = "high";
-  }
-
-  return (
-    <Icon
-      className={`rounded-md`}
-      variant="light"
-      icon={iconMap[status]}
-      color={colorMap[status]}
-      size="md"
-    />
-  );
-};
 
 const TabView: React.FC<TabViewProps> = ({ data }) => {
   return (
@@ -78,9 +25,14 @@ const TabView: React.FC<TabViewProps> = ({ data }) => {
       {data.map((sensor) => (
         <ListItem key={sensor.name}>
           <Flex justifyContent="start" className="space-x-4 truncate">
-            <BatteryIcon battery={sensor.battery} />
+            <Icon
+              className={`rounded-md`}
+              variant="light"
+              icon={Radio}
+              size="md"
+            />
             <div className="truncate">
-              <Link href={`/sensors/${sensor.name}`}>
+              <Link href={`/sensors/live/${sensor.name}`}>
                 <div className="flex  items-center space-x-2 text-blue-500 dark:text-blue-500 ">
                   <Text className=" font-mono text-blue-500 dark:text-blue-500">
                     {sensor.name}
@@ -88,7 +40,10 @@ const TabView: React.FC<TabViewProps> = ({ data }) => {
                   <ArrowUpRight size={18} />
                 </div>
               </Link>
-              <Text className="truncate">{sensor.description}</Text>
+              <Text className="truncate">
+                {sensor.location} {sensor.description ? " | " : ""}
+                {sensor.description}
+              </Text>
             </div>
           </Flex>
           <Text>{new Date(sensor.timestamp * 1000).toLocaleString()}</Text>
@@ -99,27 +54,22 @@ const TabView: React.FC<TabViewProps> = ({ data }) => {
 };
 
 interface SensorsViewProps {
-  lowBatteryData: TabViewItem[];
-  recentlyUpdatedData: TabViewItem[];
   numberOfItems?: number;
 }
 
-const SensorsView: React.FC<SensorsViewProps> = ({
-  lowBatteryData,
-  recentlyUpdatedData,
-  numberOfItems = 5,
-}) => {
+const SensorsView: React.FC<SensorsViewProps> = ({ numberOfItems = 5 }) => {
   const [sensorTabIndex, setSensorTabIndex] = React.useState(0);
 
-  // sort low battery data (ascending)
-  lowBatteryData.sort((a, b) => a.battery - b.battery);
-  // sort recently updated data (descending)
-  recentlyUpdatedData.sort((a, b) => b.timestamp - a.timestamp);
+  const { records } = useRecords();
 
-  // limit the number of items
-  lowBatteryData = lowBatteryData.slice(0, numberOfItems);
-  recentlyUpdatedData = recentlyUpdatedData.slice(0, numberOfItems);
+  if (!records) {
+    return null; // return null if loading
+  }
 
+  const { lowBatteryData, recentlyUpdatedData } = filterData(
+    records,
+    numberOfItems
+  );
   return (
     <TabGroup
       color="amber"
@@ -158,6 +108,53 @@ const SensorsView: React.FC<SensorsViewProps> = ({
       </TabPanels>
     </TabGroup>
   );
+};
+
+type FilteredData = {
+  name: string;
+  description?: string;
+  location: string;
+  timestamp: number;
+};
+
+const filterData = (data: RecordType[], numOfItems: number) => {
+  const lowBatteryData: FilteredData[] = [];
+  const recentlyUpdatedData: FilteredData[] = [];
+
+  // lowBatteryData filtering
+  let dataWithVdd = data.filter((item) => item.payload?.vdd !== undefined);
+  // sort data by vdd (asc)
+  dataWithVdd.sort((a, b) => a.payload.vdd - b.payload.vdd);
+  // get the first numOfItems
+  dataWithVdd = dataWithVdd.slice(0, numOfItems);
+  // map to FilteredData
+  dataWithVdd.forEach((item) => {
+    lowBatteryData.push({
+      name: item.acp_id,
+      description: `Battery: ${item.payload.vdd} mV`,
+      location: "Cambridge", // TODO
+      timestamp: parseFloat(item.acp_ts),
+    });
+  });
+
+  // recentlyUpdatedData filtering
+  // sort data by timestamp (desc)
+  data.sort((a, b) => parseFloat(b.acp_ts) - parseFloat(a.acp_ts));
+  // get the first numOfItems
+  data = data.slice(0, numOfItems);
+  // map to FilteredData
+  data.forEach((item) => {
+    recentlyUpdatedData.push({
+      name: item.acp_id,
+      location: "Cambridge", // TODO
+      timestamp: parseFloat(item.acp_ts),
+    });
+  });
+
+  return {
+    lowBatteryData,
+    recentlyUpdatedData,
+  };
 };
 
 export default SensorsView;
