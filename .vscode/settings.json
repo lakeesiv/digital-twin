@@ -9,7 +9,7 @@
     "**/postcss.config.js": true,
     "**/postcss.config.cjs": true,
     "**/prettier.config.cjs": true,
-    "**/.eslintrc.*": true,
+    // "**/.eslintrc.*": true,
     "**/tailwind.config.js": true
   }
 }

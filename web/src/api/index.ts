@@ -42,6 +42,8 @@ const runSimulation = async (values: FormValues) => {
     },
     body: JSON.stringify(requestBody),
   });
-  const data = await response.json();
+  const data = (await response.json()) as {
+    success: boolean;
+  };
   return data;
 };
