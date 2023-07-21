@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import Plotly from "plotly.js";
+
 const colors = [
   "#6b64ef",
   "#FF6B6B",
@@ -87,4 +90,23 @@ export const mapCurveStyle = (
 
 export const capilatizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+export const useResizeObserver = (
+  cardRef: React.RefObject<HTMLDivElement>,
+  divId: string
+) => {
+  useEffect(() => {
+    const Lib = Plotly as {
+      Plots: { resize: (el: string) => void };
+      setPlotConfig: (config: object) => void;
+    };
+
+    if (!cardRef.current) return;
+    const resizeObserver = new ResizeObserver(() => {
+      Lib.Plots.resize(divId);
+    });
+    resizeObserver.observe(cardRef.current);
+    return () => resizeObserver.disconnect(); // clean up
+  }, [cardRef, divId]);
 };

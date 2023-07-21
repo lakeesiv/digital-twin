@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import Plotly from "plotly.js";
 import React, { useEffect } from "react";
 import Plot from "react-plotly.js";
-import { CHART_CONFIG, titleToId } from "./utils";
+import { CHART_CONFIG, titleToId, useResizeObserver } from "./utils";
 
 export interface ScatterMapProps {
   cardProps?: CardProps;
@@ -23,19 +23,7 @@ const ScatterMap: React.FC<ScatterMapProps> = ({
   const cardRef = React.useRef<HTMLDivElement>(null);
 
   // observe resize of the card, and resize the plotly chart
-  useEffect(() => {
-    const Lib = Plotly as {
-      Plots: { resize: (el: string) => void };
-      setPlotConfig: (config: object) => void;
-    };
-
-    if (!cardRef.current) return;
-    const resizeObserver = new ResizeObserver(() => {
-      Lib.Plots.resize(divId);
-    });
-    resizeObserver.observe(cardRef.current);
-    return () => resizeObserver.disconnect(); // clean up
-  }, [divId]);
+  useResizeObserver(cardRef, divId);
 
   const plottingData: Partial<Plotly.Data>[] = [];
 

@@ -47,7 +47,7 @@ import { Card, Flex, Title, type CardProps } from "@tremor/react";
 import { useTheme } from "next-themes";
 import React, { useEffect } from "react";
 import DownloadButton from "./download";
-import { CHART_CONFIG, getColor, titleToId } from "./utils";
+import { CHART_CONFIG, getColor, titleToId, useResizeObserver } from "./utils";
 import Plotly from "plotly.js";
 import Plot from "react-plotly.js";
 
@@ -86,16 +86,7 @@ const BarChart: React.FC<BarProps> = ({
   // reference to the card to observe resize
   const cardRef = React.useRef<HTMLDivElement>(null);
 
-  // observe resize of the card, and resize the plotly chart
-  useEffect(() => {
-    if (!cardRef.current) return;
-    const resizeObserver = new ResizeObserver(() => {
-      const Lib = Plotly as { Plots: { resize: (el: string) => void } };
-      Lib.Plots.resize(divId);
-    });
-    resizeObserver.observe(cardRef.current);
-    return () => resizeObserver.disconnect(); // clean up
-  }, [divId]);
+  useResizeObserver(cardRef, divId);
 
   const plottingData: Partial<Plotly.Data>[] = [];
 

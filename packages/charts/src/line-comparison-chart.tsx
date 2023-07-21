@@ -87,7 +87,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "ui";
-import { capilatizeFirstLetter } from "./utils";
+import { capilatizeFirstLetter, useResizeObserver } from "./utils";
 import type { LineChartData } from "./line";
 import { CHART_CONFIG, getColor, titleToId, mapCurveStyle } from "./utils";
 
@@ -141,16 +141,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
 
-  // observe the card div for resize and resize the plotly chart
-  useEffect(() => {
-    if (!cardRef.current) return;
-    const resizeObserver = new ResizeObserver(() => {
-      const Lib = Plotly as { Plots: { resize: (el: string) => void } };
-      Lib.Plots.resize(divId);
-    });
-    resizeObserver.observe(cardRef.current);
-    return () => resizeObserver.disconnect(); // clean up
-  }, [divId]);
+  useResizeObserver(cardRef, divId);
 
   // define the data to be plotted on the chart
   const plottingData: Partial<Plotly.Data>[] = [];

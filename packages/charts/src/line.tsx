@@ -89,6 +89,7 @@ import {
   getColor,
   mapCurveStyle,
   titleToId,
+  useResizeObserver,
 } from "./utils";
 
 export interface TimeUnit {
@@ -154,18 +155,8 @@ export const LineChart: React.FC<LineProps> = ({
 
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
-  // const plottingData = useMemo<Partial<Plotly.Data>[]>(() => [], []);
 
-  // observe the card div for resize and resize the plotly chart
-  useEffect(() => {
-    if (!cardRef.current) return;
-    const resizeObserver = new ResizeObserver(() => {
-      const Lib = Plotly as { Plots: { resize: (el: string) => void } };
-      Lib.Plots.resize(divId);
-    });
-    resizeObserver.observe(cardRef.current);
-    return () => resizeObserver.disconnect(); // clean up
-  }, [divId]);
+  useResizeObserver(cardRef, divId);
 
   const plottingData: Partial<Plotly.Data>[] = [];
 
