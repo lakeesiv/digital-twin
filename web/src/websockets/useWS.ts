@@ -25,7 +25,10 @@ interface Options {
 }
 
 const useWS = (url: string, options?: Options) => {
-  const socket = new SockJS(url);
+  const socket =
+    url.startsWith("ws") || url.startsWith("wss")
+      ? new WebSocket(url) // if url starts with ws or wss, use WebSocket
+      : new SockJS(url); // else use SockJS
   const [messageHistory, setMessageHistory] = useState<object[]>([]);
   const [connectionStatus, setConnectionStatus] = useState<
     "Connected" | "Disconnected" | "Uninstantiated"
