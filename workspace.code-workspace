@@ -5,16 +5,16 @@
       "name": "web"
     },
     {
-      "path": "docs",
-      "name": "docs"
-    },
-    {
       "path": "packages/charts",
       "name": "packages/charts"
     },
     {
       "path": "packages/ui",
       "name": "packages/ui"
+    },
+    {
+      "path": "docs",
+      "name": "docs"
     },
     {
       "path": ".",
