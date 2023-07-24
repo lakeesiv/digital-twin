@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Line Chart
 
-The following file represents the data structure that the simulation _must_ output for the graph to be plotted as a line graph
+The following file represents the data structure that the simulation _must_ output for the graph to be plotted as a line graph. The `props` for the `LineChart` component are also shown below is described in the Configuration section.
 
 ```tsx
 type LineChartData = {
@@ -24,7 +24,7 @@ We tend to have the same x-values for all lines, so we can just pass in a single
 
 Also the `title`, `xlabel`, and `ylabel` are all strings which are **required**.
 
-## Examples
+## Basic Examples
 
 Note in these examples we omit the `title`, `xlabel`, and `ylabel` for brevity.
 
@@ -130,4 +130,152 @@ import { LineChart } from "charts";
   title="3 Lines, Different X values"
   xlabel="x"
   ylabel="y"
+/>
+
+## Configuration
+
+The `props` for the `LineChart` extend the `LineChartData` type, and are as follows:
+
+```tsx
+export interface LineProps extends LineChartData {
+  cardProps?: CardProps;
+  divId?: string;
+  height?: number;
+  dateTime?: boolean;
+  fill?: boolean;
+  chartType?: "webgl" | "svg";
+  defaultCurveStyle?: "linear" | "step" | "natural";
+  allowSelectCurveStyle?: boolean;
+  marker?: "line" | "scatter";
+}
+```
+
+- `cardProps` - props for the `Card` component that wraps the `LineChart` component
+- `divId` - the id of the div that wraps the `LineChart` component (you don't really need to worry about this)
+- `height` - the height of the `LineChart` component, in pixels, use this to make the chart bigger or smaller from the default size
+- `fill` shades the area under the line (default is false)
+- `chartType` - the type of chart to use, either `webgl` or `svg` (default is `webgl`). Use `webgl` for large datasets, and `svg` when you have more than 8 charts on the page. `webgl` is more performant.
+
+### `dateTime`
+
+The dateTime prop allows for conversion of unix timestamp (in ms) x values into human readable date strings. eg.
+
+```tsx filename="dateTime" {12}
+<LineChart
+  data={{
+    x: [
+      1614556800000, 1614643200000, 1614729600000, 1614816000000, 1614902400000,
+    ],
+    y: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+  }}
+  labels={["label1"]}
+  title="1 Line"
+  xlabel="x"
+  ylabel="y"
+  dateTime // could also be dateTime={true}
+/>
+```
+
+<LineChart
+  data={{
+    x: [
+      1614556800000, 1614643200000, 1614729600000, 1614816000000, 1614902400000,
+    ],
+    y: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+  }}
+  labels={["label1"]}
+  title="Date Time"
+  xlabel="x"
+  ylabel="y"
+  dateTime
+/>
+
+### `defaultCurveStyle`
+
+The default curve style prop allows for the default curve style to be set. The default is `linear`, but can be set to `step` or `natural`. eg.
+
+```tsx filename="defaultCurveStyle" {10}
+<LineChart
+  data={{
+    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    y: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+  }}
+  labels={["label1"]}
+  title="1 Line"
+  xlabel="x"
+  ylabel="y"
+  defaultCurveStyle="step"
+/>
+```
+
+<LineChart
+  data={{
+    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    y: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+  }}
+  labels={["label1"]}
+  title="Step"
+  xlabel="x"
+  ylabel="y"
+  defaultCurveStyle="step"
+/>
+
+### `allowSelectCurveStyle`
+
+The allow select curve style prop allows for the curve style to be selected by the user via a dropdown in the top right. The default is `false`, but can be set to `true`. eg.
+
+```tsx filename="allowSelectCurveStyle"  {10}
+<LineChart
+  data={{
+    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    y: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+  }}
+  labels={["label1"]}
+  title="1 Line"
+  xlabel="x"
+  ylabel="y"
+  allowSelectCurveStyle
+/>
+```
+
+<LineChart
+  data={{
+    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    y: [[1, 2, 9, 4, 5, 6, 6, 8, 9, 1]],
+  }}
+  labels={["label1"]}
+  title="Allow Select Curve Style"
+  xlabel="x"
+  ylabel="y"
+  allowSelectCurveStyle
+/>
+
+### `marker`
+
+The marker prop allows for the marker to be set. The default is `line`, but can be set to `scatter`. eg.
+
+```tsx filename="marker" {10}
+<LineChart
+  data={{
+    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    y: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+  }}
+  labels={["label1"]}
+  title="1 Line"
+  xlabel="x"
+  ylabel="y"
+  marker="scatter"
+/>
+```
+
+<LineChart
+  data={{
+    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    y: [[1, 2, 9, 4, 5, 6, 6, 8, 9, 1]],
+  }}
+  labels={["label1"]}
+  title="Scatter Only"
+  xlabel="x"
+  ylabel="y"
+  marker="scatter"
 />
