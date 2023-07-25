@@ -1,6 +1,6 @@
 from typing import Literal
 
-from fastapi import WebSocket, WebSocketDisconnect
+from fastapi import WebSocket
 import lib.iolibs as io
 import pandas as pd
 from etl.etl import ETL
@@ -9,29 +9,58 @@ from .config import ALL_SENSORS
 import logging
 from etl.decoders.decoder import Decoder
 import asyncio
+from typing import Union
+
+
+class Client:
+    def __init__(self, websocket: WebSocket, acp_config: Union[str, None]):
+        self.websocket = websocket
+        self.acp_list = self._parse_acp_config(acp_config)
+
+    def _parse_acp_config(self, acp_config: Union[str, None]):
+        """Converts a csv string of acp_ids into a list of acp_ids.
+
+        Args:
+            acp_config (str): csv string of acp_ids or single acp_id
+        """
+        if acp_config is None:
+            return None
+
+        return acp_config.split(",")
+
+    async def send(self, msg: dict):
+        acp_id = msg.get("acp_id", None)
+        if acp_id is None:
+            return
+        if self.acp_list is None:
+            await self.websocket.send_json(msg)
+        else:
+            if acp_id in self.acp_list:
+                await self.websocket.send_json(msg)
+        return
 
 
 class ApiProvider():
     def __init__(self):
         basic_config = io.getBasicConfig()
         self.all_sensors = ALL_SENSORS
-        self.connected_clients = set[WebSocket]()
+        self.connected_clients = set[Client]()
 
         self.http_etl = ETL(basic_config, basic_config["etl_default"],
                             owner=self)
         self.ws_etl = ETL(basic_config, basic_config["etl_default"],
                           owner=self)
 
-        self.ws_etl.handle_message = lambda msg, topic: self._on_mqtt_message(
-            self.connected_clients, msg, topic)
+        self.ws_etl.handle_message = lambda msg, topic: self.handle_message(
+            msg, topic)
 
-    def add_client(self, client: WebSocket):
-        logging.info("Adding new client", client)
+    def add_client(self, client: Client):
+        logging.info("Adding new client")
         self.connected_clients.add(client)
         number = len(self.connected_clients)
         logging.info(f"Number of connected clients: {number}")
 
-    def remove_client(self, client: WebSocket):
+    def remove_client(self, client: Client):
         self.connected_clients.remove(client)
 
     def get_historical_data(self, acp_id: str, start_time: str, end_time: str,
@@ -59,36 +88,27 @@ class ApiProvider():
     def get_latest_data(self, acp_id: str):
         pass  # TODO
 
-    def _on_mqtt_message(self, clients: set[WebSocket], msg, topic=None):
-        msg = self._transform_mqtt_msg(msg, topic)
-        logging.info("Handling new message : " + str(msg))
-
-        if msg is None:
+    def handle_message(self, msg, topic):
+        transformed_message = Decoder.transform(msg, topic)
+        if (transformed_message):
+            filtered_message = self.ws_etl.rt_manager.filterParametersFromSensorMessage(
+                transformed_message)
+        if filtered_message is None:
             return
 
-        print(clients)
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            # Broadcast the message to all connected clients
+            for client in self.connected_clients:
+                loop.run_until_complete(client.send(filtered_message))
+        finally:
+            loop.close()
 
-        for client in clients:
-            try:
-                # check if it has the attribute acp_id
-                if hasattr(client, "acp_id"):
-                    # send only to the client with the same acp_id
+    def subscribe_all(self):
+        query = {"sensors": []}
+        for sensor_id in self.all_sensors:
+            query["sensors"].append(
+                {"acp_id": sensor_id, "parameters": ["all"]})
 
-                    if client.acp_id == msg.get("acp_id"):
-                        asyncio.create_task(client.send_text(msg))
-                    pass
-                else:
-                    # await client.send_text(msg)
-                    # run client.send_text(msg) w.o await in a separate thread
-                    asyncio.create_task(client.send_text(msg))
-
-            except WebSocketDisconnect:
-                self.connected_clients.remove(client)
-
-    def _transform_mqtt_msg(self, msg, topic=None):
-        transformed_msg = Decoder.transform(msg, topic)
-        if (transformed_msg):
-            filtered_msg = self.ws_etl.rt_manager.filterParametersFromSensorMessage(
-                transformed_msg)
-            return filtered_msg
-        return None
+        self.ws_etl.subscribe(query)
