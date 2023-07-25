@@ -17,6 +17,10 @@
       "name": "docs"
     },
     {
+      "path": "servers/sensor",
+      "name": "servers/sensor"
+    },
+    {
       "path": ".",
       "name": "root"
     }
