@@ -4,7 +4,6 @@ import threading
 from typing import List, Union
 
 import uvicorn
-import websockets
 from fastapi import FastAPI, WebSocket
 
 import lib.iolibs as io
@@ -27,6 +26,17 @@ class Client:
             return None
 
         return acp_config.split(",")
+
+    def send(self, msg: dict):
+        acp_id = msg.get("acp_id", None)
+        if acp_id is None:
+            return
+        if self.acp_list is None:
+            self.websocket.send_json(msg)
+        else:
+            if acp_id in self.acp_list:
+                self.websocket.send_json(msg)
+        return
 
 
 all_synetica_sensors = [
@@ -57,7 +67,7 @@ all_synetica_sensors = [
     "enl-iaqc-0862a3"]
 
 # Define a list to keep track of connected clients
-connected_clients: List[WebSocket] = []
+connected_clients: List[Client] = []
 
 
 def handle_message(etl, msg, topic):
@@ -70,7 +80,7 @@ def handle_message(etl, msg, topic):
             if (msg):
                 msg = etl.rt_manager.filterParametersFromSensorMessage(
                     msg)
-                loop.run_until_complete(client.send_json(msg))
+                loop.run_until_complete(client.send(msg))
     finally:
         loop.close()
 
@@ -84,7 +94,8 @@ app = FastAPI()
 @app.websocket("/ws/")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
-    connected_clients.append(websocket)
+    client = Client(websocket, None)
+    connected_clients.append(client)
     try:
         while True:
             # You can process incoming messages from clients here if needed
@@ -93,14 +104,15 @@ async def websocket_endpoint(websocket: WebSocket):
         pass
     finally:
         # Remove the client from the list when they disconnect
-        connected_clients.remove(websocket)
+        connected_clients.remove(client)
 
 
 @app.websocket("/ws/{acp_id}")
 async def dynamic_websocket_endpoint(websocket: WebSocket, acp_id: str):
     await websocket.accept()
     logging.info(f"Adding new client for sensor {acp_id}")
-    connected_clients.append(websocket)
+    client = Client(websocket, acp_id)
+    connected_clients.append(client)
     try:
         while True:
             # You can process incoming messages from clients here if needed
@@ -109,7 +121,7 @@ async def dynamic_websocket_endpoint(websocket: WebSocket, acp_id: str):
         pass
     finally:
         # Remove the client from the list when they disconnect
-        connected_clients.remove(websocket)
+        connected_clients.remove(client)
 
 if __name__ == "__main__":
     # Start the FastAPI server in a separate thread
