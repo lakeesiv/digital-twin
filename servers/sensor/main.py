@@ -1,10 +1,10 @@
-import asyncio
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from api.providers import ApiProvider
-from api.validators import HistoricalDataRequestBody
-import uvicorn
-import logging
 import multiprocessing
+import logging
+import uvicorn
+from api.validators import HistoricalDataRequestBody
+from api.providers import ApiProvider
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+import asyncio
 
 app = FastAPI()
 api_provider = ApiProvider()
@@ -33,26 +33,32 @@ async def latest_data():
 MQTT -> WebSocket Handling
 """
 
+connections = []
 
-async def broadcast_message(message: str, websocket: WebSocket):
-    try:
-        await websocket.send_text(message)
-    except Exception as e:
-        print(f"Error broadcasting message to client: {e}")
+
+async def broadcast_message(message: str):
+    for websocket in connections:
+        try:
+            await websocket.send_text(message)
+        except Exception as e:
+            print(f"Error broadcasting message to client: {e}")
 
 
 # Example on how to use the etl library and forward messages to the
 # WebSocket clients.
-def etl_on_message_handler(message):
+def etl_on_message_handler(msg, topic=None):
     # Process the message with the etl library as needed.
     # Then forward the message to connected WebSocket clients.
-    asyncio.run(broadcast_message(message))
+    loop = asyncio.get_event_loop()
+    # asyncio.create_task(broadcast_message(msg))
+    loop.run_until_complete(broadcast_message(msg))
 
 
 @app.websocket("/ws/")
 async def ws(websocket: WebSocket):
     await websocket.accept()
     api_provider.add_client(websocket)
+    connections.append(websocket)
 
     all_synetica_sensors = [
         "enl-iaqco3-083b3f",
@@ -88,10 +94,10 @@ async def ws(websocket: WebSocket):
 
     # api_provider.ws_etl.subscribe(query)
 
-    # p = multiprocessing.Process(
-    #     target=api_provider.ws_etl.subscribe, args=(query,))
-    # p.daemon = True
-    # p.start()
+    p = multiprocessing.Process(
+        target=api_provider.ws_etl.subscribe, args=(query,))
+    p.daemon = True
+    p.start()
 
     try:
         while True:
@@ -158,7 +164,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
 
     # sensor_provider.ws_etl.subscribe(query)
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8005)
 
     # p = multiprocessing.Process(
     #     target=uvicorn.run, args=(
