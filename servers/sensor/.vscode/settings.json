@@ -1,0 +1,18 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/*~": true,
+    "venv": true
+  },
+  "python.linting.flake8Args": [
+    "--ignore=E501,E402,E731,W503,E203",
+    "--max-line-length=120"
+  ]
+}
