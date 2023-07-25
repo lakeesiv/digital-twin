@@ -8,6 +8,7 @@ import numpy as np
 from .config import ALL_SENSORS
 import logging
 from etl.decoders.decoder import Decoder
+import asyncio
 
 
 class ApiProvider():
@@ -22,7 +23,16 @@ class ApiProvider():
                           owner=self)
 
         self.ws_etl.handle_message = lambda msg, topic: self._on_mqtt_message(
-            msg, topic)
+            self.connected_clients, msg, topic)
+
+    def add_client(self, client: WebSocket):
+        logging.info("Adding new client", client)
+        self.connected_clients.add(client)
+        number = len(self.connected_clients)
+        logging.info(f"Number of connected clients: {number}")
+
+    def remove_client(self, client: WebSocket):
+        self.connected_clients.remove(client)
 
     def get_historical_data(self, acp_id: str, start_time: str, end_time: str,
                             return_type: Literal["dict", "df"] = "dict"):
@@ -49,22 +59,29 @@ class ApiProvider():
     def get_latest_data(self, acp_id: str):
         pass  # TODO
 
-    def _on_mqtt_message(self, msg, topic=None):
+    def _on_mqtt_message(self, clients: set[WebSocket], msg, topic=None):
         msg = self._transform_mqtt_msg(msg, topic)
         logging.info("Handling new message : " + str(msg))
 
         if msg is None:
             return
 
-        for client in self.connected_clients:
+        print(clients)
+
+        for client in clients:
             try:
-                if client.acp_id is not None:
+                # check if it has the attribute acp_id
+                if hasattr(client, "acp_id"):
                     # send only to the client with the same acp_id
+
                     if client.acp_id == msg.get("acp_id"):
-                        client.send_text(msg)
+                        asyncio.create_task(client.send_text(msg))
                     pass
                 else:
-                    client.send_text(msg)
+                    # await client.send_text(msg)
+                    # run client.send_text(msg) w.o await in a separate thread
+                    asyncio.create_task(client.send_text(msg))
+
             except WebSocketDisconnect:
                 self.connected_clients.remove(client)
 
