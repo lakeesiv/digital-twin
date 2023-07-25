@@ -2,3 +2,4 @@ lib
 etl
 cfg
 data_analysis.py
+**/__pycache__
