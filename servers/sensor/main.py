@@ -13,7 +13,7 @@ api_provider = ApiProvider()
 app = FastAPI()
 
 
-@app.post("/history/")
+@app.post("/history/")  # POST /history/ with HistoricalDataRequestBody
 async def historical_data(req_body: HistoricalDataRequestBody):
     return api_provider.get_historical_data(
         req_body.acp_id,
@@ -23,12 +23,12 @@ async def historical_data(req_body: HistoricalDataRequestBody):
     )
 
 
-@app.post("/latest/")
+@app.get("/latest/")  # GET /latest/
 async def latest_data():
     return api_provider.get_latest_data()
 
 
-@app.websocket("/ws/")
+@app.websocket("/ws/")  # WebSocket /ws/
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     client = Client(websocket, None)
@@ -43,13 +43,14 @@ async def websocket_endpoint(websocket: WebSocket):
         api_provider.remove_client(client)
 
 
-@app.websocket("/ws/{acp_id}")
-async def dynamic_websocket_endpoint(websocket: WebSocket, acp_id: str):
+# WebSocket /ws/{acp_str} | acp_str is a string of acp_ids separated by commas
+@app.websocket("/ws/{acp_str}")
+async def dynamic_websocket_endpoint(websocket: WebSocket, acp_str: str):
     await websocket.accept()
 
-    logging.info(f"Adding new client for sensor {acp_id}")
+    logging.info(f"Adding new client for sensor {acp_str}")
 
-    client = Client(websocket, acp_id)
+    client = Client(websocket, acp_str)
     api_provider.add_client(client)
 
     try:
