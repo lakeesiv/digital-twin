@@ -27,15 +27,15 @@ class Client:
 
         return acp_config.split(",")
 
-    def send(self, msg: dict):
+    async def send(self, msg: dict):
         acp_id = msg.get("acp_id", None)
         if acp_id is None:
             return
         if self.acp_list is None:
-            self.websocket.send_json(msg)
+            await self.websocket.send_json(msg)
         else:
             if acp_id in self.acp_list:
-                self.websocket.send_json(msg)
+                await self.websocket.send_json(msg)
         return
 
 
@@ -71,16 +71,19 @@ connected_clients: List[Client] = []
 
 
 def handle_message(etl, msg, topic):
+    transformed_message = Decoder.transform(msg, topic)
+    if (transformed_message):
+        filtered_message = etl.rt_manager.filterParametersFromSensorMessage(
+            transformed_message)
+    if filtered_message is None:
+        return
+
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     try:
         # Broadcast the message to all connected clients
         for client in connected_clients:
-            msg = Decoder.transform(msg, topic)
-            if (msg):
-                msg = etl.rt_manager.filterParametersFromSensorMessage(
-                    msg)
-                loop.run_until_complete(client.send(msg))
+            loop.run_until_complete(client.send(filtered_message))
     finally:
         loop.close()
 
