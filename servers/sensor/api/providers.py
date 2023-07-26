@@ -76,6 +76,8 @@ class ApiProvider():
 
         if data is None:
             return None
+        if data.get("acp_ts") is None:
+            return None
 
         data["acp_ts"] = pd.to_datetime(data["acp_ts"], unit='s').astype(
             np.int64) // 10 ** 9
@@ -85,8 +87,31 @@ class ApiProvider():
         else:
             return data.to_dict(orient='records')
 
-    def get_latest_data(self, acp_id: str):
-        pass  # TODO
+    def get_latest_data(self):
+        # current time YYYY-MM-DD HH:MM:SS
+        today = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+        yesterday = (
+            pd.Timestamp.now() - pd.Timedelta(
+                days=2)).strftime("%Y-%m-%d %H:%M:%S")
+        result = []
+
+        for acp_id in self.all_sensors:
+            historical_data = self.get_historical_data(
+                acp_id, yesterday, today, return_type="df")
+
+            if historical_data is None:
+                continue
+
+            # remove any rows with NaN values
+            historical_data = historical_data.dropna()
+            if historical_data.empty:
+                continue
+
+            latest_data = historical_data.iloc[[-1]
+                                               ].to_dict(orient='records')[0]
+            result.append(latest_data)
+
+        return result
 
     def handle_message(self, msg, topic):
         transformed_message = Decoder.transform(msg, topic)
