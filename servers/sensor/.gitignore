@@ -3,3 +3,4 @@ etl
 cfg
 data_analysis.py
 **/__pycache__
+venv
