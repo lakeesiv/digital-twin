@@ -1,6 +1,6 @@
 export type SensorData = {
   acp_id: string;
-  acp_ts: string;
+  acp_ts: number;
   payload: {
     [key: string]: number;
   };

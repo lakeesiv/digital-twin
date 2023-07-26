@@ -7,7 +7,11 @@ import { SensorData } from ".";
   it will make a request to the API and return the data
   */
 
-const getDeviceHistory = (acp_id: string, start: Date, end: Date) => {
+const getDeviceHistory = (
+  acp_id: string | undefined,
+  start: Date,
+  end: Date
+) => {
   // convert date to YYYY-MM-DD HH:MM:SS format
   const startDate = start.toISOString().split(".")[0];
   const endDate = end.toISOString().split(".")[0];
@@ -25,6 +29,9 @@ const getDeviceHistory = (acp_id: string, start: Date, end: Date) => {
 
   // perform the fetch on mount
   useEffect(() => {
+    // if acp_id is undefined, don't fetch
+    if (acp_id === undefined) return;
+
     const fetchLatestDevices = async () => {
       setLoading(true);
       setError(null);
@@ -49,7 +56,7 @@ const getDeviceHistory = (acp_id: string, start: Date, end: Date) => {
     };
 
     fetchLatestDevices();
-  }, []);
+  }, [acp_id, start, end]);
 
   return { data, loading, error };
 };
