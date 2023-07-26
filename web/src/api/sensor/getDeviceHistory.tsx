@@ -16,11 +16,7 @@ const getDeviceHistory = (
   const startDate = start.toISOString().split(".")[0];
   const endDate = end.toISOString().split(".")[0];
 
-  const requestBody = {
-    acp_id,
-    start_time: startDate,
-    end_time: endDate,
-  };
+
 
   const url = `${SENSOR_API_URL}/history/`;
   const [data, setData] = useState<SensorData[]>([]);
@@ -31,6 +27,12 @@ const getDeviceHistory = (
   useEffect(() => {
     // if acp_id is undefined, don't fetch
     if (acp_id === undefined) return;
+
+    const requestBody = {
+      acp_id,
+      start_time: startDate,
+      end_time: endDate,
+    };
 
     const fetchLatestDevices = async () => {
       setLoading(true);
@@ -47,11 +49,11 @@ const getDeviceHistory = (
           throw new Error("Something went wrong");
         }
         const data = await response.json();
-        setData(data);
       } catch (error) {
         setError(String(error));
       } finally {
         setLoading(false);
+        setData(data);
       }
     };
 

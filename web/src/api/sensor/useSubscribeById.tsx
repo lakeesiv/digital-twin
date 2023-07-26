@@ -2,7 +2,7 @@ import { SENSOR_WS_URL } from "../config";
 import useWebSocket from "./useWebSocket";
 
 const useSubscribeById = (id: string | undefined) => {
-  const url = `${SENSOR_WS_URL}${id}/`;
+  const url = `${SENSOR_WS_URL}${id}`;
 
   const {
     lastMessage,
