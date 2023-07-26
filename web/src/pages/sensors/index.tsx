@@ -2,24 +2,17 @@ import Layout from "~/components/layout";
 import { columns } from "~/components/sensors/columns";
 import { DataTable } from "~/components/sensors/data-table";
 // import data from "~/mock";
-import WSStatus from "~/components/ws-status";
-import useRecords from "~/websockets/useRecords";
+import { getLatestDevices } from "~/api/sensor";
 
 export default function Home() {
-  const { records, connectionStatus, rtConnected } = useRecords();
+  const { data, loading, error } = getLatestDevices();
 
   return (
     <Layout title="Home">
-      <div className="mb-2 flex items-center space-x-2">
-        <WSStatus
-          connectionStatus={connectionStatus}
-          rtConnected={rtConnected}
-        />
-      </div>
-      {records && records.length > 0 && (
+      {data && data.length > 0 && (
         <DataTable
           columns={columns}
-          data={records.map((record) => {
+          data={data.map((record) => {
             return {
               id: record.acp_id,
               lastReading: record.payload,
@@ -27,9 +20,10 @@ export default function Home() {
               location: "Cambridge",
             };
           })}
-          // data={data}
         />
       )}
+      {loading && !error && <div>Loading...</div>}
+      {error && <div>Error: {error}</div>}
     </Layout>
   );
 }

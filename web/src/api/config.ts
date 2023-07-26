@@ -1,6 +1,7 @@
 import { BarChartData, LineChartData } from "charts";
 
-export const API_URL = "SOME_URL";
+export const API_URL = "http://localhost:7000";
+export const SENSOR_API_URL = "http://localhost:8000"
 
 export type SimulationResults = {
   overallTAT: number;

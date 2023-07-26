@@ -7,11 +7,24 @@ from fastapi import FastAPI, WebSocket
 
 from api.providers import ApiProvider, Client
 from api.validators import HistoricalDataRequestBody
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+
 
 api_provider = ApiProvider()
 
 app = FastAPI()
+origins = ["*"]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/history/")  # POST /history/ with HistoricalDataRequestBody
 async def historical_data(req_body: HistoricalDataRequestBody):
