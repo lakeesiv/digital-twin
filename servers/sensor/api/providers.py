@@ -85,7 +85,9 @@ class ApiProvider():
         if return_type == "df":
             return data
         else:
-            return data.to_dict(orient='records')
+            data_dict = data.to_dict(orient='records')
+            data = [self._convert_to_payload_format(d) for d in data_dict]
+            return data
 
     def get_latest_data(self):
         # current time YYYY-MM-DD HH:MM:SS
@@ -109,6 +111,9 @@ class ApiProvider():
 
             latest_data = historical_data.iloc[[-1]
                                                ].to_dict(orient='records')[0]
+
+            latest_data = self._convert_to_payload_format(latest_data)
+
             result.append(latest_data)
 
         return result
@@ -120,6 +125,8 @@ class ApiProvider():
                 transformed_message)
         if filtered_message is None:
             return
+
+        filtered_message = self._convert_to_payload_format(filtered_message)
 
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
@@ -137,3 +144,22 @@ class ApiProvider():
                 {"acp_id": sensor_id, "parameters": ["all"]})
 
         self.ws_etl.subscribe(query)
+
+    def _convert_to_payload_format(self, message: dict):
+        acp_id = message.get("acp_id")
+        acp_ts = message.get("acp_ts")
+
+        # put the rest of the attributes in a dictionary
+        payload = {}
+
+        for key, value in message.items():
+            if key not in ["acp_id", "acp_ts"]:
+                payload[key] = value
+
+        message = {
+            "acp_id": acp_id,
+            "acp_ts": acp_ts,
+            "payload": payload,
+        }
+
+        return message
