@@ -13,6 +13,7 @@ import {
 import { ArrowUpRight, BatteryLow, Clock, Radio } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { SensorData, getLatestDevices } from "~/api/sensor";
 import useRecords, { RecordType } from "~/websockets/useRecords";
 
 interface TabViewProps {
@@ -60,14 +61,14 @@ interface SensorsViewProps {
 const SensorsView: React.FC<SensorsViewProps> = ({ numberOfItems = 5 }) => {
   const [sensorTabIndex, setSensorTabIndex] = React.useState(0);
 
-  const { records } = useRecords();
+  const { data } = getLatestDevices();
 
-  if (!records) {
+  if (!data) {
     return null; // return null if loading
   }
 
   const { lowBatteryData, recentlyUpdatedData } = filterData(
-    records,
+    data,
     numberOfItems
   );
   return (
@@ -117,29 +118,29 @@ type FilteredData = {
   timestamp: number;
 };
 
-const filterData = (data: RecordType[], numOfItems: number) => {
+const filterData = (data: SensorData[], numOfItems: number) => {
   const lowBatteryData: FilteredData[] = [];
   const recentlyUpdatedData: FilteredData[] = [];
 
   // lowBatteryData filtering
-  let dataWithVdd = data.filter((item) => item.payload?.vdd !== undefined);
+  let dataWithVdd = data.filter((item) => item.payload?.batt_mv !== undefined);
   // sort data by vdd (asc)
-  dataWithVdd.sort((a, b) => a.payload.vdd - b.payload.vdd);
+  dataWithVdd.sort((a, b) => a.payload.batt_mv - b.payload.batt_mv);
   // get the first numOfItems
   dataWithVdd = dataWithVdd.slice(0, numOfItems);
   // map to FilteredData
   dataWithVdd.forEach((item) => {
     lowBatteryData.push({
       name: item.acp_id,
-      description: `Battery: ${item.payload.vdd} mV`,
+      description: `Battery: ${item.payload.batt_mv} mV`,
       location: "Cambridge", // TODO
-      timestamp: parseFloat(item.acp_ts),
+      timestamp: item.acp_ts,
     });
   });
 
   // recentlyUpdatedData filtering
   // sort data by timestamp (desc)
-  data.sort((a, b) => parseFloat(b.acp_ts) - parseFloat(a.acp_ts));
+  data.sort((a, b) => b.acp_ts - a.acp_ts);
   // get the first numOfItems
   data = data.slice(0, numOfItems);
   // map to FilteredData
@@ -147,7 +148,7 @@ const filterData = (data: RecordType[], numOfItems: number) => {
     recentlyUpdatedData.push({
       name: item.acp_id,
       location: "Cambridge", // TODO
-      timestamp: parseFloat(item.acp_ts),
+      timestamp: item.acp_ts,
     });
   });
 
