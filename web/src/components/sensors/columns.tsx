@@ -39,7 +39,7 @@ import {
 export type SensorData = {
   id: string;
   location: string;
-  lastUpdateTimestamp: string;
+  lastUpdateTimestamp: string | number;
   lastReading: Record<string, number>;
 };
 
