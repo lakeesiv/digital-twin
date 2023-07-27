@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SensorData } from ".";
 
 interface Options {
@@ -7,25 +7,26 @@ interface Options {
 }
 
 const useWebSocket = (url: string, options?: Options) => {
-  const socket = new WebSocket(url);
   const [messageHistory, setMessageHistory] = useState<SensorData[]>([]);
   const [connectionStatus, setConnectionStatus] = useState<
     "Connected" | "Disconnected" | "Uninstantiated"
   >("Uninstantiated");
 
-  const sendMessage = (message: string) => {
-    socket.send(message);
-  };
+  const socketRef = useRef<WebSocket | null>(null);
 
-  const sendJsonMessage = (message: object) => {
-    socket.send(JSON.stringify(message));
-  };
+  if (!socketRef.current) {
+    socketRef.current = new WebSocket(url);
+  }
+
+  const socket = socketRef.current;
 
   useEffect(() => {
     // if condition is false, don't connect
     if (options?.condition !== undefined) {
       if (!options.condition) return;
     }
+
+    if (!socket) return;
 
     socket.onopen = () => {
       setConnectionStatus("Connected");
@@ -40,13 +41,11 @@ const useWebSocket = (url: string, options?: Options) => {
     socket.onclose = () => {
       setConnectionStatus("Disconnected");
     };
-  }, [options?.condition]);
+  }, [options?.condition, socketRef]);
 
   return {
     messageHistory,
     setMessageHistory,
-    sendMessage,
-    sendJsonMessage,
     lastMessage: messageHistory[messageHistory.length - 1],
     connectionStatus,
   };
