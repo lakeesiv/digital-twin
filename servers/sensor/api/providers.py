@@ -176,13 +176,17 @@ class ApiProvider():
     def _convert_to_payload_format(self, message: dict):
         """Converts a message to the payload format.
         From:
+        ```
         {
             "acp_id": "sensor_1",
             "acp_ts": 1623345600,
             "temperature": 20,
             "humidity": 50
         }
+        ```
+
         To:
+        ```
         {
             "acp_id": "sensor_1",
             "acp_ts": 1623345600,
@@ -191,6 +195,7 @@ class ApiProvider():
                 "humidity": 50
             }
         }
+        ```
         """
         acp_id = message.get("acp_id")
         acp_ts = message.get("acp_ts")
