@@ -45,7 +45,6 @@ import {
   SelectValue,
 } from "ui";
 import { SensorData } from "~/api/sensor";
-import { type ParsedMessage } from "~/websockets/useWS";
 import LineComparison from "../line-comparison";
 
 interface LiveChartsProps extends React.HTMLAttributes<HTMLDivElement> {

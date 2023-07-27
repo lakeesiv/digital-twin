@@ -35,7 +35,6 @@
 
 import React from "react";
 import { ScrollArea } from "ui";
-import { type ParsedMessage } from "~/websockets/useWS";
 import { Card, List, ListItem, Title } from "@tremor/react";
 import { SensorData } from "~/api/sensor";
 

@@ -14,7 +14,6 @@ import { ArrowUpRight, BatteryLow, Clock, Radio } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { SensorData, getLatestDevices } from "~/api/sensor";
-import useRecords, { RecordType } from "~/websockets/useRecords";
 
 interface TabViewProps {
   data: FilteredData[];
