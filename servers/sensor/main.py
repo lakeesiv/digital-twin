@@ -11,8 +11,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-
-
 api_provider = ApiProvider()
 
 app = FastAPI()
@@ -25,6 +23,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.post("/history/")  # POST /history/ with HistoricalDataRequestBody
 async def historical_data(req_body: HistoricalDataRequestBody):
