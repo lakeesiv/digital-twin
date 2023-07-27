@@ -31,11 +31,11 @@ import {
   Flex,
   type DateRangePickerValue,
 } from "@tremor/react";
+import { LineChart, type LineChartData } from "charts";
 import { Grid, LayoutGrid, Rows } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { LineChart } from "charts";
-import { FacetedFilterButton } from "ui";
 import {
+  FacetedFilterButton,
   Select,
   SelectContent,
   SelectGroup,
@@ -44,24 +44,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "ui";
-import { capilatizeFirstLetter } from "~/utils";
+import { SensorData } from "~/api/sensor";
 import { type ParsedMessage } from "~/websockets/useWS";
-import { type LineChartData } from "charts";
 import LineComparison from "../line-comparison";
 
 interface LiveChartsProps extends React.HTMLAttributes<HTMLDivElement> {
-  sensorData: ParsedMessage[];
+  sensorData: SensorData[];
+  dates: DateRangePickerValue;
+  setDates: (value: DateRangePickerValue) => void;
 }
 
-const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
+const LiveCharts: React.FC<LiveChartsProps> = ({
+  sensorData,
+  dates,
+  setDates,
+  ...props
+}) => {
   const [filters, setFilters] = useState<string[]>(
     getAllAttributes(sensorData.map((message) => message.payload))
   );
-  const [dates, setDates] = useState<DateRangePickerValue>({
-    from: new Date(),
-    to: new Date(),
-    selectValue: "tdy",
-  });
   const [numberOfColumns, setNumberOfColumns] = useState<1 | 2 | 3>(3);
 
   const allCharts: LineChartData[] = [];
@@ -77,13 +78,13 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
   // create a chart for each filter and add it to the array
   filters.forEach((filter) => {
     allCharts.push({
-      title: capilatizeFirstLetter(filter),
+      title: filter,
       data: {
-        x: sensorData.map((message) => parseFloat(message.acp_ts) * 1000),
+        x: sensorData.map((message) => message.acp_ts * 1000),
         y: sensorData.map((message) => message.payload[filter]),
       },
       xlabel: "Time",
-      ylabel: capilatizeFirstLetter(filter),
+      ylabel: filter,
       labels: [filter],
     });
   });
@@ -107,6 +108,8 @@ const LiveCharts: React.FC<LiveChartsProps> = ({ sensorData, ...props }) => {
             value={dates}
             onValueChange={setDates}
             selectPlaceholder="Select"
+            maxDate={new Date()}
+            enableSelect={false}
           />
           <Select
             onValueChange={(value) => {
