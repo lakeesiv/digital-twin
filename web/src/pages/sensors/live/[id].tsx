@@ -36,7 +36,6 @@ function Page() {
       dates.from!,
       dates.to!
     );
-  // useSensorManager("enl-iaqc-088b66", dates.from!, dates.to!);
 
   if (!router.query.id) {
     return null;
@@ -49,7 +48,7 @@ function Page() {
   return (
     <Layout>
       <div className="flex items-center space-x-2">
-        <WSStatus connectionStatus={connectionStatus} rtConnected={true} />
+        <WSStatus connectionStatus={connectionStatus} />
       </div>
       <LiveCharts
         dates={dates}

@@ -3,13 +3,11 @@ import StatusBage from "./status-badge";
 import { useToast } from "ui";
 interface WSStatusProps {
   connectionStatus: "Connected" | "Disconnected" | "Uninstantiated";
-  rtConnected: boolean;
   alert?: boolean;
 }
 
 const WSStatus: React.FC<WSStatusProps> = ({
   connectionStatus,
-  rtConnected,
   alert = true,
 }) => {
   const toast = useToast();
@@ -34,14 +32,6 @@ const WSStatus: React.FC<WSStatusProps> = ({
           status={connectionStatus === "Connected" ? "active" : "inactive"}
           message="WebSocket"
           color={connectionStatus === "Connected" ? "lime" : "orange"}
-          animated={false}
-        />
-      </div>
-      <div>
-        <StatusBage
-          status={rtConnected ? "active" : "inactive"}
-          message="Real Time"
-          color={rtConnected ? "lime" : "orange"}
           animated={false}
         />
       </div>
