@@ -1,50 +1,36 @@
 import Layout from "~/components/layout";
-import useSensorManager from "~/api/sensor/useSensorManager";
-import { useState } from "react";
-import { DateRangePicker, type DateRangePickerValue } from "@tremor/react";
-import { getDeviceHistory } from "~/api/sensor";
+import Image from "next/image";
+
+const Dot = ({ color, x, y }: { color: string; x: number; y: number }) => (
+  <div
+    className="h-3 w-3 transform rounded-full bg-white 
+    transition duration-200 ease-in-out hover:scale-125
+    "
+    style={{
+      backgroundColor: color,
+      position: "absolute",
+      top: `${y}px`,
+      left: `${x}px`,
+    }}
+  />
+);
 
 const WS = () => {
-  const today = new Date();
-  const yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  const [dates, setDates] = useState<DateRangePickerValue>({
-    from: yesterday,
-    to: today,
-  });
-  const {
-    data,
-    error,
-    loading,
-    connectionStatus,
-    messageHistory,
-    setMessageHistory,
-  } = useSensorManager("enl-iaqc-088b66", dates.from!, dates.to!);
-
   return (
     <Layout>
-      <DateRangePicker
-        className="mx-auto  max-w-md "
-        value={dates}
-        onValueChange={(newDates) => {
-          if (!newDates.from || !newDates.to || newDates.from === newDates.to) {
-            const availableDate = newDates.from || newDates.to || today;
-            const startOfDay = new Date(availableDate);
-            startOfDay.setHours(0, 0, 0, 0);
-            const endOfDay = new Date(availableDate);
-            endOfDay.setHours(23, 59, 59, 999);
-            newDates.from = startOfDay;
-            newDates.to = endOfDay;
-          }
-          setDates(newDates);
-        }}
-        selectPlaceholder="Select"
-        maxDate={today}
-        enableSelect={false}
-      />
-      {/* {connectionStatus} */}
-      {JSON.stringify(data, null, 2)}
+      <div>
+        <div className="relative">
+          <Image
+            className="relative bottom-0 left-0 z-0"
+            src="/IfMBuildingPlan.svg"
+            alt="sock"
+            width={500}
+            height={500}
+            color="white"
+          />
+          <Dot color="red" x={20} y={0} />
+        </div>
+      </div>
     </Layout>
   );
 };
