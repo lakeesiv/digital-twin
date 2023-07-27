@@ -1,6 +1,7 @@
 import { SENSOR_API_URL } from "../config";
 import { useState, useEffect } from "react";
 import { SensorData } from ".";
+import { useToast } from "ui";
 
 /* 
   This function is used to get the history of a device
@@ -16,12 +17,11 @@ const getDeviceHistory = (
   const startDate = start.toISOString().split(".")[0];
   const endDate = end.toISOString().split(".")[0];
 
-
-
   const url = `${SENSOR_API_URL}/history/`;
   const [data, setData] = useState<SensorData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
 
   // perform the fetch on mount
   useEffect(() => {
@@ -33,6 +33,9 @@ const getDeviceHistory = (
       start_time: startDate,
       end_time: endDate,
     };
+
+    setLoading(true);
+    setError(null);
 
     const fetchLatestDevices = async () => {
       setLoading(true);
@@ -49,11 +52,23 @@ const getDeviceHistory = (
           throw new Error("Something went wrong");
         }
         const data = await response.json();
+
+        if (!Array.isArray(data))
+          throw new Error(
+            `Failed to fetch data between ${startDate} and ${endDate}`
+          );
+
+        setData(data);
       } catch (error) {
-        setError(String(error));
+        toast({
+          title: "Error",
+          description: String(error),
+          variant: "destructive",
+          duration: 3000,
+        });
+        // setError();
       } finally {
         setLoading(false);
-        setData(data);
       }
     };
 
