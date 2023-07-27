@@ -17,10 +17,10 @@ const WS = () => {
     data,
     error,
     loading,
-    // connectionStatus,
-    // messageHistory,
-    // setMessageHistory,
-  } = getDeviceHistory("enl-iaqc-088b66", dates.from!, dates.to!);
+    connectionStatus,
+    messageHistory,
+    setMessageHistory,
+  } = useSensorManager("enl-iaqc-088b66", dates.from!, dates.to!);
 
   return (
     <Layout>
@@ -37,14 +37,6 @@ const WS = () => {
             newDates.from = startOfDay;
             newDates.to = endOfDay;
           }
-
-          /*
-            If the days are the same, set from to be the start of the day
-            and to to be the end of the day
-          */
-          if (newDates.from?.toDateString() === newDates.to?.toDateString()) {
-          }
-
           setDates(newDates);
         }}
         selectPlaceholder="Select"

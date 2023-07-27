@@ -7,8 +7,7 @@ const useSensorManager = (id: string | undefined, start: Date, end: Date) => {
 
   const { data, error, loading } = getDeviceHistory(id, start, end);
 
-  // const combinedData = [ ...messageHistory];
-  const combinedData = data
+  const combinedData = [...messageHistory, ...data];
   // remove duplicates
   const uniqueData = combinedData.filter(
     (v, i, a) => a.findIndex((t) => t.acp_ts === v.acp_ts) === i
