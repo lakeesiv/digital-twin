@@ -1,4 +1,4 @@
-import { Divider } from "@tremor/react";
+import { Divider, Text } from "@tremor/react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui";
 import { OverallPlan } from "~/components/floor-plans";
 import Layout from "~/components/layout";
@@ -9,32 +9,30 @@ function heatMapColorforValue(value: number) {
 }
 
 const HeatMapLegend = () => {
-  const legendValues = [0, 0.25, 0.5, 0.75, 1];
+  const legendValues = [1, 0.75, 0.5, 0.25, 0];
 
   return (
-    <div className="heat-map-legend mt-4 flex flex-col items-center">
-      <div className="gradient-bar h-4 w-52 overflow-hidden rounded-lg">
+    <div className="mx-4 flex flex-row items-center">
+      <div className="h-[500px] w-4 overflow-hidden rounded-sm">
         <div
-          className="gradient h-full"
+          className="h-full"
           style={{
-            background: `linear-gradient(to right, ${legendValues
+            background: `linear-gradient(to bottom, ${legendValues
               .map((value) => heatMapColorforValue(value))
               .join(", ")})`,
           }}
         ></div>
       </div>
-      <div className="legend-labels mt-2 flex w-52 justify-between text-sm">
+      <div className="ml-2 flex h-[500px] flex-col justify-between text-sm">
         {legendValues.map((value, index) => (
-          <div key={index} className="legend-label">
-            {value}
-          </div>
+          <Text key={index}>{value}</Text>
         ))}
       </div>
     </div>
   );
 };
 
-const Dot = ({ color, x, y }: { color: string; x: number; y: number }) => {
+const Dot = ({ x, y }: { color: string; x: number; y: number }) => {
   return (
     <div
       style={{
@@ -69,17 +67,25 @@ const Dot = ({ color, x, y }: { color: string; x: number; y: number }) => {
   );
 };
 
+const vals = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450];
+
 const WS = () => {
   return (
     <Layout>
-      <div>
+      <div className="flex flex-row items-center">
         <div className="relative">
           <OverallPlan className="relative bottom-0 left-0 -z-50" />
-          <Dot color="red" x={500} y={0} />
-          <Dot color="red" x={500} y={500} />
-          <Dot color="red" x={200} y={250} />
-          <Dot color="red" x={0} y={250} />
+          <Dot x={50} y={50} color="red" />
+          {vals.map((x) => (
+            <Dot
+              key={x}
+              x={Math.random() * 500}
+              y={Math.random() * 500}
+              color="red"
+            />
+          ))}
         </div>
+        <HeatMapLegend />
       </div>
     </Layout>
   );
