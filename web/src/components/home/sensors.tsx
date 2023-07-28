@@ -60,10 +60,16 @@ interface SensorsViewProps {
 const SensorsView: React.FC<SensorsViewProps> = ({ numberOfItems = 5 }) => {
   const [sensorTabIndex, setSensorTabIndex] = React.useState(0);
 
-  const { data } = getLatestDevices();
+  const { data, error, loading } = getLatestDevices();
 
-  if (!data) {
-    return null; // return null if loading
+  if (loading) {
+    return <div className="mt-4">Loading...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className="mt-4">Error: Please ensure Sensor server is running</div>
+    );
   }
 
   const { lowBatteryData, recentlyUpdatedData } = filterData(
