@@ -1,5 +1,6 @@
 import Layout from "~/components/layout";
 import Image from "next/image";
+import { OverallPlan } from "~/components/floor-plans";
 
 const Dot = ({ color, x, y }: { color: string; x: number; y: number }) => (
   <div
@@ -20,14 +21,7 @@ const WS = () => {
     <Layout>
       <div>
         <div className="relative">
-          <Image
-            className="relative bottom-0 left-0 z-0"
-            src="/IfMBuildingPlan.svg"
-            alt="sock"
-            width={500}
-            height={500}
-            color="white"
-          />
+          <OverallPlan className="relative bottom-0 left-0 z-0" />
           <Dot color="red" x={20} y={0} />
         </div>
       </div>
