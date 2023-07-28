@@ -107,6 +107,9 @@ class ApiProvider():
         data["acp_ts"] = pd.to_datetime(data["acp_ts"], unit='s').astype(
             np.int64) // 10 ** 9
 
+        # remove NaN values
+        data = data.dropna()
+
         if return_type == "df":
             return data
         else:
