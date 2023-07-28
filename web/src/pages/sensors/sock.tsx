@@ -3,6 +3,16 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui";
 import { OverallPlan } from "~/components/floor-plans";
 import Layout from "~/components/layout";
 
+type DataPoint = {
+  acp_id: string;
+  acp_ts: number;
+  payload: { [key: string]: number };
+  location: {
+    x: number;
+    y: number;
+  };
+};
+
 function heatMapColorforValue(value: number) {
   var h = (1.0 - value) * 240;
   return "hsl(" + h + ", 100%, 50%)";
