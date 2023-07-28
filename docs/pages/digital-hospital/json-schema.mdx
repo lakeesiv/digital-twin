@@ -129,42 +129,42 @@ Then for every resource we would have a graph like this. Final schema.
 
 ## Resource Utilizaation
 
-### Utilization By Stage
+### Utilization By Resource
 
 ![image](./img/utilization_by_stage.png)
 
-Here we are plotting the percent utilization by stage. The data type follows the [BarChartData](/packages/charts/bar). Eg
+Here we are plotting the percent utilization by resource. The data type follows the [BarChartData](/packages/charts/bar). Eg
 
 ```json filename="JSON Schema"
 {
-  "utilization_by_stage": {
+  "utilization_by_resource": {
     "data": {
-      "x": stages, // array of stages from the simulation
+      "x": resources, // array of resources from the simulation
       "y": [[100, 50, 60, 60, 20, 100, 20, 24, 70, 80, 80, 90, 100]], // array of arrays, inner array is the utilization for each stage
       "labels": ["% Average Utilization"]
     },
-    "xlabel": "Stages",
+    "xlabel": "Resources",
     "ylabel": "% Average Utilization",
     "title": "% Average Utilization by Stage"
   }
 }
 ```
 
-### Daily Utilization by Stage
+### Daily Utilization by Resource
 
 ![image](./img/daily_utilization_by_stage.png)
 
-Here we plot how the utilization for stage varies per day of the simulation. Data type follows the [LineChartData](/packages/charts/line) as mentioned before.
+Here we plot how the utilization for resource varies per day of the simulation. Data type follows the [LineChartData](/packages/charts/line) as mentioned before.
 
 ```json filename="JSON Schema"
 {
-  "daily_utilization_by_stage": {
+  "daily_utilization_by_resource": {
     "data": {
       "x": [...], // array of days
       "y": [[...], [...], ...] // array of arrays, inner array is the utilization for each stage
     },
-    "labels": stages, // array of stages from the simulation,
-    "xlabel": "Stages (days)",
+    "labels": resources, // array of resources from the simulation,
+    "xlabel": "Time (days)",
     "ylabel": "TAT",
     "title": "TAT by Stage",
   }
@@ -190,8 +190,8 @@ Here we plot how the utilization for stage varies per day of the simulation. Dat
   },
   "tat_by_stage": "BarChartData",
   "resource_allocation": ["LineChartData", "LineChartData", ...],
-  "utilization_by_stage": "BarChartData",
-  "daily_utilization_by_stage": "LineChartData"
+  "utilization_by_resource": "BarChartData",
+  "daily_utilization_resource": "LineChartData"
 }
 ```
 
