@@ -1,4 +1,4 @@
-import { DataPoint, Viz2D } from "~/components/2d-viz";
+import { DataPoint, Viz2D, Viz2DFilter } from "~/components/2d-viz";
 import Layout from "~/components/layout";
 
 const data: DataPoint[] = [
@@ -43,7 +43,9 @@ const data: DataPoint[] = [
 const WS = () => {
   return (
     <Layout>
-      <Viz2D data={data} selectedAttribute="temperature" />
+      <div className="flex">
+        <Viz2DFilter data={data} />
+      </div>
     </Layout>
   );
 };

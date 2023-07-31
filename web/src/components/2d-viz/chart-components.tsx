@@ -9,14 +9,14 @@ const heatMapColorforValue = (value: number) => {
 
 interface HeatMapLegendProps {
   data: DataPoint[];
-  selectedAttribute?: string;
+  selectedAttribute?: string | "all";
 }
 
 export const HeatMapLegend = ({
   data,
   selectedAttribute,
 }: HeatMapLegendProps) => {
-  if (!selectedAttribute) {
+  if (!selectedAttribute || selectedAttribute === "all") {
     return null;
   }
 
@@ -119,14 +119,14 @@ const Marker = ({
 
 interface DisplayMarkersProps {
   data: DataPoint[];
-  selectedAttribute?: string;
+  selectedAttribute?: string | "all";
 }
 
 export const DisplayMarkers = ({
   data,
   selectedAttribute,
 }: DisplayMarkersProps) => {
-  if (!selectedAttribute) {
+  if (!selectedAttribute || selectedAttribute === "all") {
     return (
       <>
         {data.map((d, index) => (
