@@ -46,6 +46,7 @@ import {
 } from "ui";
 import { SensorData } from "~/api/sensor";
 import LineComparison from "../line-comparison";
+import { getAllAttributes } from "~/utils";
 
 interface LiveChartsProps extends React.HTMLAttributes<HTMLDivElement> {
   sensorData: SensorData[];
@@ -156,16 +157,5 @@ const LiveCharts: React.FC<LiveChartsProps> = ({
     </div>
   );
 };
-
-// get all attributes from an object of { string: number}
-const getAllAttributes = (obj: { [key: string]: number }[]) =>
-  obj.reduce((acc, curr) => {
-    Object.keys(curr).forEach((key) => {
-      if (!acc.includes(key)) {
-        acc.push(key);
-      }
-    });
-    return acc;
-  }, [] as string[]);
 
 export default LiveCharts;
