@@ -86,8 +86,8 @@ class ApiProvider():
 
         Args:
             acp_id (str): acp_id of the sensor
-            start_time (str): start time of the time range in YYYY-MM-DD HH:MM:SS format
-            end_time (str): end time of the time range in YYYY-MM-DD HH:MM:SS format
+            start_time (str): start time of the time range in DD/MM/YYYY format
+            end_time (str): end time of the time range in DD/MM/YYYY format
             return_type (Literal["dict", "df"], optional): return type of the data. Defaults to "dict".
         """
         query = {
@@ -119,10 +119,11 @@ class ApiProvider():
 
     def get_latest_data(self):
         """Gets the latest data from the database for all sensors."""
-        today = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+        today = pd.Timestamp.now().strftime("%d/%m/%Y")
+
         yesterday = (
             pd.Timestamp.now() - pd.Timedelta(
-                days=2)).strftime("%Y-%m-%d %H:%M:%S")
+                days=2)).strftime("%d/%m/%Y")
         result = []
 
         for acp_id in self.all_sensors:
