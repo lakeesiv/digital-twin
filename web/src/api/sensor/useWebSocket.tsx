@@ -13,14 +13,18 @@ const useWebSocket = (url: string, options?: Options) => {
   >("Uninstantiated");
 
   const socketRef = useRef<WebSocket | null>(null);
-
-  if (!socketRef.current) {
-    socketRef.current = new WebSocket(url);
-  }
+  const isBrowser = typeof window !== "undefined";
 
   const socket = socketRef.current;
 
   useEffect(() => {
+    // if not in browser, don't connect
+    if (!isBrowser) return;
+
+    if (!socketRef.current) {
+      socketRef.current = new WebSocket(url);
+    }
+
     // if condition is false, don't connect
     if (options?.condition !== undefined) {
       if (!options.condition) return;
