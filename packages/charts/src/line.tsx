@@ -407,6 +407,12 @@ const getLayout = (
               {
                 step: "hour",
                 stepmode: "backward",
+                count: 24,
+                label: "1d",
+              },
+              {
+                step: "hour",
+                stepmode: "backward",
                 count: 24 * 7,
                 label: "1w",
               },
