@@ -13,9 +13,9 @@ const getDeviceHistory = (
   start: Date,
   end: Date
 ) => {
-  // convert date to YYYY-MM-DD HH:MM:SS format
-  const startDate = start.toISOString().split(".")[0];
-  const endDate = end.toISOString().split(".")[0];
+  // convert date to DD/MM/YYYY
+  const startDate = start.toLocaleDateString("en-GB");
+  const endDate = end.toLocaleDateString("en-GB");
 
   const url = `${SENSOR_API_URL}/history/`;
   const [data, setData] = useState<SensorData[]>([]);
