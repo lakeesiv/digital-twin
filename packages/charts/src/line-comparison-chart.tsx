@@ -236,7 +236,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
       plottingData.push({
         x: individualX ? x2[i] : x2,
         y: lineData2.data.y[i],
-        marker: { color: getColor(i + 3) },
+        marker: { color: getColor(i + 1) },
         fill: fill ? "tozeroy" : "none",
         line: { shape: mapCurveStyle(curveStyle) },
         type: "scattergl",
