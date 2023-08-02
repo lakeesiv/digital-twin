@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import Plotly from "plotly.js";
 
 const colors = [
-  "#6b64ef",
   "#FF6B6B",
+  "#6b64ef",
   "#FFE66D",
   "#8CE8C3",
   "#FFA8E2",
