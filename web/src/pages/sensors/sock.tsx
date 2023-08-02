@@ -43,7 +43,8 @@ const data: DataPoint[] = [
 const WS = () => {
   return (
     <Layout>
-      <div className="flex">
+      <div className="flex flex-col space-y-8">
+        <Viz2D data={data} />
         <Viz2DFilter data={data} />
       </div>
     </Layout>
