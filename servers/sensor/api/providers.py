@@ -1,3 +1,4 @@
+# import random
 from typing import Literal
 
 from fastapi import WebSocket
@@ -151,13 +152,35 @@ class ApiProvider():
         """Handles a message received from the MQTT broker and broadcasts it to all connected clients."""
 
         transformed_message = Decoder.transform(msg, topic)
+        logging.info(transformed_message)
+
         if (transformed_message):
             filtered_message = self.ws_etl.rt_manager.filterParametersFromSensorMessage(
                 transformed_message)
+        else:
+            return
+
+        gateway = transformed_message.get("gateway")
+        data_connector = transformed_message.get("data_connector")
+
         if filtered_message is None:
             return
 
         filtered_message = self._convert_to_payload_format(filtered_message)
+        filtered_message["gateway"] = gateway
+        filtered_message["data_connector"] = data_connector
+        # payload: dict = filtered_message["payload"]
+        # payload = {**payload, "location":
+        #            [8, 1, 0]
+        #            }
+
+        # location = {
+        #     "x": random.random(0, 100),
+        #     "y": random.random(0, 100),
+        #     "floor": random.randint(0, 1)
+        # }
+
+        # filtered_message["location"] = location
 
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
