@@ -17,6 +17,8 @@
     "@tremor/react": "^3.2.2",
     "@types/react-plotly.js": "^2.6.0",
     "@types/sockjs-client": "^1.5.1",
+    "charts": "workspace:*",
+    "danfojs": "^1.1.2",
     "lucide-react": "^0.246.0",
     "next": "^13.4.2",
     "next-themes": "^0.2.1",
@@ -24,9 +26,8 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.0",
     "sockjs-client": "^1.6.1",
-    "zod": "^3.21.4",
     "ui": "workspace:*",
-    "charts": "workspace:*"
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/eslint": "^8.37.0",
