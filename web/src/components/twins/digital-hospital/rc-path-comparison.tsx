@@ -1,44 +1,55 @@
 import { Callout, Card, CategoryBar, Grid, Metric, Text } from "@tremor/react";
 import { TrendingDown, TrendingUp } from "lucide-react";
+import { SimulationResults } from "~/api/config";
+import { roundToDP } from "~/utils";
 
 const categories = [
   {
     title: "7 Day Progress",
-    value: 50,
     target: 80,
   },
   {
     title: "10 Day Progress",
-    value: 90,
     target: 90,
   },
   {
     title: "12 Day Progress",
-    value: 92,
     target: 95,
   },
   {
     title: "21 Day Progress",
-    value: 99,
     target: 95,
   },
 ];
 
-export default function RCPathComparison() {
+interface RCPathComparisonProps {
+  overall_tat: SimulationResults["overall_tat"];
+  progress: SimulationResults["progress"];
+}
+
+export default function RCPathComparison({
+  overall_tat,
+  progress,
+}: RCPathComparisonProps) {
+  const progressValues = Object.values(progress).map((item) => item * 100);
+
   return (
     <Grid numItemsSm={2} numItemsLg={5} className="gap-6">
       <Card>
         <h1 className="text-2xl font-bold">Overall TAT</h1>
-        <Metric className="pt-4">90 hrs </Metric>
+        <Metric className="pt-4">{roundToDP(overall_tat, 2)} hrs </Metric>
       </Card>
-      {categories.map((item) => (
+      {categories.map((item, idx) => (
         <Card key={item.title}>
           <Text>{item.title}</Text>
-          <Metric>{item.value} %</Metric>
+          <Metric>{roundToDP(progressValues[idx], 2)} %</Metric>
 
           <CategoryBar
-            values={[item.value, 100 - item.value]}
-            colors={[item.value < item.target ? "orange" : "green", "gray"]}
+            values={[progressValues[idx], 100 - progressValues[idx]]}
+            colors={[
+              progressValues[idx] < item.target ? "orange" : "green",
+              "gray",
+            ]}
             markerValue={item.target}
             showLabels={false}
             className="mt-3"
@@ -48,9 +59,13 @@ export default function RCPathComparison() {
             className="mt-6 font-mono text-sm
 			dark:bg-gray-800
 			"
-            icon={item.value < item.target ? TrendingDown : TrendingUp}
-            color={item.value < item.target ? "orange" : "green"}
-            title={item.value < item.target ? "Underperforming" : "On Target"}
+            icon={progressValues[idx] < item.target ? TrendingDown : TrendingUp}
+            color={progressValues[idx] < item.target ? "orange" : "green"}
+            title={
+              progressValues[idx] < item.target
+                ? "Underperforming"
+                : "On Target"
+            }
           >
             RCPath Target {item.target} %
           </Callout>

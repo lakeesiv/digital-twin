@@ -14,6 +14,10 @@ interface SingleScenarioResultProps {
 
 const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
   const {
+    overall_tat,
+    progress,
+    lab_tat,
+    lab_progress,
     tat_by_stage,
     resource_allocation,
     utilization_by_resource,
@@ -24,8 +28,8 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
   return (
     <div>
       <h1 className="mb-4 text-3xl font-bold">Results</h1>
-      <RCPathComparison />
-      <LabTAT className="mt-4" />
+      <RCPathComparison overall_tat={overall_tat} progress={progress} />
+      <LabTAT lab_tat={lab_tat} lab_progress={lab_progress} className="mt-4" />
 
       <div className="my-4">
         <Card className="px-4">

@@ -35,12 +35,12 @@ const MetricsList: React.FC<MetricsListProps> = ({
         {sortedIndexes.map((index) => (
           <MetricsItem
             key={
-              capitliaze
-                ? capilatizeFirstLetter(stages[index] as string)
-                : stages[index]
+              stages[index]
             }
             percentile={data.y[0][index] * multiply}
-            stage={stages[index]}
+            stage={capitliaze
+              ? capilatizeFirstLetter(stages[index] as string)
+              : stages[index]}
             unit={unit}
           />
         ))}
