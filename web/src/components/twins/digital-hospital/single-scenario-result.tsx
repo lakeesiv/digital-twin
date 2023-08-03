@@ -5,9 +5,7 @@ import { SimulationResults } from "~/api/config";
 import GridLayout from "~/components/layout/grid-layout";
 import LabTAT from "~/components/twins/digital-hospital/lab-tat";
 import MetricsList from "~/components/twins/digital-hospital/metrics-list";
-import BottleNeckList, {
-  mockBottleNeckData,
-} from "~/components/twins/digital-hospital/percentage-change-list";
+import BottleNeckList from "~/components/twins/digital-hospital/percentage-change-list";
 import RCPathComparison from "~/components/twins/digital-hospital/rc-path-comparison";
 
 interface SingleScenarioResultProps {
@@ -19,6 +17,7 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
     tat_by_stage,
     resource_allocation,
     utilization_by_resource,
+    wip_by_stage,
     daily_utilization_by_resource,
   } = results;
 
@@ -38,7 +37,7 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
             <Card>
               <Title className="text-2xl">Percent Differences</Title>
               <Divider className="mb-0 mt-2" />
-              <BottleNeckList data={tat_by_stage.data} />
+              <MetricsList data={tat_by_stage.data} unit="hrs" capitliaze />
             </Card>
             <BarChart
               {...tat_by_stage}
@@ -63,6 +62,23 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
               />
             ))}
           </GridLayout>
+          <Title className="mt-8">WIP By Stage</Title>
+
+          <GridLayout gridColumns={3}>
+            {wip_by_stage.map((data, index) => (
+              <LineChart
+                key={index}
+                defaultCurveStyle="step"
+                {...data}
+                height={200}
+                timeUnit={{
+                  current: "hour",
+                  target: "day",
+                  options: ["hour", "day", "week"],
+                }}
+              />
+            ))}
+          </GridLayout>
         </Card>
 
         <Card className="mt-4">
@@ -72,7 +88,11 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
             <Card>
               <Title className="text-2xl">Percent Utilizations</Title>
               <Divider className="mb-0 mt-2" />
-              <MetricsList data={utilization_by_resource.data} unit="%" />
+              <MetricsList
+                data={utilization_by_resource.data}
+                unit="%"
+                multiply={100}
+              />
             </Card>
             <BarChart
               {...utilization_by_resource}

@@ -1,18 +1,22 @@
 import { List, ListItem, Text } from "@tremor/react";
 import { Badge, ScrollArea } from "ui";
 import type { BarChartData } from "charts";
-import { roundToDP } from "~/utils";
+import { capilatizeFirstLetter, roundToDP } from "~/utils";
 
 interface MetricsListProps {
   data: BarChartData["data"];
   order?: "asc" | "desc";
   unit?: string;
+  capitliaze?: boolean;
+  multiply?: number;
 }
 
 const MetricsList: React.FC<MetricsListProps> = ({
   data,
   order = "desc",
   unit = "",
+  capitliaze = false,
+  multiply = 1,
 }) => {
   const stages = data.x;
 
@@ -30,8 +34,12 @@ const MetricsList: React.FC<MetricsListProps> = ({
       <List>
         {sortedIndexes.map((index) => (
           <MetricsItem
-            key={stages[index]}
-            percentile={data.y[0][index]}
+            key={
+              capitliaze
+                ? capilatizeFirstLetter(stages[index] as string)
+                : stages[index]
+            }
+            percentile={data.y[0][index] * multiply}
             stage={stages[index]}
             unit={unit}
           />
