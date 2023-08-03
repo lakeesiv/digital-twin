@@ -1,4 +1,3 @@
-import { readFileSync } from "fs";
 import * as dfd from "danfojs";
 import { SimulationResults } from "../config";
 
@@ -193,5 +192,5 @@ function parseFile(jsonData: {
 export const transformApiData = (jsonData: { [key: string]: object }) => {
   const results = parseFile(jsonData);
 
-  return results;
+  return results as SimulationResults;
 };

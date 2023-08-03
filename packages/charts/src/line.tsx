@@ -105,8 +105,8 @@ export type LineChartData = {
   data: {
     x: number[] | number[][]; // either one array of x values (global), or an array of arrays of x values for each line
     y: number[][] | number[]; // each array is a line [[...], [...], [...]]  or single line [...]
+    labels: string[]; // each label is a line ["label1", "label2", "label3"]
   };
-  labels: string[]; // each label is a line ["label1", "label2", "label3"]
   visible?: boolean[]; // each boolean is a line [true, false, true]
   timeUnit?: TimeUnit;
   info?: string; // additional info to display in the card
@@ -129,7 +129,6 @@ export const LineChart: React.FC<LineProps> = ({
   xlabel,
   title,
   cardProps,
-  labels,
   data,
   defaultCurveStyle = "linear",
   divId = titleToId(title),
@@ -143,6 +142,7 @@ export const LineChart: React.FC<LineProps> = ({
   info,
   marker = "line",
 }) => {
+  const labels = data.labels;
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
     defaultCurveStyle || "linear"
   );
@@ -327,7 +327,6 @@ export const LineChart: React.FC<LineProps> = ({
               xlabel: xlabelState,
               ylabel,
               data: data,
-              labels: labels,
             }}
             type="line"
             divId={divId}

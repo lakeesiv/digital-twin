@@ -54,10 +54,10 @@ const ResultsPage = () => {
                   boneStationData.busy.data.y,
                   boneStationData.waiting.data.y,
                 ],
+                labels: ["Busy", "Waiting"],
               }}
               xlabel="Time (hours)"
               ylabel="Busy resources"
-              labels={["Busy", "Waiting"]}
               title="Bone Station Resources"
               divId={"bone-station-busy"}
               height={200}
@@ -72,10 +72,10 @@ const ResultsPage = () => {
               data={{
                 x: boneStationData.waiting.data.x,
                 y: [boneStationData.waiting.data.y],
+                labels: ["Number of Resources"],
               }}
               xlabel="Time (hours)"
               ylabel="Waiting resources"
-              labels={["Number of Resources"]}
               title="Waiting Bone Station Resources"
               divId={"bone-station-wait"}
               height={200}
@@ -90,10 +90,10 @@ const ResultsPage = () => {
               data={{
                 x: boneStationData.busy.data.x,
                 y: [boneStationData.busy.data.y],
+                labels: ["Number of Resources"],
               }}
               xlabel="Time (hours)"
               ylabel="Busy resources"
-              labels={["Number of Resources"]}
               title="Busy Bone Station Resources"
               divId={"bone-station-busy2"}
               height={200}
@@ -192,13 +192,13 @@ const lineChartData: LineChartData = {
       randomArrayValues(18),
       randomArrayValues(18),
     ],
+    labels: stages,
   },
   xlabel: "Days",
   ylabel: "Daily Utilization %",
   title: "Daily Utilization % by Stage",
   info: `Click on the Legend to toggle\nthe visibility of the lines`,
   visible: [true, true, true],
-  labels: stages,
 };
 
 export default ResultsPage;

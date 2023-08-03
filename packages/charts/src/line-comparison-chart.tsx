@@ -202,7 +202,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   // check if data.y is an array of arrays or not
   if (Array.isArray(lineData1.data.y[0])) {
     // multiple lines
-    for (let i = 0; i < lineData1.labels.length; i++) {
+    for (let i = 0; i < lineData1.data.labels.length; i++) {
       plottingData.push({
         x: individualX ? x1[i] : x1,
         y: lineData1.data.y[i],
@@ -210,7 +210,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         fill: fill ? "tozeroy" : "none",
         line: { shape: mapCurveStyle(curveStyle) },
         type: "scattergl",
-        name: lineData1.labels[i],
+        name: lineData1.data.labels[i],
       });
     }
   } else {
@@ -222,7 +222,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
       fill: fill ? "tozeroy" : "none",
       line: { shape: mapCurveStyle(curveStyle) },
       type: "scattergl",
-      name: lineData1.labels[0],
+      name: lineData1.data.labels[0],
     });
   }
 
@@ -232,7 +232,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
 
   if (Array.isArray(lineData2.data.y[0])) {
     // multiple lines
-    for (let i = 0; i < lineData2.labels.length; i++) {
+    for (let i = 0; i < lineData2.data.labels.length; i++) {
       plottingData.push({
         x: individualX ? x2[i] : x2,
         y: lineData2.data.y[i],
@@ -240,7 +240,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
         fill: fill ? "tozeroy" : "none",
         line: { shape: mapCurveStyle(curveStyle) },
         type: "scattergl",
-        name: lineData2.labels[i],
+        name: lineData2.data.labels[i],
         yaxis: shareYAxis ? undefined : "y2",
       });
     }
@@ -253,7 +253,7 @@ const LineComparison: React.FC<LineComparisonProps> = ({
       fill: fill ? "tozeroy" : "none",
       line: { shape: mapCurveStyle(curveStyle) },
       type: "scattergl",
-      name: lineData2.labels[0],
+      name: lineData2.data.labels[0],
       yaxis: shareYAxis ? undefined : "y2",
     });
   }

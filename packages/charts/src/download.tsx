@@ -140,19 +140,19 @@ const downloadLineData = (
   if (data.data.x[0] instanceof Array) {
     const x = data.data.x as number[][];
     for (let i = 0; i < x.length; i++) {
-      const id = xlabel + " " + data.labels[i];
+      const id = xlabel + " " + data.data.labels[i];
       resultingData[id] = x[i];
     }
   } else {
     resultingData[xlabel] = data.data.x as number[];
   }
 
-  const labels = data.labels;
+  const labels = data.data.labels;
 
-  if (data.labels.length === 1) {
+  if (data.data.labels.length === 1) {
     resultingData[labels[0]] = data.data.y as number[];
   } else {
-    for (let i = 0; i < data.labels.length; i++) {
+    for (let i = 0; i < data.data.labels.length; i++) {
       resultingData[labels[i]] = data.data.y[i] as number[];
     }
   }
@@ -169,10 +169,10 @@ const downloadLineData = (
       for (let i = 0; i < data.data.x.length; i++) {
         csv += `${data.data.x[i]}` + ",";
 
-        if (data.labels.length === 1) {
+        if (data.data.labels.length === 1) {
           csv += `${data.data.y[i] as number}` + ",";
         } else {
-          for (let j = 0; j < data.labels.length; j++) {
+          for (let j = 0; j < data.data.labels.length; j++) {
             const curr = data.data.y[j] as number[];
             csv += `${curr[i]}` + ",";
           }

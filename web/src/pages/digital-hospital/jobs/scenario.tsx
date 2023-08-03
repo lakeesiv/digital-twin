@@ -85,14 +85,14 @@ const ScenarioPage = () => {
               [98, 77, 67, 92, 70, 92, 62, 96, 56, 91],
               [58, 56, 68, 89, 80, 73, 66, 93, 79, 82],
             ],
+            labels: [
+              "Scenario 1",
+              "Scenario 2",
+              "Scenario 3",
+              "Scenario 4",
+              "Scenario 5",
+            ],
           }}
-          labels={[
-            "Scenario 1",
-            "Scenario 2",
-            "Scenario 3",
-            "Scenario 4",
-            "Scenario 5",
-          ]}
           xlabel="Days"
           ylabel="Daily Utilization %"
           title="Daily Utilization %"
@@ -159,10 +159,10 @@ const ScenarioPage = () => {
                           boneStationData.busy.data.y,
                           boneStationData.waiting.data.y,
                         ],
+                        labels: ["Busy", "Waiting"],
                       }}
                       xlabel="Time (hours)"
                       ylabel="Busy resources"
-                      labels={["Busy", "Waiting"]}
                       title="Busy Bone Station Resources"
                       divId={"bone-station-busy" + String(i)}
                       height={200}
@@ -177,10 +177,10 @@ const ScenarioPage = () => {
                       data={{
                         x: boneStationData.waiting.data.x,
                         y: [boneStationData.waiting.data.y],
+                        labels: ["Number of Resources"],
                       }}
                       xlabel="Time (hours)"
                       ylabel="Waiting resources"
-                      labels={["Number of Resources"]}
                       title="Waiting Bone Station Resources"
                       divId={"bone-station-wait" + String(i)}
                       height={200}
@@ -195,10 +195,10 @@ const ScenarioPage = () => {
                       data={{
                         x: boneStationData.busy.data.x,
                         y: [boneStationData.busy.data.y],
+                        labels: ["Number of Resources"],
                       }}
                       xlabel="Time (hours)"
                       ylabel="Busy resources"
-                      labels={["Number of Resources"]}
                       title="Busy Bone Station Resources"
                       divId={"bone-station-busy2" + String(i)}
                       height={200}
@@ -304,13 +304,13 @@ const lineChartData: LineChartData = {
       randomArrayValues(18),
       randomArrayValues(18),
     ],
+    labels: stages,
   },
   xlabel: "Days",
   ylabel: "Daily Utilization %",
   title: "Daily Utilization % by Stage",
   info: `Click on the Legend to toggle\nthe visibility of the lines`,
   visible: [true, true, true],
-  labels: stages,
 };
 
 export default ScenarioPage;
