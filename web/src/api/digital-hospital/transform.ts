@@ -1,19 +1,33 @@
 import * as dfd from "danfojs";
 import { SimulationResults } from "../config";
 
-function seriesData(df: dfd.DataFrame, labels?: string[]) {
+function seriesData(
+  df: dfd.DataFrame,
+  labels?: string[],
+  df_min?: dfd.DataFrame,
+  df_max?: dfd.DataFrame
+) {
   return {
     x: df.index as number[],
     labels: labels ?? df.columns,
     y: df.T.values as number[][], // assumption: df contains numbers only
+    ymin: df_min?.T.values as number[][] | undefined,
+    ymax: df_max?.T.values as number[][] | undefined,
   };
 }
 
-function categoricalData(df: dfd.DataFrame, labels?: string[]) {
+function categoricalData(
+  df: dfd.DataFrame,
+  labels?: string[],
+  df_min?: dfd.DataFrame,
+  df_max?: dfd.DataFrame
+) {
   return {
     x: df.index as string[],
     labels: labels ?? df.columns,
     y: df.T.values as number[][], // assumption: df contains numbers only
+    ymin: df_min?.T.values as number[][] | undefined,
+    ymax: df_max?.T.values as number[][] | undefined,
   };
 }
 
@@ -45,16 +59,25 @@ export type LineChartData = {
 
 export class SimulationResultsClass {
   overall_tat: number;
-  progress: {
-    "7": number;
-    "10": number;
-    "12": number;
-    "21": number;
-  };
+  overall_tat_min: number | undefined;
+  overall_tat_max: number | undefined;
+
+  progress: { "7": number; "10": number; "12": number; "21": number };
+  progress_min:
+    | { "7": number; "10": number; "12": number; "21": number }
+    | undefined;
+  progress_max:
+    | { "7": number; "10": number; "12": number; "21": number }
+    | undefined;
+
   lab_tat: number;
-  lab_progress: {
-    "3": number;
-  };
+  lab_tat_min: number | undefined;
+  lab_tat_max: number | undefined;
+
+  lab_progress: { "3": number };
+  lab_progress_min: { "3": number } | undefined;
+  lab_progress_max: { "3": number } | undefined;
+
   tat_by_stage: BarChartData;
   resource_allocation: LineChartData[]; // line chart for each resource
   wip_by_stage: LineChartData[]; // line chart for each stage
@@ -63,9 +86,21 @@ export class SimulationResultsClass {
 
   constructor(
     overall_tat: number,
+    overall_tat_min: number | undefined,
+    overall_tat_max: number | undefined,
+
     progress: [number, number, number, number],
+    progress_min: [number, number, number, number] | undefined,
+    progress_max: [number, number, number, number] | undefined,
+
     lab_tat: number,
+    lab_tat_min: number | undefined,
+    lab_tat_max: number | undefined,
+
     lab_progress: number,
+    lab_progress_min: number | undefined,
+    lab_progress_max: number | undefined,
+
     tat_by_stage: dfd.DataFrame,
     res_dfs: { [key: string]: dfd.DataFrame },
     wip_dfs: { [key: string]: dfd.DataFrame },
@@ -73,21 +108,50 @@ export class SimulationResultsClass {
     hourly_util_df: dfd.DataFrame
   ) {
     this.overall_tat = overall_tat;
+    this.overall_tat_min = overall_tat_min;
+    this.overall_tat_max = overall_tat_max;
+
     this.progress = {
       "7": progress[0],
       "10": progress[1],
       "12": progress[2],
       "21": progress[3],
     };
-    this.lab_tat = lab_tat;
-    this.lab_progress = {
-      "3": lab_progress,
+    this.progress_min = progress_min && {
+      "7": progress_min[0],
+      "10": progress_min[1],
+      "12": progress_min[2],
+      "21": progress_min[3],
     };
+    this.progress_max = progress_max && {
+      "7": progress_max[0],
+      "10": progress_max[1],
+      "12": progress_max[2],
+      "21": progress_max[3],
+    };
+
+    this.lab_tat = lab_tat;
+    this.lab_tat_min = lab_tat_min;
+    this.lab_tat_max = lab_tat_max;
+
+    this.lab_progress = { "3": lab_progress };
+    this.lab_progress_min = lab_progress_min
+      ? { "3": lab_progress_min }
+      : undefined;
+    this.lab_progress_max = lab_progress_max
+      ? { "3": lab_progress_max }
+      : undefined;
+
     this.tat_by_stage = {
       title: "Turnaround time by stage",
       xlabel: "Stage",
       ylabel: "TAT (hours)",
-      data: categoricalData(tat_by_stage),
+      data: categoricalData(
+        tat_by_stage,
+        undefined,
+        tat_by_stage.mul(0.9) as dfd.DataFrame,
+        tat_by_stage.mul(1.1) as dfd.DataFrame
+      ),
     };
 
     this.resource_allocation = [];
@@ -106,7 +170,12 @@ export class SimulationResultsClass {
         title: `'Work in progress: ${key}'`,
         xlabel: "Time (hours)",
         ylabel: "WIP",
-        data: seriesData(value, ["Hourly mean"]),
+        data: seriesData(
+          value,
+          ["Hourly mean"],
+          value.mul(0.9) as dfd.DataFrame,
+          value.mul(1.1) as dfd.DataFrame
+        ),
       });
     }
 
@@ -114,14 +183,24 @@ export class SimulationResultsClass {
       title: "Mean utilisation by resource",
       xlabel: "Resource name",
       ylabel: "Mean utilisation",
-      data: categoricalData(util_df),
+      data: categoricalData(
+        util_df,
+        undefined,
+        util_df.mul(0.9) as dfd.DataFrame,
+        util_df.mul(1.1) as dfd.DataFrame
+      ),
     };
 
     this.daily_utilization_by_resource = {
       title: "Hourly resource usage",
       xlabel: "Time (hours)",
       ylabel: "Number busy",
-      data: seriesData(hourly_util_df),
+      data: seriesData(
+        hourly_util_df,
+        undefined,
+        hourly_util_df.mul(0.9) as dfd.DataFrame,
+        hourly_util_df.mul(1.1) as dfd.DataFrame
+      ),
     };
   }
 }
@@ -140,8 +219,7 @@ function getDF(data: { [key: string]: object }, key: string): dfd.DataFrame {
 function parseFile(jsonData: {
   [key: string]: object;
 }): SimulationResultsClass {
-  //   const jsonString = readFileSync(filename, "utf8");
-  //   const jsonData: { [key: string]: object } = JSON.parse(jsonString);
+  type fourNumbers = [number, number, number, number];
 
   const tatDist = getDF(jsonData, "tat_dist");
   const tatSummary = getDF(jsonData, "tat_summary");
@@ -167,7 +245,7 @@ function parseFile(jsonData: {
   }
 
   const overallTAT = (tatSummary.at("mean", "TAT") as number) / 24;
-  const progress: [number, number, number, number] = [
+  const progress: fourNumbers = [
     (tatDist.at(7, "TAT") as number) / 24,
     (tatDist.at(10, "TAT") as number) / 24,
     (tatDist.at(12, "TAT") as number) / 24,
@@ -182,9 +260,17 @@ function parseFile(jsonData: {
 
   return new SimulationResultsClass(
     overallTAT,
+    overallTAT * 0.9,
+    overallTAT * 1.1,
     progress,
+    progress.map((x: number) => x * 0.9) as fourNumbers,
+    progress.map((x: number) => x * 1.1) as fourNumbers,
     labTAT,
+    labTAT * 0.9,
+    labTAT * 1.1,
     labProgress,
+    labProgress * 0.9,
+    labProgress * 1.1,
     tat_by_stage,
     alloc,
     wip,
