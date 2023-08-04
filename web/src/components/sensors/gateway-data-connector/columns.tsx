@@ -4,8 +4,8 @@ import { SortableColumn } from "ui";
 export type GatewayDataConnectorRow = {
   id: string;
   type: "Gateway" | "Data Connector";
-  lastUpdateTimestamp: string | number;
-  lastReading: Record<string, number>;
+  timestamp: string | number;
+  lastReading: Record<string, number | string>;
 };
 
 export const columns: ColumnDef<GatewayDataConnectorRow>[] = [
@@ -14,11 +14,7 @@ export const columns: ColumnDef<GatewayDataConnectorRow>[] = [
     header: "ID",
     cell: ({ row }) => {
       const data = row.original.id;
-      return (
-        <a href={`/sensors/live/${data}`} className="font-mono text-blue-500">
-          {data}
-        </a>
-      );
+      return <p className="font-mono text-blue-500">{data}</p>;
     },
   },
   {
@@ -29,20 +25,13 @@ export const columns: ColumnDef<GatewayDataConnectorRow>[] = [
     },
   },
   {
-    accessorKey: "lastUpdateTimestamp",
-    id: "lastUpdateTimestamp",
+    accessorKey: "timestamp",
+    id: "timestamp",
     header: ({ column }) => {
-      return <SortableColumn column={column} title="Last Update" />;
+      return <SortableColumn column={column} title="Timestamp" />;
     },
     cell: ({ row }) => {
-      const data = row.original.lastUpdateTimestamp;
-
-      // check if data is a number and convert to date
-      if (!isNaN(Number(data))) {
-        const date = new Date(Number(data) * 1000);
-        return <span>{date.toLocaleString()}</span>;
-      }
-
+      const data = row.original.timestamp;
       return <span>{data}</span>;
     },
   },

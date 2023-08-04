@@ -1,33 +1,51 @@
 import Layout from "~/components/layout";
-import { columns } from "~/components/sensors/gateway-data-connector/columns";
-import { DataTable } from "~/components/sensors/data-table";
-// import data from "~/mock";
-import { getLatestDevices } from "~/api/sensor";
+import { DataTable } from "~/components/sensors/gateway-data-connector/data-table";
+import {
+  GatewayDataConnectorRow,
+  columns,
+} from "~/components/sensors/gateway-data-connector/columns";
+import useSubscribeByAll from "~/api/sensor/useSubscribeAll";
+import { SensorData } from "~/api/sensor";
+import WSStatus from "~/components/ws-status";
 
 export default function Home() {
-  const { data, loading, error } = getLatestDevices();
+  const { connectionStatus, messageHistory } = useSubscribeByAll();
 
   return (
     <Layout>
-      {data && data.length > 0 && (
+      <div className="mb-2 flex items-center space-x-2">
+        <WSStatus connectionStatus={connectionStatus} />
+      </div>
+      {connectionStatus === "Connected" && messageHistory.length > 0 && (
         <DataTable
           columns={columns}
-          data={data.map((record) => {
-            return {
-              id: record.acp_id,
-              type:
-                Math.random() < 0.5
-                  ? "Gateway"
-                  : ("Data Connector" as "Gateway" | "Data Connector"),
-              lastReading: record.payload,
-              lastUpdateTimestamp: record.acp_ts,
-              location: "Cambridge",
-            };
-          })}
+          data={extractDataConnectorsAndGateways(messageHistory)}
         />
       )}
-      {loading && !error && <div>Loading...</div>}
-      {error && <div>Error: {error}</div>}
     </Layout>
   );
 }
+
+export const extractDataConnectorsAndGateways = (
+  data: SensorData[]
+): GatewayDataConnectorRow[] => {
+  const result: GatewayDataConnectorRow[] = [];
+  data.forEach((record) => {
+    const gateway = record.gateway;
+    const dataConnector = record.data_connector;
+    result.push({
+      id: gateway.gateway_id,
+      type: "Gateway",
+      timestamp: gateway.gateway_ts,
+      lastReading: gateway,
+    });
+
+    result.push({
+      id: dataConnector.data_connector_id,
+      type: "Data Connector",
+      timestamp: dataConnector.data_connector_ts,
+      lastReading: dataConnector,
+    });
+  });
+  return result;
+};

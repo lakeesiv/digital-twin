@@ -20,29 +20,33 @@ const useWebSocket = (url: string, options?: Options) => {
   useEffect(() => {
     // if not in browser, don't connect
     if (!isBrowser) return;
+    console.log("connected1");
 
     if (!socketRef.current) {
       socketRef.current = new WebSocket(url);
     }
 
+    console.log("connected");
     // if condition is false, don't connect
     if (options?.condition !== undefined) {
       if (!options.condition) return;
     }
+    console.log("connected2");
 
-    if (!socket) return;
+    if (!socketRef.current) return;
+    console.log("connected4");
 
-    socket.onopen = () => {
+    socketRef.current.onopen = () => {
       setConnectionStatus("Connected");
       options?.onConnect?.();
     };
 
-    socket.onmessage = (event: { data: string }) => {
+    socketRef.current.onmessage = (event: { data: string }) => {
       const data = JSON.parse(event.data) as SensorData;
       setMessageHistory((prev) => [...prev, data]);
     };
 
-    socket.onclose = () => {
+    socketRef.current.onclose = () => {
       setConnectionStatus("Disconnected");
     };
   }, [options?.condition, socketRef]);
