@@ -5,7 +5,6 @@ import { SimulationResults } from "~/api/config";
 import GridLayout from "~/components/layout/grid-layout";
 import LabTAT from "~/components/twins/digital-hospital/lab-tat";
 import MetricsList from "~/components/twins/digital-hospital/metrics-list";
-import BottleNeckList from "~/components/twins/digital-hospital/percentage-change-list";
 import RCPathComparison from "~/components/twins/digital-hospital/rc-path-comparison";
 
 interface SingleScenarioResultProps {
@@ -39,7 +38,7 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
           <Title>Turn Around Times (TAT) by Stage</Title>
           <GridLayout>
             <Card>
-              <Title className="text-2xl">Percent Differences</Title>
+              <Title className="text-2xl">TAT by Stage</Title>
               <Divider className="mb-0 mt-2" />
               <MetricsList data={tat_by_stage.data} unit="hrs" capitliaze />
             </Card>
@@ -111,9 +110,10 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
               fill={false}
               {...daily_utilization_by_resource}
               divId="daily-utilization"
+              title="Daily Utilization"
               height={600}
               timeUnit={{
-                current: "day",
+                current: "hour",
                 target: "day",
                 options: ["day", "week"],
               }}

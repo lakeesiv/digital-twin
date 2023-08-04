@@ -25,6 +25,8 @@ export type BarChartData = {
     x: (string | number)[]; // categories
     labels: string[]; // e.g. KPIs
     y: number[][]; // y[a][b] for category a, KPI b
+    ymin?: number[][]; // Same as y, but for the lower bound
+    ymax?: number[][]; // Same as y, but for the upper bound
   };
 };
 
@@ -36,6 +38,8 @@ export type LineChartData = {
     x: number[];
     labels: string[]; // series labels
     y: number[][]; // y[series index][x index]
+    ymin?: number[][]; // Same as y, but for the lower bound
+    ymax?: number[][]; // Same as y, but for the upper bound
   };
 };
 
