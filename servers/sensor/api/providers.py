@@ -1,4 +1,5 @@
 # import random
+import random
 from typing import Literal
 
 from fastapi import WebSocket
@@ -174,13 +175,13 @@ class ApiProvider():
         #            [8, 1, 0]
         #            }
 
-        # location = {
-        #     "x": random.random(0, 100),
-        #     "y": random.random(0, 100),
-        #     "floor": random.randint(0, 1)
-        # }
+        location = {
+            "x": random.randrange(0, 100),
+            "y": random.randrange(0, 100),
+            "floor": random.randint(0, 1)
+        }
 
-        # filtered_message["location"] = location
+        filtered_message["location"] = location
 
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
