@@ -170,59 +170,28 @@ const LineComparison: React.FC<LineComparisonProps> = ({
   }, [timeUnit, plottingData, timeUnitProp]);
 
   // x values for both lines
-  let x1 = lineData1.data.x as number[] | number[][] | Date[] | Date[][];
-  let x2 = lineData2.data.x as number[] | number[][] | Date[] | Date[][];
-  let individualX = false;
+  let x1 = lineData1.data.x as number[] | Date[];
+  let x2 = lineData2.data.x as number[] | Date[];
 
   // convert x values to dates if needed
   if (dateTime) {
-    // x = (x as number[]).map((x) => new Date(x));
-    if (x1[0] instanceof Array) {
-      x1 = (x1 as number[][]).map((x) => x.map((x) => new Date(x)));
-    } else {
-      x1 = (x1 as number[]).map((x) => new Date(x));
-    }
-
-    if (x2[0] instanceof Array) {
-      x2 = (x2 as number[][]).map((x) => x.map((x) => new Date(x)));
-    } else {
-      x2 = (x2 as number[]).map((x) => new Date(x));
-    }
-  }
-
-  // check if data.x is an array of arrays or not (multiple lines)
-  if (x1[0] instanceof Array) {
-    individualX = true;
+    x1 = (x1 as number[]).map((x) => new Date(x));
+    x2 = (x2 as number[]).map((x) => new Date(x));
   }
 
   /*
    * -------------------- Handle First Line --------------------
    */
 
-  // check if data.y is an array of arrays or not
-  if (Array.isArray(lineData1.data.y[0])) {
-    // multiple lines
-    for (let i = 0; i < lineData1.data.labels.length; i++) {
-      plottingData.push({
-        x: individualX ? x1[i] : x1,
-        y: lineData1.data.y[i],
-        marker: { color: getColor(i) },
-        fill: fill ? "tozeroy" : "none",
-        line: { shape: mapCurveStyle(curveStyle) },
-        type: "scattergl",
-        name: lineData1.data.labels[i],
-      });
-    }
-  } else {
-    // single line
+  for (let i = 0; i < lineData1.data.labels.length; i++) {
     plottingData.push({
-      x: individualX ? x1[0] : x1,
-      y: lineData1.data.y,
-      marker: { color: getColor(0) },
+      x: x1,
+      y: lineData1.data.y[i],
+      marker: { color: getColor(i) },
       fill: fill ? "tozeroy" : "none",
       line: { shape: mapCurveStyle(curveStyle) },
       type: "scattergl",
-      name: lineData1.data.labels[0],
+      name: lineData1.data.labels[i],
     });
   }
 
@@ -230,30 +199,15 @@ const LineComparison: React.FC<LineComparisonProps> = ({
    * -------------------- Handle Second Line --------------------
    */
 
-  if (Array.isArray(lineData2.data.y[0])) {
-    // multiple lines
-    for (let i = 0; i < lineData2.data.labels.length; i++) {
-      plottingData.push({
-        x: individualX ? x2[i] : x2,
-        y: lineData2.data.y[i],
-        marker: { color: getColor(i + 1) },
-        fill: fill ? "tozeroy" : "none",
-        line: { shape: mapCurveStyle(curveStyle) },
-        type: "scattergl",
-        name: lineData2.data.labels[i],
-        yaxis: shareYAxis ? undefined : "y2",
-      });
-    }
-  } else {
-    // single line
+  for (let i = 0; i < lineData2.data.labels.length; i++) {
     plottingData.push({
-      x: individualX ? x2[0] : x2,
-      y: lineData2.data.y,
-      marker: { color: getColor(1) },
+      x: x2,
+      y: lineData2.data.y[i],
+      marker: { color: getColor(i + 1) },
       fill: fill ? "tozeroy" : "none",
       line: { shape: mapCurveStyle(curveStyle) },
       type: "scattergl",
-      name: lineData2.data.labels[0],
+      name: lineData2.data.labels[i],
       yaxis: shareYAxis ? undefined : "y2",
     });
   }

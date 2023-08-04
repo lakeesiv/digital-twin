@@ -1,7 +1,7 @@
 /**
  * line.tsx: A component that defines a line chart.
  * !! IMPORTANT !!
- * DO NOT IMPORT THIS FILE DIRECTLY. Instead, import the component from '~/components/charts'.
+ * DO NOT IMPORT THIS FILE DIRECTLY. Instead, import the component from 'index'.
  *
  * @description This file exports a React functional component that renders a line chart using the Plotly.js library. The component takes in data in the form of an object with x and y values, and renders a line chart with the specified data. The component also includes a download button and allows for customization of the curve style and time unit.
  *
@@ -10,12 +10,13 @@
  * @example
  *
  * ```
- * import { LineChart } from '~/components/charts';
+ * import { LineChart } from 'charts';
  *
  * function MyComponent() {
  *   const data = {
  *     x: [1, 2, 3, 4, 5],
  *     y: [10, 20, 30, 40, 50],
+ *     labels: ["a"]
  *   };
  *
  *   return (

@@ -1,7 +1,7 @@
 /**
  * bar.tsx: A component that defines a bar chart.
  * !! IMPORTANT !!
- * DO NOT IMPORT THIS FILE DIRECTLY. Instead, import the component from '~/components/charts'.
+ * DO NOT IMPORT THIS FILE DIRECTLY. Instead, import the component from 'index.tsx'.
  *
  * @description This file exports a React functional component that renders a bar chart using the Plotly.js library. The component takes in data in the form of an object with categories, labels, and values, and renders a bar chart with the specified data. The component also includes a download button.
  *
@@ -9,35 +9,6 @@
  *
  * @example
  *
- * ```
- * import { BarChart } from '~/components/charts';
- *
- * function MyComponent() {
- *   const data = {
- *     x: ['Category 1', 'Category 2', 'Category 3'],
- *     labels: ['Label 1', 'Label 2', 'Label 3'],
- *     y: [
- *       [10, 20, 30],
- *       [15, 25, 35],
- *       [5, 10, 15],
- *     ],
- *     error: [
- *       [1, 2, 3],
- *       [2, 3, 4],
- *       [0.5, 1, 1.5],
- *     ], /// optional
- *   };
- *
- *   return (
- *     <BarChart
- *       title="My Bar Chart"
- *       xlabel="X Label"
- *       ylabel="Y Label"
- *       data={data}
- *     />
- *   );
- * }
- * ```
  *
  * @author
  * Lakee Sivaraya <ls914@cam.ac.uk>
@@ -45,11 +16,11 @@
 
 import { Card, Flex, Title, type CardProps } from "@tremor/react";
 import { useTheme } from "next-themes";
-import React, { useEffect } from "react";
+import Plotly from "plotly.js";
+import React from "react";
+import Plot from "react-plotly.js";
 import DownloadButton from "./download";
 import { CHART_CONFIG, getColor, titleToId, useResizeObserver } from "./utils";
-import Plotly from "plotly.js";
-import Plot from "react-plotly.js";
 
 export type BarChartData = {
   title: string;
@@ -59,7 +30,8 @@ export type BarChartData = {
     x: string[] | number[]; // categories
     labels: string[]; // each label is a line ["label1", "label2", "label3"]
     y: number[][]; // each array is a line [[label1_val, label2val, label3val], [...], [...]]
-    error?: number[][]; // same format as y
+    ymin?: number[][]; // same format as y
+    ymax?: number[][]; // same format as y
   };
 };
 
@@ -102,7 +74,9 @@ const BarChart: React.FC<BarProps> = ({
       name: data.labels[i],
       error_y: {
         type: "data",
-        array: data.error ? data.error[i] : [],
+        symmetric: false,
+        array: data.ymax ? data.ymax[i] : undefined,
+        arrayminus: data.ymin ? data.ymin[i] : undefined,
       },
     });
   }
