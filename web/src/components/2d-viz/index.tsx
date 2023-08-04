@@ -9,8 +9,8 @@ export type DataPoint = {
   acp_ts: number;
   payload: { [key: string]: number };
   location: {
-    x: number;
-    y: number;
+    x: number; // [0, 100]
+    y: number; // [0, 100]
   };
 };
 

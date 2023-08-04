@@ -82,8 +82,8 @@ const Marker = ({
     <div
       style={{
         position: "absolute",
-        left: `${x}px`,
-        bottom: `${y}px`,
+        left: `${x * 5}px`,
+        bottom: `${y * 5}px`,
       }}
     >
       <TooltipProvider delayDuration={100}>
