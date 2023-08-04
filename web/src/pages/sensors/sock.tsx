@@ -1,4 +1,3 @@
-import { LineChart } from "charts";
 import { DataPoint, Viz2D, Viz2DFilter } from "~/components/2d-viz";
 import Layout from "~/components/layout";
 
@@ -45,29 +44,8 @@ const WS = () => {
   return (
     <Layout>
       <div className="flex flex-col space-y-8">
-        {/* <Viz2D data={data} /> */}
-        {/* <Viz2DFilter data={data} /> */}
-        <LineChart
-          data={{
-            x: [1, 2, 3, 4, 5],
-            y: [
-              [1, 2, 3, 4, 5],
-              [3, 4, 5, 3, 3],
-            ],
-            labels: ["1", "2"],
-            ymin: [
-              [0.5, 1.5, 2.5, 3.5, 4.5],
-              [2.5, 3.5, 4.5, 2.5, 2.5],
-            ],
-            ymax: [
-              [1.5, 2.5, 3.5, 4.5, 5.5],
-              [4.5, 5.5, 6.5, 4.5, 4.5],
-            ],
-          }}
-          xlabel="x"
-          ylabel="y"
-          title="title"
-        />
+        <Viz2D data={data} />
+        <Viz2DFilter data={data} />
       </div>
     </Layout>
   );
