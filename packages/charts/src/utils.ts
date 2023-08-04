@@ -2,26 +2,27 @@ import { useEffect } from "react";
 import Plotly from "plotly.js";
 
 const colors = [
-  "#FF6B6B",
-  "#6b64ef",
-  "#FFE66D",
-  "#8CE8C3",
-  "#FFA8E2",
-  "#A8D0E6",
-  "#FFCBB2",
-  "#B2B2B2",
-  "#F7DC6F",
-  "#D2B4DE",
-  "#F1948A",
-  "#A9DFBF",
-  "#F5B7B1",
-  "#D7BDE2",
-  "#A3E4D7",
-  "#F0B27A",
+  "rgba(255, 107, 107, 1)",
+  "rgba(107, 100, 239, 1)",
+  "rgba(255, 230, 109, 1)",
+  "rgba(140, 232, 195, 1)",
+  "rgba(255, 168, 226, 1)",
+  "rgba(168, 208, 230, 1)",
+  "rgba(255, 203, 178, 1)",
+  "rgba(178, 178, 178, 1)",
+  "rgba(247, 220, 111, 1)",
+  "rgba(210, 180, 222, 1)",
+  "rgba(241, 148, 138, 1)",
+  "rgba(169, 223, 191, 1)",
+  "rgba(245, 183, 177, 1)",
+  "rgba(215, 189, 226, 1)",
+  "rgba(163, 228, 215, 1)",
+  "rgba(240, 178, 122, 1)",
 ];
 
-export const getColor = (index: number) => {
-  return colors[index % colors.length];
+export const getColor = (index: number, opacity: number = 1) => {
+  const color = colors[index % colors.length];
+  return color.replace("1)", `${opacity})`);
 };
 
 export const titleToId = (title: string | JSX.Element) => {

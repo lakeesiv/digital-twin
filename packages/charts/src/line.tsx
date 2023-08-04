@@ -103,9 +103,11 @@ export type LineChartData = {
   xlabel: string;
   ylabel: string;
   data: {
-    x: number[] | number[][]; // either one array of x values (global), or an array of arrays of x values for each line
-    y: number[][] | number[]; // each array is a line [[...], [...], [...]]  or single line [...]
+    x: number[];
+    y: number[][];
     labels: string[]; // each label is a line ["label1", "label2", "label3"]
+    ymin?: number[][]; // same dim as y
+    ymax?: number[][]; // same dim as y
   };
   visible?: boolean[]; // each boolean is a line [true, false, true]
   timeUnit?: TimeUnit;
@@ -185,50 +187,47 @@ export const LineChart: React.FC<LineProps> = ({
     }
   }, [timeUnit, plottingData]);
 
-  let x = data.x as number[] | number[][] | Date[] | Date[][];
-  let individualX = false;
+  let x = data.x as number[] | Date[];
 
   if (dateTime) {
-    // x = (x as number[]).map((x) => new Date(x));
-    if (x[0] instanceof Array) {
-      x = (x as number[][]).map((x) => x.map((x) => new Date(x)));
-    } else {
-      x = (x as number[]).map((x) => new Date(x));
-    }
+    x = (x as number[]).map((x) => new Date(x));
   }
 
-  if (x[0] instanceof Array) {
-    individualX = true;
-  }
-
-  // check if data.y is an array of arrays or not
-  if (Array.isArray(data.y[0])) {
-    // multiple lines
-    for (let i = 0; i < labels.length; i++) {
-      plottingData.push({
-        x: individualX ? x[i] : x,
-        y: data.y[i],
-        marker: { color: getColor(i) },
-        fill: fill ? "tozeroy" : "none",
-        line: { shape: mapCurveStyle(curveStyle) },
-        type: chartType === "webgl" ? "scattergl" : "scatter",
-        name: labels[i],
-        visible: visible ? (visible[i] ? true : "legendonly") : true,
-        mode: marker === "line" ? "lines+markers" : "markers",
-      });
-    }
-  } else {
-    // single line
+  for (let i = 0; i < labels.length; i++) {
     plottingData.push({
-      x: individualX ? x[0] : x,
-      y: data.y,
-      marker: { color: getColor(0) },
+      x: x,
+      y: data.y[i],
+      marker: { color: getColor(i) },
       fill: fill ? "tozeroy" : "none",
       line: { shape: mapCurveStyle(curveStyle) },
       type: chartType === "webgl" ? "scattergl" : "scatter",
-      name: labels[0],
+      name: labels[i],
+      visible: visible ? (visible[i] ? true : "legendonly") : true,
       mode: marker === "line" ? "lines+markers" : "markers",
     });
+
+    if (data.ymin && data.ymax) {
+      plottingData.push({
+        x: x,
+        y: data.ymax[i],
+        fillcolor: getColor(i, 0.07),
+        fill: "tonexty",
+        type: chartType === "webgl" ? "scattergl" : "scatter",
+        name: labels[i] + " max",
+        line: { color: "transparent" },
+        showlegend: false,
+      });
+      plottingData.push({
+        x: x,
+        y: data.ymin[i],
+        fillcolor: getColor(i, 0.2),
+        fill: "tonexty",
+        type: chartType === "webgl" ? "scattergl" : "scatter",
+        name: labels[i] + " min",
+        line: { color: "transparent" },
+        showlegend: false,
+      });
+    }
   }
 
   return (
