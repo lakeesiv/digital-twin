@@ -1,3 +1,4 @@
+import { LineChart } from "charts";
 import useSubscribeByAll from "~/api/sensor/useSubscribeAll";
 import { DataPoint, Viz2D, Viz2DFilter } from "~/components/2d-viz";
 import Layout from "~/components/layout";
