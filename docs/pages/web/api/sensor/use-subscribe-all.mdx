@@ -1,0 +1,18 @@
+# useSubscribeByAll
+
+The `useSubscribeByAll` hook is a wrapper around the `useWebSocket` hook.
+This hook subscribes to all messages from the server.
+
+## Returns
+
+The hook returns the following:
+
+- `messageHistory`: an array of all messages received from the server
+- `lastMessage`: the last message received from the server
+- `connectionStatus`: the current connection status
+
+## Example Usage
+
+```tsx
+const { messageHistory, lastMessage, connectionStatus } = useSubscribeByAll();
+```

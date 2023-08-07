@@ -1,6 +1,6 @@
-# useWS
+# useWebSocket
 
-The `useWS` hook is a wrapper around a SockJS connection that allows you to subscribe to a topic and receive messages from the server. It is used by the `useRecords` and `useSubscribeById` hooks. The hook automatically sends an `rt_connect` message to the server when the websocket connection is established.
+The `useWebSocket` hook is a wrapper around a WebSocket connection that allows you to subscribe to a topic and receive messages from the server. It is used by the `useRecords` and `useSubscribeById` hooks. The hook automatically sends an `rt_connect` message to the server when the websocket connection is established.
 
 ## Parameters
 
@@ -25,20 +25,12 @@ The hook returns the following:
 
 - `messageHistory`: an array of all messages received from the server
 - `lastMessage`: the last message received from the server
-- `sendJsonMessage`: a function that sends a JSON message to the server
 - `connectionStatus`: the current connection status
-- `rtConnected`: a boolean indicating whether a real-time connection is established
 
 ## Example Usage
 
 ```tsx
-const {
-  messageHistory,
-  lastMessage,
-  sendJsonMessage,
-  connectionStatus,
-  rtConnected,
-} = useWS(url, {
+const { messageHistory, lastMessage, connectionStatus } = useWebSocket(url, {
   onConnect: () => {
     // do something when the connection is established
   },

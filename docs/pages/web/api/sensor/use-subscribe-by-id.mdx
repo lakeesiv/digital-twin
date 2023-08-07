@@ -1,0 +1,21 @@
+# useSubscribeById
+
+The `useSubscribeById` hook is a wrapper around the `useWebSocket` hook. This hook will subscribe to the device feed and filter the messages by the `acp_id`. It can take a list of `acp_id`s and will filter the messages by the `acp_id` of the device that sent the message.
+
+## Parameters
+
+- `id`: the `acp_id` of the device to subscribe to
+
+## Returns
+
+The hook returns the following:
+
+- `messageHistory`: an array of all messages received from the server
+- `lastMessage`: the last message received from the server
+- `connectionStatus`: the current connection status
+
+## Example Usage
+
+```tsx
+const { messageHistory, lastMessage, connectionStatus } = useSubscribeById(id);
+```
