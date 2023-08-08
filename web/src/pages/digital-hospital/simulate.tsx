@@ -33,6 +33,7 @@ import {
   SelectValue,
 } from "ui";
 import { useToast } from "ui";
+import { newScenario } from "~/api/digital-hospital";
 
 const noWhitespace = (value: string) => !/\s/.test(value);
 
@@ -71,7 +72,7 @@ export default function SimulatePage() {
     ProcessForm.setValue("files", files);
   };
 
-  function onSubmit(values: FormValues) {
+  async function onSubmit(values: FormValues) {
     if (!values.files) {
       toast.toast({
         title: "No files selected",
@@ -90,6 +91,8 @@ export default function SimulatePage() {
     }
 
     console.log(values);
+    const res = await newScenario(values.files!, values.weeks * 24);
+    console.log(res);
   }
 
   return (

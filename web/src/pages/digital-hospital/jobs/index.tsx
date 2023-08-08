@@ -12,14 +12,35 @@ import Link from "next/link";
 import React from "react";
 import Layout from "~/components/layout";
 import StatusBage from "~/components/status-badge";
+import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
+import { listScenarios } from "~/api/digital-hospital";
 
-const JobsPage = () => {
+export const getServerSideProps: GetServerSideProps = async () => {
+  const jobsList = await listScenarios();
+  return {
+    props: {
+      jobsList,
+    },
+  };
+};
+
+const JobsPage = ({
+  jobsList,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <Layout title="Jobs">
       <div className="space-y-4">
-        <JobsEntry title="job-3" status="in-progress" type="process" />
+        {/* <JobsEntry title="job-3" status="in-progress" type="process" />
         <JobsEntry title="job-2" status="completed" type="process" />
-        <JobsEntry title="job-1" status="completed" type="scenario" />
+        <JobsEntry title="job-1" status="completed" type="scenario" /> */}
+        {jobsList.map((job) => (
+          <JobsEntry
+            key={job.id}
+            title={job.id}
+            status={job.progress === 1 ? "completed" : "in-progress"}
+            type="process"
+          />
+        ))}
       </div>
     </Layout>
   );

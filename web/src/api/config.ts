@@ -1,6 +1,6 @@
 import { BarChartData, LineChartData } from "charts";
 
-export const API_URL = "http://localhost:7000";
+export const DH_API_URL = "http://127.0.0.1:5000";
 export const SENSOR_API_URL = "http://localhost:8000";
 export const SENSOR_WS_URL = "ws://localhost:8000/ws/";
 
