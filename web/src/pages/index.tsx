@@ -16,11 +16,18 @@ export default function Home() {
               <RadioTower /> <Title>Sensors</Title>
             </div>
             <SensorsView numberOfItems={5} />
-            <Button size="sm" variant="outline" className="mt-4">
-              <Link href="/sensors" passHref>
-                View details
-              </Link>
-            </Button>
+            <div className="flex space-x-4">
+              <Button size="sm" variant="outline" className="mt-4">
+                <Link href="/sensors" passHref>
+                  View Sensors
+                </Link>
+              </Button>
+              <Button size="sm" variant="outline" className="mt-4">
+                <Link href="/gateway-data-connectors" passHref>
+                  View Data Connectors and Gateways
+                </Link>
+              </Button>
+            </div>
           </div>
         </Card>
         <Card>
