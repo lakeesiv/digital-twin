@@ -36,15 +36,17 @@ export const testSimulationServer = async () => {
   return data;
 };
 
+export type ScenarioListItem = {
+  done: boolean;
+  id: number;
+  progress: number;
+  timestamp: number;
+};
+
 export const listScenarios = async () => {
   const response = await fetch(`${DH_API_URL}/scenario/list`);
   const data = await response.json();
-  return data as {
-    done: boolean;
-    id: number;
-    progress: number;
-    timestamp: number;
-  }[];
+  return data as ScenarioListItem[];
 };
 
 export const getScenario = async (id: number) => {
