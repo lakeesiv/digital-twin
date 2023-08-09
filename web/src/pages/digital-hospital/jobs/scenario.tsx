@@ -47,7 +47,6 @@ const ScenarioPage = () => {
               "Scenario 5",
             ],
             y: [[30, 20, 60, 70, 50]],
-            error: [[5, 5, 5, 5, 5]],
             labels: ["TAT"],
           }}
           xlabel="Scenarios"
@@ -126,8 +125,8 @@ const ScenarioPage = () => {
             {[...Array(5).keys()].map((i) => (
               <TabPanel key={i}>
                 <Card className="px-4">
-                  <RCPathComparison />
-                  <LabTAT className="mt-4" />
+                  {/* <RCPathComparison />
+                  <LabTAT className="mt-4" /> */}
 
                   <h1 className="mt-4 text-2xl font-bold">Output Analysis</h1>
                   <Divider className="mb-4 mt-2" />
@@ -148,30 +147,6 @@ const ScenarioPage = () => {
                   <Title className="mt-8">Resource Allocation</Title>
 
                   <GridLayout gridColumns={3}>
-                    <LineChart
-                      defaultCurveStyle="step"
-                      data={{
-                        x: [
-                          boneStationData.busy.data.x,
-                          boneStationData.waiting.data.x,
-                        ],
-                        y: [
-                          boneStationData.busy.data.y,
-                          boneStationData.waiting.data.y,
-                        ],
-                        labels: ["Busy", "Waiting"],
-                      }}
-                      xlabel="Time (hours)"
-                      ylabel="Busy resources"
-                      title="Busy Bone Station Resources"
-                      divId={"bone-station-busy" + String(i)}
-                      height={200}
-                      timeUnit={{
-                        current: "hour",
-                        target: "day",
-                        options: ["hour", "day", "week"],
-                      }}
-                    />
                     <LineChart
                       defaultCurveStyle="step"
                       data={{

@@ -81,7 +81,7 @@ const LiveCharts: React.FC<LiveChartsProps> = ({
       title: filter,
       data: {
         x: sensorData.map((message) => message.acp_ts * 1000),
-        y: sensorData.map((message) => message.payload[filter]),
+        y: [sensorData.map((message) => message.payload[filter])],
         labels: [filter],
       },
       xlabel: "Time",
