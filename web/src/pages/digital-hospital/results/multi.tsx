@@ -1,6 +1,6 @@
 import Layout from "~/components/layout";
 import React from "react";
-import SingleScenarioResult from "~/components/twins/digital-hospital/single-scenario-result";
+import SingleScenarioResult from "~/components/digital-hospital/single-scenario-result";
 import { GetServerSideProps } from "next";
 import { getScenario } from "~/api/digital-hospital";
 import { SimulationResults } from "~/api/config";

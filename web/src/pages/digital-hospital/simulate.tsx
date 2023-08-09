@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import Layout from "~/components/layout";
-import FileUploadMultiple from "~/components/twins/digital-hospital/fileinput";
+import FileUploadMultiple from "~/components/digital-hospital/fileinput";
 import {
   Form,
   FormControl,
@@ -77,6 +77,12 @@ export default function SimulatePage() {
           "Scenario created successfully. Redirecting to results page",
         variant: "default",
       });
+
+      const slug = fileList?.length === 1 ? "single" : "multi";
+
+      setTimeout(() => {
+        window.location.href = "/digital-hospital/results/list/" + slug;
+      }, 2000);
     } catch (error) {
       toast.toast({
         title: "Error",

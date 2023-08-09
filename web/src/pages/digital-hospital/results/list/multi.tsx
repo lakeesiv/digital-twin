@@ -103,8 +103,10 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
   percentage,
   timestamp,
 }) => {
-  const isBrowser = typeof window !== "undefined";
-  if (!isBrowser) return null;
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
   const status = percentage === 100 ? "completed" : "in-progress";
   const date = new Date(timestamp);
   return (
@@ -114,16 +116,15 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
           icon={type === "scenario" ? SquareStack : Square}
           color={status === "completed" ? "emerald" : "orange"}
           size="lg"
+          variant="solid"
         ></Icon>
         <div>
           <Title className="font-mono">Job {jobId}</Title>
           {status === "completed" ? (
-            <Suspense>
-              <Text className="text-xs">
-                {date.toLocaleDateString("en-GB")}{" "}
-                {date.toLocaleTimeString("en-GB")}
-              </Text>
-            </Suspense>
+            <Text className="text-xs">
+              {date.toLocaleDateString("en-GB")}{" "}
+              {date.toLocaleTimeString("en-GB")}
+            </Text>
           ) : (
             <StatusBage
               message="Job In Progress"
@@ -134,14 +135,14 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
         </div>
         <div className="flex items-center space-x-6 pl-8">
           {type === "process" && status === "completed" && (
-            <Link href={"/digital-hospital/jobs/results?id=" + jobId}>
+            <Link href={"/digital-hospital/results/single?id=" + jobId}>
               <Button icon={ArrowUpRight} size="xs">
                 Results
               </Button>
             </Link>
           )}
           {type === "scenario" && status === "completed" && (
-            <Link href={"/digital-hospital/jobs/scenario?id=" + jobId}>
+            <Link href={"/digital-hospital/results/multi?id=" + jobId}>
               <Button icon={ArrowUpRight} size="xs">
                 Results (Scenario Analysis)
               </Button>
@@ -154,12 +155,12 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
           )}
         </div>
       </div>
-      {status === "in-progress" && (
+      {/* {status === "in-progress" && (
         <Callout
           className="mt-8"
           title="Please wait around 20 mins for the job to complete"
         />
-      )}
+      )} */}
     </Card>
   );
 };

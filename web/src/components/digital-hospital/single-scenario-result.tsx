@@ -3,9 +3,9 @@ import { BarChart, LineChart } from "charts";
 import { FC } from "react";
 import { SimulationResults } from "~/api/config";
 import GridLayout from "~/components/layout/grid-layout";
-import LabTAT from "~/components/twins/digital-hospital/lab-tat";
-import MetricsList from "~/components/twins/digital-hospital/metrics-list";
-import RCPathComparison from "~/components/twins/digital-hospital/rc-path-comparison";
+import LabTAT from "~/components/digital-hospital/lab-tat";
+import MetricsList from "~/components/digital-hospital/metrics-list";
+import RCPathComparison from "~/components/digital-hospital/rc-path-comparison";
 
 interface SingleScenarioResultProps {
   results: SimulationResults;
