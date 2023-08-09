@@ -1,7 +1,5 @@
 import Layout from "~/components/layout";
 import React from "react";
-import data from "~/api/digital-hospital/kpis.out.json";
-import { transformApiData } from "~/api/digital-hospital/transform";
 import SingleScenarioResult from "~/components/twins/digital-hospital/single-scenario-result";
 import { GetServerSideProps } from "next";
 import { getScenario } from "~/api/digital-hospital";
