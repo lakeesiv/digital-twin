@@ -47,7 +47,8 @@ const ScenarioPage = () => {
               "Scenario 5",
             ],
             y: [[30, 20, 60, 70, 50]],
-            error: [[5, 5, 5, 5, 5]],
+            ymin: [[25, 15, 55, 65, 45]],
+            ymax: [[35, 25, 65, 75, 55]],
             labels: ["TAT"],
           }}
           xlabel="Scenarios"
@@ -126,8 +127,8 @@ const ScenarioPage = () => {
             {[...Array(5).keys()].map((i) => (
               <TabPanel key={i}>
                 <Card className="px-4">
-                  <RCPathComparison />
-                  <LabTAT className="mt-4" />
+                  <RCPathComparison overall_tat={0} progress={{"7": 1, "10": 1, "12": 1, "21": 1}} />
+                  <LabTAT className="mt-4" lab_tat={0} lab_progress={{"3": 1}} />
 
                   <h1 className="mt-4 text-2xl font-bold">Output Analysis</h1>
                   <Divider className="mb-4 mt-2" />
@@ -151,13 +152,9 @@ const ScenarioPage = () => {
                     <LineChart
                       defaultCurveStyle="step"
                       data={{
-                        x: [
-                          boneStationData.busy.data.x,
-                          boneStationData.waiting.data.x,
-                        ],
+                        x: boneStationData.waiting.data.x,
                         y: [
                           boneStationData.busy.data.y,
-                          boneStationData.waiting.data.y,
                         ],
                         labels: ["Busy", "Waiting"],
                       }}

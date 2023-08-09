@@ -33,7 +33,7 @@ const JobsPage = ({
         {/* <JobsEntry title="job-3" status="in-progress" type="process" />
         <JobsEntry title="job-2" status="completed" type="process" />
         <JobsEntry title="job-1" status="completed" type="scenario" /> */}
-        {jobsList.map((job) => (
+        {jobsList.map((job: {id: string, progress: number}) => (
           <JobsEntry
             key={job.id}
             title={job.id}
