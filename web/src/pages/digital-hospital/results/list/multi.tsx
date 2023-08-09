@@ -10,7 +10,7 @@ import {
 import { ArrowUpRight, Square, SquareStack } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { ScenarioListItem, listScenarios } from "~/api/digital-hospital";
 import Layout from "~/components/layout";
 import StatusBage from "~/components/status-badge";
@@ -70,8 +70,8 @@ const JobsPage = ({ jobsList, error }: JobPageProps) => {
         <Callout
           className="mt-8"
           title="There was an error fetching the jobs list. 
-            Please ensure that the Simulation Server is running and try again
-          ."
+			  Please ensure that the Simulation Server is running and try again
+			."
         />
       ) : (
         <div className="space-y-4">
@@ -103,6 +103,8 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
   percentage,
   timestamp,
 }) => {
+  const isBrowser = typeof window !== "undefined";
+  if (!isBrowser) return null;
   const status = percentage === 100 ? "completed" : "in-progress";
   const date = new Date(timestamp);
   return (
@@ -110,16 +112,18 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
       <div className="flex items-center space-x-4">
         <Icon
           icon={type === "scenario" ? SquareStack : Square}
-          variant="solid"
           color={status === "completed" ? "emerald" : "orange"}
           size="lg"
         ></Icon>
         <div>
           <Title className="font-mono">Job {jobId}</Title>
           {status === "completed" ? (
-            <Text className="text-xs">
-              {date.toLocaleDateString()} {date.toLocaleTimeString()}
-            </Text>
+            <Suspense>
+              <Text className="text-xs">
+                {date.toLocaleDateString("en-GB")}{" "}
+                {date.toLocaleTimeString("en-GB")}
+              </Text>
+            </Suspense>
           ) : (
             <StatusBage
               message="Job In Progress"
