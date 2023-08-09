@@ -98,7 +98,7 @@ function FileUploadMultiple({
 
 const FileRepresentation = ({ file }: { file: File; index?: number }) => {
   return (
-    <Card className="dark:bg-gray-950 flex items-center space-x-2 bg-gray-100">
+    <Card className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-950">
       <TooltipProvider>
         <Tooltip delayDuration={100}>
           <TooltipTrigger>

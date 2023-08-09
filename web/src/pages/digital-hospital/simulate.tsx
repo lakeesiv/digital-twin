@@ -35,20 +35,7 @@ import {
 import { useToast } from "ui";
 import { newScenario } from "~/api/digital-hospital";
 
-const noWhitespace = (value: string) => !/\s/.test(value);
-
 const formSchema = z.object({
-  jobId: z
-    .string()
-    .min(3)
-    .max(20)
-    .nonempty()
-    .refine(noWhitespace, "No whitespace allowed in Job ID")
-    .optional(),
-  timestamp: z
-    .number()
-    .int()
-    .default(Math.floor(Date.now() / 1000)),
   weeks: z.number().int().min(1).max(10),
   files: z.custom<FileList>().nullable(),
   confidenceAnalysis: z.boolean().default(false),
@@ -79,24 +66,45 @@ export default function SimulatePage() {
         description: "Please select files to upload",
         variant: "destructive",
       });
-    } else {
-      toast.toast({
-        title: "Data",
-        description: (
-          <span className="whitespace-break-spaces font-mono">
-            {JSON.stringify(values, null, 2)}
-          </span>
-        ),
-      });
+      return;
     }
 
-    console.log(values);
-    const res = await newScenario(values.files!, values.weeks * 24);
-    console.log(res);
+    try {
+      await newScenario(values.files!, values.weeks * 24);
+      toast.toast({
+        title: "Success",
+        description:
+          "Scenario created successfully. Redirecting to results page",
+        variant: "default",
+      });
+    } catch (error) {
+      toast.toast({
+        title: "Error",
+        description: "An error occured while creating the scenario",
+        variant: "destructive",
+      });
+    }
   }
 
   return (
     <Layout title="Run Simulation">
+      <div className="flex flex-col items-center">
+        <h1
+          className="animate-fade-up bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text pb-4 text-center text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm "
+          style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
+        >
+          Run Simulation
+        </h1>
+        <p
+          className="my-4 w-[900px] animate-fade-up text-center text-muted-foreground/80 opacity-0 md:text-xl"
+          style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+        >
+          Select between Single Scenario and Multi Scenario Analysis using the
+          buttons below. Upload your configuration excel files then cofirm the
+          configurations. Then click on the Run Simulation button to start the
+          simulation.
+        </p>
+      </div>
       <TabGroup
         index={tabIndex}
         onIndexChange={(index) => {
@@ -161,20 +169,6 @@ export default function SimulatePage() {
           <Card className="mt-4 flex flex-col space-y-4 p-8">
             <Title>Configurations</Title>
             <div className="flex items-start space-x-4 align-top">
-              {/* <FormField
-                control={ProcessForm.control}
-                name="jobId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Job Id</FormLabel>
-                    <FormControl>
-                      <Input placeholder="" {...field} />
-                    </FormControl>
-                    <FormDescription>Name of the job to be run</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              /> */}
               <FormField
                 control={ProcessForm.control}
                 name="weeks"
