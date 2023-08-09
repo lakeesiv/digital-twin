@@ -7,10 +7,10 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import { ArrowUpRight, Square, SquareStack } from "lucide-react";
+import { ArrowUpRight, Square } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { ScenarioListItem, listScenarios } from "~/api/digital-hospital";
 import Layout from "~/components/layout";
 import StatusBage from "~/components/status-badge";
@@ -74,7 +74,19 @@ const JobsPage = ({ jobsList, error }: JobPageProps) => {
 			."
         />
       ) : (
-        <div className="space-y-4">
+        <div className="flex flex-col items-center space-y-4">
+          <h1
+            className="animate-fade-up bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text pb-4 text-center text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm "
+            style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
+          >
+            Results
+          </h1>
+          <p
+            className="my-4 w-[900px] animate-fade-up text-center text-muted-foreground/80 opacity-0 md:text-xl"
+            style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+          >
+            Click on the results button to view the results of a job
+          </p>
           {jobsList.map((job) => (
             <JobsEntry
               key={job.id}
@@ -107,7 +119,7 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
   const status = percentage === 100 ? "completed" : "in-progress";
   const date = new Date(timestamp);
   return (
-    <Card>
+    <Card className="max-w-[460px]">
       <div className="flex items-center space-x-4">
         <Icon
           icon={Square}
@@ -116,12 +128,16 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
           variant="solid"
         ></Icon>
         <div>
-          <Title className="font-mono">Job {jobId}</Title>
           {status === "completed" ? (
-            <Text className="text-xs">
+            <Title className="font-mono">
               {date.toLocaleDateString("en-GB")}{" "}
               {date.toLocaleTimeString("en-GB")}
-            </Text>
+            </Title>
+          ) : (
+            <Title className="font-mono">In Progress</Title>
+          )}
+          {status === "completed" ? (
+            <Text className="text-xs">Job Id: {jobId}</Text>
           ) : (
             <StatusBage
               message="Job In Progress"
@@ -138,20 +154,13 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
               </Button>
             </Link>
           )}
-
-          {status === "in-progress" && (
-            <div className="flex items-center space-x-4">
-              <ProgressBar value={percentage} className="mt-1 w-80" />
-            </div>
-          )}
         </div>
       </div>
-      {/* {status === "in-progress" && (
-        <Callout
-          className="mt-8"
-          title="Please wait around 20 mins for the job to complete"
-        />
-      )} */}
+      {status === "in-progress" && (
+        <div className="mt-8">
+          <ProgressBar value={percentage} className="mt-1 w-full" />
+        </div>
+      )}
     </Card>
   );
 };
