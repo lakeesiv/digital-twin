@@ -9,10 +9,13 @@ import {
 } from "@tremor/react";
 import { ArrowUpRight, Square, SquareStack } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import { ScenarioListItem, listScenarios } from "~/api/digital-hospital";
 import Layout from "~/components/layout";
 import StatusBage from "~/components/status-badge";
+
+const REFRESH_INTERVAL = 1000 * 1;
 
 interface JobPageProps {
   jobsList: ScenarioListItem[];
@@ -41,6 +44,26 @@ export const getServerSideProps = async (): Promise<{
 };
 
 const JobsPage = ({ jobsList, error }: JobPageProps) => {
+  const router = useRouter();
+
+  // Trigger a refresh by calling getServerSideProps when router changes
+  // This is a hacky way to refresh the data every x seconds
+  const refreshData = () => {
+    router.replace(router.asPath);
+    console.log("REFRESING DATA");
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshData();
+    }, REFRESH_INTERVAL);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // order by timestamp
+  jobsList.sort((a, b) => b.timestamp - a.timestamp);
+
   return (
     <Layout title="Jobs">
       {error ? (
@@ -58,6 +81,7 @@ const JobsPage = ({ jobsList, error }: JobPageProps) => {
               jobId={String(job.id)}
               type="process"
               percentage={job.progress * 100}
+              timestamp={job.timestamp * 1000}
             />
           ))}
         </div>
@@ -70,10 +94,17 @@ interface JobsEntryProps {
   jobId: string;
   type: "process" | "scenario";
   percentage: number;
+  timestamp: number;
 }
 
-const JobsEntry: React.FC<JobsEntryProps> = ({ jobId, type, percentage }) => {
+const JobsEntry: React.FC<JobsEntryProps> = ({
+  jobId,
+  type,
+  percentage,
+  timestamp,
+}) => {
   const status = percentage === 100 ? "completed" : "in-progress";
+  const date = new Date(timestamp);
   return (
     <Card>
       <div className="flex items-center space-x-4">
@@ -86,7 +117,9 @@ const JobsEntry: React.FC<JobsEntryProps> = ({ jobId, type, percentage }) => {
         <div>
           <Title className="font-mono">Job {jobId}</Title>
           {status === "completed" ? (
-            <Text className="text-xs">2021-05-01 12:00:00</Text>
+            <Text className="text-xs">
+              {date.toLocaleDateString()} {date.toLocaleTimeString()}
+            </Text>
           ) : (
             <StatusBage
               message="Job In Progress"

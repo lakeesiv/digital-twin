@@ -18,7 +18,8 @@ export type SimulationResults = {
   };
   tat_by_stage: BarChartData;
   resource_allocation: LineChartData[];
-  wip_by_stage: LineChartData[]; // +++++ WIP by Stage
+  wip_by_stage: LineChartData[];
+  // queue_by_stage: LineChartData[]; // ++++++++++++++++
   utilization_by_resource: BarChartData;
   daily_utilization_by_resource: LineChartData;
 };
@@ -37,5 +38,5 @@ export type ScenarioAnalysisResults = {
     mean_utilization: number[]; // Mean Utilization for each Scenario
     daily_utilization: LineChartData[]; // Daily Utilization for each Scenario (each scenario is an indivual line)
   };
-  individual_results: SimulationResults[]; // Results for each Scenario
+  individual_result_ids: string[]; // OR can be a number (I can change it later)
 };

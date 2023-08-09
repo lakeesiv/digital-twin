@@ -244,15 +244,15 @@ function parseFile(jsonData: {
     wip[stage] = wip2D.loc({ columns: [stage] });
   }
 
-  const overallTAT = (tatSummary.at("mean", "TAT") as number) / 24;
+  const overallTAT = tatSummary.at("mean", "TAT") as number;
   const progress: fourNumbers = [
-    (tatDist.at(7, "TAT") as number) / 24,
-    (tatDist.at(10, "TAT") as number) / 24,
-    (tatDist.at(12, "TAT") as number) / 24,
-    (tatDist.at(21, "TAT") as number) / 24,
+    tatDist.at(7, "TAT") as number,
+    tatDist.at(10, "TAT") as number,
+    tatDist.at(12, "TAT") as number,
+    tatDist.at(21, "TAT") as number,
   ];
-  const labTAT = (tatSummary.at("mean", "TAT_lab") as number) / 24;
-  const labProgress = (tatDist.at(3, "TAT_lab") as number) / 24;
+  const labTAT = tatSummary.at("mean", "TAT_lab") as number;
+  const labProgress = tatDist.at(3, "TAT_lab") as number;
 
   const tat_by_stage = getDF(jsonData, "tat_by_stage");
   const utilisation_means = getDF(jsonData, "utilisation_means");
