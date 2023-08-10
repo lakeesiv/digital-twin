@@ -6,7 +6,7 @@ interface Options {
   condition?: boolean;
 }
 
-const useWebSocket = (url: string, options?: Options) => {
+const useWebSocket = (url: string | undefined, options?: Options) => {
   const [messageHistory, setMessageHistory] = useState<SensorData[]>([]);
   const [connectionStatus, setConnectionStatus] = useState<
     "Connected" | "Disconnected" | "Uninstantiated"
@@ -20,23 +20,22 @@ const useWebSocket = (url: string, options?: Options) => {
   useEffect(() => {
     // if not in browser, don't connect
     if (!isBrowser) return;
-    console.log("connected1");
+
+    if (!url) return;
 
     if (!socketRef.current) {
       socketRef.current = new WebSocket(url);
     }
 
-    console.log("connected");
     // if condition is false, don't connect
     if (options?.condition !== undefined) {
       if (!options.condition) return;
     }
-    console.log("connected2");
 
     if (!socketRef.current) return;
-    console.log("connected4");
 
     socketRef.current.onopen = () => {
+      console.log("WS: Connected");
       setConnectionStatus("Connected");
       options?.onConnect?.();
     };
@@ -49,7 +48,7 @@ const useWebSocket = (url: string, options?: Options) => {
     socketRef.current.onclose = () => {
       setConnectionStatus("Disconnected");
     };
-  }, [options?.condition, socketRef]);
+  }, [options?.condition, socketRef, url]);
 
   return {
     messageHistory,
