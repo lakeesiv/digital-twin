@@ -11,6 +11,7 @@ export type DataPoint = {
   location: {
     x: number; // [0, 100]
     y: number; // [0, 100]
+    floor: number; // [0, 1]
   };
 };
 
