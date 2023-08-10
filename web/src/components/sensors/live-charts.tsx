@@ -30,6 +30,7 @@ import {
   DateRangePicker,
   Flex,
   type DateRangePickerValue,
+  Card,
 } from "@tremor/react";
 import { LineChart, type LineChartData } from "charts";
 import { Grid, LayoutGrid, Rows } from "lucide-react";
@@ -61,19 +62,20 @@ const LiveCharts: React.FC<LiveChartsProps> = ({
   ...props
 }) => {
   const [filters, setFilters] = useState<string[]>(
-    getAllAttributes(sensorData.map((message) => message.payload))
+    // getAllAttributes(sensorData.map((message) => message.payload))
+    []
   );
   const [numberOfColumns, setNumberOfColumns] = useState<1 | 2 | 3>(3);
 
   const allCharts: LineChartData[] = [];
 
-  useEffect(() => {
-    if (filters.length === 0) {
-      setFilters(
-        getAllAttributes(sensorData.map((message) => message.payload))
-      ); // if no filters are selected, select all
-    }
-  }, [sensorData]);
+  // useEffect(() => {
+  //   if (filters.length === 0) {
+  //     setFilters(
+  //       getAllAttributes(sensorData.map((message) => message.payload))
+  //     ); // if no filters are selected, select all
+  //   }
+  // }, [sensorData]);
 
   // create a chart for each filter and add it to the array
   filters.forEach((filter) => {
@@ -136,6 +138,14 @@ const LiveCharts: React.FC<LiveChartsProps> = ({
           </Select>
         </div>
       </Flex>
+      {filters.length === 0 && (
+        <Card className="mt-4">
+          No data selected. Please use the filter button to select data. Also
+          you can use the date range picker to select a date range for the
+          historical data.
+        </Card>
+      )}
+
       <div
         className={"mx-auto grid  gap-4 pt-4 " + `grid-cols-${numberOfColumns}`}
       >
