@@ -70,7 +70,7 @@ export default function SimulatePage() {
     }
 
     try {
-      await newScenario(values.files!, values.weeks * 24);
+      await newScenario(values.files!, values.weeks * 24 * 7);
       toast.toast({
         title: "Success",
         description:

@@ -148,11 +148,11 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
         </div>
         <div className="flex items-center space-x-6 pl-8">
           {status === "completed" && (
-            <Link href={"/digital-hospital/results/single?id=" + jobId}>
+            <a href={"/digital-hospital/results/single?id=" + jobId}>
               <Button icon={ArrowUpRight} size="xs">
                 Results
               </Button>
-            </Link>
+            </a>
           )}
         </div>
       </div>
