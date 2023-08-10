@@ -49,8 +49,8 @@ const WS = () => {
     <Layout>
       {connectionStatus === "Connected" && (
         <div className="flex flex-col space-y-8">
-          <Viz2D floor="0" data={messageHistory} />
-          <Viz2DFilter floor="0" data={messageHistory} />
+          <Viz2D floor="all" data={messageHistory} />
+          <Viz2DFilter floor="all" data={messageHistory} />
         </div>
       )}
     </Layout>
