@@ -50,7 +50,7 @@ export default function SimulatePage() {
   const ProcessForm = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      weeks: 3,
+      weeks: 1,
     },
   });
 
@@ -192,7 +192,7 @@ export default function SimulatePage() {
                           <SelectValue placeholder="3" />
                         </SelectTrigger>
                         <SelectContent>
-                          {[3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+                          {[1, 2, 3, 4, 5, 6].map((item) => (
                             <SelectItem key={item} value={String(item)}>
                               {item}
                             </SelectItem>

@@ -93,6 +93,7 @@ const JobsPage = ({ jobsList, error }: JobPageProps) => {
               jobId={String(job.id)}
               percentage={job.progress * 100}
               timestamp={job.timestamp * 1000}
+              done={job.done}
             />
           ))}
         </div>
@@ -105,18 +106,20 @@ interface JobsEntryProps {
   jobId: string;
   percentage: number;
   timestamp: number;
+  done: boolean;
 }
 
 const JobsEntry: React.FC<JobsEntryProps> = ({
   jobId,
   percentage,
   timestamp,
+  done,
 }) => {
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  const status = percentage === 100 ? "completed" : "in-progress";
+  const status = percentage === 100 || done ? "completed" : "in-progress";
   const date = new Date(timestamp);
   return (
     <Card className="max-w-[460px]">
