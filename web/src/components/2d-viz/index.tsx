@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { OverallPlan } from "../floor-plans";
+import { Floor0, Floor1, OverallPlan } from "./floor-plans";
 import { DisplayMarkers, HeatMapLegend } from "./chart-components";
 import { FacetedFilterButton } from "ui";
 import { Card } from "@tremor/react";
@@ -17,13 +17,20 @@ export type DataPoint = {
 interface Viz2DProps {
   data: DataPoint[];
   selectedAttribute?: string;
+  floor: "all" | "0" | "1";
 }
 
-export const Viz2D: FC<Viz2DProps> = ({ data, selectedAttribute }) => {
+export const Viz2D: FC<Viz2DProps> = ({ data, selectedAttribute, floor }) => {
   return (
     <div className="flex flex-row items-center">
       <div className="relative">
-        <OverallPlan className="relative bottom-0 left-0" />
+        {floor === "0" ? (
+          <Floor0 className="relative bottom-0 left-0" />
+        ) : floor === "1" ? (
+          <Floor1 className="relative bottom-0 left-0" />
+        ) : (
+          <OverallPlan className="relative bottom-0 left-0" />
+        )}
         <DisplayMarkers data={data} selectedAttribute={selectedAttribute} />
       </div>
       <HeatMapLegend data={data} selectedAttribute={selectedAttribute} />
@@ -33,9 +40,10 @@ export const Viz2D: FC<Viz2DProps> = ({ data, selectedAttribute }) => {
 
 interface Viz2DFilterProps {
   data: DataPoint[];
+  floor: "all" | "0" | "1";
 }
 
-export const Viz2DFilter: FC<Viz2DFilterProps> = ({ data }) => {
+export const Viz2DFilter: FC<Viz2DFilterProps> = ({ data, floor }) => {
   const allAttributes = data.reduce((acc, d) => {
     Object.keys(d.payload).forEach((key) => {
       if (!acc.includes(key)) {
@@ -59,7 +67,13 @@ export const Viz2DFilter: FC<Viz2DFilterProps> = ({ data }) => {
       {selectedAttribute.length !== 0 ? (
         <div className="flex flex-row items-center">
           <div className="relative">
-            <OverallPlan className="relative bottom-0 left-0" />
+            {floor === "0" ? (
+              <Floor0 className="relative bottom-0 left-0" />
+            ) : floor === "1" ? (
+              <Floor1 className="relative bottom-0 left-0" />
+            ) : (
+              <OverallPlan className="relative bottom-0 left-0" />
+            )}
             <DisplayMarkers
               data={data}
               selectedAttribute={selectedAttribute[0]}
