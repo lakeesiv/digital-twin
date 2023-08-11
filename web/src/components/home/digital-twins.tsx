@@ -3,12 +3,12 @@ import { ActivitySquare, ArrowUpRight, Box, Cloud, Square } from "lucide-react";
 import Link from "next/link";
 
 const twins = [
-  {
-    name: "TwinAir",
-    description: "Air quality digital twin",
-    id: "twinair",
-    icon: Cloud,
-  },
+  // {
+  //   name: "TwinAir",
+  //   description: "Air quality digital twin",
+  //   id: "twinair",
+  //   icon: Cloud,
+  // },
   {
     name: "Digital Hospital",
     description: "Digital Twin of the Histopathology Lab",
@@ -37,14 +37,6 @@ const DigitalTwinsView: React.FC = () => {
               <span className="truncate">{twin.description}</span>
             </div>
           </Flex>
-          <div className="flex justify-center space-x-2">
-            <Button size="xs" icon={Square}>
-              2D
-            </Button>
-            <Button size="xs" icon={Box}>
-              3D
-            </Button>
-          </div>
         </ListItem>
       ))}
     </List>

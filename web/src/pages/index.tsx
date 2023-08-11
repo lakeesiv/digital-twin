@@ -27,6 +27,11 @@ export default function Home() {
                   View Data Connectors and Gateways
                 </Link>
               </Button>
+              <Button size="sm" variant="outline" className="mt-4">
+                <Link href="/sensors/2d" passHref>
+                  2D Map
+                </Link>
+              </Button>
             </div>
           </div>
         </Card>
