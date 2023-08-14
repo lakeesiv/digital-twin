@@ -1,0 +1,17 @@
+# getDeviceHistory
+
+Makes a request to the server to get the history of a device.
+
+## Parameters
+
+- `acl_id`: the `acp_id` of the device to subscribe to
+- `start`: the start time of the history to get
+- `end`: the end time of the history to get
+
+## Returns
+
+The hook returns the following:
+
+- `data`: the history of the device
+- `loading`: whether the request is loading
+- `error`: any error that occurred

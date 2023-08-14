@@ -1,0 +1,20 @@
+# useSensorManager
+
+This hooks combines the `useSubscribeById` to get live data, and the `getDeviceHistory`
+to get historical data. The data from both sources is merged into one array.
+
+## Parameters
+
+- `id`: the `acp_id` of the device to subscribe to
+- `start`: the start time of the history to get
+- `end`: the end time of the history to get
+
+## Returns
+
+The hook returns the following:
+
+- `data`: the history of the device + the live data
+- `loading`: whether the request is loading
+- `error`: any error that occurred
+- `connectionStatus`: WS connection status
+- `messageHistory`: live data only

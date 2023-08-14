@@ -1,5 +1,8 @@
 {
   "use-websocket": "useWebSocket",
   "use-subscribe-all": "useSubscribeAll",
-  "use-subscribe-by-id": "useSubscribeById"
+  "use-subscribe-by-id": "useSubscribeById",
+  "getDeviceHistory": "getDeviceHistory",
+  "getLatestDevices": "getLatestDevices",
+  "use-sensor-manager": "useSensorManager"
 }

@@ -1,0 +1,33 @@
+# Index
+
+The following functions are used to make API calls to the DH server.
+
+## newScenario
+
+Creates a new scenario on the DH server via POST request.
+
+### Parameters
+
+- `file`: `FileList` object containing the scenario file to upload
+- `hours`: Number of hours to run the scenario for
+- `repetitions`: Default 1. Number of times to repeat the scenario
+
+## listScenarios
+
+Lists all scenarios on the DH server via GET request.
+
+### Returns
+
+Array of `ScenarioListItem` objects.
+
+## getScenario
+
+Gets a scenario from the DH server via GET request.
+
+### Parameters
+
+- `id`: ID of the scenario to get
+
+### Returns
+
+`SimulationResults` object.
