@@ -1,6 +1,7 @@
 import { ListItem, Flex, List, Text, Button, Icon } from "@tremor/react";
 import { ActivitySquare, ArrowUpRight, Box, Cloud, Square } from "lucide-react";
 import Link from "next/link";
+import { DHStatus, SensorStatus } from "./status";
 
 const twins = [
   // {
@@ -39,6 +40,10 @@ const DigitalTwinsView: React.FC = () => {
           </Flex>
         </ListItem>
       ))}
+      <div className="flex flex-col pt-4">
+        <SensorStatus />
+        <DHStatus />
+      </div>
     </List>
   );
 };

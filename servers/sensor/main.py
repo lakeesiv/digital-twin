@@ -25,6 +25,11 @@ app.add_middleware(
 )
 
 
+@app.get("/")  # GET /
+async def root():
+    return {"message": "Hello World"}
+
+
 @app.post("/history/")  # POST /history/ with HistoricalDataRequestBody
 async def historical_data(req_body: HistoricalDataRequestBody):
     return api_provider.get_historical_data(
