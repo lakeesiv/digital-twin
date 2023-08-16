@@ -77,6 +77,7 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
               <LineChart
                 key={index}
                 defaultCurveStyle="step"
+                allowSelectMarker
                 {...data}
                 height={200}
                 timeUnit={{

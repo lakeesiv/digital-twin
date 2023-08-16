@@ -125,6 +125,7 @@ export interface LineProps extends LineChartData {
   allowSelectCurveStyle?: boolean;
   chartType?: "webgl" | "svg";
   marker?: "line" | "scatter";
+  allowSelectMarker?: boolean;
 }
 
 export const LineChart: React.FC<LineProps> = ({
@@ -143,7 +144,8 @@ export const LineChart: React.FC<LineProps> = ({
   allowSelectCurveStyle: allowSelectLineStyle = false,
   chartType = "svg",
   info,
-  marker = "line",
+  marker = "scatter",
+  allowSelectMarker = false,
 }) => {
   const labels = data.labels;
   const [curveStyle, setCurveStyle] = useState<"linear" | "step" | "natural">(
@@ -155,6 +157,9 @@ export const LineChart: React.FC<LineProps> = ({
   );
   const [xlabelState, setXlabelState] = useState<string>(xlabel);
   const [rangeSlider, setrangeSlider] = useState(false);
+  const [markerStyle, setMarkerStyle] = useState<"line" | "scatter">(
+    marker || "line"
+  );
 
   const { theme } = useTheme();
   const cardRef = React.useRef<HTMLDivElement>(null);
@@ -204,7 +209,7 @@ export const LineChart: React.FC<LineProps> = ({
       type: chartType === "webgl" ? "scattergl" : "scatter",
       name: labels[i],
       visible: visible ? (visible[i] ? true : "legendonly") : true,
-      mode: marker === "line" ? "lines+markers" : "markers",
+      mode: markerStyle === "line" ? "lines" : "lines+markers",
     });
 
     if (data.ymin && data.ymax) {
@@ -317,6 +322,26 @@ export const LineChart: React.FC<LineProps> = ({
                   <SelectItem value="linear">Linear</SelectItem>
                   <SelectItem value="step">Step</SelectItem>
                   <SelectItem value="natural">Smooth</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
+          {allowSelectMarker && (
+            <Select
+              onValueChange={(value: string) =>
+                setMarkerStyle(value as "line" | "scatter")
+              }
+            >
+              <SelectTrigger className="h-[30px] w-[100px]">
+                <SelectValue
+                  placeholder={capilatizeFirstLetter(markerStyle || "Line")}
+                />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Markers</SelectLabel>
+                  <SelectItem value="line">Hide</SelectItem>
+                  <SelectItem value="scater">Show</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
