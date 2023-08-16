@@ -209,8 +209,10 @@ export default function SimulatePage() {
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* CONFIDENCE ANALYSIS COMMENTED OUT */}
+              {/* <FormField
                 control={ProcessForm.control}
+                
                 name="confidenceAnalysis"
                 render={({ field }) => (
                   <FormItem>
@@ -242,7 +244,7 @@ export default function SimulatePage() {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
             </div>
             <Button color="emerald" type="submit">
               Run Simulation
