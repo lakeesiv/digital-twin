@@ -1,8 +1,10 @@
 {
   "index": "Introduction",
+  "deployment": "Deployment",
   "file-structure": "File Structure",
   "web": "Web",
   "packages": "Packages",
   "example-workflows": "Example Workflows",
+  "sensor-server": "Sensor Server",
   "digital-hospital": "Digital Hospital"
 }

@@ -1,0 +1,45 @@
+# Deployment
+
+## Prerequisites
+
+The website depends on the Sensor Server and Digital Hospital Server to be running. The detials of running the sensor server can be found [here](/sensor-server). The details of running the digital hospital server can be found in the repository of the [digital hospital server](https://gitlab.developers.cam.ac.uk/ycc39/histo-des-server) (it is built by Yin-Chi)
+
+## Site Config
+
+In `web/site.config.ts` you can configure the URL of the sensor server and the digital hospital server.
+
+```typescript
+export const siteConfig = {
+  DH_API_URL: "http://127.0.0.1:5000",
+  SENSOR_API_URL: "http://localhost:8000",
+  SENSOR_WS_URL: "ws://localhost:8000/ws/", // make sure to include trailing slash
+};
+```
+
+Use this to change the ports of the servers if you are running them on different ports.
+
+## Build
+
+(If you haven't installed the packages run `pnpm install` first)
+
+Build the website by cd into the web directory and run
+
+```bash
+pnpm build
+```
+
+Then you can start the website by running
+
+```bash
+pnpm start
+```
+
+This will run it on port 3000. You can change the port by setting the environment variable `PORT` to the port you want to run it on.
+
+```bash
+PORT=<PORT> pnpm start
+```
+
+## Persistent Running
+
+To run the website persistently, you can use `pm2`. See the [pm2 documentation](https://pm2.keymetrics.io/docs/usage/quick-start/) for more details.
