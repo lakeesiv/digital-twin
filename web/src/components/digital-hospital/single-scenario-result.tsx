@@ -6,6 +6,8 @@ import GridLayout from "~/components/layout/grid-layout";
 import LabTAT from "~/components/digital-hospital/lab-tat";
 import MetricsList from "~/components/digital-hospital/metrics-list";
 import RCPathComparison from "~/components/digital-hospital/rc-path-comparison";
+import { Download } from "lucide-react";
+import { Button } from "ui";
 
 interface SingleScenarioResultProps {
   results: SimulationResults;
@@ -26,7 +28,27 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
 
   return (
     <div>
-      <h1 className="mb-4 text-3xl font-bold">Results</h1>
+      <div className="mb-4 flex items-center gap-4">
+        <h1 className="text-3xl font-bold">Results</h1>
+        <Button
+          variant="outline"
+          className="mt-1 h-[30px]"
+          onClick={() => {
+            // save results as json
+            const dataStr =
+              "data:text/json;charset=utf-8," +
+              encodeURIComponent(JSON.stringify(results));
+            const downloadAnchorNode = document.createElement("a");
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "results.json");
+            document.body.appendChild(downloadAnchorNode); // required for firefox
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+          }}
+        >
+          <Download size={16} className="mr-3 px-0" /> JSON
+        </Button>
+      </div>
       <RCPathComparison overall_tat={overall_tat} progress={progress} />
       <LabTAT lab_tat={lab_tat} lab_progress={lab_progress} className="mt-4" />
 
