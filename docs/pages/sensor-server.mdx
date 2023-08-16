@@ -4,7 +4,7 @@ The sensor server has two purposes. It firstly takes all incoming MQTT messages 
 
 # WebSockets
 
-## /ws/
+## `/ws/`
 
 > Note you need the trailing slash when connecting to the WebSocket server.
 
@@ -25,7 +25,7 @@ Returns feed of sensor data
 
 **The locations are randomly generated and not based on the actual location of the sensor.**
 
-## /ws/{acp_str}
+## `/ws/{acp_str}`
 
 Can filter by `acp_id`, can use a csv of `acp_id` to filter by multiple. eg
 
@@ -37,11 +37,11 @@ Wil return all messages from sensors with `acp_id` 1, 2 or 3.
 
 # HTTP
 
-## GET /latest/
+## `GET` `/latest/`
 
 Returns a list of all the latest sensor data from the devices (quering 2 days back)
 
-## POST /history/
+## `POST` `/history/`
 
 Req body
 
