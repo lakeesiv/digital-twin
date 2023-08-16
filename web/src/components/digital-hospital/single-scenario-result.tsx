@@ -110,7 +110,7 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
               fill={false}
               {...daily_utilization_by_resource}
               divId="daily-utilization"
-              title="Daily Utilization"
+              info={`Number of Busy Resources per Day.\n Use the legend to toggle graphs.\n Double click on the legend to isolate a graph.\n Double click again to bring back all graphs.\n Single click on the legend to hide a graph.`}
               height={600}
               timeUnit={{
                 current: "hour",
