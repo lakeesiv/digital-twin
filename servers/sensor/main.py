@@ -8,8 +8,7 @@ from fastapi import FastAPI, WebSocket
 from api.providers import ApiProvider, Client
 from api.validators import HistoricalDataRequestBody
 from fastapi.middleware.cors import CORSMiddleware
-
-app = FastAPI()
+import os
 
 api_provider = ApiProvider()
 
@@ -84,10 +83,11 @@ if __name__ == "__main__":
 
     # Start the FastAPI server in a separate thread
     fastapi_thread = threading.Thread(
-        target=uvicorn.run,
-        args=(app,),
-        kwargs={"host": "localhost", "port": 8000},
-    )
+        target=uvicorn.run, args=(
+            app,), kwargs={
+            "host": "localhost", "port": int(
+                os.environ.get(
+                    'PORT', 8000))}, )
     fastapi_thread.start()
 
     # Subscribe to all sensors MQTT topics
