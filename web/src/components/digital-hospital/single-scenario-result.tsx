@@ -78,6 +78,7 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
                 key={index}
                 defaultCurveStyle="step"
                 allowSelectMarker
+                marker="line"
                 {...data}
                 height={200}
                 timeUnit={{
@@ -96,6 +97,8 @@ const SingleScenarioResult: FC<SingleScenarioResultProps> = ({ results }) => {
                 key={index}
                 defaultCurveStyle="step"
                 {...data}
+                allowSelectMarker
+                marker="line"
                 height={200}
                 timeUnit={{
                   current: "hour",

@@ -334,7 +334,9 @@ export const LineChart: React.FC<LineProps> = ({
             >
               <SelectTrigger className="h-[30px] w-[100px]">
                 <SelectValue
-                  placeholder={capilatizeFirstLetter(markerStyle || "Line")}
+                  placeholder={capilatizeFirstLetter(
+                    markerStyle === "line" ? "Hide" : "Show"
+                  )}
                 />
               </SelectTrigger>
               <SelectContent>
