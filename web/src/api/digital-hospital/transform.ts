@@ -148,9 +148,9 @@ export class SimulationResultsClass {
       ylabel: "TAT (hours)",
       data: categoricalData(
         tat_by_stage,
-        undefined,
-        tat_by_stage.mul(0.9) as dfd.DataFrame,
-        tat_by_stage.mul(1.1) as dfd.DataFrame
+        undefined
+        // tat_by_stage.mul(0.9) as dfd.DataFrame,
+        // tat_by_stage.mul(1.1) as dfd.DataFrame
       ),
     };
 
@@ -172,9 +172,9 @@ export class SimulationResultsClass {
         ylabel: "WIP",
         data: seriesData(
           value,
-          ["Hourly mean"],
-          value.mul(0.9) as dfd.DataFrame,
-          value.mul(1.1) as dfd.DataFrame
+          ["Hourly mean"]
+          // value.mul(0.9) as dfd.DataFrame,
+          // value.mul(1.1) as dfd.DataFrame
         ),
       });
     }
@@ -185,9 +185,9 @@ export class SimulationResultsClass {
       ylabel: "Mean utilisation",
       data: categoricalData(
         util_df,
-        undefined,
-        util_df.mul(0.9) as dfd.DataFrame,
-        util_df.mul(1.1) as dfd.DataFrame
+        undefined
+        // util_df.mul(0.9) as dfd.DataFrame,
+        // util_df.mul(1.1) as dfd.DataFrame
       ),
     };
 
@@ -197,9 +197,9 @@ export class SimulationResultsClass {
       ylabel: "Number busy",
       data: seriesData(
         hourly_util_df,
-        undefined,
-        hourly_util_df.mul(0.9) as dfd.DataFrame,
-        hourly_util_df.mul(1.1) as dfd.DataFrame
+        undefined
+        // hourly_util_df.mul(0.9) as dfd.DataFrame,
+        // hourly_util_df.mul(1.1) as dfd.DataFrame
       ),
     };
   }
