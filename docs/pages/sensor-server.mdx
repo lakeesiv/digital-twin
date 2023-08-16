@@ -1,0 +1,56 @@
+# Sensor Server
+
+The sensor server has two purposes. It firstly takes all incoming MQTT messages from a WebSocket ETL and transforms them into a WebSocket message that is emitted to all clients. Secondly using a ETL for just HTTP, we can query the hisotrical data of the sensors and get the latest data for sensors. The server is built using FastAPI.
+
+# WebSockets
+
+## /ws/
+
+> Note you need the trailing slash when connecting to the WebSocket server.
+
+Returns feed of sensor data
+
+```json
+{
+	"acp_id": "string",
+	"acp_ts": "number",
+	"payload": {...},
+	"location": {
+		"x": "number", // 0-100
+		"y": "number" // 0-100
+		"floor": "number" // 0 or 1
+	}
+}
+```
+
+**The locations are randomly generated and not based on the actual location of the sensor.**
+
+## /ws/{acp_str}
+
+Can filter by `acp_id`, can use a csv of `acp_id` to filter by multiple. eg
+
+```
+/ws/1,2,3
+```
+
+Wil return all messages from sensors with `acp_id` 1, 2 or 3.
+
+# HTTP
+
+## GET /latest/
+
+Returns a list of all the latest sensor data from the devices (quering 2 days back)
+
+## POST /history/
+
+Req body
+
+```json
+{
+  "acp_id": "string",
+  "start_time": "string", // DD/MM/YYYY
+  "end_time": "string" // DD/MM/YYYY
+}
+```
+
+Gets the history of a sensor between two dates. Returns a list of all the sensor data between the two dates.
