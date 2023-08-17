@@ -5,8 +5,8 @@ const prodEnv = {
 };
 
 const devEnv = {
-  DH_PORT: 5000,
   SENSOR_PORT: 8000,
+  DH_PORT: 5000, // Can not be configured on this file
 };
 
 module.exports = {

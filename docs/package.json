@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "Documentation",
   "scripts": {
-    "dev:docs": "next dev",
-    "build:docs": "next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "serve out  -l 3001"
   },
   "author": "Lakee Sivaraya <ls914@cam.ac.uk>",

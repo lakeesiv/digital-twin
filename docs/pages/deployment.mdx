@@ -2,44 +2,102 @@
 
 ## Prerequisites
 
-The website depends on the Sensor Server and Digital Hospital Server to be running. The detials of running the sensor server can be found [here](/sensor-server). The details of running the digital hospital server can be found in the repository of the [digital hospital server](https://gitlab.developers.cam.ac.uk/ycc39/histo-des-server) (it is built by Yin-Chi)
+The website depends on the Sensor Server and Digital Hospital Server to be running. The details of running the digital hospital server can be found in the repository of the [digital hospital server](https://gitlab.developers.cam.ac.uk/ycc39/histo-des-server) (it is built by Yin-Chi)
 
-## Site Config
+## Eco System File
 
-In `web/site.config.ts` you can configure the URL of the sensor server and the digital hospital server.
+We use `pm2` to run the website and the sensor server in a production environment. The configuration file for `pm2` is `ecosystem.config.js`. This spins up both services and runs them on different ports in detached mode.
 
-```typescript
-export const siteConfig = {
-  DH_API_URL: "http://127.0.0.1:5000",
-  SENSOR_API_URL: "http://localhost:8000",
-  SENSOR_WS_URL: "ws://localhost:8000/ws/", // make sure to include trailing slash
+```js
+const prodEnv = {
+  WEB_PORT: 2222,
+  SENSOR_PORT: 7777,
+  DH_PORT: 5000, // Can not be configured on this file
 };
+
+const devEnv = {
+  SENSOR_PORT: 8000,
+  DH_PORT: 5000, // Can not be configured on this file
+};
+...
 ```
 
-Use this to change the ports of the servers if you are running them on different ports.
+> Note: The `DH_PORT` is not configurable in this file. It is set in the `docker-compose.yml` file in the [digital hospital server](https://gitlab.developers.cam.ac.uk/ycc39/histo-des-server) repository.
 
-## Build
-
-(If you haven't installed the packages run `pnpm install` first)
-
-Build the website by cd into the web directory and run
-
-```bash
-pnpm build
-```
-
-Then you can start the website by running
-
-```bash
-pnpm start
-```
-
-This will run it on port 3000. You can change the port by setting the environment variable `PORT` to the port you want to run it on.
+The `devEnv` is used to set the ports for the sensor server when running in development mode. The website uses these ports in dev. Note you can not change the port that the website runs in development using this file. To do that you have to go into the `web` directory and run
 
 ```bash
 PORT=<PORT> pnpm start
 ```
 
-## Persistent Running
+Use this to change the ports of the servers if you are running them on different ports.
 
-To run the website persistently, you can use `pm2`. See the [pm2 documentation](https://pm2.keymetrics.io/docs/usage/quick-start/) for more details.
+## Pre Deployment
+
+### `web`
+
+Build the website by cd into the web directory and run
+
+```bash {filename="/web/"}
+pnpm build
+```
+
+### `servers/sensor`
+
+Ensure you have a virtual environment set up using the folder name `venv`, it is important that the folder is called `venv` as the ecosystem file looks for this folder. Then install the packages in the `requirements.txt` file.
+
+Also ensure the ETL folders are in the folder, these are not included in the git repo.
+
+```bash {filename="/servers/sensor/"}
+pip install -r requirements.txt
+```
+
+## Running
+
+Ensure you have `pm2` installed globally
+
+```bash
+npm install -g pm2
+```
+
+Then run
+
+```bash
+pm2 start ecosystem.config.js
+```
+
+This will run the website and the sensor server in detached mode. You can view the logs of the services by running
+
+```bash
+pm2 logs
+```
+
+You can monitor the services by running
+
+```bash
+pm2 monit
+```
+
+## Stopping
+
+To stop the services run
+
+```bash
+pm2 stop ecosystem.config.js
+```
+
+## Restarting
+
+To restart the services run
+
+```bash
+pm2 restart ecosystem.config.js
+```
+
+## Delete
+
+To delete the services run
+
+```bash
+pm2 delete ecosystem.config.js
+```
