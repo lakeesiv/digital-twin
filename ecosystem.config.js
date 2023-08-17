@@ -13,11 +13,11 @@ module.exports = {
   apps: [
     {
       name: "web",
-      script: "cd web && PORT=$WEB_PORT SENSOR_PORT=$SENSOR_PORT pnpm start",
+      script: "cd web && PORT=$WEB_PORT pnpm start",
       args: "start",
       autorestart: false,
       watch: true,
-      prodEnv: prodEnv,
+      env: prodEnv,
       devEnv: devEnv,
     },
     {
@@ -27,7 +27,7 @@ module.exports = {
       args: "start",
       autorestart: false,
       watch: true,
-      prodEnv: prodEnv,
+      env: prodEnv,
       devEnv: devEnv,
     },
   ],

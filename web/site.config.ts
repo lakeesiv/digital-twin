@@ -1,5 +1,5 @@
 import config from "../ecosystem.config";
-const prodEnv = config.apps[0].prodEnv;
+const prodEnv = config.apps[0].env;
 const devEnv = config.apps[0].devEnv;
 
 const isProd = process.env.NODE_ENV === "production";
