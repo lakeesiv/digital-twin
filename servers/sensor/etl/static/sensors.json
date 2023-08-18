@@ -1,0 +1,42 @@
+{
+    "designstudio_3dprinter1" : {"acp_id": "enl-iaqco3-0837d7", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+    
+    "designstudio_3dprinter2" : {"acp_id": "enl-iaqco3-081622", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+    
+    "designstudio_3dprinter3" : {"acp_id": "enl-iaqco3-084e85", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+    "designstudio_lasercutter" : {"acp_id": "enl-iaqc-0862a3", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+    
+    "designstudio_cnc" : {"acp_id": "enl-iaqco3-0865dc", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+    "ajith" : {"acp_id": "enl-iaqc-08833e", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+    "dial" : {"acp_id": "enl-iaqco3-08185c", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+    "sebastianlab_theoden" : {"acp_id": "enl-iaqco3-086d3d", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+    "sebastianlab_merry" : {"acp_id": "enl-iaqc-081a75", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+
+    "sebastianlab_umc" : {"acp_id": "enl-iaqco3-08185c", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+
+    "sebastianlab_desk_right" : {"acp_id": "enl-iaqc-0839c5", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+
+    "sebastianlab_desk_left" : {"acp_id": "enl-iaqc-087019", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+
+    "sebastianlab_imc_pippin" : {"acp_id": "enl-iaqco3-081622", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+
+    "sebastianlab_imc_aragorn" : {"acp_id": "enl-iaqco3-084a98", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+    
+    "sebastianlab_daiki_in" : {"acp_id": "enl-iaqco3-083b3f", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+    
+
+    "sebastianlab_daiki_in2" : {"acp_id": "enl-iaqc-081bd7", "from": from_dt, "to": to_dt, "parameters": ["all"]},
+
+
+    "sebastianlab_daiki_top" : {"acp_id": "enl-iaqc-0812d9", "from": from_dt, "to": to_dt, "parameters": ["all"]}
+}

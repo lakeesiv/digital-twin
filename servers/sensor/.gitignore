@@ -1,6 +1,7 @@
-lib
-etl
-cfg
+# lib
+# etl
+# cfg
+**~
 data_analysis.py
 **/__pycache__
 venv

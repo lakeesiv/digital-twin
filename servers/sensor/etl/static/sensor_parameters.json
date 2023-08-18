@@ -1,0 +1,7 @@
+{
+    "monnit-Humidity": ["humidity", "temperature", "dew_point"],
+    "enl-iaqc": ["bvoc", "co2e_ppm", "iaq", "pressure_mbar", "humidity", "temperature", "co2_ppm", "mc_pm1_0", "mc_pm2_5", "mc_pm4_0", "mc_pm10_0", "nc_pm0_5", "nc_pm1_0", "nc_pm2_5", "nc_pm4_0", "nc_pm10_0", "pm_tps", "batt_status", "batt_v", "batt_mv", "rx_rssi"],
+    "enl-iaqco3" : ["bvoc", "co2e_ppm", "iaq", "pressure_mbar", "humidity", "temperature", "co2_ppm", "mc_pm1_0", "mc_pm2_5", "mc_pm4_0", "mc_pm10_0", "nc_pm0_5", "nc_pm1_0", "nc_pm2_5", "nc_pm4_0", "nc_pm10_0", "pm_tps", "O3_ppb", "batt_status", "batt_v", "batt_mv", "rx_rssi"],
+    "elsys-co2" : ["co2"],
+    "elsys-ems" : ["co2", "temperature", "humidity"]
+}
