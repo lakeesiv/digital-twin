@@ -1,6 +1,8 @@
 /***
  *
- * THIS FILE IS A MASSIVE LAST MINUTE HACK
+ * THIS FILE IS A MASSIVE LAST MINUTE HACK TO GET THE CHARTS WORKING WITH THE API
+ * @YIN-CHI PLEASE UPDATED YOUR BACKEND TO MATCH THE SCHEMA AS BEFORE SO WE CAN
+ * AVOID THIS HACK
  *
  */
 
@@ -108,16 +110,31 @@ const transformChartDataToBarData = (
   xlabel: string = "Time (hrs)",
   ylabel: string = ""
 ): BarChartData => {
+  let y = [];
+
+  // if (typeof data.y[0] === "number") {
+  y = [data.y];
+  // } else {
+  //   y = data.y;
+  // }
+
   const fixedData: LineChartData["data"] = {
     x: data.x,
     // @ts-ignore
-    y: [data.y],
+    y: y,
     // @ts-ignore
     ymax: data?.ymax ? [data?.ymax] : undefined,
     // @ts-ignore
     ymin: data?.ymin ? [data?.ymin] : undefined,
-    labels: [title] as string[],
+    // @ts-ignore
+    labels: data.labels ? data.labels : ([title] as string[]),
   };
+
+  if (title === "BMS") {
+    console.log(fixedData);
+    console.log(data);
+  }
+
   return {
     title,
     xlabel,
@@ -228,7 +245,7 @@ export const transformSimulationResults = (
 
 interface MultiSimulationResponse {
   mean_tat: ChartData;
-  mean_utilisation: ChartData;
+  mean_utilisation: ResourceResponse;
   scenario_ids: number[];
   utilisation_hourlies: ResourceResponse;
 }
@@ -246,12 +263,11 @@ export const transformScenarioAnalysisResults = (
     "TAT"
   );
 
-  const fixed_mean_utilisation = transformChartDataToBarData(
-    mean_utilisation,
-    "Mean Utilisation",
-    "Scenario",
-    "Utilisation"
-  );
+  const fixed_mean_utilisation: BarChartData[] = Object.entries(
+    mean_utilisation
+  ).map(([key, value]) => {
+    return transformChartDataToBarData(value, key, "Scenario", "Utilization");
+  });
 
   const fixed_utilisation_hourlies: LineChartData[] = Object.entries(
     utilisation_hourlies
@@ -264,7 +280,7 @@ export const transformScenarioAnalysisResults = (
     );
   });
 
-  console.log(fixed_utilisation_hourlies);
+  // console.log(fixed_utilisation_hourlies);
 
   return {
     mean_tat: fixed_mean_tat,

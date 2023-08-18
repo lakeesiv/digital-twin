@@ -35,7 +35,7 @@ export type SimulationResults = {
  */
 export type ScenarioAnalysisResults = {
   mean_tat: BarChartData;
-  mean_utilisation: BarChartData;
+  mean_utilisation: BarChartData[];
   utilisation_hourlies: LineChartData[];
   scenario_ids: number[];
 };

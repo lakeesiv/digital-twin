@@ -1,13 +1,10 @@
-import { Card, Divider, Title } from "@tremor/react";
+import { Card, Title } from "@tremor/react";
 import { BarChart, LineChart } from "charts";
-import { FC } from "react";
-import { ScenarioAnalysisResults, SimulationResults } from "~/api/config";
-import GridLayout from "~/components/layout/grid-layout";
-import LabTAT from "~/components/digital-hospital/lab-tat";
-import MetricsList from "~/components/digital-hospital/metrics-list";
-import RCPathComparison from "~/components/digital-hospital/rc-path-comparison";
 import { Download } from "lucide-react";
+import { FC } from "react";
 import { Button } from "ui";
+import { ScenarioAnalysisResults } from "~/api/config";
+import GridLayout from "~/components/layout/grid-layout";
 
 interface MultiScenarioResultProps {
   results: ScenarioAnalysisResults;
@@ -17,7 +14,7 @@ const MultiScenarioResult: FC<MultiScenarioResultProps> = ({ results }) => {
   const { mean_tat, mean_utilisation, scenario_ids, utilisation_hourlies } =
     results;
 
-  console.log(results);
+  //   console.log(utilisation_hourlies);
 
   return (
     <div>
@@ -43,9 +40,18 @@ const MultiScenarioResult: FC<MultiScenarioResultProps> = ({ results }) => {
         </Button>
       </div>
 
+      <BarChart extraBottomPadding={20} divId="tat-by-stage" {...mean_tat} />
+
       <div className="my-4">
         <Card className="px-4">
-          <Title className="mt-8">Resource Allocation</Title>
+          <Title className="mt-8">Overall Resource Utilization</Title>
+
+          <GridLayout gridColumns={3}>
+            {mean_utilisation.map((data, index) => (
+              <BarChart {...data} extraBottomPadding={20} />
+            ))}
+          </GridLayout>
+          <Title className="mt-8">Daily Resource Utilization</Title>
 
           <GridLayout gridColumns={3}>
             {utilisation_hourlies.map((data, index) => (
@@ -65,6 +71,20 @@ const MultiScenarioResult: FC<MultiScenarioResultProps> = ({ results }) => {
             ))}
           </GridLayout>
         </Card>
+      </div>
+
+      <h1 className="mt-12 text-3xl font-bold">Individual Scenario Metrics</h1>
+      <p className="mt-2">
+        Click on the buttons below to view the results of each scenario.
+      </p>
+      <div className="mt-4 flex gap-2">
+        {scenario_ids.map((id, idx) => (
+          <a href={`/digital-hospital/results/single?id=${id}`} target="_blank">
+            <Button key={id} variant="outline">
+              Scenario {idx + 1}
+            </Button>
+          </a>
+        ))}
       </div>
     </div>
   );
