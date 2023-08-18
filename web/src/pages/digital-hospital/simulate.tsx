@@ -33,7 +33,7 @@ import {
   SelectValue,
 } from "ui";
 import { useToast } from "ui";
-import { newScenario } from "~/api/digital-hospital";
+import { newMultiScenario, newScenario } from "~/api/digital-hospital";
 
 const formSchema = z.object({
   weeks: z.number().int().min(1).max(10),
@@ -70,7 +70,12 @@ export default function SimulatePage() {
     }
 
     try {
-      await newScenario(values.files!, values.weeks * 24 * 7);
+      if (fileList?.length === 1) {
+        await newScenario(values.files!, values.weeks * 24 * 7);
+      } else {
+        await newMultiScenario(values.files!, values.weeks * 24 * 7);
+      }
+
       toast.toast({
         title: "Success",
         description:

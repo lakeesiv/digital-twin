@@ -30,6 +30,30 @@ export const newScenario = async (
   return data;
 };
 
+export const newMultiScenario = async (
+  files: FileList,
+  hours: number,
+  repetitions: number = 1
+) => {
+  const formData = new FormData();
+  for (let i = 0; i < files.length; i++) {
+    formData.append(`config_${i + 1}`, files[i], `config_${i + 1}.xlsx`);
+  }
+  formData.append("sim_hours", hours.toString());
+  formData.append("num_reps", repetitions.toString());
+
+  const response = await fetch(`${DH_API_URL}/multi`, {
+    method: "POST",
+    body: formData,
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  const data = await response.json();
+  return data;
+};
+
 export const testSimulationServer = async () => {
   const response = await fetch(`${DH_API_URL}`);
   const data = await response.json();
