@@ -86,7 +86,7 @@ export const listScenarios = async () => {
   return filteredData;
 };
 
-type MultScenarioListItem = {
+export type MultScenarioListItem = {
   completed: number;
   created: number;
   analysis_id: number;

@@ -11,14 +11,19 @@ import { ArrowUpRight, Square, SquareStack } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Suspense, useEffect } from "react";
-import { ScenarioListItem, listScenarios } from "~/api/digital-hospital";
+import {
+  MultScenarioListItem,
+  ScenarioListItem,
+  listMultiScenarios,
+  listScenarios,
+} from "~/api/digital-hospital";
 import Layout from "~/components/layout";
 import StatusBage from "~/components/status-badge";
 
 const REFRESH_INTERVAL = 1000 * 1;
 
 interface JobPageProps {
-  jobsList: ScenarioListItem[];
+  jobsList: MultScenarioListItem[];
   error: boolean;
 }
 
@@ -26,7 +31,7 @@ export const getServerSideProps = async (): Promise<{
   props: JobPageProps;
 }> => {
   try {
-    const jobsList = await listScenarios();
+    const jobsList = await listMultiScenarios();
     return {
       props: {
         jobsList,
@@ -74,12 +79,19 @@ const JobsPage = ({ jobsList, error }: JobPageProps) => {
 			."
         />
       ) : (
-        <div className="space-y-4">
+        <div className="flex-col items-center space-y-4">
+          <h1
+            className="animate-fade-up bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text pb-4 text-center text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm "
+            style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
+          >
+            Results
+          </h1>
+
           {jobsList.map((job) => (
             <JobsEntry
-              key={job.scenario_id}
-              jobId={String(job.scenario_id)}
-              type="process"
+              key={job.analysis_id}
+              jobId={String(job.analysis_id)}
+              type="scenario"
               percentage={job.progress * 100}
               timestamp={job.created * 1000}
             />
@@ -135,11 +147,11 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
         </div>
         <div className="flex items-center space-x-6 pl-8">
           {type === "process" && status === "completed" && (
-            <Link href={"/digital-hospital/results/single?id=" + jobId}>
+            <a href={"/digital-hospital/results/multi?id=" + jobId}>
               <Button icon={ArrowUpRight} size="xs">
                 Results
               </Button>
-            </Link>
+            </a>
           )}
           {type === "scenario" && status === "completed" && (
             <Link href={"/digital-hospital/results/multi?id=" + jobId}>
