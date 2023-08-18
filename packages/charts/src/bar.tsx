@@ -75,8 +75,12 @@ const BarChart: React.FC<BarProps> = ({
       error_y: {
         type: "data",
         symmetric: false,
-        array: data.ymax ? data.ymax[i] : undefined,
-        arrayminus: data.ymin ? data.ymin[i] : undefined,
+        array: data.ymax
+          ? data.ymax[i].map((v, j) => v - data.y[i][j])
+          : undefined,
+        arrayminus: data.ymin
+          ? data.ymin[i].map((v, j) => data.y[i][j] - v)
+          : undefined,
       },
     });
   }
