@@ -2,22 +2,23 @@ import Layout from "~/components/layout";
 import React from "react";
 import SingleScenarioResult from "~/components/digital-hospital/single-scenario-result";
 import { GetServerSideProps } from "next";
-import { getScenario } from "~/api/digital-hospital";
-import { SimulationResults } from "~/api/config";
+import { getMultiScenario, getScenario } from "~/api/digital-hospital";
+import { ScenarioAnalysisResults, SimulationResults } from "~/api/config";
+import MultiScenarioResult from "~/components/digital-hospital/multi-scenario-result";
 
 interface Props {
-  results: SimulationResults;
+  results: ScenarioAnalysisResults;
   error: boolean;
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const id = query.id as string;
   try {
-    const data = await getScenario(parseInt(id));
+    const data = await getMultiScenario(parseInt(id));
 
     return {
       props: {
-        results: JSON.parse(JSON.stringify(data)) as SimulationResults, // We need to do this because Next.js doesn't support sending objects as props
+        results: JSON.parse(JSON.stringify(data)) as ScenarioAnalysisResults, // We need to do this because Next.js doesn't support sending objects as props
         error: false,
       },
     };
@@ -42,7 +43,7 @@ const SingleScenarioPage: React.FC<Props> = ({ results, error }) => {
           </p>
         </div>
       ) : (
-        <SingleScenarioResult results={results} />
+        <MultiScenarioResult results={results} />
       )}
     </Layout>
   );

@@ -34,10 +34,8 @@ export type SimulationResults = {
    @link https://digital-twin-web-delta.vercel.app/digital-hospital/jobs/scenario?id=job-1
  */
 export type ScenarioAnalysisResults = {
-  lab_metrics: {
-    tat: number[]; // TAT for each Scenario
-    mean_utilization: number[]; // Mean Utilization for each Scenario
-    daily_utilization: LineChartData[]; // Daily Utilization for each Scenario (each scenario is an indivual line)
-  };
-  individual_result_ids: string[]; // OR can be a number (I can change it later)
+  mean_tat: BarChartData;
+  mean_utilisation: BarChartData;
+  utilisation_hourlies: LineChartData[];
+  scenario_ids: number[];
 };

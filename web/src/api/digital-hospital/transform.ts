@@ -4,31 +4,30 @@
  *
  */
 
-// import { SimulationResults } from "../config";
+import { SimulationResults } from "../config";
 import type { BarChartData, LineChartData } from "charts";
+import { ScenarioAnalysisResults } from "../config";
 
 type ChartData = Omit<LineChartData["data"], "labels">;
 type MultiChartData = LineChartData["data"];
 
-export type SimulationResults = {
-  overall_tat: number;
-  progress: {
-    "7": number;
-    "10": number;
-    "12": number;
-    "21": number;
-  };
-  lab_tat: number;
-  lab_progress: {
-    "3": number;
-  };
-  tat_by_stage: BarChartData;
-  resource_allocation: LineChartData[];
-  wip_by_stage: LineChartData[];
-  // queue_by_stage: LineChartData[]; // ++++++++++++++++
-  utilization_by_resource: BarChartData;
-  daily_utilization_by_resource: LineChartData;
-};
+interface ResourceResponse {
+  BMS: ChartData;
+  "Bone station": ChartData;
+  "Booking-in staff": ChartData;
+  "Coverslip machine": ChartData;
+  "Cut-up assistant": ChartData;
+  Histopathologist: ChartData;
+  "Microtomy staff": ChartData;
+  "Processing machine": ChartData;
+  "Processing room staff": ChartData;
+  "QC staff": ChartData;
+  "Scanning machine (megas)": ChartData;
+  "Scanning machine (regular)": ChartData;
+  "Scanning staff": ChartData;
+  "Staining machine": ChartData;
+  "Staining staff": ChartData;
+}
 
 interface APISimulationResponse {
   lab_progress: {
@@ -43,23 +42,7 @@ interface APISimulationResponse {
     "21": number;
   };
   q_length_by_resource: ChartData;
-  resource_allocation: {
-    BMS: ChartData;
-    "Bone station": ChartData;
-    "Booking-in staff": ChartData;
-    "Coverslip machine": ChartData;
-    "Cut-up assistant": ChartData;
-    Histopathologist: ChartData;
-    "Microtomy staff": ChartData;
-    "Processing machine": ChartData;
-    "Processing room staff": ChartData;
-    "QC staff": ChartData;
-    "Scanning machine (megas)": ChartData;
-    "Scanning machine (regular)": ChartData;
-    "Scanning staff": ChartData;
-    "Staining machine": ChartData;
-    "Staining staff": ChartData;
-  };
+  resource_allocation: ResourceResponse;
   tat_by_stage: ChartData;
   utilization_by_resource: ChartData;
   wip_by_stage: MultiChartData;
@@ -67,21 +50,35 @@ interface APISimulationResponse {
 }
 
 const transformChartDataToLineData = (
-  data: ChartData,
+  data: ChartData | MultiChartData,
   title: string = "",
   xlabel: string = "Time (hrs)",
   ylabel: string = ""
 ): LineChartData => {
+  // check if data.y[0] is a number or an array
+  let y = [];
+
+  if (typeof data.y[0] === "number") {
+    y = [data.y];
+  } else {
+    y = data.y;
+  }
+
   const fixedData: LineChartData["data"] = {
     x: data.x,
     // @ts-ignore
-    y: [data.y],
+    y: y,
     // @ts-ignore
     ymax: data?.ymax ? [data?.ymax] : undefined,
     // @ts-ignore
     ymin: data?.ymin ? [data?.ymin] : undefined,
-    labels: [title] as string[],
+    // @ts-ignore
+    labels: data.labels ? data.labels : ([title] as string[]),
   };
+
+  // if (title === "BMS") {
+  //   console.log(fixedData);
+  // }
 
   return {
     title,
@@ -226,5 +223,53 @@ export const transformSimulationResults = (
     utilization_by_resource: fixed_utilization_by_resource,
     wip_by_stage: fixed_wip_by_stage,
     daily_utilization_by_resource: fixed_hourly_utilization_by_resource,
+  };
+};
+
+interface MultiSimulationResponse {
+  mean_tat: ChartData;
+  mean_utilisation: ChartData;
+  scenario_ids: number[];
+  utilisation_hourlies: ResourceResponse;
+}
+
+export const transformScenarioAnalysisResults = (
+  data: MultiSimulationResponse
+): ScenarioAnalysisResults => {
+  const { mean_tat, mean_utilisation, scenario_ids, utilisation_hourlies } =
+    data;
+
+  const fixed_mean_tat = transformChartDataToBarData(
+    mean_tat,
+    "Mean TAT",
+    "Scenario",
+    "TAT"
+  );
+
+  const fixed_mean_utilisation = transformChartDataToBarData(
+    mean_utilisation,
+    "Mean Utilisation",
+    "Scenario",
+    "Utilisation"
+  );
+
+  const fixed_utilisation_hourlies: LineChartData[] = Object.entries(
+    utilisation_hourlies
+  ).map(([key, value]) => {
+    return transformChartDataToLineData(
+      value,
+      key,
+      "Time (hrs)",
+      "Utilization"
+    );
+  });
+
+  console.log(fixed_utilisation_hourlies);
+
+  return {
+    mean_tat: fixed_mean_tat,
+    mean_utilisation: fixed_mean_utilisation,
+    utilisation_hourlies: fixed_utilisation_hourlies,
+    scenario_ids,
   };
 };

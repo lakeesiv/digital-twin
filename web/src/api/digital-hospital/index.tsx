@@ -1,5 +1,8 @@
 import { DH_API_URL, SimulationResults } from "../config";
-import { transformSimulationResults } from "./transform";
+import {
+  transformScenarioAnalysisResults,
+  transformSimulationResults,
+} from "./transform";
 
 export const newScenario = async (
   file: FileList,
@@ -70,12 +73,43 @@ export type ScenarioListItem = {
 
 export const listScenarios = async () => {
   const response = await fetch(`${DH_API_URL}/scenarios`);
-  const data = await response.json();
-  return data as ScenarioListItem[];
+
+  type ScenarioListResponse = {
+    analysis_id?: number;
+  } & ScenarioListItem;
+
+  const data = (await response.json()) as ScenarioListResponse[];
+
+  // remove data with analysis_id
+  const filteredData = data.filter((item) => !item.analysis_id);
+
+  return filteredData;
+};
+
+type MultScenarioListItem = {
+  completed: number;
+  created: number;
+  analysis_id: number;
+  progress: number;
+  scenario_ids: number[];
+};
+
+export const listMultiScenarios = async () => {
+  const response = await fetch(`${DH_API_URL}/multi`);
+
+  const data = (await response.json()) as MultScenarioListItem[];
+
+  return data;
 };
 
 export const getScenario = async (id: number) => {
   const response = await fetch(`${DH_API_URL}/scenarios/${id}/results`);
   const data = await response.json();
   return transformSimulationResults(data);
+};
+
+export const getMultiScenario = async (id: number) => {
+  const response = await fetch(`${DH_API_URL}/multi/${id}/results`);
+  const data = await response.json();
+  return transformScenarioAnalysisResults(data);
 };
