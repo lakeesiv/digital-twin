@@ -73,9 +73,19 @@ const transformChartDataToLineData = (
   ylabel: string = ""
 ): LineChartData => {
   const fixedData: LineChartData["data"] = {
-    ...data,
+    x: data.x,
+    // @ts-ignore
+    y: [data.y],
+    // @ts-ignore
+    ymax: data?.ymax ? [data?.ymax] : undefined,
+    // @ts-ignore
+    ymin: data?.ymin ? [data?.ymin] : undefined,
     labels: [title] as string[],
   };
+
+  if (title === "BMS") {
+    console.log("BMS", fixedData);
+  }
 
   return {
     title,
