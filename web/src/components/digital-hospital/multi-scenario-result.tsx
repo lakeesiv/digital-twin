@@ -48,7 +48,7 @@ const MultiScenarioResult: FC<MultiScenarioResultProps> = ({ results }) => {
 
           <GridLayout gridColumns={3}>
             {mean_utilisation.map((data, index) => (
-              <BarChart {...data} extraBottomPadding={20} />
+              <BarChart {...data} extraBottomPadding={20} key={index} />
             ))}
           </GridLayout>
           <Title className="mt-8">Daily Resource Utilization</Title>
@@ -81,7 +81,7 @@ const MultiScenarioResult: FC<MultiScenarioResultProps> = ({ results }) => {
         {scenario_ids.map((id, idx) => (
           <a href={`/digital-hospital/results/single?id=${id}`} target="_blank">
             <Button key={id} variant="outline">
-              Scenario {idx + 1}
+              Scenario {id}
             </Button>
           </a>
         ))}

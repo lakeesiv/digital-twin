@@ -154,11 +154,11 @@ const JobsEntry: React.FC<JobsEntryProps> = ({
             </a>
           )}
           {type === "scenario" && status === "completed" && (
-            <Link href={"/digital-hospital/results/multi?id=" + jobId}>
+            <a href={"/digital-hospital/results/multi?id=" + jobId}>
               <Button icon={ArrowUpRight} size="xs">
                 Results (Scenario Analysis)
               </Button>
-            </Link>
+            </a>
           )}
           {status === "in-progress" && (
             <div className="flex items-center space-x-4">
