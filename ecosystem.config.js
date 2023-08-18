@@ -1,12 +1,12 @@
 const prodEnv = {
-  WEB_PORT: 2222,
-  SENSOR_PORT: 7777,
+  WEB_PORT: 3000,
   DH_PORT: 5000, // Can not be configured on this file
+  SENSOR_PORT: 8000,
 };
 
 const devEnv = {
-  SENSOR_PORT: 8000,
   DH_PORT: 5000, // Can not be configured on this file
+  SENSOR_PORT: 8000,
 };
 
 module.exports = {

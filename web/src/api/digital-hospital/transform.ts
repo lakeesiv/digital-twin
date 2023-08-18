@@ -83,10 +83,6 @@ const transformChartDataToLineData = (
     labels: [title] as string[],
   };
 
-  if (title === "BMS") {
-    console.log("BMS", fixedData);
-  }
-
   return {
     title,
     xlabel,
