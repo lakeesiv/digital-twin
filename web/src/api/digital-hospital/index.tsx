@@ -1,5 +1,5 @@
-import { DH_API_URL } from "../config";
-import { transformApiData } from "./transform";
+import { DH_API_URL, SimulationResults } from "../config";
+import { transformSimulationResults } from "./transform";
 
 export const newScenario = async (
   file: FileList,
@@ -18,7 +18,7 @@ export const newScenario = async (
   formData.append("sim_hours", hours.toString());
   formData.append("num_reps", repetitions.toString());
 
-  const response = await fetch(`${DH_API_URL}/scenario`, {
+  const response = await fetch(`${DH_API_URL}/scenarios`, {
     method: "POST",
     body: formData,
     headers: {
@@ -37,20 +37,21 @@ export const testSimulationServer = async () => {
 };
 
 export type ScenarioListItem = {
-  done: boolean;
-  id: number;
+  completed: number;
+  scenario_id: number;
   progress: number;
-  timestamp: number;
+  created: number;
+  num_reps: number;
 };
 
 export const listScenarios = async () => {
-  const response = await fetch(`${DH_API_URL}/scenario/list`);
+  const response = await fetch(`${DH_API_URL}/scenarios`);
   const data = await response.json();
   return data as ScenarioListItem[];
 };
 
 export const getScenario = async (id: number) => {
-  const response = await fetch(`${DH_API_URL}/scenario/${id}/results`);
+  const response = await fetch(`${DH_API_URL}/scenarios/${id}/results`);
   const data = await response.json();
-  return transformApiData(data);
+  return transformSimulationResults(data);
 };
