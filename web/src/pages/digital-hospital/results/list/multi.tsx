@@ -62,7 +62,7 @@ const JobsPage = ({ jobsList, error }: JobPageProps) => {
   }, []);
 
   // order by timestamp
-  jobsList.sort((a, b) => b.timestamp - a.timestamp);
+  jobsList.sort((a, b) => b.created - a.created);
 
   return (
     <Layout title="Jobs">
@@ -77,11 +77,11 @@ const JobsPage = ({ jobsList, error }: JobPageProps) => {
         <div className="space-y-4">
           {jobsList.map((job) => (
             <JobsEntry
-              key={job.id}
-              jobId={String(job.id)}
+              key={job.scenario_id}
+              jobId={String(job.scenario_id)}
               type="process"
               percentage={job.progress * 100}
-              timestamp={job.timestamp * 1000}
+              timestamp={job.created * 1000}
             />
           ))}
         </div>
