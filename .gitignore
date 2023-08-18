@@ -8,6 +8,7 @@ node_modules
 # testing
 coverage
 /servers/histo-des-server-main
+/servers/dh
 
 # next.js
 .next/
